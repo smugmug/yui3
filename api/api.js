@@ -97,6 +97,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "DataTable.Sortable",
         "DataTable.TableView",
         "Date",
+        "Deferred",
         "Dial",
         "Do",
         "Do.AlterArgs",
@@ -206,9 +207,11 @@ YUI.add("yuidoc-meta", function(Y) {
         "Plugin.ScrollViewScrollbars",
         "Plugin.Shim",
         "Plugin.SortScroll",
+        "Plugin.Tree.Lazy",
         "Plugin.WidgetAnim",
         "Pollable",
         "Profiler",
+        "Promise",
         "QueryString",
         "Queue",
         "Record",
@@ -291,9 +294,9 @@ YUI.add("yuidoc-meta", function(Y) {
         "ToggleButton",
         "TopAxisLayout",
         "Transition",
+        "Tree",
+        "Tree.Node",
         "TreeView",
-        "TreeView.Node",
-        "TreeView.Tree",
         "UA",
         "Uploader",
         "Uploader.Queue",
@@ -455,6 +458,9 @@ YUI.add("yuidoc-meta", function(Y) {
         "dd-plugin",
         "dd-proxy",
         "dd-scroll",
+        "deferred",
+        "deferred-extras",
+        "deferred-when",
         "dial",
         "dom",
         "dom-base",
@@ -615,9 +621,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "text-wordbreak",
         "transition",
         "transition-timer",
+        "tree",
+        "tree-lazy",
+        "tree-node",
         "treeview",
-        "treeview-node",
-        "treeview-tree",
         "uploader",
         "uploader-deprecated",
         "uploader-flash",
@@ -1265,6 +1272,21 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "dd-scroll",
             "name": "dd-scroll",
             "description": "Base scroller class used to create the Plugin.DDNodeScroll and Plugin.DDWinScroll.\nThis class should not be called on it's own, it's designed to be a plugin."
+        },
+        {
+            "displayName": "deferred",
+            "name": "deferred",
+            "description": "Wraps the execution of synchronous or asynchronous operations, providing a\npromise object that can be used to subscribe to the various ways the operation\nmay terminate.\n\nWhen the operation completes successfully, call the Deferred's `resolve()`\nmethod, passing any relevant response data for subscribers.  If the operation\nencounters an error or is unsuccessful in some way, call `reject()`, again\npassing any relevant data for subscribers.\n\nThe Deferred object should be shared only with the code resposible for\nresolving or rejecting it. Public access for the Deferred is through its\n_promise_, which is returned from the Deferred's `promise()` method. While both\nDeferred and promise allow subscriptions to the Deferred's state changes, the\npromise may be exposed to non-controlling code. It is the preferable interface\nfor adding subscriptions.\n\nSubscribe to state changes in the Deferred with the promise's\n`then(callback, errback)` method.  `then()` wraps the passed callbacks in a\nnew Deferred and returns the corresponding promise, allowing chaining of\nasynchronous or synchronous operations. E.g.\n`promise.then(someAsyncFunc).then(anotherAsyncFunc)`"
+        },
+        {
+            "displayName": "deferred-extras",
+            "name": "deferred-extras",
+            "description": "Adds additional functionality to Y.Deferred and Y.Promise.\n\n* `promise.onProgress(callback)` to register lifecycle status subscribers\n* `deferred.notify(args*)` to notify progress subscribers\n* `promise.wait(ms)` to insert a delay into a promise chain"
+        },
+        {
+            "displayName": "deferred-when",
+            "name": "deferred-when",
+            "description": "Adds a `Y.batch()` method to wrap any number of callbacks or promises in a\nY.Deferred, and return the associated promise that will resolve when all\ncallbacks and/or promises have completed.  Each callback is passed a Y.Deferred\nthat it must `resolve()` when it completes."
         },
         {
             "displayName": "dial",
@@ -2053,19 +2075,24 @@ YUI.add("yuidoc-meta", function(Y) {
             "description": "Provides the base Transition class, for animating numeric properties."
         },
         {
+            "displayName": "tree",
+            "name": "tree",
+            "description": "Provides the `Tree` class."
+        },
+        {
+            "displayName": "tree-lazy",
+            "name": "tree-lazy",
+            "description": "Provides `Plugin.Tree.Lazy`, a plugin for `Tree` that makes it easy to lazily\nload and populate the contents of tree nodes the first time they're opened."
+        },
+        {
+            "displayName": "tree-node",
+            "name": "tree-node",
+            "description": "Provides the `Tree.Node` class, which represents a tree node contained in a\n`Tree` data structure."
+        },
+        {
             "displayName": "treeview",
             "name": "treeview",
             "description": "Provides the `Y.TreeView` widget."
-        },
-        {
-            "displayName": "treeview-node",
-            "name": "treeview-node",
-            "description": "Provides the `TreeView.Node` class, which represents a tree node contained in a\n`TreeView.Tree` data structure."
-        },
-        {
-            "displayName": "treeview-tree",
-            "name": "treeview-tree",
-            "description": "Provides the `Y.TreeView.Tree` class, which is the underlying data structure for\n`Y.TreeView`."
         },
         {
             "displayName": "uploader",
