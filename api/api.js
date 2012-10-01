@@ -157,6 +157,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Model",
         "ModelList",
         "ModelSync.REST",
+        "Multi",
         "Node",
         "NodeList",
         "Number",
@@ -212,6 +213,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "Pollable",
         "Profiler",
         "Promise",
+        "Property",
+        "Property.Base",
         "QueryString",
         "Queue",
         "Record",
@@ -542,6 +545,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "model",
         "model-list",
         "model-sync-rest",
+        "multi",
         "node",
         "node-base",
         "node-core",
@@ -571,6 +575,9 @@ YUI.add("yuidoc-meta", function(Y) {
         "pluginhost-base",
         "pluginhost-config",
         "profiler",
+        "property",
+        "property-base",
+        "property-base-shim",
         "querystring",
         "querystring-parse",
         "querystring-parse-simple",
@@ -1688,6 +1695,11 @@ YUI.add("yuidoc-meta", function(Y) {
             "description": "An extension which provides a RESTful XHR sync implementation that can be mixed\ninto a Model or ModelList subclass."
         },
         {
+            "displayName": "multi",
+            "name": "multi",
+            "description": "Loads different versions of YUI in sandboxed iframes and makes them available\nfor use in the parent frame by exposing them as properties on a `Y.Multi`\ninstance.\n\nThis is primarily intended to be used for testing. You probably shouldn't use it\nfor anything real."
+        },
+        {
             "displayName": "node",
             "name": "node",
             "description": "The Node Utility provides a DOM-like interface for interacting with DOM nodes."
@@ -1828,6 +1840,21 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "profiler",
             "name": "profiler",
             "description": "The YUI JavaScript profiler."
+        },
+        {
+            "displayName": "property",
+            "name": "property",
+            "description": "Provides the `Y.Property` class, a lightweight facade over ES5's\n`Object.defineProperty()` and friends that allows you to use real properties\nwhere you might otherwise have used YUI attributes."
+        },
+        {
+            "displayName": "property-base",
+            "name": "property-base",
+            "description": "Provides `Y.Property.Base`."
+        },
+        {
+            "displayName": "property-base-shim",
+            "name": "property-base-shim",
+            "description": "Provides compatibility shims for browsers like IE6-8 that don't support\n`Object.defineProperty()`."
         },
         {
             "displayName": "querystring",
