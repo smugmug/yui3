@@ -154,6 +154,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "Loader",
         "MarkerSeries",
         "Matrix",
+        "Menu",
+        "Menu.Base",
+        "Menu.Item",
+        "Menu.Templates",
         "Model",
         "ModelList",
         "ModelSync.REST",
@@ -197,6 +201,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Plugin.ExecCommand",
         "Plugin.Flick",
         "Plugin.Host",
+        "Plugin.Menu",
         "Plugin.NodeFX",
         "Plugin.Pjax",
         "Plugin.Resize",
@@ -542,6 +547,11 @@ YUI.add("yuidoc-meta", function(Y) {
         "loader",
         "loader-base",
         "matrix",
+        "menu",
+        "menu-base",
+        "menu-item",
+        "menu-plugin",
+        "menu-templates",
         "model",
         "model-list",
         "model-sync-rest",
@@ -1678,6 +1688,31 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "matrix",
             "name": "matrix",
             "description": "Matrix is a class that allows for the manipulation of a transform matrix.\nThis class is a work in progress."
+        },
+        {
+            "displayName": "menu",
+            "name": "menu",
+            "description": "Provides the `Y.Menu` widget."
+        },
+        {
+            "displayName": "menu-base",
+            "name": "menu-base",
+            "description": "Provides `Menu.Base`."
+        },
+        {
+            "displayName": "menu-item",
+            "name": "menu-item",
+            "description": "Provides the `Menu.Item` class."
+        },
+        {
+            "displayName": "menu-plugin",
+            "name": "menu-plugin",
+            "description": "Provides the `Y.Plugin.Menu` Node plugin."
+        },
+        {
+            "displayName": "menu-templates",
+            "name": "menu-templates",
+            "description": "Provides templates for `Menu`."
         },
         {
             "displayName": "model",

@@ -349,6 +349,14 @@
             
                 <li><a href="..&#x2F;classes/Matrix.html">Matrix</a></li>
             
+                <li><a href="..&#x2F;classes/Menu.html">Menu</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Base.html">Menu.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Item.html">Menu.Item</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Templates.html">Menu.Templates</a></li>
+            
                 <li><a href="..&#x2F;classes/Model.html">Model</a></li>
             
                 <li><a href="..&#x2F;classes/ModelList.html">ModelList</a></li>
@@ -434,6 +442,8 @@
                 <li><a href="..&#x2F;classes/Plugin.Flick.html">Plugin.Flick</a></li>
             
                 <li><a href="..&#x2F;classes/Plugin.Host.html">Plugin.Host</a></li>
+            
+                <li><a href="..&#x2F;classes/Plugin.Menu.html">Plugin.Menu</a></li>
             
                 <li><a href="..&#x2F;classes/plugin.NodeFocusManager.html">plugin.NodeFocusManager</a></li>
             
@@ -1120,6 +1130,16 @@
                 <li><a href="..&#x2F;modules/loader-base.html">loader-base</a></li>
             
                 <li><a href="..&#x2F;modules/matrix.html">matrix</a></li>
+            
+                <li><a href="..&#x2F;modules/menu.html">menu</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-base.html">menu-base</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-item.html">menu-item</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-plugin.html">menu-plugin</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-templates.html">menu-templates</a></li>
             
                 <li><a href="..&#x2F;modules/model.html">model</a></li>
             
@@ -5203,6 +5223,7 @@ Y.UA.compareVersions = function (a, b) {
 };
 YUI.Env.aliases = {
     &quot;anim&quot;: [&quot;anim-base&quot;,&quot;anim-color&quot;,&quot;anim-curve&quot;,&quot;anim-easing&quot;,&quot;anim-node-plugin&quot;,&quot;anim-scroll&quot;,&quot;anim-xy&quot;],
+    &quot;anim-shape-transform&quot;: [&quot;anim-shape&quot;],
     &quot;app&quot;: [&quot;app-base&quot;,&quot;app-content&quot;,&quot;app-transitions&quot;,&quot;lazy-model-list&quot;,&quot;model&quot;,&quot;model-list&quot;,&quot;model-sync-rest&quot;,&quot;router&quot;,&quot;view&quot;,&quot;view-node-map&quot;],
     &quot;attribute&quot;: [&quot;attribute-base&quot;,&quot;attribute-complex&quot;],
     &quot;autocomplete&quot;: [&quot;autocomplete-base&quot;,&quot;autocomplete-sources&quot;,&quot;autocomplete-list&quot;,&quot;autocomplete-plugin&quot;],
@@ -5214,14 +5235,14 @@ YUI.Env.aliases = {
     &quot;datasource&quot;: [&quot;datasource-local&quot;,&quot;datasource-io&quot;,&quot;datasource-get&quot;,&quot;datasource-function&quot;,&quot;datasource-cache&quot;,&quot;datasource-jsonschema&quot;,&quot;datasource-xmlschema&quot;,&quot;datasource-arrayschema&quot;,&quot;datasource-textschema&quot;,&quot;datasource-polling&quot;],
     &quot;datatable&quot;: [&quot;datatable-core&quot;,&quot;datatable-table&quot;,&quot;datatable-head&quot;,&quot;datatable-body&quot;,&quot;datatable-base&quot;,&quot;datatable-column-widths&quot;,&quot;datatable-message&quot;,&quot;datatable-mutable&quot;,&quot;datatable-sort&quot;,&quot;datatable-datasource&quot;],
     &quot;datatable-deprecated&quot;: [&quot;datatable-base-deprecated&quot;,&quot;datatable-datasource-deprecated&quot;,&quot;datatable-sort-deprecated&quot;,&quot;datatable-scroll-deprecated&quot;],
-    &quot;datatype&quot;: [&quot;datatype-number&quot;,&quot;datatype-date&quot;,&quot;datatype-xml&quot;],
-    &quot;datatype-date&quot;: [&quot;datatype-date-parse&quot;,&quot;datatype-date-format&quot;],
+    &quot;datatype&quot;: [&quot;datatype-date&quot;,&quot;datatype-number&quot;,&quot;datatype-xml&quot;],
+    &quot;datatype-date&quot;: [&quot;datatype-date-parse&quot;,&quot;datatype-date-format&quot;,&quot;datatype-date-math&quot;],
     &quot;datatype-number&quot;: [&quot;datatype-number-parse&quot;,&quot;datatype-number-format&quot;],
     &quot;datatype-xml&quot;: [&quot;datatype-xml-parse&quot;,&quot;datatype-xml-format&quot;],
     &quot;dd&quot;: [&quot;dd-ddm-base&quot;,&quot;dd-ddm&quot;,&quot;dd-ddm-drop&quot;,&quot;dd-drag&quot;,&quot;dd-proxy&quot;,&quot;dd-constrain&quot;,&quot;dd-drop&quot;,&quot;dd-scroll&quot;,&quot;dd-delegate&quot;],
     &quot;dom&quot;: [&quot;dom-base&quot;,&quot;dom-screen&quot;,&quot;dom-style&quot;,&quot;selector-native&quot;,&quot;selector&quot;],
     &quot;editor&quot;: [&quot;frame&quot;,&quot;editor-selection&quot;,&quot;exec-command&quot;,&quot;editor-base&quot;,&quot;editor-para&quot;,&quot;editor-br&quot;,&quot;editor-bidi&quot;,&quot;editor-tab&quot;,&quot;createlink-base&quot;],
-    &quot;event&quot;: [&quot;event-base&quot;,&quot;event-delegate&quot;,&quot;event-synthetic&quot;,&quot;event-mousewheel&quot;,&quot;event-mouseenter&quot;,&quot;event-key&quot;,&quot;event-focus&quot;,&quot;event-resize&quot;,&quot;event-hover&quot;,&quot;event-outside&quot;,&quot;event-touch&quot;,&quot;event-move&quot;,&quot;event-flick&quot;,&quot;event-valuechange&quot;],
+    &quot;event&quot;: [&quot;event-base&quot;,&quot;event-delegate&quot;,&quot;event-synthetic&quot;,&quot;event-mousewheel&quot;,&quot;event-mouseenter&quot;,&quot;event-key&quot;,&quot;event-focus&quot;,&quot;event-resize&quot;,&quot;event-hover&quot;,&quot;event-outside&quot;,&quot;event-touch&quot;,&quot;event-move&quot;,&quot;event-flick&quot;,&quot;event-valuechange&quot;,&quot;event-tap&quot;],
     &quot;event-custom&quot;: [&quot;event-custom-base&quot;,&quot;event-custom-complex&quot;],
     &quot;event-gestures&quot;: [&quot;event-flick&quot;,&quot;event-move&quot;],
     &quot;handlebars&quot;: [&quot;handlebars-compiler&quot;],
@@ -5236,6 +5257,7 @@ YUI.Env.aliases = {
     &quot;recordset&quot;: [&quot;recordset-base&quot;,&quot;recordset-sort&quot;,&quot;recordset-filter&quot;,&quot;recordset-indexer&quot;],
     &quot;resize&quot;: [&quot;resize-base&quot;,&quot;resize-proxy&quot;,&quot;resize-constrain&quot;],
     &quot;slider&quot;: [&quot;slider-base&quot;,&quot;slider-value-range&quot;,&quot;clickable-rail&quot;,&quot;range-slider&quot;],
+    &quot;template&quot;: [&quot;template-base&quot;,&quot;template-micro&quot;],
     &quot;text&quot;: [&quot;text-accentfold&quot;,&quot;text-wordbreak&quot;],
     &quot;widget&quot;: [&quot;widget-base&quot;,&quot;widget-htmlparser&quot;,&quot;widget-skin&quot;,&quot;widget-uievents&quot;]
 };

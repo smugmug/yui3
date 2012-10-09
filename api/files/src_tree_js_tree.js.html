@@ -349,6 +349,14 @@
             
                 <li><a href="..&#x2F;classes/Matrix.html">Matrix</a></li>
             
+                <li><a href="..&#x2F;classes/Menu.html">Menu</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Base.html">Menu.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Item.html">Menu.Item</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Templates.html">Menu.Templates</a></li>
+            
                 <li><a href="..&#x2F;classes/Model.html">Model</a></li>
             
                 <li><a href="..&#x2F;classes/ModelList.html">ModelList</a></li>
@@ -434,6 +442,8 @@
                 <li><a href="..&#x2F;classes/Plugin.Flick.html">Plugin.Flick</a></li>
             
                 <li><a href="..&#x2F;classes/Plugin.Host.html">Plugin.Host</a></li>
+            
+                <li><a href="..&#x2F;classes/Plugin.Menu.html">Plugin.Menu</a></li>
             
                 <li><a href="..&#x2F;classes/plugin.NodeFocusManager.html">plugin.NodeFocusManager</a></li>
             
@@ -1121,6 +1131,16 @@
             
                 <li><a href="..&#x2F;modules/matrix.html">matrix</a></li>
             
+                <li><a href="..&#x2F;modules/menu.html">menu</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-base.html">menu-base</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-item.html">menu-item</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-plugin.html">menu-plugin</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-templates.html">menu-templates</a></li>
+            
                 <li><a href="..&#x2F;modules/model.html">model</a></li>
             
                 <li><a href="..&#x2F;modules/model-list.html">model-list</a></li>
@@ -1511,6 +1531,18 @@ var Tree = Y.Base.create(&#x27;tree&#x27;, Y.Base, [], {
     @readOnly
     **&#x2F;
 
+    &#x2F;**
+    The &#x60;Tree.Node&#x60; class or subclass that should be used for nodes created by
+    this tree.
+
+    You may specific an actual class reference or a string that resolves to a
+    class reference at runtime.
+
+    @property {String|Tree.Node} nodeClass
+    @default Y.Tree.Node
+    **&#x2F;
+    nodeClass: Y.Tree.Node,
+
     &#x2F;&#x2F; -- Protected Properties -------------------------------------------------
 
     &#x2F;**
@@ -1559,6 +1591,15 @@ var Tree = Y.Base.create(&#x27;tree&#x27;, Y.Base, [], {
         this._published || (this._published = {});
 
         this._nodeMap = {};
+
+        if (typeof this.nodeClass === &#x27;string&#x27;) {
+            &#x2F;&#x2F; Look for a namespaced node class on &#x60;Y&#x60;.
+            this.nodeClass = Y.Object.getValue(Y, this.nodeClass.split(&#x27;.&#x27;));
+
+            if (!this.nodeClass) {
+                Y.error(&#x27;Tree: Node class not found: &#x27; + this.nodeClass);
+            }
+        }
 
         this.clear(config.rootNode, {silent: true});
         this._attachTreeEvents();
@@ -1681,7 +1722,7 @@ var Tree = Y.Base.create(&#x27;tree&#x27;, Y.Base, [], {
             config = Y.merge(config, {children: children});
         }
 
-        var node = new Y.Tree.Node(this, config);
+        var node = new this.nodeClass(this, config);
         return this._nodeMap[node.id] = node;
     },
 

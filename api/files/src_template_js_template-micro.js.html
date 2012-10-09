@@ -349,6 +349,14 @@
             
                 <li><a href="..&#x2F;classes/Matrix.html">Matrix</a></li>
             
+                <li><a href="..&#x2F;classes/Menu.html">Menu</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Base.html">Menu.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Item.html">Menu.Item</a></li>
+            
+                <li><a href="..&#x2F;classes/Menu.Templates.html">Menu.Templates</a></li>
+            
                 <li><a href="..&#x2F;classes/Model.html">Model</a></li>
             
                 <li><a href="..&#x2F;classes/ModelList.html">ModelList</a></li>
@@ -434,6 +442,8 @@
                 <li><a href="..&#x2F;classes/Plugin.Flick.html">Plugin.Flick</a></li>
             
                 <li><a href="..&#x2F;classes/Plugin.Host.html">Plugin.Host</a></li>
+            
+                <li><a href="..&#x2F;classes/Plugin.Menu.html">Plugin.Menu</a></li>
             
                 <li><a href="..&#x2F;classes/plugin.NodeFocusManager.html">plugin.NodeFocusManager</a></li>
             
@@ -1121,6 +1131,16 @@
             
                 <li><a href="..&#x2F;modules/matrix.html">matrix</a></li>
             
+                <li><a href="..&#x2F;modules/menu.html">menu</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-base.html">menu-base</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-item.html">menu-item</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-plugin.html">menu-plugin</a></li>
+            
+                <li><a href="..&#x2F;modules/menu-templates.html">menu-templates</a></li>
+            
                 <li><a href="..&#x2F;modules/model.html">model</a></li>
             
                 <li><a href="..&#x2F;modules/model-list.html">model-list</a></li>
@@ -1529,7 +1549,7 @@ Micro.compile = function (text, options) {
         })
 
         .replace(options.code, function (match, code) {
-            return tokenOpen + (blocks.push(&quot;&#x27;;\n&quot; + code + &quot;\n;$t+=&#x27;&quot;) - 1) + tokenClose;
+            return tokenOpen + (blocks.push(&quot;&#x27;;\n&quot; + code + &quot;\n$t+=&#x27;&quot;) - 1) + tokenClose;
         })
 
         .replace(options.stringEscape, &quot;\\$&amp;&quot;)
@@ -1537,7 +1557,10 @@ Micro.compile = function (text, options) {
         &#x2F;&#x2F; Replace the token placeholders with code.
         .replace(&#x2F;\ufffe(\d+)\uffff&#x2F;g, function (match, index) {
             return blocks[parseInt(index, 10)];
-        }) +
+        })
+
+        &#x2F;&#x2F; Remove noop string concatenations that have been left behind.
+        .replace(&#x2F;\n\$t\+=&#x27;&#x27;;\n&#x2F;g, &#x27;\n&#x27;) +
 
         &quot;&#x27;;\nreturn $t;&quot;;
 
