@@ -1,0 +1,14 @@
+{
+    "name": "YUI 3 (SmugMug fork)",
+    "description": "YUI 3 with SmugMug patches",
+    "version": "3.7.2-smugmug",
+    "url": "https://github.com/smugmug/yui3",
+    "options": {
+        "linkNatives": "true",
+        "attributesEmit": "true",
+        "selleck": "true",
+        "ignorePaths": [ "simpleyui" ],
+        "paths": "../yui3/src/*/js",
+        "outdir": "./api"
+    }
+}
