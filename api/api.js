@@ -154,6 +154,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Loader",
         "MarkerSeries",
         "Matrix",
+        "MatrixUtil",
         "Menu",
         "Menu.Base",
         "Menu.Item",
