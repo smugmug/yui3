@@ -1547,23 +1547,8 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     @chainable
     **&#x2F;
     hide: function () {
-        if (this.rendered) {
-            this.get(&#x27;container&#x27;).removeClass(this.classNames.open);
-        }
-
+        this.set(&#x27;visible&#x27;, false);
         return this;
-    },
-
-    &#x2F;**
-    Returns &#x60;true&#x60; if this menu is currently visible.
-
-    @method isVisible
-    @return {Boolean} &#x60;true&#x60; if this menu is currently visible, &#x60;false&#x60;
-        otherwise.
-    **&#x2F;
-    isVisible: function () {
-        &#x2F;&#x2F; TODO: maintain state internally rather than relying on the &quot;open&quot; class.
-        return this.rendered &amp;&amp; this.get(&#x27;container&#x27;).hasClass(this.classNames.open);
     },
 
     &#x2F;**
@@ -1737,10 +1722,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     @chainable
     **&#x2F;
     show: function () {
-        if (this.rendered) {
-            this.get(&#x27;container&#x27;).addClass(this.classNames.open);
-        }
-
+        this.set(&#x27;visible&#x27;, true);
         return this;
     },
 
@@ -1752,10 +1734,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     @chainable
     **&#x2F;
     toggle: function () {
-        if (this.rendered) {
-            this.get(&#x27;container&#x27;).toggleClass(this.classNames.open);
-        }
-
+        this.set(&#x27;visible&#x27;, !this.get(&#x27;visible&#x27;));
         return this;
     },
 
@@ -1775,11 +1754,12 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
 
         this._menuEvents.push(
             this.after({
-                add   : this._afterAdd,
-                clear : this._afterClear,
-                close : this._afterClose,
-                open  : this._afterOpen,
-                remove: this._afterRemove
+                add          : this._afterAdd,
+                clear        : this._afterClear,
+                close        : this._afterClose,
+                open         : this._afterOpen,
+                remove       : this._afterRemove,
+                visibleChange: this._afterVisibleChange
             }),
 
             container.on(&#x27;hover&#x27;, this._onMenuMouseEnter,
@@ -1791,7 +1771,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
             container.delegate(&#x27;hover&#x27;, this._onItemMouseEnter, this._onItemMouseLeave,
                     &#x27;.&#x27; + classNames.canHaveChildren, this),
 
-            container.after(&#x27;clickoutside&#x27;, this._afterOutsideClick, this)
+            container.after(&#x27;clickoutside&#x27;, this._afterClickOutside, this)
         );
     },
 
@@ -2045,6 +2025,16 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     },
 
     &#x2F;**
+    Handles &#x60;clickoutside&#x60; events for this menu.
+
+    @method _afterClickOutside
+    @protected
+    **&#x2F;
+    _afterClickOutside: function () {
+        this.closeSubMenus();
+    },
+
+    &#x2F;**
     Handles &#x60;close&#x60; events for this menu.
 
     @method _afterClose
@@ -2109,16 +2099,6 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     },
 
     &#x2F;**
-    Handles &#x60;clickoutside&#x60; events for this menu.
-
-    @method _afterOutsideClick
-    @protected
-    **&#x2F;
-    _afterOutsideClick: function () {
-        this.closeSubMenus();
-    },
-
-    &#x2F;**
     Handles &#x60;remove&#x60; events for this menu.
 
     @method _afterRemove
@@ -2138,6 +2118,17 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
             htmlNode.remove(true);
             delete e.node._htmlNode;
         }
+    },
+
+    &#x2F;**
+    Handles &#x60;visibleChange&#x60; events for this menu.
+
+    @method _afterVisibleChange
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _afterVisibleChange: function (e) {
+        this.get(&#x27;container&#x27;).toggleClass(this.classNames.open, e.newVal);
     },
 
     &#x2F;**
@@ -2264,6 +2255,19 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
             e.item.toggle();
         } else {
             this.closeSubMenus();
+        }
+    }
+}, {
+    ATTRS: {
+        &#x2F;**
+        Whether or not this menu is visible. Changing this attribute&#x27;s value
+        will also change the visibility of this menu.
+
+        @attribute {Boolean} visible
+        @default false
+        **&#x2F;
+        visible: {
+            value: false
         }
     }
 });

@@ -1484,7 +1484,7 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
             this.render();
         }
 
-        if (this.isVisible()) {
+        if (this.get(&#x27;visible&#x27;)) {
             this.hide();
         } else {
             var anchorRegion = this._host.get(&#x27;region&#x27;),
