@@ -1461,10 +1461,10 @@ functionality. Code weight and performance overhead are minimal.</p></li>
 <code>property-base</code> doesn't even use events), and only minimal overhead when the
 <code>property-events</code> module is loaded.</p></li>
 <li><p><code>Y.Property</code> uses real JavaScript properties, not an internal hash. For
-cross-browser support in non-ES5 browsers it's best to use the <code>get()</code> and
-<code>set()</code> methods to get and set property values, but you can also simply get
-and set the properties directly if you aren't concerned about supporting
-non-ES5 browsers.</p></li>
+cross-browser support in non-ES5 browsers and to get change events, it's
+best to use the <code>prop()</code> method to get and set property values, but you can
+also simply get and set the properties directly if you aren't concerned
+about change events or non-ES5 browsers.</p></li>
 </ul>
 
 <p>Why you might want to use <code>Y.Attribute</code> instead:</p>
@@ -1512,8 +1512,8 @@ Attribute.</p></li>
     // defined.
     var instance = new MyClass();
 
-    console.log(instance.foo); // =&gt; 'hello!'
-    console.log(instance.bar); // =&gt; 'baz'
+    console.log(instance.prop('foo')); // =&gt; 'hello!'
+    console.log(instance.prop('bar')); // =&gt; 'baz'
 });
 </code></pre>
 </div>
@@ -1616,20 +1616,6 @@ Attribute.</p></li>
                             </li>
                         
                             <li class="index-item method inherited">
-                                <a href="#method_get">get</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method inherited">
-                                <a href="#method_getProperties">getProperties</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method inherited">
                                 <a href="#method_getPropertyDescriptor">getPropertyDescriptor</a>
 
                                 
@@ -1637,14 +1623,14 @@ Attribute.</p></li>
                             </li>
                         
                             <li class="index-item method inherited">
-                                <a href="#method_set">set</a>
+                                <a href="#method_prop">prop</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method inherited">
-                                <a href="#method_setProperties">setProperties</a>
+                                <a href="#method_props">props</a>
 
                                 
                                 
@@ -1733,8 +1719,8 @@ Attribute.</p></li>
     </div>
 
     <div class="description">
-        <p>Defines new properties (or modifies the definitions of existing properties)
-on this object.</p>
+        <p>Defines new properties or modifies the definitions of existing properties on
+this object.</p>
 
 <p>This method is a facade over ES5's <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperties"><code>Object.defineProperties()</code></a> method.
 See its documentation for more details.</p>
@@ -1996,260 +1982,6 @@ descriptors and accessor descriptors.</p>
 </div>
 
                 
-                    <div id="method_get" class="method item inherited">
-    <h3 class="name"><code>get</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>name</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Any</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="..&#x2F;classes&#x2F;Property.Base.html#method_get">Property.Base</a>:
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_property_js_property-base.js.html#l110"><code>src&#x2F;property&#x2F;js&#x2F;property-base.js:110</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Returns the value of the specified property, or <code>undefined</code> if the property
-has not been defined.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">name</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Property name.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Any</span>:
-                    
-                    Property value, or <code>undefined</code> if the property has not been
-    defined.
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_getProperties" class="method item inherited">
-    <h3 class="name"><code>getProperties</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code class="optional">[names]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[options]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="..&#x2F;classes&#x2F;Property.Base.html#method_getProperties">Property.Base</a>:
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_property_js_property-base.js.html#l123"><code>src&#x2F;property&#x2F;js&#x2F;property-base.js:123</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Returns an object hash containing the values of multiple properties.</p>
-
-<p>The <em>names</em> argument may be omitted and the <em>options</em> argument used in its
-place if desired.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[names]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Array of property names to retrieve. If not
-    specified, all own properties of this object (including non-enumerable
-    properties) will be returned.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[options]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Options.</p>
-                    </div>
-
-                    
-                        <ul class="params-list">
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[definedOnly=false]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>If <code>true</code>, only properties
-        defined on this object via this <code>Y.Property</code> instance will be
-        returned.</p>
-                                </div>
-
-                                
-                            </li>
-                            
-                        </ul>
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
-                    
-                    Hash of property names to property values for the requested
-    properties. If a requested property has not been defined, its value will
-    be <code>undefined</code>.
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
                     <div id="method_getPropertyDescriptor" class="method item inherited">
     <h3 class="name"><code>getPropertyDescriptor</code></h3>
 
@@ -2293,7 +2025,7 @@ place if desired.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_property_js_property-base.js.html#l165"><code>src&#x2F;property&#x2F;js&#x2F;property-base.js:165</code></a>
+        <a href="..&#x2F;files&#x2F;src_property_js_property-base.js.html#l110"><code>src&#x2F;property&#x2F;js&#x2F;property-base.js:110</code></a>
         
         </p>
 
@@ -2353,8 +2085,8 @@ the property has not been defined.</p>
 </div>
 
                 
-                    <div id="method_set" class="method item">
-    <h3 class="name"><code>set</code></h3>
+                    <div id="method_prop" class="method item">
+    <h3 class="name"><code>prop</code></h3>
 
     
         <div class="args">
@@ -2368,7 +2100,7 @@ the property has not been defined.</p>
             
                 <li class="arg">
                     
-                        <code>value</code>
+                        <code class="optional">[value]</code>
                     
                 </li>
             
@@ -2403,7 +2135,7 @@ the property has not been defined.</p>
     <div class="meta">
         
             <p>Inherited from
-            <a href="..&#x2F;classes&#x2F;Property.Base.html#method_set">
+            <a href="..&#x2F;classes&#x2F;Property.Base.html#method_prop">
                 Property.Base
             </a>
             
@@ -2422,11 +2154,18 @@ the property has not been defined.</p>
     </div>
 
     <div class="description">
-        <p>Sets the value of the specified property and returns the value that was set.</p>
+        <p>Gets or sets the value of a property.</p>
 
-<p>Also fires a change event with the name <code>propertyName + 'Change'</code>, where
-<code>propertyName</code> is the name of the property that was set. For example,
-setting the <code>foo</code> property will fire an event named <code>fooChange</code>.</p>
+<p>If only a <em>name</em> is given, returns the value of the property with that name,
+or <code>undefined</code> if the property has not yet been defined.</p>
+
+<p>If both a <em>name</em> and a <em>value</em> are given, sets the named property to the
+given value and returns the value that was set.</p>
+
+<p>When a property is set, this method will also fire a change event with the
+name <code>propertyName + 'Change'</code>, where <code>propertyName</code> is the name of the
+property that was set. For example, setting the <code>foo</code> property will fire an
+event named <code>fooChange</code>.</p>
 
 <p>Note that the returned value and the new value passed to the change event
 may differ from the value passed in if the property has a setter function
@@ -2456,8 +2195,9 @@ that alters the value.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">value</code>
+                        <code class="param-name optional">[value]</code>
                         <span class="type">Any</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
@@ -2518,18 +2258,29 @@ that alters the value.</p>
                     
                         <span class="type">Any</span>:
                     
-                    The value that was set.
+                    Property value, or <code>undefined</code> if the property has not yet
+    been defined and no value was set.
                 
             </div>
         </div>
     
 
     
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">thing.prop('foo'); // Returns the value of thing.foo.
+thing.prop('foo', 'bar'); // Sets thing.foo to 'bar'.
+</code></pre>
+            </div>
+        </div>
+    
 </div>
 
                 
-                    <div id="method_setProperties" class="method item inherited">
-    <h3 class="name"><code>setProperties</code></h3>
+                    <div id="method_props" class="method item inherited">
+    <h3 class="name"><code>props</code></h3>
 
     
         <div class="args">
@@ -2573,11 +2324,11 @@ that alters the value.</p>
         
             
                 <p>Inherited from
-                <a href="..&#x2F;classes&#x2F;Property.Base.html#method_setProperties">Property.Base</a>:
+                <a href="..&#x2F;classes&#x2F;Property.Base.html#method_props">Property.Base</a>:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_property_js_property-base.js.html#l195"><code>src&#x2F;property&#x2F;js&#x2F;property-base.js:195</code></a>
+        <a href="..&#x2F;files&#x2F;src_property_js_property-base.js.html#l150"><code>src&#x2F;property&#x2F;js&#x2F;property-base.js:150</code></a>
         
         </p>
 
@@ -2588,8 +2339,20 @@ that alters the value.</p>
     </div>
 
     <div class="description">
-        <p>Sets the values of multiple properties and returns an object hash containing
-the values that were set.</p>
+        <p>Gets or sets the values of multiple properties.</p>
+
+<p>If <em>props</em> is <code>null</code> or <code>undefined</code>, returns an object containing the
+names and values of all own properties of this object, including
+non-enumerable properties.</p>
+
+<p>If <em>props</em> is an array of property names, returns an object containing the
+names and values of the specified properties.</p>
+
+<p>If <em>props</em> is an object, sets the properties named in the object to the
+associated values and returns an object containing the names and the values
+that were set. Note that the returned values may differ from the values
+passed in if the properties being set have setter functions that alter the
+values.</p>
     </div>
 
     
@@ -2601,14 +2364,14 @@ the values that were set.</p>
                 <li class="param">
                     
                         <code class="param-name">properties</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Hash of property names to values that should be
-    set.</p>
+                        <p>Array of property names to get, or a
+    hash of property names and values to set.</p>
                     </div>
 
                     
@@ -2624,10 +2387,31 @@ the values that were set.</p>
                     
 
                     <div class="param-description">
-                        <p>Options. No options are defined in
-    <code>property-base</code>, but other modules may add support for options.</p>
+                        <p>Options.</p>
                     </div>
 
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[definedOnly=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If <code>true</code>, only properties
+        that were defined on this object via this object's
+        <code>defineProperty()</code> or <code>defineProperties()</code> methods will be returned.
+        This is useful when you want to exclude native properties and
+        functions.</p>
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             
@@ -2644,12 +2428,33 @@ the values that were set.</p>
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
                     
-                    Hash of property names to the values that were set.
+                    Hash of property names and values.
                 
             </div>
         </div>
     
 
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">thing.props(); // Returns all own properties of thing.
+
+thing.props(null, {definedOnly: true}); // Returns all own properties that were
+                                        // defined via this object's defineProperty()
+                                        // or defineProperties() methods.
+
+thing.props(['a', 'b', 'c']); // Returns thing.a, thing.b, and thing.c.
+
+thing.props({
+    a: 'foo',
+    b: 'bar',
+    c: 'baz'
+}); // Sets the values of thing.a, thing.b, and thing.c and returns them.
+</code></pre>
+            </div>
+        </div>
     
 </div>
 
@@ -2695,7 +2500,7 @@ the values that were set.</p>
 
     <div class="description">
         <p>Fast-lookup hash of property names for properties that have been defined on
-this object through <code>Y.Property</code>.</p>
+this object through <code>Property.Base</code>.</p>
     </div>
 
     

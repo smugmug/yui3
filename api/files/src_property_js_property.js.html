@@ -1448,10 +1448,10 @@ Benefits over &#x60;Y.Attribute&#x60;:
     &#x60;property-events&#x60; module is loaded.
 
   * &#x60;Y.Property&#x60; uses real JavaScript properties, not an internal hash. For
-    cross-browser support in non-ES5 browsers it&#x27;s best to use the &#x60;get()&#x60; and
-    &#x60;set()&#x60; methods to get and set property values, but you can also simply get
-    and set the properties directly if you aren&#x27;t concerned about supporting
-    non-ES5 browsers.
+    cross-browser support in non-ES5 browsers and to get change events, it&#x27;s
+    best to use the &#x60;prop()&#x60; method to get and set property values, but you can
+    also simply get and set the properties directly if you aren&#x27;t concerned
+    about change events or non-ES5 browsers.
 
 Why you might want to use &#x60;Y.Attribute&#x60; instead:
 
@@ -1498,8 +1498,8 @@ Why you might want to use &#x60;Y.Attribute&#x60; instead:
         &#x2F;&#x2F; defined.
         var instance = new MyClass();
 
-        console.log(instance.foo); &#x2F;&#x2F; =&gt; &#x27;hello!&#x27;
-        console.log(instance.bar); &#x2F;&#x2F; =&gt; &#x27;baz&#x27;
+        console.log(instance.prop(&#x27;foo&#x27;)); &#x2F;&#x2F; =&gt; &#x27;hello!&#x27;
+        console.log(instance.prop(&#x27;bar&#x27;)); &#x2F;&#x2F; =&gt; &#x27;baz&#x27;
     });
 
 [1]: https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;JavaScript&#x2F;Reference&#x2F;Global_Objects&#x2F;Object&#x2F;defineProperty
@@ -1515,42 +1515,56 @@ function Property() {
 
 Y.extend(Property, Y.Property.Base, {
     &#x2F;**
-    Sets the value of the specified property and returns the value that was set.
+    Gets or sets the value of a property.
 
-    Also fires a change event with the name &#x60;propertyName + &#x27;Change&#x27;&#x60;, where
-    &#x60;propertyName&#x60; is the name of the property that was set. For example,
-    setting the &#x60;foo&#x60; property will fire an event named &#x60;fooChange&#x60;.
+    If only a _name_ is given, returns the value of the property with that name,
+    or &#x60;undefined&#x60; if the property has not yet been defined.
+
+    If both a _name_ and a _value_ are given, sets the named property to the
+    given value and returns the value that was set.
+
+    When a property is set, this method will also fire a change event with the
+    name &#x60;propertyName + &#x27;Change&#x27;&#x60;, where &#x60;propertyName&#x60; is the name of the
+    property that was set. For example, setting the &#x60;foo&#x60; property will fire an
+    event named &#x60;fooChange&#x60;.
 
     Note that the returned value and the new value passed to the change event
     may differ from the value passed in if the property has a setter function
     that alters the value.
 
-    @method set
-    @param {String} name Property name.
-    @param {Any} value Value to set.
+    @example
 
+        thing.prop(&#x27;foo&#x27;); &#x2F;&#x2F; Returns the value of thing.foo.
+        thing.prop(&#x27;foo&#x27;, &#x27;bar&#x27;); &#x2F;&#x2F; Sets thing.foo to &#x27;bar&#x27;.
+
+    @method prop
+    @param {String} name Property name.
+    @param {Any} [value] Value to set.
     @param {Object} [options] Options. Properties of this object will be mixed
         into the event facade of the change event.
 
         @param {Boolean} [options.silent=false] If &#x60;true&#x60;, no change event will
             be fired.
 
-    @return {Any} The value that was set.
+    @return {Any} Property value, or &#x60;undefined&#x60; if the property has not yet
+        been defined and no value was set.
     **&#x2F;
-    set: function (name, value, options) {
-        var newVal = Y.Property.Base.prototype.set.call(this, name, value, options),
-            prevVal;
+    prop: function (name, value, options) {
+        var superFn = Y.Property.Base.prototype.prop,
+            prevVal = superFn.call(this, name);
 
-        if (!options || !options.silent) {
-            prevVal = this.get(name);
+        if (typeof value === &#x27;undefined&#x27;) {
+            return prevVal;
+        }
 
-            if (newVal !== prevVal) {
-                this.fire(name + &#x27;Change&#x27;, Y.merge(options, {
-                    newVal      : newVal,
-                    prevVal     : prevVal,
-                    propertyName: name
-                }));
-            }
+        var newVal = superFn.call(this, name, value, options);
+
+        if ((!options || !options.silent) &amp;&amp; newVal !== prevVal) {
+            this.fire(name + &#x27;Change&#x27;, Y.merge(options, {
+                newVal      : newVal,
+                prevVal     : prevVal,
+                propertyName: name
+            }));
         }
 
         return newVal;
