@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1435,6 +1439,56 @@
      *&#x2F;
         var ExecCommand = function() {
             ExecCommand.superclass.constructor.apply(this, arguments);
+        },
+        &#x2F;**
+        * This method is meant to normalize IE&#x27;s in ability to exec the proper command on elements with CSS styling.
+        * @method fixIETags
+        * @protected
+        * @param {String} cmd The command to execute
+        * @param {String} tag The tag to create
+        * @param {String} rule The rule that we are looking for.
+        *&#x2F;
+        fixIETags = function(cmd, tag, rule) {
+            var inst = this.getInstance(),
+                doc = inst.config.doc,
+                sel = doc.selection.createRange(),
+                o = doc.queryCommandValue(cmd),
+                html, reg, m, p, d, s, c;
+
+            if (o) {
+                html = sel.htmlText;
+                reg = new RegExp(rule, &#x27;g&#x27;);
+                m = html.match(reg);
+
+                if (m) {
+                    html = html.replace(rule + &#x27;;&#x27;, &#x27;&#x27;).replace(rule, &#x27;&#x27;);
+
+                    sel.pasteHTML(&#x27;&lt;var id=&quot;yui-ie-bs&quot;&gt;&#x27;);
+
+                    p = doc.getElementById(&#x27;yui-ie-bs&#x27;);
+                    d = doc.createElement(&#x27;div&#x27;);
+                    s = doc.createElement(tag);
+
+                    d.innerHTML = html;
+                    if (p.parentNode !== inst.config.doc.body) {
+                        p = p.parentNode;
+                    }
+
+                    c = d.childNodes;
+
+                    p.parentNode.replaceChild(s, p);
+
+                    Y.each(c, function(f) {
+                        s.appendChild(f);
+                    });
+                    sel.collapse();
+                    if (sel.moveToElementText) {
+                        sel.moveToElementText(s);
+                    }
+                    sel.select();
+                }
+            }
+            this._command(cmd);
         };
 
         Y.extend(ExecCommand, Y.Base, {
@@ -1459,7 +1513,7 @@
             *&#x2F;
             command: function(action, value) {
                 var fn = ExecCommand.COMMANDS[action];
-                
+
                 Y.log(&#x27;execCommand(&#x27; + action + &#x27;): &quot;&#x27; + value + &#x27;&quot;&#x27;, &#x27;info&#x27;, &#x27;exec-command&#x27;);
                 if (fn) {
                     Y.log(&#x27;OVERIDE execCommand(&#x27; + action + &#x27;): &quot;&#x27; + value + &#x27;&quot;&#x27;, &#x27;info&#x27;, &#x27;exec-command&#x27;);
@@ -1519,7 +1573,7 @@
             },
             _wrapContent: function(str, override) {
                 var useP = (this.getInstance().host.editorPara &amp;&amp; !override ? true : false);
-                
+
                 if (useP) {
                     str = &#x27;&lt;p&gt;&#x27; + str + &#x27;&lt;&#x2F;p&gt;&#x27;;
                 } else {
@@ -1605,11 +1659,16 @@
                 * @static
                 * @param {String} cmd The command executed: insertbr
                 *&#x2F;
-                insertbr: function(cmd) {
+                insertbr: function() {
                     var inst = this.getInstance(),
                         sel = new inst.EditorSelection(),
                         html = &#x27;&lt;var&gt;|&lt;&#x2F;var&gt;&#x27;, last = null,
-                        q = (Y.UA.webkit) ? &#x27;span.Apple-style-span,var&#x27; : &#x27;var&#x27;;
+                        q = (Y.UA.webkit) ? &#x27;span.Apple-style-span,var&#x27; : &#x27;var&#x27;,
+                        insert = function(n) {
+                            var c = inst.Node.create(&#x27;&lt;br&gt;&#x27;);
+                            n.insert(c, &#x27;before&#x27;);
+                            return c;
+                        };
 
                     if (sel._selection.pasteHTML) {
                         sel._selection.pasteHTML(html);
@@ -1617,14 +1676,9 @@
                         this._command(&#x27;inserthtml&#x27;, html);
                     }
 
-                    var insert = function(n) {
-                        var c = inst.Node.create(&#x27;&lt;br&gt;&#x27;);
-                        n.insert(c, &#x27;before&#x27;);
-                        return c;
-                    };
 
                     inst.all(q).each(function(n) {
-                        var g = true;   
+                        var g = true, s;
                         if (Y.UA.webkit) {
                             g = false;
                             if (n.get(&#x27;innerHTML&#x27;) === &#x27;|&#x27;) {
@@ -1634,7 +1688,7 @@
                         if (g) {
                             last = insert(n);
                             if ((!last.previous() || !last.previous().test(&#x27;br&#x27;)) &amp;&amp; Y.UA.gecko) {
-                                var s = last.cloneNode();
+                                s = last.cloneNode();
                                 last.insert(s, &#x27;after&#x27;);
                                 last = s;
                             }
@@ -1724,7 +1778,7 @@
                 backcolor: function(cmd, val) {
                     var inst = this.getInstance(),
                         sel = new inst.EditorSelection(), n;
-                    
+
                     if (Y.UA.gecko || Y.UA.opera) {
                         cmd = &#x27;hilitecolor&#x27;;
                     }
@@ -1737,7 +1791,8 @@
                                 sel.anchorNode.setStyle(&#x27;backgroundColor&#x27;, val);
                                 n = sel.anchorNode;
                             } else {
-                                n = this.command(&#x27;inserthtml&#x27;, &#x27;&lt;span style=&quot;background-color: &#x27; + val + &#x27;&quot;&gt;&#x27; + inst.EditorSelection.CURSOR + &#x27;&lt;&#x2F;span&gt;&#x27;);
+                                n = this.command(&#x27;inserthtml&#x27;,
+                                    &#x27;&lt;span style=&quot;background-color: &#x27; + val + &#x27;&quot;&gt;&#x27; + inst.EditorSelection.CURSOR + &#x27;&lt;&#x2F;span&gt;&#x27;);
                                 sel.focusCursor(true, true);
                             }
                             return n;
@@ -1772,8 +1827,8 @@
                     this._command(&#x27;fontname&#x27;, val);
                     var inst = this.getInstance(),
                         sel = new inst.EditorSelection();
-                    
-                    if (sel.isCollapsed &amp;&amp; (this._lastKey != 32)) {
+
+                    if (sel.isCollapsed &amp;&amp; (this._lastKey !== 32)) {
                         if (sel.anchorNode.test(&#x27;font&#x27;)) {
                             sel.anchorNode.set(&#x27;face&#x27;, val);
                         }
@@ -1792,9 +1847,9 @@
                     this._command(&#x27;fontsize&#x27;, val);
 
                     var inst = this.getInstance(),
-                        sel = new inst.EditorSelection();
-                    
-                    if (sel.isCollapsed &amp;&amp; sel.anchorNode &amp;&amp; (this._lastKey != 32)) {
+                        sel = new inst.EditorSelection(), p;
+
+                    if (sel.isCollapsed &amp;&amp; sel.anchorNode &amp;&amp; (this._lastKey !== 32)) {
                         if (Y.UA.webkit) {
                             if (sel.anchorNode.getStyle(&#x27;lineHeight&#x27;)) {
                                 sel.anchorNode.setStyle(&#x27;lineHeight&#x27;, &#x27;&#x27;);
@@ -1803,7 +1858,7 @@
                         if (sel.anchorNode.test(&#x27;font&#x27;)) {
                             sel.anchorNode.set(&#x27;size&#x27;, val);
                         } else if (Y.UA.gecko) {
-                            var p = sel.anchorNode.ancestor(inst.EditorSelection.DEFAULT_BLOCK_TAG);
+                            p = sel.anchorNode.ancestor(inst.EditorSelection.DEFAULT_BLOCK_TAG);
                             if (p) {
                                 p.setStyle(&#x27;fontSize&#x27;, &#x27;&#x27;);
                             }
@@ -1816,7 +1871,7 @@
                 * @static
                 * @param {String} cmd The command executed: list, ul
                 *&#x2F;
-                insertunorderedlist: function(cmd) {
+                insertunorderedlist: function() {
                     this.command(&#x27;list&#x27;, &#x27;ul&#x27;);
                 },
                 &#x2F;**
@@ -1825,7 +1880,7 @@
                 * @static
                 * @param {String} cmd The command executed: list, ol
                 *&#x2F;
-                insertorderedlist: function(cmd) {
+                insertorderedlist: function() {
                     this.command(&#x27;list&#x27;, &#x27;ol&#x27;);
                 },
                 &#x2F;**
@@ -1839,17 +1894,18 @@
                     var inst = this.getInstance(), html, self = this,
                         &#x2F;*
                         The yui3- class name below is not a skinnable class,
-                        it&#x27;s a utility class used internally by editor and 
+                        it&#x27;s a utility class used internally by editor and
                         stripped when completed, calling getClassName on this
                         is a waste of resources.
                         *&#x2F;
                         DIR = &#x27;dir&#x27;, cls = &#x27;yui3-touched&#x27;,
                         dir, range, div, elm, n, str, s, par, list, lis,
-                        useP = (inst.host.editorPara ? true : false),
+                        useP = (inst.host.editorPara ? true : false), tmp,
+                        sdir, hasPParent, fc,
                         sel = new inst.EditorSelection();
 
                     cmd = &#x27;insert&#x27; + ((tag === &#x27;ul&#x27;) ? &#x27;un&#x27; : &#x27;&#x27;) + &#x27;orderedlist&#x27;;
-                    
+
                     if (Y.UA.ie &amp;&amp; !sel.isCollapsed) {
                         range = sel._selection;
                         html = range.htmlText;
@@ -1902,7 +1958,7 @@
                             if (html.indexOf(&#x27;&lt;br&gt;&#x27;) &gt; -1) {
                                 html = html.split(&#x2F;&lt;br&gt;&#x2F;i);
                             } else {
-                                var tmp = inst.Node.create(html),
+                                tmp = inst.Node.create(html),
                                 ps = tmp ? tmp.all(&#x27;p&#x27;) : null;
 
                                 if (ps &amp;&amp; ps.size()) {
@@ -1945,7 +2001,7 @@
                             }
                             html = Y.EditorSelection.getText(par);
                             if (html === &#x27;&#x27;) {
-                                var sdir = &#x27;&#x27;;
+                                sdir = &#x27;&#x27;;
                                 if (dir) {
                                     sdir = &#x27; dir=&quot;&#x27; + dir + &#x27;&quot;&#x27;;
                                 }
@@ -1973,7 +2029,7 @@
                             dir = par.getAttribute(DIR);
                         }
                         if (par &amp;&amp; par.test(tag)) {
-                            var hasPParent = par.ancestor(&#x27;p&#x27;);
+                            hasPParent = par.ancestor(&#x27;p&#x27;);
                             html = inst.Node.create(&#x27;&lt;div&#x2F;&gt;&#x27;);
                             elm = par.all(&#x27;li&#x27;);
                             elm.each(function(h) {
@@ -1989,7 +2045,7 @@
                             if (useP) {
                                 html = inst.Node.create(html.get(&#x27;innerHTML&#x27;));
                             }
-                            var fc = html.get(&#x27;firstChild&#x27;);
+                            fc = html.get(&#x27;firstChild&#x27;);
                             par.replace(html);
                             sel.selectNode(fc);
                         } else {
@@ -2021,13 +2077,13 @@
                     if (Y.UA.webkit) {
                         var inst = this.getInstance(),
                             sel = new inst.EditorSelection(),
-                            aNode = sel.anchorNode;
+                            aNode = sel.anchorNode, html,
+                            bgColor = aNode.getStyle(&#x27;backgroundColor&#x27;);
 
-                            var bgColor = aNode.getStyle(&#x27;backgroundColor&#x27;);
                             this._command(val);
                             sel = new inst.EditorSelection();
                             if (sel.anchorNode.test(&#x27;div&#x27;)) {
-                                var html = &#x27;&lt;span&gt;&#x27; + sel.anchorNode.get(&#x27;innerHTML&#x27;) + &#x27;&lt;&#x2F;span&gt;&#x27;;
+                                html = &#x27;&lt;span&gt;&#x27; + sel.anchorNode.get(&#x27;innerHTML&#x27;) + &#x27;&lt;&#x2F;span&gt;&#x27;;
                                 sel.anchorNode.set(&#x27;innerHTML&#x27;, html);
                                 sel.anchorNode.one(&#x27;span&#x27;).setStyle(&#x27;backgroundColor&#x27;, bgColor);
                                 sel.selectNode(sel.anchorNode.one(&#x27;span&#x27;));
@@ -2041,7 +2097,7 @@
                 * @method COMMANDS.justifycenter
                 * @static
                 *&#x2F;
-                justifycenter: function(cmd) {
+                justifycenter: function() {
                     this.command(&#x27;justify&#x27;, &#x27;justifycenter&#x27;);
                 },
                 &#x2F;**
@@ -2049,7 +2105,7 @@
                 * @method COMMANDS.justifyleft
                 * @static
                 *&#x2F;
-                justifyleft: function(cmd) {
+                justifyleft: function() {
                     this.command(&#x27;justify&#x27;, &#x27;justifyleft&#x27;);
                 },
                 &#x2F;**
@@ -2057,7 +2113,7 @@
                 * @method COMMANDS.justifyright
                 * @static
                 *&#x2F;
-                justifyright: function(cmd) {
+                justifyright: function() {
                     this.command(&#x27;justify&#x27;, &#x27;justifyright&#x27;);
                 },
                 &#x2F;**
@@ -2065,62 +2121,11 @@
                 * @method COMMANDS.justifyfull
                 * @static
                 *&#x2F;
-                justifyfull: function(cmd) {
+                justifyfull: function() {
                     this.command(&#x27;justify&#x27;, &#x27;justifyfull&#x27;);
                 }
             }
         });
-        
-        &#x2F;**
-        * This method is meant to normalize IE&#x27;s in ability to exec the proper command on elements with CSS styling.
-        * @method fixIETags
-        * @protected
-        * @param {String} cmd The command to execute
-        * @param {String} tag The tag to create
-        * @param {String} rule The rule that we are looking for.
-        *&#x2F;
-        var fixIETags = function(cmd, tag, rule) {
-            var inst = this.getInstance(),
-                doc = inst.config.doc,
-                sel = doc.selection.createRange(),
-                o = doc.queryCommandValue(cmd),
-                html, reg, m, p, d, s, c;
-
-            if (o) {
-                html = sel.htmlText;
-                reg = new RegExp(rule, &#x27;g&#x27;);
-                m = html.match(reg);
-
-                if (m) {
-                    html = html.replace(rule + &#x27;;&#x27;, &#x27;&#x27;).replace(rule, &#x27;&#x27;);
-
-                    sel.pasteHTML(&#x27;&lt;var id=&quot;yui-ie-bs&quot;&gt;&#x27;);
-
-                    p = doc.getElementById(&#x27;yui-ie-bs&#x27;);
-                    d = doc.createElement(&#x27;div&#x27;);
-                    s = doc.createElement(tag);
-                    
-                    d.innerHTML = html;
-                    if (p.parentNode !== inst.config.doc.body) {
-                        p = p.parentNode;
-                    }
-
-                    c = d.childNodes;
-
-                    p.parentNode.replaceChild(s, p);
-
-                    Y.each(c, function(f) {
-                        s.appendChild(f);
-                    });
-                    sel.collapse();
-                    if (sel.moveToElementText) {
-                        sel.moveToElementText(s);
-                    }
-                    sel.select();
-                }
-            }
-            this._command(cmd);
-        };
 
         if (Y.UA.ie) {
             ExecCommand.COMMANDS.bold = function() {

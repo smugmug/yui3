@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1424,7 +1428,7 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-
+    &#x2F;*jshint maxlen: 500 *&#x2F;
     &#x2F;**
      * Creates a wrapper around an iframe. It loads the content either from a local
      * file or from script and creates a local YUI instance bound to that new window and document.
@@ -1438,8 +1442,8 @@
 
     var Frame = function() {
         Frame.superclass.constructor.apply(this, arguments);
-    }, LAST_CHILD = &#x27;:last-child&#x27;, BODY = &#x27;body&#x27;;
-    
+    };
+
 
     Y.extend(Frame, Y.Base, {
         &#x2F;**
@@ -1477,17 +1481,17 @@
         * @return {Object} Hash table containing references to the new Document &amp; Window
         *&#x2F;
         _create: function(cb) {
-            var win, doc, res, node, html = &#x27;&#x27;,
+            var res, html = &#x27;&#x27;, timer,
+                &#x2F;&#x2F;if the src attr is different than the default, don&#x27;t create the document
+                create = (this.get(&#x27;src&#x27;) === Frame.ATTRS.src.value),
                 extra_css = ((this.get(&#x27;extracss&#x27;)) ? &#x27;&lt;style id=&quot;extra_css&quot;&gt;&#x27; + this.get(&#x27;extracss&#x27;) + &#x27;&lt;&#x2F;style&gt;&#x27; : &#x27;&#x27;);
             
-            this._iframe = Y.Node.create(Frame.HTML);
+            this._iframe = Y.one(Y.config.doc.createElement(&#x27;iframe&#x27;));
+            this._iframe.setAttrs(Frame.IFRAME_ATTRS);
+
             this._iframe.setStyle(&#x27;visibility&#x27;, &#x27;hidden&#x27;);
             this._iframe.set(&#x27;src&#x27;, this.get(&#x27;src&#x27;));
             this.get(&#x27;container&#x27;).append(this._iframe);
-
-            &#x2F;&#x2F;if the src attr is different than the default, don&#x27;t create the document
-            var create = (this.get(&#x27;src&#x27;) === Frame.ATTRS.src.value);
-
             this._iframe.set(&#x27;height&#x27;, &#x27;99%&#x27;);
 
             if (create) {
@@ -1503,9 +1507,9 @@
                     DEFAULT_CSS: Frame.DEFAULT_CSS,
                     EXTRA_CSS: extra_css
                 });
-                if (Y.config.doc.compatMode != &#x27;BackCompat&#x27;) {
+                if (Y.config.doc.compatMode !== &#x27;BackCompat&#x27;) {
                     Y.log(&#x27;Adding Doctype to frame: &#x27; + Frame.getDocType(), &#x27;info&#x27;, &#x27;frame&#x27;);
-                    
+
                     &#x2F;&#x2F;html = Frame.DOC_TYPE + &quot;\n&quot; + html;
                     html = Frame.getDocType() + &quot;\n&quot; + html;
                 } else {
@@ -1526,7 +1530,7 @@
 
             if (!res.doc.documentElement) {
                 Y.log(&#x27;document.documentElement was not found, running timer&#x27;, &#x27;warn&#x27;, &#x27;frame&#x27;);
-                var timer = Y.later(1, this, function() {
+                timer = Y.later(1, this, function() {
                     if (res.doc &amp;&amp; res.doc.documentElement) {
                         Y.log(&#x27;document.documentElement found inside timer&#x27;, &#x27;info&#x27;, &#x27;frame&#x27;);
                         cb(res);
@@ -1569,7 +1573,7 @@
         *&#x2F;
         _onDomEvent: function(e) {
             var xy, node;
-            
+
             if (!Y.Node.getDOMNode(this._iframe)) {
                 &#x2F;&#x2F;The iframe is null for some reason, bail on sending events.
                 return;
@@ -1622,7 +1626,7 @@
             if (e._event.clipboardData) {
                 data = e._event.clipboardData.getData(&#x27;Text&#x27;);
             }
-            
+
             if (win.clipboardData) {
                 data = win.clipboardData.getData(&#x27;Text&#x27;);
                 if (data === &#x27;&#x27;) { &#x2F;&#x2F; Could be empty, or failed
@@ -1632,12 +1636,12 @@
                     }
                 }
             }
-            
+
 
             e.frameTarget = e.target;
             e.frameCurrentTarget = e.currentTarget;
             e.frameEvent = e;
-            
+
             if (data) {
                 e.clipboardData = {
                     data: data,
@@ -1681,7 +1685,7 @@
             }, this);
 
             inst.Node.DOM_EVENTS.paste = 1;
-            
+
             inst.on(&#x27;paste&#x27;, Y.bind(this._DOMPaste, this), inst.one(&#x27;body&#x27;));
 
             &#x2F;&#x2F;Adding focus&#x2F;blur to the window object
@@ -1694,13 +1698,10 @@
                 visibility: &#x27;inherit&#x27;
             });
             inst.one(&#x27;body&#x27;).setStyle(&#x27;display&#x27;, &#x27;block&#x27;);
-            if (Y.UA.ie) {
-                &#x2F;&#x2F;this._fixIECursors();
-            }
         },
         &#x2F;**
         * It appears that having a BR tag anywhere in the source &quot;below&quot; a table with a percentage width (in IE 7 &amp; 8)
-        * if there is any TEXTINPUT&#x27;s outside the iframe, the cursor will rapidly flickr and the CPU would occasionally 
+        * if there is any TEXTINPUT&#x27;s outside the iframe, the cursor will rapidly flickr and the CPU would occasionally
         * spike. This method finds all &lt;BR&gt;&#x27;s below the sourceIndex of the first table. Does some checks to see if they
         * can be modified and replaces then with a &lt;WBR&gt; so the layout will remain in tact, but the flickering will
         * no longer happen.
@@ -1718,7 +1719,7 @@
                 brs.each(function(n) {
                     var p = n.get(&#x27;parentNode&#x27;),
                         c = p.get(&#x27;children&#x27;), b = p.all(&#x27;&gt;br&#x27;);
-                    
+
                     if (p.test(&#x27;div&#x27;)) {
                         if (c.size() &gt; 2) {
                             n.replace(inst.Node.create(&#x27;&lt;wbr&gt;&#x27;));
@@ -1734,7 +1735,7 @@
                             }
                         }
                     }
-                    
+
                 });
             }
         },
@@ -1749,7 +1750,7 @@
                 this._ready = true;
                 var inst = this.getInstance(),
                     args = Y.clone(this.get(&#x27;use&#x27;));
-                
+
                 this.fire(&#x27;contentready&#x27;);
 
                 Y.log(&#x27;On available for body of iframe&#x27;, &#x27;info&#x27;, &#x27;frame&#x27;);
@@ -1783,7 +1784,7 @@
         _ieHeightCounter: null,
         &#x2F;**
         * Internal method to set the height of the body to the height of the document in IE.
-        * With contenteditable being set, the document becomes unresponsive to clicks, this 
+        * With contenteditable being set, the document becomes unresponsive to clicks, this
         * method expands the body to be the height of the document so that doesn&#x27;t happen.
         * @private
         * @method _ieSetBodyHeight
@@ -1793,7 +1794,7 @@
                 this._ieHeightCounter = 0;
             }
             this._ieHeightCounter++;
-            var run = false;
+            var run = false, inst, h, bh;
             if (!e) {
                 run = true;
             }
@@ -1810,9 +1811,9 @@
             }
             if (run) {
                 try {
-                    var inst = this.getInstance();
-                    var h = this._iframe.get(&#x27;offsetHeight&#x27;);
-                    var bh = inst.config.doc.body.scrollHeight;
+                    inst = this.getInstance();
+                    h = this._iframe.get(&#x27;offsetHeight&#x27;);
+                    bh = inst.config.doc.body.scrollHeight;
                     if (h &gt; bh) {
                         h = (h - 15) + &#x27;px&#x27;;
                         inst.config.doc.body.style.height = h;
@@ -1872,7 +1873,7 @@
                 inst.one(&#x27;body&#x27;).set(&#x27;innerHTML&#x27;, html);
             } else {
                 &#x2F;&#x2F;This needs to be wrapped in a contentready callback for the !_ready state
-                this.on(&#x27;contentready&#x27;, Y.bind(function(html, e) {
+                this.on(&#x27;contentready&#x27;, Y.bind(function(html) {
                     var inst = this.getInstance();
                     inst.one(&#x27;body&#x27;).set(&#x27;innerHTML&#x27;, html);
                 }, this, html));
@@ -1921,7 +1922,7 @@
             if (this._ready) {
                 var inst = this.getInstance(),
                     node = inst.one(&#x27;#extra_css&#x27;);
-                
+
                 node.remove();
                 inst.one(&#x27;head&#x27;).append(&#x27;&lt;style id=&quot;extra_css&quot;&gt;&#x27; + css + &#x27;&lt;&#x2F;style&gt;&#x27;);
             }
@@ -1937,7 +1938,7 @@
         _instanceLoaded: function(inst) {
             this._instance = inst;
             this._onContentReady();
-            
+
             var doc = this._instance.config.doc;
 
             if (this.get(&#x27;designMode&#x27;)) {
@@ -2071,17 +2072,18 @@
         *&#x2F;
         _handleFocus: function() {
             var inst = this.getInstance(),
-                sel = new inst.EditorSelection();
+                sel = new inst.EditorSelection(),
+                n, c, b, par;
 
             if (sel.anchorNode) {
                 Y.log(&#x27;_handleFocus being called..&#x27;, &#x27;info&#x27;, &#x27;frame&#x27;);
-                var n = sel.anchorNode, c;
-                
+                n = sel.anchorNode;
+
                 if (n.test(&#x27;p&#x27;) &amp;&amp; n.get(&#x27;innerHTML&#x27;) === &#x27;&#x27;) {
                     n = n.get(&#x27;parentNode&#x27;);
                 }
                 c = n.get(&#x27;childNodes&#x27;);
-                
+
                 if (c.size()) {
                     if (c.item(0).test(&#x27;br&#x27;)) {
                         sel.selectNode(n, true, false);
@@ -2100,9 +2102,9 @@
                             sel.selectNode(n, true, false);
                         }
                     } else {
-                        var b = inst.one(&#x27;br.yui-cursor&#x27;);
+                        b = inst.one(&#x27;br.yui-cursor&#x27;);
                         if (b) {
-                            var par = b.get(&#x27;parentNode&#x27;);
+                            par = b.get(&#x27;parentNode&#x27;);
                             if (par) {
                                 sel.selectNode(par, true, false);
                             }
@@ -2114,9 +2116,9 @@
         &#x2F;**
         * @method focus
         * @description Set the focus to the iframe
-        * @param {Function} fn Callback function to execute after focus happens        
+        * @param {Function} fn Callback function to execute after focus happens
         * @return {Frame}
-        * @chainable        
+        * @chainable
         *&#x2F;
         focus: function(fn) {
             if (Y.UA.ie &amp;&amp; Y.UA.ie &lt; 9) {
@@ -2162,7 +2164,7 @@
         * @method show
         * @description Show the iframe instance
         * @return {Frame}
-        * @chainable        
+        * @chainable
         *&#x2F;
         show: function() {
             this._iframe.setStyles({
@@ -2176,14 +2178,14 @@
                     }
                 } catch (e) { }
                 this.focus();
-            }           
+            }
             return this;
         },
         &#x2F;**
         * @method hide
         * @description Hide the iframe instance
         * @return {Frame}
-        * @chainable        
+        * @chainable
         *&#x2F;
         hide: function() {
             this._iframe.setStyles({
@@ -2229,16 +2231,32 @@
         * @description The default css used when creating the document.
         * @type String
         *&#x2F;
-        &#x2F;&#x2F;DEFAULT_CSS: &#x27;html { height: 95%; } body { padding: 7px; background-color: #fff; font: 13px&#x2F;1.22 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small; } a, a:visited, a:hover { color: blue !important; text-decoration: underline !important; cursor: text !important; } img { cursor: pointer !important; border: none; }&#x27;,
         DEFAULT_CSS: &#x27;body { background-color: #fff; font: 13px&#x2F;1.22 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small; } a, a:visited, a:hover { color: blue !important; text-decoration: underline !important; cursor: text !important; } img { cursor: pointer !important; border: none; }&#x27;,
         &#x2F;**
+        * The template string used to create the iframe, deprecated to use DOM instead of innerHTML
         * @static
         * @property HTML
-        * @description The template string used to create the iframe
         * @type String
+        * @deprecated
         *&#x2F;
         &#x2F;&#x2F;HTML: &#x27;&lt;iframe border=&quot;0&quot; frameBorder=&quot;0&quot; marginWidth=&quot;0&quot; marginHeight=&quot;0&quot; leftMargin=&quot;0&quot; topMargin=&quot;0&quot; allowTransparency=&quot;true&quot; width=&quot;100%&quot; height=&quot;99%&quot;&gt;&lt;&#x2F;iframe&gt;&#x27;,
-        HTML: &#x27;&lt;iframe border=&quot;0&quot; frameBorder=&quot;0&quot; marginWidth=&quot;0&quot; marginHeight=&quot;0&quot; leftMargin=&quot;0&quot; topMargin=&quot;0&quot; allowTransparency=&quot;true&quot; width=&quot;100%&quot; height=&quot;99%&quot;&gt;&lt;&#x2F;iframe&gt;&#x27;,
+        &#x2F;**
+        * Attributes to auto add to the dynamic iframe under the hood
+        * @static
+        * @property IFRAME_ATTRS
+        * @type Object
+        *&#x2F;
+        IFRAME_ATTRS: {
+            border: &#x27;0&#x27;,
+            frameBorder: &#x27;0&#x27;,
+            marginWidth: &#x27;0&#x27;,
+            marginHeight: &#x27;0&#x27;,
+            leftMargin: &#x27;0&#x27;,
+            topMargin: &#x27;0&#x27;,
+            allowTransparency: &#x27;true&#x27;,
+            width: &quot;100%&quot;,
+            height: &quot;99%&quot;
+        },
         &#x2F;**
         * @static
         * @property PAGE_HTML
@@ -2430,7 +2448,7 @@
             },
             &#x2F;**
             * @attribute host
-            * @description A reference to the Editor instance 
+            * @description A reference to the Editor instance
             * @type Object
             *&#x2F;
             host: {
@@ -2440,7 +2458,7 @@
             * @attribute defaultblock
             * @description The default tag to use for block level items, defaults to: p
             * @type String
-            *&#x2F;            
+            *&#x2F;
             defaultblock: {
                 value: &#x27;p&#x27;
             }

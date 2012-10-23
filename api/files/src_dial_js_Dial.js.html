@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1427,7 +1431,7 @@
 &#x2F;**
  * Create a circular dial value range input visualized as a draggable handle on a
  * background element.
- * 
+ *
  * @module dial
  *&#x2F;
     var supportsVML = false;
@@ -1572,7 +1576,7 @@
                 return this._validateValue(val);
             }
         },
-        
+
         &#x2F;**
          * amount to increment&#x2F;decrement the dial value
          * when the arrow up&#x2F;down&#x2F;left&#x2F;right keys are pressed
@@ -1598,7 +1602,7 @@
         },
 
         &#x2F;**
-         * number of value increments in one 360 degree revolution 
+         * number of value increments in one 360 degree revolution
          * of the handle around the dial
          *
          * @attribute stepsPerRevolution
@@ -1610,7 +1614,7 @@
         },
 
         &#x2F;**
-         * number of decimal places of accuracy in the value 
+         * number of decimal places of accuracy in the value
          *
          * @attribute decimalPlaces
          * @type {Number}
@@ -1621,7 +1625,7 @@
         },
 
         &#x2F;**
-         * visible strings for the dial UI. This attribute is 
+         * visible strings for the dial UI. This attribute is
          * defined by the base Widget class but has an empty value. The
          * Dial is simply providing a default value for the attribute.
          * Gets localized strings in the current language
@@ -1637,8 +1641,8 @@
         },
 
         &#x2F;**
-         * distance from the center of the dial to the 
-         * center of the marker and handle, when at rest. 
+         * distance from the center of the dial to the
+         * center of the marker and handle, when at rest.
          * The value is a percent of the radius of the dial.
          *
          * @attribute handleDistance
@@ -1648,7 +1652,7 @@
         handleDistance:{
             value:0.75
         }
-        
+
     };
 
     &#x2F;**
@@ -1662,8 +1666,8 @@
     function makeClassName(str) {
         return Y.ClassNameManager.getClassName(Dial.NAME, str);
     }
-    
-	 &#x2F;** array of static constants used to identify the classname applied to the Dial DOM objects 
+
+	 &#x2F;** array of static constants used to identify the classname applied to the Dial DOM objects
 	 *
      * @property CSS_CLASSES
      * @type {Array}
@@ -1688,9 +1692,9 @@
         hidden : makeClassName(&quot;hidden&quot;),
         dragging : Y.ClassNameManager.getClassName(&quot;dd-dragging&quot;)
     };
-    
+
     &#x2F;* Static constants used to define the markup templates used to create Dial DOM elements *&#x2F;
-    
+
 
     &#x2F;**
      * template that will contain the Dial&#x27;s label.
@@ -1743,7 +1747,7 @@
 		 * @protected
 		 *&#x2F;
 		Dial.HANDLE_TEMPLATE = &#x27;&lt;div class=&quot;&#x27; + Dial.CSS_CLASSES.handle + &#x27;&quot; aria-labelledby=&quot;&quot; aria-valuetext=&quot;&quot; aria-valuemax=&quot;&quot; aria-valuemin=&quot;&quot; aria-valuenow=&quot;&quot; role=&quot;slider&quot;  tabindex=&quot;0&quot; title=&quot;{tooltipHandle}&quot;&gt;&#x27;;
-	
+
 	}else{ &#x2F;&#x2F; VML case
 		Dial.RING_TEMPLATE = &#x27;&lt;div class=&quot;&#x27; + Dial.CSS_CLASSES.ring +  &#x27; &#x27; + Dial.CSS_CLASSES.ringVml + &#x27;&quot;&gt;&#x27;+
 								&#x27;&lt;div class=&quot;&#x27; + Dial.CSS_CLASSES.northMark + &#x27;&quot;&gt;&lt;&#x2F;div&gt;&#x27;+
@@ -1787,7 +1791,7 @@
             this._renderMarker();
             this._renderCenterButton();
             this._renderHandle();
-                        
+
             &#x2F;&#x2F; object handles
             this.contentBox = this.get(&quot;contentBox&quot;);
 
@@ -1803,7 +1807,7 @@
             this._timesWrapped = 0;
             this._angle = this._getAngleFromValue(this.get(&#x27;value&#x27;));
             this._prevAng = this._angle;
-            
+
             &#x2F;&#x2F; init
             this._setTimesWrappedFromValue(this._originalValue);
             this._handleNode.set(&#x27;aria-valuemin&#x27;, this._minValue);
@@ -1835,27 +1839,27 @@
                                         &#x27;borderRadius&#x27;:this._centerButtonNodeRadius + &#x27;px&#x27;
                                      });
         },
-        
+
         &#x2F;**
          * Handles the mouseenter on the centerButton
-         * 
+         *
          * @method _handleCenterButtonEnter
          * @protected
          *&#x2F;
         _handleCenterButtonEnter : function(){
-            this._resetString.removeClass(Dial.CSS_CLASSES.hidden);    
-        },                                                     
-        
+            this._resetString.removeClass(Dial.CSS_CLASSES.hidden);
+        },
+
         &#x2F;**
          * Handles the mouseleave on the centerButton
-         * 
+         *
          * @method _handleCenterButtonLeave
          * @protected
          *&#x2F;
         _handleCenterButtonLeave : function(){
-            this._resetString.addClass(Dial.CSS_CLASSES.hidden);    
-        },                                                     
-        
+            this._resetString.addClass(Dial.CSS_CLASSES.hidden);
+        },
+
         &#x2F;**
          * Creates the Y.DD.Drag instance used for the handle movement and
          * binds Dial interaction to the configured value model.
@@ -1864,17 +1868,19 @@
          * @protected
          *&#x2F;
         bindUI : function() {
+
             this.after(&quot;valueChange&quot;, this._afterValueChange);
 
             var boundingBox = this.get(&quot;boundingBox&quot;),
                 &#x2F;&#x2F; Looking for a key event which will fire continously across browsers while the key is held down.
-                keyEvent = (!Y.UA.opera) ? &quot;down:&quot; : &quot;press:&quot;,            
+                keyEvent = (!Y.UA.opera) ? &quot;down:&quot; : &quot;press:&quot;,
                 &#x2F;&#x2F; 38, 40 = arrow up&#x2F;down, 33, 34 = page up&#x2F;down,  35 , 36 = end&#x2F;home
                 keyEventSpec = keyEvent + &quot;38,40,33,34,35,36&quot;,
                 &#x2F;&#x2F; 37 , 39 = arrow left&#x2F;right
                 keyLeftRightSpec = keyEvent + &quot;37,39&quot;,
                 &#x2F;&#x2F; 37 , 39 = arrow left&#x2F;right + meta (command&#x2F;apple key) for mac
-                keyLeftRightSpecMeta = keyEvent + &quot;37+meta,39+meta&quot;;
+                keyLeftRightSpecMeta = keyEvent + &quot;37+meta,39+meta&quot;,
+                Drag = Y.DD.Drag;
 
             Y.on(&quot;key&quot;, Y.bind(this._onDirectionKey, this), boundingBox, keyEventSpec);
             Y.on(&quot;key&quot;, Y.bind(this._onLeftRightKey, this), boundingBox, keyLeftRightSpec);
@@ -1883,14 +1889,17 @@
             Y.on(&#x27;mouseenter&#x27;, Y.bind(this._handleCenterButtonEnter, this), this._centerButtonNode);
             Y.on(&#x27;mouseleave&#x27;, Y.bind(this._handleCenterButtonLeave, this), this._centerButtonNode);
             &#x2F;&#x2F; Needed to replace mousedown&#x2F;up with gesturemovestart&#x2F;end to make behavior on touch devices work the same.
-            Y.on(&#x27;gesturemovestart&#x27;, Y.bind(this._resetDial, this), this._centerButtonNode);  &#x2F;&#x2F;[#2530441]    
-            Y.on(&#x27;gesturemoveend&#x27;, Y.bind(this._handleCenterButtonMouseup, this), this._centerButtonNode); 
-            Y.on(&#x27;gesturemovestart&#x27;, Y.bind(this._handleHandleMousedown, this), this._handleNode);
+            Y.on(&#x27;gesturemovestart&#x27;, Y.bind(this._resetDial, this), this._centerButtonNode);  &#x2F;&#x2F;[#2530441]
+            Y.on(&#x27;gesturemoveend&#x27;, Y.bind(this._handleCenterButtonMouseup, this), this._centerButtonNode);
 
-            Y.on(&#x27;gesturemovestart&#x27;, Y.bind(this._handleMousedown, this), this._ringNode); &#x2F;&#x2F; [#2530766] 
+
+            Y.on(Drag.START_EVENT, Y.bind(this._handleHandleMousedown, this), this._handleNode);
+            Y.on(Drag.START_EVENT, Y.bind(this._handleMousedown, this), this._ringNode); &#x2F;&#x2F; [#2530766]
+
+            &#x2F;&#x2F;TODO: Can this be merged this into the drag:end event listener to avoid another registration?
             Y.on(&#x27;gesturemoveend&#x27;, Y.bind(this._handleRingMouseup, this), this._ringNode);
 
-            this._dd1 = new Y.DD.Drag({ &#x2F;&#x2F;&#x2F;&#x2F; [#2530206] changed global this._dd1 from just var dd1 = new Y.DD.drag so 
+            this._dd1 = new Drag({ &#x2F;&#x2F;&#x2F;&#x2F; [#2530206] changed global this._dd1 from just var dd1 = new Y.DD.drag so
                 node: this._handleNode,
                 on : {
                     &#x27;drag:drag&#x27; : Y.bind(this._handleDrag, this),
@@ -1916,68 +1925,68 @@
                 this._timesWrapped = Math.floor(val &#x2F; this._stepsPerRevolution);
             }
         },
-        
+
         &#x2F;**
-         * gets the angle of the line from the center of the Dial to the center of the handle 
+         * gets the angle of the line from the center of the Dial to the center of the handle
          *
          * @method _getAngleFromHandleCenter
-         * @param handleCenterX {number} 
+         * @param handleCenterX {number}
          * @param handleCenterY {number}
          * @return ang {number} the angle
          * @protected
          *&#x2F;
         _getAngleFromHandleCenter : function(handleCenterX, handleCenterY){
-            var ang = Math.atan( (this._dialCenterY - handleCenterY)  &#x2F;  (this._dialCenterX - handleCenterX)  ) * (180 &#x2F; Math.PI); 
+            var ang = Math.atan( (this._dialCenterY - handleCenterY)  &#x2F;  (this._dialCenterX - handleCenterX)  ) * (180 &#x2F; Math.PI);
             ang = ((this._dialCenterX - handleCenterX) &lt; 0) ? ang + 90 : ang + 90 + 180; &#x2F;&#x2F; Compensate for neg angles from Math.atan
             return ang;
         },
-        
+
         &#x2F;**
-         * calculates the XY of the center of the dial relative to the ring node. 
+         * calculates the XY of the center of the dial relative to the ring node.
          * This is needed for calculating the angle of the handle
          *
          * @method _calculateDialCenter
          * @protected
          *&#x2F;
         _calculateDialCenter : function(){ &#x2F;&#x2F; #2531111 value, and marker don&#x27;t track handle when dial position changes on page (resize when inline)
-            this._dialCenterX = this._ringNode.get(&#x27;offsetWidth&#x27;) &#x2F; 2;                     
+            this._dialCenterX = this._ringNode.get(&#x27;offsetWidth&#x27;) &#x2F; 2;
             this._dialCenterY = this._ringNode.get(&#x27;offsetHeight&#x27;) &#x2F; 2;
         },
-        
+
         &#x2F;**
          * Handles the mouseup on the ring
-         * 
+         *
          * @method _handleRingMouseup
          * @protected
          *&#x2F;
         _handleRingMouseup : function(){
-            this._handleNode.focus();  &#x2F;&#x2F; need to re-focus on the handle so keyboard is accessible [#2530206] 
-        },                                                     
-        
+            this._handleNode.focus();  &#x2F;&#x2F; need to re-focus on the handle so keyboard is accessible [#2530206]
+        },
+
         &#x2F;**
          * Handles the mouseup on the centerButton
-         * 
+         *
          * @method _handleCenterButtonMouseup
          * @protected
          *&#x2F;
         _handleCenterButtonMouseup : function(){
-            this._handleNode.focus();  &#x2F;&#x2F; need to re-focus on the handle so keyboard is accessible [#2530206]  
-        },                                                     
-        
+            this._handleNode.focus();  &#x2F;&#x2F; need to re-focus on the handle so keyboard is accessible [#2530206]
+        },
+
         &#x2F;**
          * Handles the mousedown on the handle
-         * 
+         *
          * @method _handleHandleMousedown
          * @protected
          *&#x2F;
         _handleHandleMousedown : function(){
             this._handleNode.focus();  &#x2F;&#x2F; need to re-focus on the handle so keyboard is accessible [#2530206]
-            &#x2F;&#x2F; this is better done here instead of on _handleDragEnd 
-            &#x2F;&#x2F; because we should make the keyboard accessible after a click of the handle  
-        },                                                     
-        
+            &#x2F;&#x2F; this is better done here instead of on _handleDragEnd
+            &#x2F;&#x2F; because we should make the keyboard accessible after a click of the handle
+        },
+
         &#x2F;**
-         * handles the user dragging the handle around the Dial, gets the angle, 
+         * handles the user dragging the handle around the Dial, gets the angle,
          * checks for wrapping around top center.
          * Sets the new value of the Dial
          *
@@ -1991,7 +2000,7 @@
             ang,
             newValue;
 
-            &#x2F;&#x2F; The event was emitted from drag:drag of handle. 
+            &#x2F;&#x2F; The event was emitted from drag:drag of handle.
             &#x2F;&#x2F; The center of the handle is top left position of the handle node + radius of handle.
             &#x2F;&#x2F; This is different than a mousedown on the ring.
             handleCenterX = (parseInt(this._handleNode.getStyle(&#x27;left&#x27;),10) + this._handleNodeRadius);
@@ -2009,7 +2018,7 @@
                 }
             }
             newValue = this._getValueFromAngle(ang); &#x2F;&#x2F; This function needs the current _timesWrapped value. That&#x27;s why it comes after the _timesWrapped code above
-            
+
             &#x2F;&#x2F; If you&#x27;ve gone past max more than one full revolution, we decrement the _timesWrapped value
             &#x2F;&#x2F; This gives the effect of a ratchet mechanism.
             &#x2F;&#x2F; It feels like you are never more than one revolution past max
@@ -2021,7 +2030,7 @@
             }else if(newValue &lt; (this._minValue - this._stepsPerRevolution) ){
                 this._timesWrapped ++;
             }
-            this._prevAng = ang; &#x2F;&#x2F; need to keep the previous angle in order to check for wrapping on the next drag, click, or keypress 
+            this._prevAng = ang; &#x2F;&#x2F; need to keep the previous angle in order to check for wrapping on the next drag, click, or keypress
 
             this._handleValuesBeyondMinMax(e, newValue);
         },
@@ -2034,119 +2043,125 @@
          * @private
          *&#x2F;
         _handleMousedown : function(e){ &#x2F;&#x2F; #2530306
-            var minAng = this._getAngleFromValue(this._minValue),
-            maxAng = this._getAngleFromValue(this._maxValue),
-            newValue, oppositeMidRangeAngle,
-            handleCenterX, handleCenterY, 
-            ang;
 
-            &#x2F;&#x2F; The event was emitted from mousedown on the ring node,
-            &#x2F;&#x2F; so the center of the handle should be the XY of mousedown. 
-            if(Y.UA.ios){  &#x2F;&#x2F; ios adds the scrollLeft and top onto clientX and Y in a native click
-                handleCenterX = (e.clientX - this._ringNode.getX());
-                handleCenterY = (e.clientY - this._ringNode.getY());
-            }else{
-                handleCenterX = (e.clientX + Y.one(&#x27;document&#x27;).get(&#x27;scrollLeft&#x27;) - this._ringNode.getX());
-                handleCenterY = (e.clientY + Y.one(&#x27;document&#x27;).get(&#x27;scrollTop&#x27;) - this._ringNode.getY());
-            }
-            ang = this._getAngleFromHandleCenter(handleCenterX, handleCenterY);
-             
-            &#x2F;* &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
-            * The next sections of logic
-            * set this._timesWrapped in the different cases of value range
-            * and value range position,            
-            * then the Dial value is set at the end of this method
-            *&#x2F; &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
-            
-            
-            &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
-            if(this._maxValue - this._minValue &gt; this._stepsPerRevolution){
-            &#x2F;&#x2F; Case: range min-to-max is greater than stepsPerRevolution (one revolution) 
+            if (this._ringNode.compareTo(e.target)) {
+                var minAng = this._getAngleFromValue(this._minValue),
+                maxAng = this._getAngleFromValue(this._maxValue),
+                newValue, oppositeMidRangeAngle,
+                handleCenterX, handleCenterY,
+                ang;
 
-                &#x2F;&#x2F; This checks the shortest way around the dial between the prevAng and this ang.
-                if(Math.abs(this._prevAng - ang) &gt; 180){ &#x2F;&#x2F; this crossed a wrapping
-                
-                    &#x2F;&#x2F; Only change the _timesWrapped if it&#x27;s between minTimesWrapped and maxTimesWrapped 
-                    if((this._timesWrapped &gt; this._minTimesWrapped) &amp;&amp; 
-                       (this._timesWrapped &lt; this._maxTimesWrapped)
-                    ){ 
-                        &#x2F;&#x2F; this checks which direction, clock wise or CCW and incr or decr _timesWrapped
-                        this._timesWrapped = ((this._prevAng - ang) &gt; 0) ? (this._timesWrapped + 1) : (this._timesWrapped - 1);
-                    }
-                &#x2F;&#x2F; special case of getting un-stuck from a min value case 
-                &#x2F;&#x2F; where timesWrapped is minTimesWrapped but new ang won&#x27;t trigger a cross wrap boundry
-                &#x2F;&#x2F; because prevAng is set to 0 or &gt; 0
-                }else if(
-                        (this._timesWrapped === this._minTimesWrapped) &amp;&amp; 
-                        (ang - this._prevAng &lt; 180)
-                ){ 
-                    this._timesWrapped ++;
-                } &#x2F;&#x2F;it didn&#x27;t cross a wrapping boundary
 
-            } &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
-            else if(this._maxValue - this._minValue === this._stepsPerRevolution){ 
-            &#x2F;&#x2F; Case: range min-to-max === stepsPerRevolution     (one revolution)
-            &#x2F;&#x2F; This means min and max will be at same angle
-            &#x2F;&#x2F; This does not mean they are at &quot;north&quot; 
-            
-                if(ang &lt; minAng){ &#x2F;&#x2F; if mousedown angle is &lt; minAng (and maxAng, because they&#x27;re the same)
-                                  &#x2F;&#x2F; The only way it can be, is if min and max are not at north
-                    this._timesWrapped = 1;
+
+                &#x2F;&#x2F; The event was emitted from mousedown on the ring node,
+                &#x2F;&#x2F; so the center of the handle should be the XY of mousedown.
+                if(Y.UA.ios){  &#x2F;&#x2F; ios adds the scrollLeft and top onto clientX and Y in a native click
+                    handleCenterX = (e.clientX - this._ringNode.getX());
+                    handleCenterY = (e.clientY - this._ringNode.getY());
                 }else{
-                    this._timesWrapped = 0;
+                    handleCenterX = (e.clientX + Y.one(&#x27;document&#x27;).get(&#x27;scrollLeft&#x27;) - this._ringNode.getX());
+                    handleCenterY = (e.clientY + Y.one(&#x27;document&#x27;).get(&#x27;scrollTop&#x27;) - this._ringNode.getY());
                 }
-                
-            } &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
-            else if(minAng &gt; maxAng){  
-            &#x2F;&#x2F; Case: range includes the wrap point (north) 
-            &#x2F;&#x2F; Because of &quot;else if&quot;...
-            &#x2F;&#x2F; range is &lt; stepsPerRevolution
-            
-                if( 
-                   (this._prevAng &gt;= minAng) &amp;&amp; &#x2F;&#x2F; if prev angle was greater than angle of min and...
-                   (ang &lt;= (minAng + maxAng) &#x2F; 2) &#x2F;&#x2F; the angle of this click is less than 
-                                                  &#x2F;&#x2F; the angle opposite the mid-range angle, then...
-                ){
-                    this._timesWrapped ++; 
-                }else if( 
-                    (this._prevAng &lt;= maxAng) &amp;&amp; 
-                    &#x2F;&#x2F; if prev angle is &lt; max angle and...
-                    
-                    (ang &gt; (minAng + maxAng) &#x2F; 2)
-                    &#x2F;&#x2F; the angle of this click is greater than,
-                    &#x2F;&#x2F; the angle opposite the mid-range angle and...
-                    
-                ){  
-                    this._timesWrapped --;
-                }
-                
-            } &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
-            else{  
-            &#x2F;&#x2F; &quot;else&quot; Case: min-to-max range doesn&#x27;t include the wrap point
-            &#x2F;&#x2F; Because of &quot;else if&quot;...
-            &#x2F;&#x2F; range is still &lt; stepsPerRevolution
-            
-                if ((ang &lt; minAng) || (ang &gt; maxAng)){ &#x2F;&#x2F; angle is out of range
-                    oppositeMidRangeAngle = (((minAng + maxAng) &#x2F; 2) + 180) % 360; 
-                    &#x2F;&#x2F; This is the bisection of the min-to-max range + 180.  (opposite the bisection)
+                ang = this._getAngleFromHandleCenter(handleCenterX, handleCenterY);
 
-                    if(oppositeMidRangeAngle &gt; 180){
-                        newValue = ((maxAng &lt; ang) &amp;&amp; (ang &lt; oppositeMidRangeAngle)) ? this.get(&#x27;max&#x27;) : this.get(&#x27;min&#x27;);
-                    }else{ &#x2F;&#x2F;oppositeMidRangeAngle &lt;= 180
-                        newValue = ((minAng &gt; ang) &amp;&amp; (ang &gt; oppositeMidRangeAngle)) ? this.get(&#x27;min&#x27;) : this.get(&#x27;max&#x27;);
+                &#x2F;* &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
+                * The next sections of logic
+                * set this._timesWrapped in the different cases of value range
+                * and value range position,
+                * then the Dial value is set at the end of this method
+                *&#x2F; &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
+
+
+                &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
+                if(this._maxValue - this._minValue &gt; this._stepsPerRevolution){
+
+                &#x2F;&#x2F; Case: range min-to-max is greater than stepsPerRevolution (one revolution)
+
+                    &#x2F;&#x2F; This checks the shortest way around the dial between the prevAng and this ang.
+                    if(Math.abs(this._prevAng - ang) &gt; 180){ &#x2F;&#x2F; this crossed a wrapping
+
+                        &#x2F;&#x2F; Only change the _timesWrapped if it&#x27;s between minTimesWrapped and maxTimesWrapped
+                        if((this._timesWrapped &gt; this._minTimesWrapped) &amp;&amp;
+                           (this._timesWrapped &lt; this._maxTimesWrapped)
+                        ){
+                            &#x2F;&#x2F; this checks which direction, clock wise or CCW and incr or decr _timesWrapped
+                            this._timesWrapped = ((this._prevAng - ang) &gt; 0) ? (this._timesWrapped + 1) : (this._timesWrapped - 1);
+                        }
+                    &#x2F;&#x2F; special case of getting un-stuck from a min value case
+                    &#x2F;&#x2F; where timesWrapped is minTimesWrapped but new ang won&#x27;t trigger a cross wrap boundry
+                    &#x2F;&#x2F; because prevAng is set to 0 or &gt; 0
+                    }else if(
+                            (this._timesWrapped === this._minTimesWrapped) &amp;&amp;
+                            (ang - this._prevAng &lt; 180)
+                    ){
+                        this._timesWrapped ++;
+                    } &#x2F;&#x2F;it didn&#x27;t cross a wrapping boundary
+
+                } &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
+                else if(this._maxValue - this._minValue === this._stepsPerRevolution){
+                &#x2F;&#x2F; Case: range min-to-max === stepsPerRevolution     (one revolution)
+                &#x2F;&#x2F; This means min and max will be at same angle
+                &#x2F;&#x2F; This does not mean they are at &quot;north&quot;
+
+                    if(ang &lt; minAng){ &#x2F;&#x2F; if mousedown angle is &lt; minAng (and maxAng, because they&#x27;re the same)
+                                      &#x2F;&#x2F; The only way it can be, is if min and max are not at north
+                        this._timesWrapped = 1;
+                    }else{
+                        this._timesWrapped = 0;
                     }
-                    this._prevAng = this._getAngleFromValue(newValue);
-                    this.set(&#x27;value&#x27;, newValue);
-                    this._setTimesWrappedFromValue(newValue);
-                    return;
-                }
-            }
-            
-            &#x2F;&#x2F; Now that _timesWrapped is set value .......................................................................
-            newValue = this._getValueFromAngle(ang); &#x2F;&#x2F; This function needs the correct, current _timesWrapped value.
-            this._prevAng = ang;  
 
-            this._handleValuesBeyondMinMax(e, newValue);
+                } &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
+                else if(minAng &gt; maxAng){
+                &#x2F;&#x2F; Case: range includes the wrap point (north)
+                &#x2F;&#x2F; Because of &quot;else if&quot;...
+                &#x2F;&#x2F; range is &lt; stepsPerRevolution
+
+                    if(
+                       (this._prevAng &gt;= minAng) &amp;&amp; &#x2F;&#x2F; if prev angle was greater than angle of min and...
+                       (ang &lt;= (minAng + maxAng) &#x2F; 2) &#x2F;&#x2F; the angle of this click is less than
+                                                      &#x2F;&#x2F; the angle opposite the mid-range angle, then...
+                    ){
+                        this._timesWrapped ++;
+                    }else if(
+                        (this._prevAng &lt;= maxAng) &amp;&amp;
+                        &#x2F;&#x2F; if prev angle is &lt; max angle and...
+
+                        (ang &gt; (minAng + maxAng) &#x2F; 2)
+                        &#x2F;&#x2F; the angle of this click is greater than,
+                        &#x2F;&#x2F; the angle opposite the mid-range angle and...
+
+                    ){
+                        this._timesWrapped --;
+                    }
+
+                } &#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
+                else{
+                &#x2F;&#x2F; &quot;else&quot; Case: min-to-max range doesn&#x27;t include the wrap point
+                &#x2F;&#x2F; Because of &quot;else if&quot;...
+                &#x2F;&#x2F; range is still &lt; stepsPerRevolution
+
+                    if ((ang &lt; minAng) || (ang &gt; maxAng)){ &#x2F;&#x2F; angle is out of range
+                        oppositeMidRangeAngle = (((minAng + maxAng) &#x2F; 2) + 180) % 360;
+                        &#x2F;&#x2F; This is the bisection of the min-to-max range + 180.  (opposite the bisection)
+
+                        if(oppositeMidRangeAngle &gt; 180){
+                            newValue = ((maxAng &lt; ang) &amp;&amp; (ang &lt; oppositeMidRangeAngle)) ? this.get(&#x27;max&#x27;) : this.get(&#x27;min&#x27;);
+                        }else{ &#x2F;&#x2F;oppositeMidRangeAngle &lt;= 180
+                            newValue = ((minAng &gt; ang) &amp;&amp; (ang &gt; oppositeMidRangeAngle)) ? this.get(&#x27;min&#x27;) : this.get(&#x27;max&#x27;);
+                        }
+                        this._prevAng = this._getAngleFromValue(newValue);
+                        this.set(&#x27;value&#x27;, newValue);
+                        this._setTimesWrappedFromValue(newValue);
+                        return;
+                    }
+                }
+
+                &#x2F;&#x2F; Now that _timesWrapped is set value .......................................................................
+                newValue = this._getValueFromAngle(ang); &#x2F;&#x2F; This function needs the correct, current _timesWrapped value.
+                this._prevAng = ang;
+
+                this._handleValuesBeyondMinMax(e, newValue);
+            }
         },
 
         &#x2F;**
@@ -2159,24 +2174,20 @@
          *&#x2F;
         _handleValuesBeyondMinMax : function(e, newValue){ &#x2F;&#x2F; #2530306
             &#x2F;&#x2F; If _getValueFromAngle() is passed 0, it increments the _timesWrapped value.
-            &#x2F;&#x2F; handle hitting max and min and going beyond, stops at max or min 
+            &#x2F;&#x2F; handle hitting max and min and going beyond, stops at max or min
             if((newValue &gt;= this._minValue) &amp;&amp; (newValue &lt;= this._maxValue)) {
                 this.set(&#x27;value&#x27;, newValue);
                 &#x2F;&#x2F; [#2530206] transfer the mousedown event from the _ringNode to the _handleNode drag, so we can mousedown, then continue dragging
                 if(e.currentTarget === this._ringNode){
                     &#x2F;&#x2F; Delegate to DD&#x27;s natural behavior
                     this._dd1._handleMouseDownEvent(e);
-                }            
-            }else if(newValue &gt; this._maxValue){
+                }
+            } else if(newValue &gt; this._maxValue){
                 this.set(&#x27;value&#x27;, this._maxValue);
-                if(e.type === &#x27;gesturemovestart&#x27;){
-                    this._prevAng = this._getAngleFromValue(this._maxValue);  &#x2F;&#x2F; #2530766 need for mousedown on the ring; causes prob for drag
-                } 
-            }else if(newValue &lt; this._minValue){
+                this._prevAng = this._getAngleFromValue(this._maxValue);  &#x2F;&#x2F; #2530766 need for mousedown on the ring; causes prob for drag
+            } else if(newValue &lt; this._minValue){
                 this.set(&#x27;value&#x27;, this._minValue);
-                if(e.type === &#x27;gesturemovestart&#x27;){
-                   this._prevAng = this._getAngleFromValue(this._minValue);
-                }  
+               this._prevAng = this._getAngleFromValue(this._minValue);
             }
         },
 
@@ -2193,7 +2204,7 @@
 
         &#x2F;*
          * When handle is handleDragEnd, this animates the return to the fixed dial
-         *&#x2F;        
+         *&#x2F;
 
         &#x2F;**
          * handles the end of a user dragging the handle, animates the handle returning to
@@ -2203,7 +2214,7 @@
          * @protected
          *&#x2F;
         _handleDragEnd : function(){
-            var node = this._handleNode;            
+            var node = this._handleNode;
                 node.transition({
                     duration: 0.08, &#x2F;&#x2F; seconds
                     easing: &#x27;ease-in&#x27;,
@@ -2241,7 +2252,7 @@
             newY = Math.round(Math.sin(thisAngle * rad) * this._handleDistance),
             newX = Math.round(Math.cos(thisAngle * rad) * this._handleDistance),
             dia = obj.get(&#x27;offsetWidth&#x27;); &#x2F;&#x2F;Ticket #2529852
-            
+
             newY = newY - (dia * 0.5);
             newX = newX - (dia * 0.5);
             if(typeArray){ &#x2F;&#x2F; just need the style for css transform left and top to animate the handle drag:end
@@ -2259,7 +2270,7 @@
          *&#x2F;
         syncUI : function() {
             &#x2F;&#x2F; Make the marker and the resetString display so their placement and borderRadius can be calculated, then hide them again.
-            &#x2F;&#x2F; We would have used visibility:hidden in the css of this class, 
+            &#x2F;&#x2F; We would have used visibility:hidden in the css of this class,
             &#x2F;&#x2F; but IE8 VML never returns to visible after applying visibility:hidden then removing it.
             this._setSizes();
             this._calculateDialCenter(); &#x2F;&#x2F; #2531111 initialize center of dial
@@ -2271,7 +2282,7 @@
 
         &#x2F;**
          * sets the sizes of ring, center-button, marker, handle, and VML ovals in pixels.
-         * Needed only because some IE versions 
+         * Needed only because some IE versions
          * ignore CSS percent sizes&#x2F;offsets.
          * so these must be set in pixels.
          * Normally these are set in % of the ring.
@@ -2293,8 +2304,8 @@
             setSize(this._handleNode, dia, this.get(&#x27;handleDiameter&#x27;));
             setSize(this._markerNode, dia, this.get(&#x27;markerDiameter&#x27;));
             setSize(this._centerButtonNode, dia, this.get(&#x27;centerButtonDiameter&#x27;));
-            
-            &#x2F;&#x2F; Set these (used for trig) this way instead of relative to dia, 
+
+            &#x2F;&#x2F; Set these (used for trig) this way instead of relative to dia,
             &#x2F;&#x2F; in case they have borders, have images etc.
             this._ringNodeRadius = this._ringNode.get(&#x27;offsetWidth&#x27;) * 0.5;
             this._handleNodeRadius = this._handleNode.get(&#x27;offsetWidth&#x27;) * 0.5;
@@ -2305,7 +2316,7 @@
             offset = (this._ringNodeRadius - this._centerButtonNodeRadius);
             this._centerButtonNode.setStyle(&#x27;left&#x27;, offset + &#x27;px&#x27;);
             this._centerButtonNode.setStyle(&#x27;top&#x27;, offset + &#x27;px&#x27;);
-            &#x2F;* 
+            &#x2F;*
             Place the resetString
             This seems like it should be able to be done with CSS,
             But since there is also a VML oval in IE that is absolute positioned,
@@ -2351,7 +2362,7 @@
         },
 
         &#x2F;**
-         * renders the DOM object for the Dial&#x27;s background marker which 
+         * renders the DOM object for the Dial&#x27;s background marker which
          * tracks the angle of the user dragging the handle
          *
          * @method _renderMarker
@@ -2365,7 +2376,7 @@
             }
             this._markerNode = marker;
         },
-        
+
         &#x2F;**
          * renders the DOM object for the Dial&#x27;s center
          *
@@ -2389,7 +2400,7 @@
          * @method _renderHandle
          * @protected
          *&#x2F;
-        _renderHandle : function() {        
+        _renderHandle : function() {
             var labelId = Dial.CSS_CLASSES.label + Y.guid(), &#x2F;&#x2F;get this unique id once then use for handle and label for ARIA
                 contentBox = this.get(&quot;contentBox&quot;),
                 handle = contentBox.one(&quot;.&quot; + Dial.CSS_CLASSES.handle);
@@ -2443,7 +2454,7 @@
 
         &#x2F;**
          * sets the Dial&#x27;s value in response to key events.
-         * Left and right keys are in a separate method 
+         * Left and right keys are in a separate method
          * in case an implementation wants to increment values
          * but needs left and right arrow keys for other purposes.
          *
@@ -2512,7 +2523,7 @@
                     break;
             }
         },
-        
+
         &#x2F;**
          * increments Dial value by a minor increment
          *
@@ -2528,7 +2539,7 @@
                 &#x2F;&#x2F; Removing the toFixed here, loses the feature of &quot;snap-to&quot; when for example, stepsPerRevolution is 10 and decimalPlaces is 0.
                 this.set(&#x27;value&#x27;, newVal.toFixed(this.get(&#x27;decimalPlaces&#x27;)) - 0);
         },
-        
+
         &#x2F;**
          * decrements Dial value by a minor increment
          *
@@ -2540,7 +2551,7 @@
                 newVal = Math.max(newVal, this.get(&quot;min&quot;));
                 this.set(&#x27;value&#x27;, newVal.toFixed(this.get(&#x27;decimalPlaces&#x27;)) - 0);
         },
-        
+
         &#x2F;**
          * increments Dial value by a major increment
          *
@@ -2552,7 +2563,7 @@
                 newVal = Math.min(newVal, this.get(&quot;max&quot;));
                 this.set(&#x27;value&#x27;, newVal.toFixed(this.get(&#x27;decimalPlaces&#x27;)) - 0);
         },
-        
+
         &#x2F;**
          * decrements Dial value by a major increment
          *
@@ -2573,8 +2584,8 @@
          *&#x2F;
         _setToMax : function(){
                 this.set(&#x27;value&#x27;, this.get(&quot;max&quot;));
-        },        
-        
+        },
+
         &#x2F;**
          * sets Dial value to dial&#x27;s min attr
          *
@@ -2583,10 +2594,10 @@
          *&#x2F;
         _setToMin : function(){
                 this.set(&#x27;value&#x27;, this.get(&quot;min&quot;));
-        },        
-        
+        },
+
         &#x2F;**
-         * resets Dial value to the orignal initial value. 
+         * resets Dial value to the orignal initial value.
          *
          * @method _resetDial
          * @protected
@@ -2599,9 +2610,9 @@
             this._resetString.addClass(Dial.CSS_CLASSES.hidden); &#x2F;&#x2F;[#2530441]
             this._handleNode.focus();
         },
-        
+
         &#x2F;**
-         * returns the handle angle associated with the current value of the Dial. 
+         * returns the handle angle associated with the current value of the Dial.
          * Returns a number between 0 and 360.
          *
          * @method _getAngleFromValue
@@ -2655,11 +2666,11 @@
          * @protected
          *&#x2F;
         _valueToDecimalPlaces : function(val) { &#x2F;&#x2F; [#2530206] cleaned up and better user feedback of when it&#x27;s max or min.
-            
+
         },
 
         &#x2F;**
-         * Updates the UI display value of the Dial to reflect 
+         * Updates the UI display value of the Dial to reflect
          * the value passed in.
          * Makes all other needed UI display changes
          *

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1468,6 +1472,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
         disabled       : getClassName(&#x27;menu-disabled&#x27;),
         hasChildren    : getClassName(&#x27;menu-has-children&#x27;),
         heading        : getClassName(&#x27;menu-heading&#x27;),
+        hidden         : getClassName(&#x27;menu-hidden&#x27;),
         item           : getClassName(&#x27;menu-item&#x27;),
         label          : getClassName(&#x27;menu-label&#x27;),
         menu           : getClassName(&#x27;menu&#x27;),
@@ -1510,21 +1515,6 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     },
 
     &#x2F;&#x2F; -- Public Methods -------------------------------------------------------
-
-    &#x2F;**
-    Closes all open submenus of this menu.
-
-    @method closeSubMenus
-    @chainable
-    **&#x2F;
-    closeSubMenus: function () {
-        &#x2F;&#x2F; Close all open submenus.
-        Y.Object.each(this._openMenus, function (item) {
-            item.close();
-        }, this);
-
-        return this;
-    },
 
     &#x2F;**
     Returns the HTML node (as a &#x60;Y.Node&#x60; instance) associated with the specified
@@ -1657,8 +1647,10 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
         options || (options = {});
 
         var classNames = this.classNames,
-            htmlNode   = item._htmlNode;
+            htmlNode   = item._htmlNode,
+            isHidden   = item.isHidden();
 
+        &#x2F;&#x2F; Create an HTML node for this menu item if one doesn&#x27;t already exist.
         if (!htmlNode) {
             htmlNode = item._htmlNode = Y.Node.create(Menu.Templates.item({
                 classNames: classNames,
@@ -1666,6 +1658,10 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
                 menu      : this
             }));
         }
+
+        &#x2F;&#x2F; Mark the HTML node as hidden if the item is hidden.
+        htmlNode.set(&#x27;aria-hidden&#x27;, isHidden);
+        htmlNode.toggleClass(classNames.hidden, isHidden);
 
         switch (item.type) {
             case &#x27;separator&#x27;:
@@ -1760,8 +1756,12 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
                 add          : this._afterAdd,
                 clear        : this._afterClear,
                 close        : this._afterClose,
+                disable      : this._afterDisable,
+                enable       : this._afterEnable,
+                hide         : this._afterHide,
                 open         : this._afterOpen,
                 remove       : this._afterRemove,
+                show         : this._afterShow,
                 visibleChange: this._afterVisibleChange
             }),
 
@@ -1794,19 +1794,23 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     returns a region object representing the coordinates the anchored node will
     occupy when anchored to the given point on the parent.
 
-    The following anchor points are currently supported:
+    An anchor point is a string like &quot;tl-bl&quot;, which means &quot;anchor the top left
+    point of _nodeRegion_ to the bottom left point of _parentRegion_&quot;.
 
-      * &#x60;&#x27;bl-br&#x27;&#x60;: Anchor the bottom left of the child to the bottom right of
-        the parent.
-      * &#x60;&#x27;br-bl&#x27;&#x60;: Anchor the bottom right of the child to the bottom left of
-        the parent.
-      * &#x60;&#x27;tl-tr&#x27;&#x60;: Anchor the top left of the child to the top right of the
-        parent.
-      * &#x60;&#x27;tr-tl&#x27;&#x60;: Anchor the top right of the child to the top left of the
-        parent.
+    Any combination of top&#x2F;bottom&#x2F;left&#x2F;right anchor points may be used as long
+    as they follow this format. Here are a few examples:
+
+      * &#x60;&#x27;bl-br&#x27;&#x60;: Anchor the bottom left of _nodeRegion_ to the bottom right of
+        _parentRegion_.
+      * &#x60;&#x27;br-bl&#x27;&#x60;: Anchor the bottom right of _nodeRegion_ to the bottom left of
+        _parentRegion_.
+      * &#x60;&#x27;tl-tr&#x27;&#x60;: Anchor the top left of _nodeRegion_ to the top right of
+        _parentRegion_.
+      * &#x60;&#x27;tr-tl&#x27;&#x60;: Anchor the top right of _nodeRegion_ to the top left of
+        _parentRegion_.
 
     @method _getAnchorRegion
-    @param {String} anchor Anchor point. See above for supported points.
+    @param {String} anchor Anchor point. See above for details.
     @param {Object} nodeRegion Region object for the node to be anchored (that
         is, the node that will be repositioned).
     @param {Object} parentRegion Region object for the node that will be
@@ -1815,43 +1819,74 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     @protected
     **&#x2F;
     _getAnchorRegion: function (anchor, nodeRegion, parentRegion) {
-        switch (anchor) {
-        case &#x27;tl-tr&#x27;:
-            return {
-                bottom: parentRegion.top + nodeRegion.height,
-                left  : parentRegion.right,
-                right : parentRegion.right + nodeRegion.width,
-                top   : parentRegion.top
-            };
+        var region = {};
 
-        case &#x27;bl-br&#x27;:
-            return {
-                bottom: parentRegion.bottom,
-                left  : parentRegion.right,
-                right : parentRegion.right + nodeRegion.width,
-                top   : parentRegion.bottom - nodeRegion.height
-            };
+        anchor.replace(&#x2F;^([bt])([lr])-([bt])([lr])&#x2F;i, function (match, p1, p2, p3, p4) {
+            var lookup = {
+                    b: &#x27;bottom&#x27;,
+                    l: &#x27;left&#x27;,
+                    r: &#x27;right&#x27;,
+                    t: &#x27;top&#x27;
+                };
 
-        case &#x27;tr-tl&#x27;:
-            return {
-                bottom: parentRegion.top + nodeRegion.height,
-                left  : parentRegion.left - nodeRegion.width,
-                right : parentRegion.left,
-                top   : parentRegion.top
-            };
+            region[lookup[p1]] = parentRegion[lookup[p3]];
+            region[lookup[p2]] = parentRegion[lookup[p4]];
+        });
 
-        case &#x27;br-bl&#x27;:
-            return {
-                bottom: parentRegion.bottom,
-                left  : parentRegion.left - nodeRegion.width,
-                right : parentRegion.left,
-                top   : parentRegion.bottom - nodeRegion.height
-            };
+        &#x27;bottom&#x27; in region || (region.bottom = region.top + nodeRegion.height);
+        &#x27;left&#x27; in region   || (region.left = region.right - nodeRegion.width);
+        &#x27;right&#x27; in region  || (region.right = region.left + nodeRegion.width);
+        &#x27;top&#x27; in region    || (region.top = region.bottom - nodeRegion.height);
+
+        return region;
+    },
+
+    _getSortedAnchorRegions: function (points, nodeRegion, parentRegion, containerRegion) {
+        containerRegion || (containerRegion = Y.DOM.viewportRegion());
+
+        &#x2F;&#x2F; Run through each possible anchor point and test whether it would
+        &#x2F;&#x2F; allow the submenu to be displayed fully within the viewport. Stop at
+        &#x2F;&#x2F; the first anchor point that works.
+        var anchors = [],
+            i, len, point, region;
+
+        for (i = 0, len = points.length; i &lt; len; i++) {
+            point = points[i];
+
+            &#x2F;&#x2F; Allow arrays of strings or arrays of objects like {point: &#x27;...&#x27;}.
+            if (point.point) {
+                point = point.point;
+            }
+
+            region = this._getAnchorRegion(point, nodeRegion, parentRegion);
+
+            anchors.push({
+                point : point,
+                region: region,
+                score : this._inRegion(region, containerRegion)
+            });
         }
+
+        &#x2F;&#x2F; Sort the anchors in descending order by score (higher score is
+        &#x2F;&#x2F; better).
+        anchors.sort(function (a, b) {
+            if (a.score === b.score) {
+                return 0;
+            } else if (a.score === true) {
+                return -1;
+            } else if (b.score === true) {
+                return 1;
+            } else {
+                return b.score - a.score;
+            }
+        });
+
+        &#x2F;&#x2F; Return the sorted anchors.
+        return anchors;
     },
 
     &#x2F;**
-    Hides this specified menu item by moving its htmlNode offscreen.
+    Hides the specified menu container by moving its htmlNode offscreen.
 
     @method _hideMenu
     @param {Menu.Item} item Menu item.
@@ -1915,44 +1950,15 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     _positionMenu: function (item, htmlNode) {
         htmlNode || (htmlNode = this.getHTMLNode(item));
 
-        var anchors = (item.parent &amp;&amp; item.parent.data.menuAnchors) || [
-                {point: &#x27;tl-tr&#x27;},
-                {point: &#x27;bl-br&#x27;},
-                {point: &#x27;tr-tl&#x27;},
-                {point: &#x27;br-bl&#x27;}
-            ],
+        var childrenNode = htmlNode.one(&#x27;.&#x27; + this.classNames.children),
 
-            childrenNode   = htmlNode.one(&#x27;.&#x27; + this.classNames.children),
-            childrenRegion = childrenNode.get(&#x27;region&#x27;),
-            parentRegion   = htmlNode.get(&#x27;region&#x27;),
-            viewportRegion = htmlNode.get(&#x27;viewportRegion&#x27;);
-
-        &#x2F;&#x2F; Run through each possible anchor point and test whether it would
-        &#x2F;&#x2F; allow the submenu to be displayed fully within the viewport. Stop at
-        &#x2F;&#x2F; the first anchor point that works.
-        var anchor;
-
-        for (var i = 0, len = anchors.length; i &lt; len; i++) {
-            anchor = anchors[i];
-
-            anchor.region = this._getAnchorRegion(anchor.point, childrenRegion,
-                    parentRegion);
-
-            anchor.score = this._inRegion(anchor.region, viewportRegion);
-        }
-
-        &#x2F;&#x2F; Sort the anchors by score.
-        anchors.sort(function (a, b) {
-            if (a.score === b.score) {
-                return 0;
-            } else if (a.score === true) {
-                return -1;
-            } else if (b.score === true) {
-                return 1;
-            } else {
-                return b.score - a.score;
-            }
-        });
+            anchors = this._getSortedAnchorRegions(
+                (item.parent &amp;&amp; item.parent.data.menuAnchors) || [
+                    &#x27;tl-tr&#x27;, &#x27;bl-br&#x27;, &#x27;tr-tl&#x27;, &#x27;br-bl&#x27;
+                ],
+                childrenNode.get(&#x27;region&#x27;),
+                htmlNode.get(&#x27;region&#x27;)
+            );
 
         &#x2F;&#x2F; Remember which anchors we used for this item so that we can default
         &#x2F;&#x2F; that anchor for submenus of this item if necessary.
@@ -2063,6 +2069,52 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     },
 
     &#x2F;**
+    Handles &#x60;disable&#x60; events for this menu.
+
+    @method _afterDisable
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _afterDisable: function (e) {
+        var htmlNode = this.getHTMLNode(e.item);
+
+        if (htmlNode) {
+            htmlNode.addClass(this.classNames.disabled);
+        }
+    },
+
+    &#x2F;**
+    Handles &#x60;enable&#x60; events for this menu.
+
+    @method _afterEnable
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _afterEnable: function (e) {
+        var htmlNode = this.getHTMLNode(e.item);
+
+        if (htmlNode) {
+            htmlNode.removeClass(this.classNames.disabled);
+        }
+    },
+
+    &#x2F;**
+    Handles &#x60;hide&#x60; events for this menu.
+
+    @method _afterHide
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _afterHide: function (e) {
+        var htmlNode = this.getHTMLNode(e.item);
+
+        if (htmlNode) {
+            htmlNode.addClass(this.classNames.hidden);
+            htmlNode.set(&#x27;aria-hidden&#x27;, true);
+        }
+    },
+
+    &#x2F;**
     Handles &#x60;open&#x60; events for this menu.
 
     @method _afterOpen
@@ -2124,6 +2176,22 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     },
 
     &#x2F;**
+    Handles &#x60;show&#x60; events for this menu.
+
+    @method _afterShow
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _afterShow: function (e) {
+        var htmlNode = this.getHTMLNode(e.item);
+
+        if (htmlNode) {
+            htmlNode.removeClass(this.classNames.hidden);
+            htmlNode.set(&#x27;aria-hidden&#x27;, false);
+        }
+    },
+
+    &#x2F;**
     Handles &#x60;visibleChange&#x60; events for this menu.
 
     @method _afterVisibleChange
@@ -2144,7 +2212,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     _onItemClick: function (e) {
         var item       = this.getNodeById(e.currentTarget.getData(&#x27;item-id&#x27;)),
             eventName  = EVT_ITEM_CLICK + &#x27;#&#x27; + item.id,
-            isDisabled = item.isDisabled();
+            isDisabled = item.isDisabled() || item.isHidden();
 
         &#x2F;&#x2F; Avoid navigating to &#x27;#&#x27; if this item is disabled or doesn&#x27;t have a
         &#x2F;&#x2F; custom URL.
@@ -2182,12 +2250,11 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     @protected
     **&#x2F;
     _onItemMouseEnter: function (e) {
-        var item = this.getNodeById(e.currentTarget.get(&#x27;id&#x27;)),
-            self = this;
+        var item = this.getNodeById(e.currentTarget.get(&#x27;id&#x27;));
 
         clearTimeout(this._timeouts.item);
 
-        if (item.isOpen()) {
+        if (item.isOpen() || item.isDisabled()) {
             return;
         }
 
@@ -2204,8 +2271,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     @protected
     **&#x2F;
     _onItemMouseLeave: function (e) {
-        var item = this.getNodeById(e.currentTarget.get(&#x27;id&#x27;)),
-            self = this;
+        var item = this.getNodeById(e.currentTarget.get(&#x27;id&#x27;));
 
         clearTimeout(this._timeouts.item);
 
@@ -2265,6 +2331,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
             e.item.toggle();
         } else {
             this.closeSubMenus();
+            this.hide();
         }
     },
 

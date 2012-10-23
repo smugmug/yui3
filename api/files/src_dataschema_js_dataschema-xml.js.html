@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1573,7 +1577,7 @@ SchemaXML = {
         try {
             result = SchemaXML._getXPathResult(locator, context, xmldoc);
             while ((res = result.iterateNext())) {
-                value = res.textContent || res.value || res.text || res.innerHTML || null;
+                value = res.textContent || res.value || res.text || res.innerHTML || res.innerText || null;
             }
 
             &#x2F;&#x2F; FIXME: Why defer to a method that is mixed into this object?
@@ -1607,6 +1611,7 @@ SchemaXML = {
         &#x2F;&#x2F; Standards mode
         if (! Lang.isUndefined(xmldoc.evaluate)) {
             return xmldoc.evaluate(locator, context, xmldoc.createNSResolver(context.ownerDocument ? context.ownerDocument.documentElement : context.documentElement), 0, null);
+          
         }
         &#x2F;&#x2F; IE mode
         else {
@@ -1615,7 +1620,10 @@ SchemaXML = {
             &#x2F;&#x2F; XPath is supported
             try {
                 &#x2F;&#x2F; this fixes the IE 5.5+ issue where childnode selectors begin at 0 instead of 1
-                xmldoc.setProperty(&quot;SelectionLanguage&quot;, &quot;XPath&quot;);
+                try {
+                   xmldoc.setProperty(&quot;SelectionLanguage&quot;, &quot;XPath&quot;);
+                } catch (e) {}
+                
                 values = context.selectNodes(locator);
             }
             &#x2F;&#x2F; Fallback for DOM nodes and fragments

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1454,13 +1458,17 @@ Y.mix(Y.namespace(&quot;XML&quot;), {
             }
             catch(ee) {
                 try {
-                    if(!LANG.isUndefined(DOMParser)) {
+                    if (!LANG.isUndefined(DOMParser)) {
                         xmlDoc = new DOMParser().parseFromString(data, &quot;text&#x2F;xml&quot;);
+                    }
+                    if (!LANG.isUndefined(Windows.Data.Xml.Dom)) {
+                        xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
+                        xmlDoc.loadXml(data);
                     }
                 }
                 catch(e) {
                 }
-                    Y.log(ee.message + &quot; (Could not parse data to type XML Document)&quot;, &quot;warn&quot;, &quot;xml&quot;);
+                    Y.log(ee.message + &quot; (Could not initialize the ActiveX control for XML parsing)&quot;, &quot;warn&quot;, &quot;xml&quot;);
             }
         }
         

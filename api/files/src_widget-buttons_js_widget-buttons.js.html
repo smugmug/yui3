@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1685,7 +1689,10 @@ WidgetButtons.prototype = {
         this._updateDefaultButton();
 
         &#x2F;&#x2F; Bound with &#x60;Y.bind()&#x60; to make more extensible.
-        this.after(&#x27;buttonsChange&#x27;, Y.bind(&#x27;_afterButtonsChange&#x27;, this));
+        this.after({
+            buttonsChange      : Y.bind(&#x27;_afterButtonsChange&#x27;, this),
+            defaultButtonChange: Y.bind(&#x27;_afterDefaultButtonChange&#x27;, this)
+        });
 
         Y.after(this._bindUIButtons, this, &#x27;bindUI&#x27;);
         Y.after(this._syncUIButtons, this, &#x27;syncUI&#x27;);
@@ -1926,11 +1933,9 @@ WidgetButtons.prototype = {
     **&#x2F;
     _bindUIButtons: function () {
         &#x2F;&#x2F; Event handlers are bound with &#x60;bind()&#x60; to make them more extensible.
-
         var afterContentChange = Y.bind(&#x27;_afterContentChangeButtons&#x27;, this);
 
         this.after({
-            defaultButtonChange: Y.bind(&#x27;_afterDefaultButtonChange&#x27;, this),
             visibleChange      : Y.bind(&#x27;_afterVisibleChangeButtons&#x27;, this),
             headerContentChange: afterContentChange,
             bodyContentChange  : afterContentChange,
@@ -2390,7 +2395,10 @@ WidgetButtons.prototype = {
             handle  = handles[yuid],
             buttonContainer, buttonClassName;
 
-        handle &amp;&amp; handle.detach();
+        if (handle) {
+            handle.detach();
+        }
+
         delete handles[yuid];
 
         button.remove();
@@ -2450,7 +2458,7 @@ WidgetButtons.prototype = {
 
             for (i = 0; i &lt; numButtons; i += 1) {
                 button      = sectionButtons[i];
-                buttonIndex = oldNodes ? oldNodes.indexOf(button) : -1;
+                buttonIndex = oldNodes.indexOf(button);
 
                 &#x2F;&#x2F; Buttons already rendered in the Widget should remain there or
                 &#x2F;&#x2F; moved to their new index. New buttons will be added to the
@@ -2509,8 +2517,8 @@ WidgetButtons.prototype = {
     _uiSetDefaultButton: function (newButton, oldButton) {
         var primaryClassName = WidgetButtons.CLASS_NAMES.primary;
 
-        newButton &amp;&amp; newButton.addClass(primaryClassName);
-        oldButton &amp;&amp; oldButton.removeClass(primaryClassName);
+        if (newButton) { newButton.addClass(primaryClassName); }
+        if (oldButton) { oldButton.removeClass(primaryClassName); }
     },
 
     &#x2F;**

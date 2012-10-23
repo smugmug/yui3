@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1426,13 +1430,18 @@
     <pre class="code prettyprint linenums">
 
     &#x2F;**
-     * The Drag &amp; Drop Utility allows you to create a draggable interface efficiently, buffering you from browser-level abnormalities and enabling you to focus on the interesting logic surrounding your particular implementation. This component enables you to create a variety of standard draggable objects with just a few lines of code and then, using its extensive API, add your own specific implementation logic.
+     * The Drag &amp; Drop Utility allows you to create a draggable interface efficiently,
+     * buffering you from browser-level abnormalities and enabling you to focus on the interesting
+     * logic surrounding your particular implementation. This component enables you to create a
+     * variety of standard draggable objects with just a few lines of code and then,
+     * using its extensive API, add your own specific implementation logic.
      * @module dd
      * @main dd
      * @submodule dd-constrain
      *&#x2F;
     &#x2F;**
-     * Plugin for the dd-drag module to add the constraining methods to it. It supports constraining to a node or viewport. It supports tick based moves and XY axis constraints.
+     * Plugin for the dd-drag module to add the constraining methods to it.
+     * It supports constraining to a node or viewport. It supports tick based moves and XY axis constraints.
      * @class DDConstrained
      * @extends Base
      * @constructor
@@ -1469,7 +1478,7 @@
         *&#x2F;
         EV_TICK_ALIGN_Y = &#x27;drag:tickAlignY&#x27;,
 
-        C = function(config) {
+        C = function() {
             this._lazyAddAttrs = false;
             C.superclass.constructor.apply(this, arguments);
         };
@@ -1538,8 +1547,9 @@
             value: false
         },
         &#x2F;**
+        * CSS style string for the gutter of a region (supports negative values): &#x27;5 0&#x27;
+        * (sets top and bottom to 5px, left and right to 0px), &#x27;1 2 3 4&#x27; (top 1px, right 2px, bottom 3px, left 4px)
         * @attribute gutter
-        * @description CSS style string for the gutter of a region (supports negative values): &#x27;5 0&#x27; (sets top and bottom to 5px, left and right to 0px), &#x27;1 2 3 4&#x27; (top 1px, right 2px, bottom 3px, left 4px)
         * @type String
         *&#x2F;
         gutter: {
@@ -1595,7 +1605,7 @@
         * @type Object
         *&#x2F;
         constrain2view: {
-            setter: function(n) {
+            setter: function() {
                 return this.set(&#x27;constrain&#x27;, VIEW);
             }
         },
@@ -1626,7 +1636,7 @@
         destructor: function() {
             Y.each(
                 this._eventHandles,
-                function(handle, index) {
+                function(handle) {
                     handle.detach();
                 }
             );
@@ -1644,7 +1654,7 @@
                 EV_TICK_ALIGN_Y
             ];
 
-            Y.each(ev, function(v, k) {
+            Y.each(ev, function(v) {
                 this.publish(v, {
                     type: v,
                     emitFacade: true,
@@ -1725,7 +1735,7 @@
             }
 
             Y.each(g, function(i, n) {
-                if ((n == RIGHT) || (n == BOTTOM)) {
+                if ((n === RIGHT) || (n === BOTTOM)) {
                     region[n] -= i;
                 } else {
                     region[n] += i;
@@ -1758,7 +1768,8 @@
         * @private
         * @method _checkRegion
         * @description Check if xy is inside a given region, if not change to it be inside.
-        * @param {Array} _xy The XY to check if it&#x27;s in the current region, if it isn&#x27;t inside the region, it will reset the xy array to be inside the region.
+        * @param {Array} _xy The XY to check if it&#x27;s in the current region, if it isn&#x27;t
+        * inside the region, it will reset the xy array to be inside the region.
         * @return {Array} The new XY that is inside the region
         *&#x2F;
         _checkRegion: function(_xy) {
@@ -1828,7 +1839,7 @@
         * @method drag
         * @description Fires after drag:drag. Handle the tickX and tickX align events.
         *&#x2F;
-        drag: function(event) {
+        drag: function() {
             var host = this.get(HOST),
                 xt = this.get(&#x27;tickX&#x27;),
                 yt = this.get(&#x27;tickY&#x27;),

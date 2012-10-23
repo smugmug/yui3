@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1445,6 +1449,9 @@ Represents a single menu item in a &#x60;Menu&#x60;.
         @param {Boolean} [config.state.disabled=false] If &#x60;true&#x60;, this menu item
             will be disabled, and will not be clickable or selectable.
 
+        @param {Boolean} [config.state.hidden=false] If &#x60;true&#x60;, this menu item
+            will be hidden.
+
     @param {String} [config.type=&#x27;item&#x27;] Type of this menu item. May be &#x27;item&#x27;,
         &#x27;heading&#x27;, or &#x27;separator&#x27;.
 
@@ -1471,10 +1478,13 @@ Y.extend(MenuItem, Y.Tree.Node, {
     Disables this menu item. Disabled items are not clickable or selectable.
 
     @method disable
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;disable&#x60; event
+            will be suppressed.
     @chainable
     **&#x2F;
-    disable: function () {
-        this.state.disabled = true;
+    disable: function (options) {
+        this.tree.disableItem(this, options);
         return this;
     },
 
@@ -1482,10 +1492,27 @@ Y.extend(MenuItem, Y.Tree.Node, {
     Enables this menu item.
 
     @method enable
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;enable&#x60; event
+            will be suppressed.
     @chainable
     **&#x2F;
-    enable: function () {
-        delete this.state.disabled;
+    enable: function (options) {
+        this.tree.enableItem(this, options);
+        return this;
+    },
+
+    &#x2F;**
+    Hides this menu item.
+
+    @method hide
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;hide&#x60; event
+            will be suppressed.
+    @chainable
+    **&#x2F;
+    hide: function (options) {
+        this.tree.hideItem(this, options);
         return this;
     },
 
@@ -1498,6 +1525,31 @@ Y.extend(MenuItem, Y.Tree.Node, {
     **&#x2F;
     isDisabled: function () {
         return !!this.state.disabled;
+    },
+
+    &#x2F;**
+    Returns &#x60;true&#x60; if this menu item is currently hidden.
+
+    @method isHidden
+    @return {Boolean} &#x60;true&#x60; if this menu item is currently hidden, &#x60;false&#x60;
+        otherwise.
+    **&#x2F;
+    isHidden: function () {
+        return !!this.state.hidden;
+    },
+
+    &#x2F;**
+    Shows this menu item.
+
+    @method show
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;show&#x60; event
+            will be suppressed.
+    @chainable
+    **&#x2F;
+    show: function (options) {
+        this.tree.showItem(this, options);
+        return this;
     }
 });
 

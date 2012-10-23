@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1429,7 +1433,7 @@
      * Provides the base Drag Drop Manger required for making a Node draggable.
      * @module dd
      * @submodule dd-ddm-base
-     *&#x2F;     
+     *&#x2F;
      &#x2F;**
      * Provides the base Drag Drop Manger required for making a Node draggable.
      * @class DDM
@@ -1437,7 +1441,7 @@
      * @constructor
      * @namespace DD
      *&#x2F;
-    
+
     var DDMBase = function() {
         DDMBase.superclass.constructor.apply(this, arguments);
     };
@@ -1465,7 +1469,7 @@
         * @attribute clickTimeThresh
         * @description The number of milliseconds a mousedown has to pass to start a drag operation, default is 1000.
         * @type Number
-        *&#x2F;        
+        *&#x2F;
         clickTimeThresh: {
             value: 1000
         },
@@ -1473,22 +1477,22 @@
         * @attribute throttleTime
         * @description The number of milliseconds to throttle the mousemove event. Default: 150
         * @type Number
-        *&#x2F;        
+        *&#x2F;
         throttleTime: {
             &#x2F;&#x2F;value: 150
             value: -1
         },
         &#x2F;**
+        * This attribute only works if the dd-drop module is active. It will set the dragMode (point, intersect, strict) of all future Drag instances.
         * @attribute dragMode
-        * @description This attribute only works if the dd-drop module is active. It will set the dragMode (point, intersect, strict) of all future Drag instances. 
         * @type String
-        *&#x2F;        
+        *&#x2F;
         dragMode: {
             value: &#x27;point&#x27;,
             setter: function(mode) {
                 this._setDragMode(mode);
                 return mode;
-            }           
+            }
         }
 
     };
@@ -1523,7 +1527,7 @@
                 case &#x27;point&#x27;:
                     return 0;
             }
-            return 0;       
+            return 0;
         },
         &#x2F;**
         * @property CSS_PREFIX
@@ -1531,7 +1535,7 @@
         * @type {String}
         *&#x2F;
         CSS_PREFIX: Y.ClassNameManager.getClassName(&#x27;dd&#x27;),
-        _activateTargets: function() {},        
+        _activateTargets: function() {},
         &#x2F;**
         * @private
         * @property _drags
@@ -1555,7 +1559,7 @@
             if (this.getDrag(d.get(&#x27;node&#x27;))) {
                 return false;
             }
-            
+
             if (!this._active) {
                 this._setupListeners();
             }
@@ -1570,7 +1574,7 @@
         *&#x2F;
         _unregDrag: function(d) {
             var tmp = [];
-            Y.each(this._drags, function(n, i) {
+            Y.each(this._drags, function(n) {
                 if (n !== d) {
                     tmp[tmp.length] = n;
                 }
@@ -1635,7 +1639,7 @@
         * @description Method will forcefully stop a drag operation. For example calling this from inside an ESC keypress handler will stop this drag.
         * @return {Self}
         * @chainable
-        *&#x2F;       
+        *&#x2F;
         stopDrag: function() {
             if (this.activeDrag) {
                 this._end();
@@ -1675,15 +1679,16 @@
         },
         &#x2F;**
         * &#x2F;&#x2F;TODO Private, rename??...
+        * Helper method to use to set the gutter from the attribute setter.
+        * CSS style string for gutter: &#x27;5 0&#x27; (sets top and bottom to 5px, left and right to 0px), &#x27;1 2 3 4&#x27; (top 1px, right 2px, bottom 3px, left 4px)
         * @private
         * @method cssSizestoObject
-        * @description Helper method to use to set the gutter from the attribute setter.
-        * @param {String} gutter CSS style string for gutter: &#x27;5 0&#x27; (sets top and bottom to 5px, left and right to 0px), &#x27;1 2 3 4&#x27; (top 1px, right 2px, bottom 3px, left 4px)
+        * @param {String} gutter CSS style string for gutter
         * @return {Object} The gutter Object Literal.
         *&#x2F;
         cssSizestoObject: function(gutter) {
             var x = gutter.split(&#x27; &#x27;);
-                
+
             switch (x.length) {
                 case 1: x[1] = x[2] = x[3] = x[0]; break;
                 case 2: x[2] = x[0]; x[3] = x[1]; break;
@@ -1707,7 +1712,7 @@
             var drag = false,
                 n = Y.one(node);
             if (n instanceof Y.Node) {
-                Y.each(this._drags, function(v, k) {
+                Y.each(this._drags, function(v) {
                     if (n.compareTo(v.get(&#x27;node&#x27;))) {
                         drag = v;
                     }
@@ -1766,9 +1771,9 @@
             var p = n2.get(&#x27;parentNode&#x27;),
                 s = n2.get(&#x27;nextSibling&#x27;);
 
-            if (s == n1) {
+            if (s === n1) {
                 p.insertBefore(n1, n2);
-            } else if (n2 == n1.get(&#x27;nextSibling&#x27;)) {
+            } else if (n2 === n1.get(&#x27;nextSibling&#x27;)) {
                 p.insertBefore(n2, n1);
             } else {
                 n1.get(&#x27;parentNode&#x27;).replaceChild(n2, n1);

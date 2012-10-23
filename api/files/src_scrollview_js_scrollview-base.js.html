@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1435,6 +1439,7 @@ var getClassName = Y.ClassNameManager.getClassName,
     WINDOW = Y.config.win,
     IE = Y.UA.ie,
     NATIVE_TRANSITIONS = Y.Transition.useNative,
+    vendorPrefix = Y.Transition._VENDOR_PREFIX, &#x2F;&#x2F; Todo: This is a private property, and alternative approaches should be investigated
     SCROLLVIEW = &#x27;scrollview&#x27;,
     CLASS_NAMES = {
         vertical: getClassName(SCROLLVIEW, &#x27;vert&#x27;),
@@ -2750,8 +2755,8 @@ Y.ScrollView = Y.extend(ScrollView, Y.Widget, {
      * @private
      *&#x2F;
     _TRANSITION: {
-        DURATION: Y.Transition._VENDOR_PREFIX + &#x27;TransitionDuration&#x27;,
-        PROPERTY: Y.Transition._VENDOR_PREFIX + &#x27;TransitionProperty&#x27;
+        DURATION: (vendorPrefix ? vendorPrefix + &#x27;TransitionDuration&#x27; : &#x27;transitionDuration&#x27;),
+        PROPERTY: (vendorPrefix ? vendorPrefix + &#x27;TransitionProperty&#x27; : &#x27;transitionProperty&#x27;)
     },
 
     &#x2F;**

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1452,7 +1456,7 @@
         EV_START = &#x27;drag:start&#x27;,
         EV_DRAG = &#x27;drag:drag&#x27;,
         EV_DRAG_END = &#x27;drag:end&#x27;;
-        
+
         &#x2F;**
         * @property NAME
         * @description dd-plugin
@@ -1468,9 +1472,9 @@
         Drag.NS = &quot;dd&quot;;
 
         Y.extend(Drag, Y.DD.Drag, {
-                
+
                 _widgetHandles: null,
-                
+
                 &#x2F;**
                 * refers to a Y.Widget if its the host, otherwise = false.
                 *
@@ -1479,7 +1483,7 @@
                 *&#x2F;
                 _widget: undefined,
 
-                
+
                 &#x2F;**
                 * refers to the [x,y] coordinate where the drag was stopped last
                 *
@@ -1549,12 +1553,12 @@
                         &#x2F;&#x2F;if this thing is a widget, and it uses widgetposition...
                         if (this._usesWidgetPosition(this._widget)) {
                             Y.log(&#x27;Attaching widget events&#x27;, &#x27;info&#x27;, &#x27;dd-plugin&#x27;);
-                               
+
                                &#x2F;&#x2F;set the x,y on the widget&#x27;s ATTRS
                                this._widgetHandles.push(this.on(EV_DRAG, this._setWidgetCoords));
 
                                &#x2F;&#x2F;store the new position that the widget ends up on
-                               this._widgetHandles.push(this.on(EV_DRAG_END, this._updateStopPosition)); 
+                               this._widgetHandles.push(this.on(EV_DRAG_END, this._updateStopPosition));
                         }
                 },
                 &#x2F;**
@@ -1564,15 +1568,15 @@
                 * @protected
                 *&#x2F;
                 initializer: function(config) {
-                        
+
                         this._widgetHandles = [];
 
                         this._widget = config.widget;
 
                         this.on(EV_START, this._checkEvents); &#x2F;&#x2F;Always run, don&#x27;t check
-                        
+
                         this._attachWidgetListeners();
-                               
+
                 },
 
                 &#x2F;**

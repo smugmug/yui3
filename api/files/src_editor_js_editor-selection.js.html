@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1431,7 +1435,7 @@
      * @module editor
      * @submodule selection
      *&#x2F;
-    
+
     &#x2F;&#x2F;TODO This shouldn&#x27;t be there, Y.Node doesn&#x27;t normalize getting textnode content.
     var textContent = &#x27;textContent&#x27;,
     INNER_HTML = &#x27;innerHTML&#x27;,
@@ -1442,12 +1446,13 @@
     }
 
     Y.EditorSelection = function(domEvent) {
-        var sel, par, ieNode, nodes, rng, i;
+        var sel, par, ieNode, nodes, rng, i,
+            comp, moved = 0, n, id;
 
         if (Y.config.win.getSelection &amp;&amp; (!Y.UA.ie || Y.UA.ie &lt; 9)) {
-	        sel = Y.config.win.getSelection();
+            sel = Y.config.win.getSelection();
         } else if (Y.config.doc.selection) {
-    	    sel = Y.config.doc.selection.createRange();
+            sel = Y.config.doc.selection.createRange();
         }
         this._selection = sel;
 
@@ -1480,7 +1485,7 @@
                 }
 
                 this.ieNode = ieNode;
-                
+
                 if (ieNode) {
                     if (ieNode.nodeType !== 3) {
                         if (ieNode.firstChild) {
@@ -1493,28 +1498,27 @@
                         }
                     }
                     this.anchorNode = this.focusNode = Y.EditorSelection.resolve(ieNode);
-                    
+
                     rng.moveToElementText(sel.parentElement());
-                    var comp = sel.compareEndPoints(&#x27;StartToStart&#x27;, rng),
-                    moved = 0;
+                    comp = sel.compareEndPoints(&#x27;StartToStart&#x27;, rng);
                     if (comp) {
                         &#x2F;&#x2F;We are not at the beginning of the selection.
                         &#x2F;&#x2F;Setting the move to something large, may need to increase it later
                         moved = Math.abs(sel.move(&#x27;character&#x27;, -9999));
                     }
-                    
+
                     this.anchorOffset = this.focusOffset = moved;
-                    
+
                     this.anchorTextNode = this.focusTextNode = Y.one(ieNode);
                 }
-                
-                
+
+
             } else {
                 &#x2F;&#x2F;This helps IE deal with a selection and nodeChange events
                 if (sel.htmlText &amp;&amp; sel.htmlText !== &#x27;&#x27;) {
-                    var n = Y.Node.create(sel.htmlText);
+                    n = Y.Node.create(sel.htmlText);
                     if (n &amp;&amp; n.get(&#x27;id&#x27;)) {
-                        var id = n.get(&#x27;id&#x27;);
+                        id = n.get(&#x27;id&#x27;);
                         this.anchorNode = this.focusNode = Y.one(&#x27;#&#x27; + id);
                     } else if (n) {
                         n = n.get(&#x27;childNodes&#x27;);
@@ -1531,7 +1535,7 @@
             this.focusNode = Y.EditorSelection.resolve(sel.focusNode);
             this.anchorOffset = sel.anchorOffset;
             this.focusOffset = sel.focusOffset;
-            
+
             this.anchorTextNode = Y.one(sel.anchorNode);
             this.focusTextNode = Y.one(sel.focusNode);
         }
@@ -1545,7 +1549,7 @@
             }
         }
     };
-    
+
     &#x2F;**
     * Utility method to remove dead font-family styles from an element.
     * @static
@@ -1554,7 +1558,7 @@
     Y.EditorSelection.removeFontFamily = function(n) {
         n.removeAttribute(&#x27;face&#x27;);
         var s = n.getAttribute(&#x27;style&#x27;).toLowerCase();
-        if (s === &#x27;&#x27; || (s == &#x27;font-family: &#x27;)) {
+        if (s === &#x27;&#x27; || (s === &#x27;font-family: &#x27;)) {
             n.removeAttribute(&#x27;style&#x27;);
         }
         if (s.match(Y.EditorSelection.REG_FONTFAMILY)) {
@@ -1571,16 +1575,17 @@
     * @method filter
     *&#x2F;
     Y.EditorSelection.filter = function(blocks) {
-        var startTime = (new Date()).getTime();
         Y.log(&#x27;Filtering nodes&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
 
-        var nodes = Y.all(Y.EditorSelection.ALL),
+        var startTime = (new Date()).getTime(),
+            endTime,
+            nodes = Y.all(Y.EditorSelection.ALL),
             baseNodes = Y.all(&#x27;strong,em&#x27;),
             doc = Y.config.doc, hrs,
             classNames = {}, cssString = &#x27;&#x27;,
-            ls;
+            ls, startTime1 = (new Date()).getTime(),
+            endTime1;
 
-        var startTime1 = (new Date()).getTime();
         nodes.each(function(n) {
             var raw = Y.Node.getDOMNode(n);
             if (raw.style[FONT_FAMILY]) {
@@ -1589,59 +1594,45 @@
 
                 Y.EditorSelection.removeFontFamily(raw);
             }
-            &#x2F;*
-            if (n.getStyle(FONT_FAMILY)) {
-                classNames[&#x27;.&#x27; + n._yuid] = n.getStyle(FONT_FAMILY);
-                n.addClass(n._yuid);
-                n.removeAttribute(&#x27;face&#x27;);
-                n.setStyle(FONT_FAMILY, &#x27;&#x27;);
-                if (n.getAttribute(&#x27;style&#x27;) === &#x27;&#x27;) {
-                    n.removeAttribute(&#x27;style&#x27;);
-                }
-                &#x2F;&#x2F;This is for IE
-                if (n.getAttribute(&#x27;style&#x27;).toLowerCase() === &#x27;font-family: &#x27;) {
-                    n.removeAttribute(&#x27;style&#x27;);
-                }
-            }
-            *&#x2F;
         });
-        var endTime1 = (new Date()).getTime();
+        endTime1 = (new Date()).getTime();
         Y.log(&#x27;Node Filter Timer: &#x27; + (endTime1 - startTime1) + &#x27;ms&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
 
         Y.all(&#x27;.hr&#x27;).addClass(&#x27;yui-skip&#x27;).addClass(&#x27;yui-non&#x27;);
-        
+
         if (Y.UA.ie) {
             hrs = doc.getElementsByTagName(&#x27;hr&#x27;);
             Y.each(hrs, function(hr) {
-                var el = doc.createElement(&#x27;div&#x27;);
-                    el.className = &#x27;hr yui-non yui-skip&#x27;;
-                    
-                    el.setAttribute(&#x27;readonly&#x27;, true);
-                    el.setAttribute(&#x27;contenteditable&#x27;, false); &#x2F;&#x2F;Keep it from being Edited
-                    if (hr.parentNode) {
-                        hr.parentNode.replaceChild(el, hr);
-                    }
-                    &#x2F;&#x2F;Had to move to inline style. writes for ie&#x27;s &lt; 8. They don&#x27;t render el.setAttribute(&#x27;style&#x27;);
-                    var s = el.style;
-                    s.border = &#x27;1px solid #ccc&#x27;;
-                    s.lineHeight = &#x27;0&#x27;;
-                    s.height = &#x27;0&#x27;;
-                    s.fontSize = &#x27;0&#x27;;
-                    s.marginTop = &#x27;5px&#x27;;
-                    s.marginBottom = &#x27;5px&#x27;;
-                    s.marginLeft = &#x27;0px&#x27;;
-                    s.marginRight = &#x27;0px&#x27;;
-                    s.padding = &#x27;0&#x27;;
+                var el = doc.createElement(&#x27;div&#x27;),
+                s = el.style;
+
+                el.className = &#x27;hr yui-non yui-skip&#x27;;
+
+                el.setAttribute(&#x27;readonly&#x27;, true);
+                el.setAttribute(&#x27;contenteditable&#x27;, false); &#x2F;&#x2F;Keep it from being Edited
+                if (hr.parentNode) {
+                    hr.parentNode.replaceChild(el, hr);
+                }
+                &#x2F;&#x2F;Had to move to inline style. writes for ie&#x27;s &lt; 8. They don&#x27;t render el.setAttribute(&#x27;style&#x27;);
+                s.border = &#x27;1px solid #ccc&#x27;;
+                s.lineHeight = &#x27;0&#x27;;
+                s.height = &#x27;0&#x27;;
+                s.fontSize = &#x27;0&#x27;;
+                s.marginTop = &#x27;5px&#x27;;
+                s.marginBottom = &#x27;5px&#x27;;
+                s.marginLeft = &#x27;0px&#x27;;
+                s.marginRight = &#x27;0px&#x27;;
+                s.padding = &#x27;0&#x27;;
             });
         }
-        
+
 
         Y.each(classNames, function(v, k) {
             cssString += k + &#x27; { font-family: &#x27; + v.replace(&#x2F;&quot;&#x2F;gi, &#x27;&#x27;) + &#x27;; }&#x27;;
         });
         Y.StyleSheet(cssString, &#x27;editor&#x27;);
 
-        
+
         &#x2F;&#x2F;Not sure about this one?
         baseNodes.each(function(n, k) {
             var t = n.get(&#x27;tagName&#x27;).toLowerCase(),
@@ -1654,17 +1645,17 @@
 
         &#x2F;&#x2F;Filter out all the empty UL&#x2F;OL&#x27;s
         ls = Y.all(&#x27;ol,ul&#x27;);
-        ls.each(function(v, k) {
+        ls.each(function(v) {
             var lis = v.all(&#x27;li&#x27;);
             if (!lis.size()) {
                 v.remove();
             }
         });
-        
+
         if (blocks) {
             Y.EditorSelection.filterBlocks();
         }
-        var endTime = (new Date()).getTime();
+        endTime = (new Date()).getTime();
         Y.log(&#x27;Filter Timer: &#x27; + (endTime - startTime) + &#x27;ms&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
     };
 
@@ -1674,22 +1665,22 @@
     * @method filterBlocks
     *&#x2F;
     Y.EditorSelection.filterBlocks = function() {
-        var startTime = (new Date()).getTime();
         Y.log(&#x27;RAW filter blocks&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
-        var childs = Y.config.doc.body.childNodes, i, node, wrapped = false, doit = true,
-            sel, single, br, divs, spans, c, s;
+        var startTime = (new Date()).getTime(), endTime,
+            childs = Y.config.doc.body.childNodes, i, node, wrapped = false, doit = true,
+            sel, single, br, c, s, html;
 
         if (childs) {
             for (i = 0; i &lt; childs.length; i++) {
                 node = Y.one(childs[i]);
                 if (!node.test(Y.EditorSelection.BLOCKS)) {
                     doit = true;
-                    if (childs[i].nodeType == 3) {
+                    if (childs[i].nodeType === 3) {
                         c = childs[i][textContent].match(Y.EditorSelection.REG_CHAR);
                         s = childs[i][textContent].match(Y.EditorSelection.REG_NON);
                         if (c === null &amp;&amp; s) {
                             doit = false;
-                            
+
                         }
                     }
                     if (doit) {
@@ -1713,7 +1704,7 @@
                 if (!br.item(0).test(&#x27;.yui-cursor&#x27;)) {
                     br.item(0).remove();
                 }
-                var html = single.item(0).get(&#x27;innerHTML&#x27;);
+                html = single.item(0).get(&#x27;innerHTML&#x27;);
                 if (html === &#x27;&#x27; || html === &#x27; &#x27;) {
                     Y.log(&#x27;Paragraph empty, focusing cursor&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
                     single.set(&#x27;innerHTML&#x27;, Y.EditorSelection.CURSOR);
@@ -1733,41 +1724,8 @@
                 }
             });
         }
-        
-        if (!Y.UA.ie) {
-            &#x2F;*
-            divs = Y.all(&#x27;div, p&#x27;);
-            divs.each(function(d) {
-                if (d.hasClass(&#x27;yui-non&#x27;)) {
-                    return;
-                }
-                var html = d.get(&#x27;innerHTML&#x27;);
-                if (html === &#x27;&#x27;) {
-                    Y.log(&#x27;Empty DIV&#x2F;P Tag Found, Removing It&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
-                    d.remove();
-                } else {
-                    Y.log(&#x27;DIVS&#x2F;PS Count: &#x27; + d.get(&#x27;childNodes&#x27;).size(), &#x27;info&#x27;, &#x27;editor-selection&#x27;);
-                    if (d.get(&#x27;childNodes&#x27;).size() == 1) {
-                        Y.log(&#x27;This Div&#x2F;P only has one Child Node&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
-                        if (d.ancestor(&#x27;p&#x27;)) {
-                            Y.log(&#x27;This Div&#x2F;P is a child of a paragraph, remove it..&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
-                            d.replace(d.get(&#x27;firstChild&#x27;));
-                        }
-                    }
-                }
-            });*&#x2F;
 
-            &#x2F;* Removed this, as it was causing Pasting to be funky in Safari
-            spans = Y.all(&#x27;.Apple-style-span, .apple-style-span&#x27;);
-            Y.log(&#x27;Apple Spans found: &#x27; + spans.size(), &#x27;info&#x27;, &#x27;editor-selection&#x27;);
-            spans.each(function(s) {
-                s.setAttribute(&#x27;style&#x27;, &#x27;&#x27;);
-            });
-            *&#x2F;
-        }
-
-
-        var endTime = (new Date()).getTime();
+        endTime = (new Date()).getTime();
         Y.log(&#x27;FilterBlocks Timer: &#x27; + (endTime - startTime) + &#x27;ms&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
     };
 
@@ -1775,14 +1733,14 @@
     * Regular Expression used to find dead font-family styles
     * @static
     * @property REG_FONTFAMILY
-    *&#x2F;   
-    Y.EditorSelection.REG_FONTFAMILY = &#x2F;font-family: ;&#x2F;;
+    *&#x2F;
+    Y.EditorSelection.REG_FONTFAMILY = &#x2F;font-family:\s*;&#x2F;;
 
     &#x2F;**
     * Regular Expression to determine if a string has a character in it
     * @static
     * @property REG_CHAR
-    *&#x2F;   
+    *&#x2F;
     Y.EditorSelection.REG_CHAR = &#x2F;[a-zA-Z-0-9_!@#\$%\^&amp;*\(\)-=_+\[\]\\{}|;&#x27;:&quot;,.\&#x2F;&lt;&gt;\?]&#x2F;gi;
 
     &#x2F;**
@@ -1830,9 +1788,9 @@
         var nodes = Y.all(&#x27;body [class]&#x27;),
             html = &#x27;&#x27;, nons, ids,
             body = Y.one(&#x27;body&#x27;);
-        
+
         Y.log(&#x27;UnFiltering nodes&#x27;, &#x27;info&#x27;, &#x27;editor-selection&#x27;);
-        
+
         nodes.each(function(n) {
             if (n.hasClass(n._yuid)) {
                 &#x2F;&#x2F;One of ours
@@ -1860,13 +1818,13 @@
                 n.removeAttribute(&#x27;_yuid&#x27;);
             }
         });
-        
+
         if (body) {
             html = body.get(&#x27;innerHTML&#x27;);
         }
-        
+
         Y.all(&#x27;.hr&#x27;).addClass(&#x27;yui-skip&#x27;).addClass(&#x27;yui-non&#x27;);
-        
+
         &#x2F;*
         nodes.each(function(n) {
             n.addClass(n._yuid);
@@ -1876,7 +1834,7 @@
             }
         });
         *&#x2F;
-        
+
         return html;
     };
     &#x2F;**
@@ -2063,10 +2021,10 @@
         *&#x2F;
         _selection: null,
         &#x2F;**
-        * Wrap an element, with another element 
+        * Wrap an element, with another element
         * @private
         * @method _wrap
-        * @param {HTMLElement} n The node to wrap 
+        * @param {HTMLElement} n The node to wrap
         * @param {String} tag The tag to use when creating the new element.
         * @return {HTMLElement} The wrapped node
         *&#x2F;
@@ -2078,10 +2036,10 @@
             return Y.Node.getDOMNode(tmp);
         },
         &#x2F;**
-        * Swap an element, with another element 
+        * Swap an element, with another element
         * @private
         * @method _swap
-        * @param {HTMLElement} n The node to swap 
+        * @param {HTMLElement} n The node to swap
         * @param {String} tag The tag to use when creating the new element.
         * @return {HTMLElement} The new node
         *&#x2F;
@@ -2103,9 +2061,9 @@
             Y.config.doc.execCommand(&#x27;fontname&#x27;, null, Y.EditorSelection.TMP);
             var nodes = Y.all(Y.EditorSelection.ALL),
                 items = [];
-            
+
             nodes.each(function(n, k) {
-                if (n.getStyle(FONT_FAMILY) ==  Y.EditorSelection.TMP) {
+                if (n.getStyle(FONT_FAMILY) === Y.EditorSelection.TMP) {
                     n.setStyle(FONT_FAMILY, &#x27;&#x27;);
                     Y.EditorSelection.removeFontFamily(n);
                     if (!n.test(&#x27;body&#x27;)) {
@@ -2143,13 +2101,13 @@
                 node = b;
             }
 
-            
+
             if (range.pasteHTML) {
                 if (offset === 0 &amp;&amp; node &amp;&amp; !node.previous() &amp;&amp; node.get(&#x27;nodeType&#x27;) === 3) {
                     &#x2F;*
                     * For some strange reason, range.pasteHTML fails if the node is a textNode and
                     * the offset is 0. (The cursor is at the beginning of the line)
-                    * It will always insert the new content at position 1 instead of 
+                    * It will always insert the new content at position 1 instead of
                     * position 0. Here we test for that case and do it the hard way.
                     *&#x2F;
                     node.insert(html, &#x27;before&#x27;);
@@ -2255,8 +2213,8 @@
                         changed.push(this._wrap(items.item(k), tag));
                     }
                 }, this);
-                
-		        range = this.createRange();
+
+                range = this.createRange();
                 first = changed[0];
                 last = changed[changed.length - 1];
                 if (this._selection.removeAllRanges) {
@@ -2285,7 +2243,7 @@
             }
         },
         &#x2F;**
-        * Find and replace a string inside a text node and replace it with HTML focusing the node after 
+        * Find and replace a string inside a text node and replace it with HTML focusing the node after
         * to allow you to continue to type.
         * @method replace
         * @param {String} se The string to search for.
@@ -2334,7 +2292,7 @@
             if (Y.config.doc.selection) {
                 return Y.config.doc.selection.createRange();
             } else {
-		        return Y.config.doc.createRange();
+                return Y.config.doc.createRange();
             }
         },
         &#x2F;**
@@ -2352,7 +2310,7 @@
             }
             end = end || 0;
             node = Y.Node.getDOMNode(node);
-		    var range = this.createRange();
+            var range = this.createRange();
             if (range.selectNode) {
                 range.selectNode(node);
                 this._selection.removeAllRanges();

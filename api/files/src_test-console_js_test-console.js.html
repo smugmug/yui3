@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1482,16 +1486,30 @@ Y.namespace(&#x27;Test&#x27;).Console = Y.extend(TestConsole, Y.Console, {
 
     &#x2F;&#x2F; -- Protected Coverage Parser ---------------------------------------------
     &#x2F;**
-    * Parses YUITest coverage results if they are available and logs them.
-    * @method _parseCoverage
-    * @private
+    * Scans the coverage data to determine if it&#x27;s an Istanbul coverage object.
+    * @method _isIstanbul
+    * @param {Object} json The coverage data to scan
+    * @return {Boolean} True if this is Istanbul Coverage
     *&#x2F;
-    _parseCoverage: function() {
-        var coverage = Y.Test.Runner.getCoverage();
-        if (!coverage) {
-            return;
-        }
+    _isIstanbul: function(json) {
+        var first = Object.keys(json)[0],
+            ret = false;
 
+        if (json[first].s !== undefined &amp;&amp; json[first].fnMap !== undefined) {
+            ret = true;
+        }   
+
+        if (json.s !== undefined &amp;&amp; json.fnMap !== undefined) {
+            ret = true;
+        }   
+        return ret;
+    },
+    &#x2F;**
+    * Parses and logs a summary of YUITest coverage data.
+    * @method parseYUITest
+    * @param {Object} coverage The YUITest Coverage JSON data
+    *&#x2F;
+    parseYUITestCoverage: function (coverage) {
         var cov = {
             lines: {
                 hit: 0,
@@ -1505,7 +1523,7 @@ Y.namespace(&#x27;Test&#x27;).Console = Y.extend(TestConsole, Y.Console, {
                 total: 0,
                 percent: 0
             }
-        };
+        }, coverageLog;
 
         Y.Object.each(coverage, function(info) {
             cov.lines.total += info.coveredLines;
@@ -1520,10 +1538,157 @@ Y.namespace(&#x27;Test&#x27;).Console = Y.extend(TestConsole, Y.Console, {
         });
 
         
-        var coverageLog = &#x27;Lines: Hit:&#x27; + cov.lines.hit + &#x27; Missed:&#x27; + cov.lines.miss + &#x27; Total:&#x27; + cov.lines.total + &#x27; Percent:&#x27; + cov.lines.percent + &#x27;%\n&#x27;;
+        coverageLog = &#x27;Lines: Hit:&#x27; + cov.lines.hit + &#x27; Missed:&#x27; + cov.lines.miss + &#x27; Total:&#x27; + cov.lines.total + &#x27; Percent:&#x27; + cov.lines.percent + &#x27;%\n&#x27;;
         coverageLog += &#x27;Functions: Hit:&#x27; + cov.functions.hit + &#x27; Missed:&#x27; + cov.functions.miss + &#x27; Total:&#x27; + cov.functions.total + &#x27; Percent:&#x27; + cov.functions.percent + &#x27;%&#x27;;
 
         this.log(&#x27;Coverage: &#x27; + coverageLog, &#x27;info&#x27;, &#x27;TestRunner&#x27;);
+    },
+    &#x2F;**
+    * Generates a generic summary object used for Istanbul conversions.
+    * @method _blankSummary
+    * @return {Object} Generic summary object
+    *&#x2F;
+    _blankSummary: function () {
+        return {
+            lines: {
+                total: 0,
+                covered: 0,
+                pct: &#x27;Unknown&#x27;
+            },
+            statements: {
+                total: 0,
+                covered: 0,
+                pct: &#x27;Unknown&#x27;
+            },
+            functions: {
+                total: 0,
+                covered: 0,
+                pct: &#x27;Unknown&#x27;
+            },
+            branches: {
+                total: 0,
+                covered: 0,
+                pct: &#x27;Unknown&#x27;
+            }
+        };
+    },
+    &#x2F;**
+    * Calculates line numbers from statement coverage
+    * @method _addDerivedInfoForFile
+    * @private
+    * @param {Object} fileCoverage JSON coverage data
+    *&#x2F;
+    _addDerivedInfoForFile: function (fileCoverage) {
+        var statementMap = fileCoverage.statementMap,
+            statements = fileCoverage.s,
+            lineMap;
+
+        if (!fileCoverage.l) {
+            fileCoverage.l = lineMap = {};
+            Y.Object.each(statements, function (value, st) {
+                var line = statementMap[st].start.line,
+                    count = statements[st],
+                    prevVal = lineMap[line];
+                if (typeof prevVal === &#x27;undefined&#x27; || prevVal &lt; count) {
+                    lineMap[line] = count;
+                }
+            });
+        }
+    },
+    &#x2F;**
+    * Generic percent calculator
+    * @method _percent
+    * @param {Number} covered The covered amount
+    * @param {Number} total The total
+    * @private
+    *&#x2F;
+    _percent: function (covered, total) {
+        var tmp, pct = 100.00;
+        if (total &gt; 0) {
+            tmp = 1000 * 100 * covered &#x2F; total + 5;
+            pct = Math.floor(tmp &#x2F; 10) &#x2F; 100;
+        }
+        return pct;
+    },
+    &#x2F;**
+    * Summarize simple properties in the coverage data
+    * @method _computSimpleTotals
+    * @private
+    * @param {Object} fileCoverage JSON coverage data
+    * @param {String} property The property to summarize
+    *&#x2F;
+    _computeSimpleTotals: function (fileCoverage, property) {
+        var stats = fileCoverage[property],
+            ret = { total: 0, covered: 0 };
+
+        Y.Object.each(stats, function(val) {
+            ret.total += 1;
+            if (val) {
+                ret.covered += 1;
+            }   
+        }); 
+        ret.pct = this._percent(ret.covered, ret.total);
+        return ret;
+    },
+    &#x2F;**
+    * Noramlizes branch data from Istanbul
+    * @method _computeBranchTotals
+    * @private
+    * @param {Object} fileCoverage JSON coverage data
+    *&#x2F;
+    _computeBranchTotals: function (fileCoverage) {
+        var stats = fileCoverage.b,
+            ret = { total: 0, covered: 0 };
+
+        Y.Object.each(stats, function (branches) {
+            var covered = Y.Array.filter(branches, function (num) { return num &gt; 0; }); 
+            ret.total += branches.length;
+            ret.covered += covered.length;
+        }); 
+        ret.pct = this._percent(ret.covered, ret.total);
+        return ret;
+    },
+    &#x2F;**
+    * Takes an Istanbul coverage object, normalizes it and prints a log with a summary
+    * @method parseInstanbul
+    * @param {Object} coverage The coverage object to normalize and log
+    *&#x2F;
+    parseIstanbul: function (coverage) {
+        var self = this,
+            str = &#x27;Coverage Report:\n&#x27;;
+
+        Y.Object.each(coverage, function(fileCoverage, file) {
+            var ret = self._blankSummary();
+
+            self._addDerivedInfoForFile(fileCoverage);
+            ret.lines = self._computeSimpleTotals(fileCoverage, &#x27;l&#x27;);
+            ret.functions = self._computeSimpleTotals(fileCoverage, &#x27;f&#x27;);
+            ret.statements = self._computeSimpleTotals(fileCoverage, &#x27;s&#x27;);
+            ret.branches = self._computeBranchTotals(fileCoverage);
+            str += file + &#x27;:\n&#x27;;
+            Y.Array.each([&#x27;lines&#x27;,&#x27;functions&#x27;,&#x27;statements&#x27;,&#x27;branches&#x27;], function(key) {
+                str += &#x27;    &#x27; + key +&#x27;: &#x27; + ret[key].covered + &#x27;&#x2F;&#x27; + ret[key].total + &#x27; : &#x27; + ret[key].pct + &#x27;%\n&#x27;;
+            });
+
+        });
+        this.log(str, &#x27;info&#x27;, &#x27;TestRunner&#x27;);
+
+    },
+    &#x2F;**
+    * Parses YUITest or Istanbul coverage results if they are available and logs them.
+    * @method _parseCoverage
+    * @private
+    *&#x2F;
+    _parseCoverage: function() {
+        var coverage = Y.Test.Runner.getCoverage();
+        if (!coverage) {
+            return;
+        }
+        if (this._isIstanbul(coverage)) {
+            this.parseIstanbul(coverage);
+        } else {
+            this.parseYUITestCoverage(coverage);
+        }
     },
 
     &#x2F;&#x2F; -- Protected Event Handlers ---------------------------------------------

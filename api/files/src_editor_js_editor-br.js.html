@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1452,15 +1456,13 @@
                 e.halt();
                 return;
             }
-            if (e.keyCode == 13) {
+            if (e.keyCode === 13) {
                 var host = this.get(HOST), inst = host.getInstance(),
-                    sel = new inst.EditorSelection(),
-                    last = &#x27;&#x27;;
+                    sel = new inst.EditorSelection();
 
                 if (sel) {
                     if (Y.UA.ie) {
                         if (!sel.anchorNode || (!sel.anchorNode.test(LI) &amp;&amp; !sel.anchorNode.ancestor(LI))) {
-                            var host = this.get(HOST);
                             host.execCommand(&#x27;inserthtml&#x27;, inst.EditorSelection.CURSOR);
                             e.halt();
                         }
@@ -1507,9 +1509,9 @@
                     * Dropping in the empty textnode and then removing it causes FF to redraw and
                     * remove the &quot;ghost cursors&quot;
                     *&#x2F;
-                    var inst = this.get(HOST).getInstance();
-                    var d = e.changedNode;
-                    var t = inst.config.doc.createTextNode(&#x27; &#x27;);
+                    var inst = this.get(HOST).getInstance(),
+                        d = e.changedNode,
+                        t = inst.config.doc.createTextNode(&#x27; &#x27;);
                     d.appendChild(t);
                     d.removeChild(t);
                     break;
@@ -1545,9 +1547,9 @@
             }
         }
     });
-    
+
     Y.namespace(&#x27;Plugin&#x27;);
-    
+
     Y.Plugin.EditorBR = EditorBR;
 
 

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1482,7 +1486,7 @@
  *&#x2F;
 
 &#x2F;&#x2F; JSLint declarations
-&#x2F;*global console, document, navigator, setTimeout, window *&#x2F;
+&#x2F;*global console, document, navigator, setTimeout, window, define *&#x2F;
 
 &#x2F;**
  * Split {@code prettyPrint} into multiple timeouts so as not to interfere with
@@ -1491,12 +1495,30 @@
  *&#x2F;
 window[&#x27;PR_SHOULD_USE_CONTINUATION&#x27;] = true;
 
+&#x2F;**
+ * Find all the {@code &lt;pre&gt;} and {@code &lt;code&gt;} tags in the DOM with
+ * {@code class=prettyprint} and prettify them.
+ *
+ * @param {Function?} opt_whenDone if specified, called when the last entry
+ *     has been finished.
+ *&#x2F;
+var prettyPrintOne;
+&#x2F;**
+ * Pretty print a chunk of code.
+ *
+ * @param {string} sourceCodeHtml code as html
+ * @return {string} code as html, but prettier
+ *&#x2F;
+var prettyPrint;
+
+
 (function () {
+  var win = window;
   &#x2F;&#x2F; Keyword lists for various languages.
   &#x2F;&#x2F; We use things that coerce to strings to make them compact when minified
   &#x2F;&#x2F; and to defeat aggressive optimizers that fold large string constants.
   var FLOW_CONTROL_KEYWORDS = [&quot;break,continue,do,else,for,if,return,while&quot;];
-  var C_KEYWORDS = [FLOW_CONTROL_KEYWORDS,&quot;auto,case,char,const,default,&quot; +
+  var C_KEYWORDS = [FLOW_CONTROL_KEYWORDS,&quot;auto,case,char,const,default,&quot; + 
       &quot;double,enum,extern,float,goto,int,long,register,short,signed,sizeof,&quot; +
       &quot;static,struct,switch,typedef,union,unsigned,void,volatile&quot;];
   var COMMON_KEYWORDS = [C_KEYWORDS,&quot;catch,class,delete,false,import,&quot; +
@@ -1512,12 +1534,13 @@ window[&#x27;PR_SHOULD_USE_CONTINUATION&#x27;] = true;
       &quot;transient&quot;];
   var CSHARP_KEYWORDS = [JAVA_KEYWORDS,
       &quot;as,base,by,checked,decimal,delegate,descending,dynamic,event,&quot; +
-      &quot;fixed,foreach,from,group,implicit,in,interface,internal,into,is,lock,&quot; +
-      &quot;object,out,override,orderby,params,partial,readonly,ref,sbyte,sealed,&quot; +
-      &quot;stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,var&quot;];
+      &quot;fixed,foreach,from,group,implicit,in,interface,internal,into,is,let,&quot; +
+      &quot;lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,&quot; +
+      &quot;sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,&quot; +
+      &quot;var,virtual,where&quot;];
   var COFFEE_KEYWORDS = &quot;all,and,by,catch,class,else,extends,false,finally,&quot; +
       &quot;for,if,in,is,isnt,loop,new,no,not,null,of,off,on,or,return,super,then,&quot; +
-      &quot;true,try,unless,until,when,while,yes&quot;;
+      &quot;throw,true,try,unless,until,when,while,yes&quot;;
   var JSCRIPT_KEYWORDS = [COMMON_KEYWORDS,
       &quot;debugger,eval,export,function,get,null,set,undefined,var,with,&quot; +
       &quot;Infinity,NaN&quot;];
@@ -1537,7 +1560,7 @@ window[&#x27;PR_SHOULD_USE_CONTINUATION&#x27;] = true;
   var ALL_KEYWORDS = [
       CPP_KEYWORDS, CSHARP_KEYWORDS, JSCRIPT_KEYWORDS, PERL_KEYWORDS +
       PYTHON_KEYWORDS, RUBY_KEYWORDS, SH_KEYWORDS];
-  var C_TYPES = &#x2F;^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\d*)&#x2F;;
+  var C_TYPES = &#x2F;^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\d*)\b&#x2F;;
 
   &#x2F;&#x2F; token style names.  correspond to css classes
   &#x2F;**
@@ -1571,7 +1594,7 @@ window[&#x27;PR_SHOULD_USE_CONTINUATION&#x27;] = true;
    *&#x2F;
   var PR_PUNCTUATION = &#x27;pun&#x27;;
   &#x2F;**
-   * token style for a punctuation string.
+   * token style for plain text.
    * @const
    *&#x2F;
   var PR_PLAIN = &#x27;pln&#x27;;
@@ -1623,14 +1646,14 @@ window[&#x27;PR_SHOULD_USE_CONTINUATION&#x27;] = true;
  * &quot;in&quot; keyword since it&#x27;s not a keyword in many languages, and might be used
  * as a count of inches.
  *
- * &lt;p&gt;The link a above does not accurately describe EcmaScript rules since
+ * &lt;p&gt;The link above does not accurately describe EcmaScript rules since
  * it fails to distinguish between (a=++&#x2F;b&#x2F;i) and (a++&#x2F;b&#x2F;i) but it works
  * very well in practice.
  *
  * @private
  * @const
  *&#x2F;
-var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&amp;|&amp;&amp;|&amp;&amp;=|&amp;=|\\(|\\*|\\*=|\\+=|\\,|\\-=|\\-&gt;|\\&#x2F;|\\&#x2F;=|:|::|\\;|&lt;|&lt;&lt;|&lt;&lt;=|&lt;=|=|==|===|&gt;|&gt;=|&gt;&gt;|&gt;&gt;=|&gt;&gt;&gt;|&gt;&gt;&gt;=|\\?|\\@|\\[|\\^|\\^=|\\^\\^|\\^\\^=|\\{|\\||\\|=|\\|\\||\\|\\|=|\\~|break|case|continue|delete|do|else|finally|instanceof|return|throw|try|typeof)\\s*&#x27;;
+var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|[!=]=?=?|\\#|%=?|&amp;&amp;?=?|\\(|\\*=?|[+\\-]=|-&gt;|\\&#x2F;=?|::?|&lt;&lt;?=?|&gt;&gt;?&gt;?=?|,|;|\\?|@|\\[|~|{|\\^\\^?=?|\\|\\|?=?|break|case|continue|delete|do|else|finally|instanceof|return|throw|try|typeof)\\s*&#x27;;
 
 &#x2F;&#x2F; CAVEAT: this does not properly handle the case where a regular
 &#x2F;&#x2F; expression immediately follows another since a regular expression may
@@ -1649,7 +1672,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
    *&#x2F;
   function combinePrefixPatterns(regexs) {
     var capturedGroupIndex = 0;
-
+  
     var needToFoldCase = false;
     var ignoreCase = false;
     for (var i = 0, n = regexs.length; i &lt; n; ++i) {
@@ -1663,7 +1686,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
         break;
       }
     }
-
+  
     var escapeCharToCodeUnit = {
       &#x27;b&#x27;: 8,
       &#x27;t&#x27;: 9,
@@ -1672,7 +1695,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       &#x27;f&#x27;: 0xc,
       &#x27;r&#x27;: 0xd
     };
-
+  
     function decodeEscape(charsetPart) {
       var cc0 = charsetPart.charCodeAt(0);
       if (cc0 !== 92 &#x2F;* \\ *&#x2F;) {
@@ -1690,18 +1713,16 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
         return charsetPart.charCodeAt(1);
       }
     }
-
+  
     function encodeEscape(charCode) {
       if (charCode &lt; 0x20) {
         return (charCode &lt; 0x10 ? &#x27;\\x0&#x27; : &#x27;\\x&#x27;) + charCode.toString(16);
       }
       var ch = String.fromCharCode(charCode);
-      if (ch === &#x27;\\&#x27; || ch === &#x27;-&#x27; || ch === &#x27;[&#x27; || ch === &#x27;]&#x27;) {
-        ch = &#x27;\\&#x27; + ch;
-      }
-      return ch;
+      return (ch === &#x27;\\&#x27; || ch === &#x27;-&#x27; || ch === &#x27;]&#x27; || ch === &#x27;^&#x27;)
+          ? &quot;\\&quot; + ch : ch;
     }
-
+  
     function caseFoldCharset(charSet) {
       var charsetParts = charSet.substring(1, charSet.length - 1).match(
           new RegExp(
@@ -1713,13 +1734,16 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
               + &#x27;|-&#x27;
               + &#x27;|[^-\\\\]&#x27;,
               &#x27;g&#x27;));
-      var groups = [];
       var ranges = [];
       var inverse = charsetParts[0] === &#x27;^&#x27;;
+  
+      var out = [&#x27;[&#x27;];
+      if (inverse) { out.push(&#x27;^&#x27;); }
+  
       for (var i = inverse ? 1 : 0, n = charsetParts.length; i &lt; n; ++i) {
         var p = charsetParts[i];
         if (&#x2F;\\[bdsw]&#x2F;i.test(p)) {  &#x2F;&#x2F; Don&#x27;t muck with named groups.
-          groups.push(p);
+          out.push(p);
         } else {
           var start = decodeEscape(p);
           var end;
@@ -1744,12 +1768,12 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           }
         }
       }
-
+  
       &#x2F;&#x2F; [[1, 10], [3, 4], [8, 12], [14, 14], [16, 16], [17, 17]]
       &#x2F;&#x2F; -&gt; [[1, 12], [14, 14], [16, 17]]
       ranges.sort(function (a, b) { return (a[0] - b[0]) || (b[1]  - a[1]); });
       var consolidatedRanges = [];
-      var lastRange = [NaN, NaN];
+      var lastRange = [];
       for (var i = 0; i &lt; ranges.length; ++i) {
         var range = ranges[i];
         if (range[0] &lt;= lastRange[1] + 1) {
@@ -1758,10 +1782,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           consolidatedRanges.push(lastRange = range);
         }
       }
-
-      var out = [&#x27;[&#x27;];
-      if (inverse) { out.push(&#x27;^&#x27;); }
-      out.push.apply(out, groups);
+  
       for (var i = 0; i &lt; consolidatedRanges.length; ++i) {
         var range = consolidatedRanges[i];
         out.push(encodeEscape(range[0]));
@@ -1773,7 +1794,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       out.push(&#x27;]&#x27;);
       return out.join(&#x27;&#x27;);
     }
-
+  
     function allowAnywhereFoldCaseAndRenumberGroups(regex) {
       &#x2F;&#x2F; Split into character sets, escape sequences, punctuation strings
       &#x2F;&#x2F; like (&#x27;(&#x27;, &#x27;(?:&#x27;, &#x27;)&#x27;, &#x27;^&#x27;), and runs of characters that do not
@@ -1787,17 +1808,17 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
               + &#x27;|\\\\[0-9]+&#x27;  &#x2F;&#x2F; a back-reference or octal escape
               + &#x27;|\\\\[^ux0-9]&#x27;  &#x2F;&#x2F; other escape sequence
               + &#x27;|\\(\\?[:!=]&#x27;  &#x2F;&#x2F; start of a non-capturing group
-              + &#x27;|[\\(\\)\\^]&#x27;  &#x2F;&#x2F; start&#x2F;emd of a group, or line start
+              + &#x27;|[\\(\\)\\^]&#x27;  &#x2F;&#x2F; start&#x2F;end of a group, or line start
               + &#x27;|[^\\x5B\\x5C\\(\\)\\^]+&#x27;  &#x2F;&#x2F; run of other characters
               + &#x27;)&#x27;,
               &#x27;g&#x27;));
       var n = parts.length;
-
+  
       &#x2F;&#x2F; Maps captured group numbers to the number they will occupy in
       &#x2F;&#x2F; the output or to -1 if that has not been determined, or to
       &#x2F;&#x2F; undefined if they need not be capturing in the output.
       var capturedGroups = [];
-
+  
       &#x2F;&#x2F; Walk over and identify back references to build the capturedGroups
       &#x2F;&#x2F; mapping.
       for (var i = 0, groupIndex = 0; i &lt; n; ++i) {
@@ -1807,12 +1828,19 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           ++groupIndex;
         } else if (&#x27;\\&#x27; === p.charAt(0)) {
           var decimalValue = +p.substring(1);
-          if (decimalValue &amp;&amp; decimalValue &lt;= groupIndex) {
-            capturedGroups[decimalValue] = -1;
+          if (decimalValue) {
+            if (decimalValue &lt;= groupIndex) {
+              capturedGroups[decimalValue] = -1;
+            } else {
+              &#x2F;&#x2F; Replace with an unambiguous escape sequence so that
+              &#x2F;&#x2F; an octal escape sequence does not turn into a backreference
+              &#x2F;&#x2F; to a capturing group from an earlier regex.
+              parts[i] = encodeEscape(decimalValue);
+            }
           }
         }
       }
-
+  
       &#x2F;&#x2F; Renumber groups and reduce capturing groups to non-capturing groups
       &#x2F;&#x2F; where possible.
       for (var i = 1; i &lt; capturedGroups.length; ++i) {
@@ -1824,23 +1852,23 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
         var p = parts[i];
         if (p === &#x27;(&#x27;) {
           ++groupIndex;
-          if (capturedGroups[groupIndex] === undefined) {
+          if (!capturedGroups[groupIndex]) {
             parts[i] = &#x27;(?:&#x27;;
           }
         } else if (&#x27;\\&#x27; === p.charAt(0)) {
           var decimalValue = +p.substring(1);
           if (decimalValue &amp;&amp; decimalValue &lt;= groupIndex) {
-            parts[i] = &#x27;\\&#x27; + capturedGroups[groupIndex];
+            parts[i] = &#x27;\\&#x27; + capturedGroups[decimalValue];
           }
         }
       }
-
+  
       &#x2F;&#x2F; Remove any prefix anchors so that the output will match anywhere.
       &#x2F;&#x2F; ^^ really does mean an anchored match though.
-      for (var i = 0, groupIndex = 0; i &lt; n; ++i) {
+      for (var i = 0; i &lt; n; ++i) {
         if (&#x27;^&#x27; === parts[i] &amp;&amp; &#x27;^&#x27; !== parts[i + 1]) { parts[i] = &#x27;&#x27;; }
       }
-
+  
       &#x2F;&#x2F; Expand letters to groups to handle mixing of case-sensitive and
       &#x2F;&#x2F; case-insensitive patterns if necessary.
       if (regex.ignoreCase &amp;&amp; needToFoldCase) {
@@ -1860,10 +1888,10 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           }
         }
       }
-
+  
       return parts.join(&#x27;&#x27;);
     }
-
+  
     var rewritten = [];
     for (var i = 0, n = regexs.length; i &lt; n; ++i) {
       var regex = regexs[i];
@@ -1871,7 +1899,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       rewritten.push(
           &#x27;(?:&#x27; + allowAnywhereFoldCaseAndRenumberGroups(regex) + &#x27;)&#x27;);
     }
-
+  
     return new RegExp(rewritten.join(&#x27;|&#x27;), ignoreCase ? &#x27;gi&#x27; : &#x27;g&#x27;);
   }
 
@@ -1899,8 +1927,8 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
    * &lt;pre&gt;
    * {
    *   sourceCode: &quot;print &#x27;Hello &#x27;\n  + &#x27;World&#x27;;&quot;,
-   *   &#x2F;&#x2F;                 1         2
-   *   &#x2F;&#x2F;       012345678901234 5678901234567
+   *   &#x2F;&#x2F;                     1          2
+   *   &#x2F;&#x2F;           012345678901234 5678901234567
    *   spans: [0, #1, 6, #2, 14, #3, 15, #4]
    * }
    * &lt;&#x2F;pre&gt;
@@ -1917,25 +1945,18 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
    * &lt;&#x2F;p&gt;
    *
    * @param {Node} node an HTML DOM subtree containing source-code.
+   * @param {boolean} isPreformatted true if white-space in text nodes should
+   *    be considered significant.
    * @return {Object} source code and the text nodes in which they occur.
    *&#x2F;
-  function extractSourceSpans(node) {
+  function extractSourceSpans(node, isPreformatted) {
     var nocode = &#x2F;(?:^|\s)nocode(?:\s|$)&#x2F;;
-
+  
     var chunks = [];
     var length = 0;
     var spans = [];
     var k = 0;
-
-    var whitespace;
-    if (node.currentStyle) {
-      whitespace = node.currentStyle.whiteSpace;
-    } else if (window.getComputedStyle) {
-      whitespace = document.defaultView.getComputedStyle(node, null)
-          .getPropertyValue(&#x27;white-space&#x27;);
-    }
-    var isPreformatted = whitespace &amp;&amp; &#x27;pre&#x27; === whitespace.substring(0, 3);
-
+  
     function walk(node) {
       switch (node.nodeType) {
         case 1:  &#x2F;&#x2F; Element
@@ -1943,8 +1964,8 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           for (var child = node.firstChild; child; child = child.nextSibling) {
             walk(child);
           }
-          var nodeName = node.nodeName;
-          if (&#x27;BR&#x27; === nodeName || &#x27;LI&#x27; === nodeName) {
+          var nodeName = node.nodeName.toLowerCase();
+          if (&#x27;br&#x27; === nodeName || &#x27;li&#x27; === nodeName) {
             chunks[k] = &#x27;\n&#x27;;
             spans[k &lt;&lt; 1] = length++;
             spans[(k++ &lt;&lt; 1) | 1] = node;
@@ -1967,9 +1988,9 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           break;
       }
     }
-
+  
     walk(node);
-
+  
     return {
       sourceCode: chunks.join(&#x27;&#x27;).replace(&#x2F;\n$&#x2F;, &#x27;&#x27;),
       spans: spans
@@ -2241,12 +2262,13 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
         } else {
           &#x2F;&#x2F; Stop C preprocessor declarations at an unclosed open comment
           shortcutStylePatterns.push(
-              [PR_COMMENT, &#x2F;^#(?:(?:define|elif|else|endif|error|ifdef|include|ifndef|line|pragma|undef|warning)\b|[^\r\n]*)&#x2F;,
+              [PR_COMMENT, &#x2F;^#(?:(?:define|e(?:l|nd)if|else|error|ifn?def|include|line|pragma|undef|warning)\b|[^\r\n]*)&#x2F;,
                null, &#x27;#&#x27;]);
         }
+        &#x2F;&#x2F; #include &lt;stdio.h&gt;
         fallthroughStylePatterns.push(
             [PR_STRING,
-             &#x2F;^&lt;(?:(?:(?:\.\.\&#x2F;)*|\&#x2F;?)(?:[\w-]+(?:\&#x2F;[\w-]+)+)?[\w-]+\.h|[a-z]\w*)&gt;&#x2F;,
+             &#x2F;^&lt;(?:(?:(?:\.\.\&#x2F;)*|\&#x2F;?)(?:[\w-]+(?:\&#x2F;[\w-]+)+)?[\w-]+\.h(?:h|pp|\+\+)?|[a-z]\w*)&gt;&#x2F;,
              null]);
       } else {
         shortcutStylePatterns.push([PR_COMMENT, &#x2F;^#[^\r\n]*&#x2F;, null, &#x27;#&#x27;]);
@@ -2294,6 +2316,45 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
     }
 
     shortcutStylePatterns.push([PR_PLAIN,       &#x2F;^\s+&#x2F;, null, &#x27; \r\n\t\xA0&#x27;]);
+
+    var punctuation =
+      &#x2F;&#x2F; The Bash man page says
+
+      &#x2F;&#x2F; A word is a sequence of characters considered as a single
+      &#x2F;&#x2F; unit by GRUB. Words are separated by metacharacters,
+      &#x2F;&#x2F; which are the following plus space, tab, and newline: { }
+      &#x2F;&#x2F; | &amp; $ ; &lt; &gt;
+      &#x2F;&#x2F; ...
+      
+      &#x2F;&#x2F; A word beginning with # causes that word and all remaining
+      &#x2F;&#x2F; characters on that line to be ignored.
+
+      &#x2F;&#x2F; which means that only a &#x27;#&#x27; after &#x2F;(?:^|[{}|&amp;$;&lt;&gt;\s])&#x2F; starts a
+      &#x2F;&#x2F; comment but empirically
+      &#x2F;&#x2F; $ echo {#}
+      &#x2F;&#x2F; {#}
+      &#x2F;&#x2F; $ echo \$#
+      &#x2F;&#x2F; $#
+      &#x2F;&#x2F; $ echo }#
+      &#x2F;&#x2F; }#
+
+      &#x2F;&#x2F; so &#x2F;(?:^|[|&amp;;&lt;&gt;\s])&#x2F; is more appropriate.
+
+      &#x2F;&#x2F; http:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-2.95.3&#x2F;cpp_1.html#SEC3
+      &#x2F;&#x2F; suggests that this definition is compatible with a
+      &#x2F;&#x2F; default mode that tries to use a single token definition
+      &#x2F;&#x2F; to recognize both bash&#x2F;python style comments and C
+      &#x2F;&#x2F; preprocessor directives.
+
+      &#x2F;&#x2F; This definition of punctuation does not include # in the list of
+      &#x2F;&#x2F; follow-on exclusions, so # will not be broken before if preceeded
+      &#x2F;&#x2F; by a punctuation character.  We could try to exclude # after
+      &#x2F;&#x2F; [|&amp;;&lt;&gt;] but that doesn&#x27;t seem to cause many major problems.
+      &#x2F;&#x2F; If that does turn out to be a problem, we should change the below
+      &#x2F;&#x2F; when hc is truthy to include # in the run of punctuation characters
+      &#x2F;&#x2F; only when not followint [|&amp;;&lt;&gt;].
+      &#x2F;^.[^\s\w\.$@\&#x27;\&quot;\&#x60;\&#x2F;\\]*&#x2F;;
+
     fallthroughStylePatterns.push(
         &#x2F;&#x2F; TODO(mikesamuel): recognize non-latin letters and numerals in idents
         [PR_LITERAL,     &#x2F;^@[a-z_$][a-z_$@0-9]*&#x2F;i, null],
@@ -2314,7 +2375,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
          null, &#x27;0123456789&#x27;],
         &#x2F;&#x2F; Don&#x27;t treat escaped quotes in bash as starting strings.  See issue 144.
         [PR_PLAIN,       &#x2F;^\\[\s\S]?&#x2F;, null],
-        [PR_PUNCTUATION, &#x2F;^.[^\s\w\.$@\&#x27;\&quot;\&#x60;\&#x2F;\#\\]*&#x2F;, null]);
+        [PR_PUNCTUATION, punctuation, null]);
 
     return createSimpleLexer(shortcutStylePatterns, fallthroughStylePatterns);
   }
@@ -2335,37 +2396,28 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
    *     HTMLOListElement, and each line is moved into a separate list item.
    *     This requires cloning elements, so the input might not have unique
    *     IDs after numbering.
+   * @param {boolean} isPreformatted true iff white-space in text nodes should
+   *     be treated as significant.
    *&#x2F;
-  function numberLines(node, opt_startLineNum) {
+  function numberLines(node, opt_startLineNum, isPreformatted) {
     var nocode = &#x2F;(?:^|\s)nocode(?:\s|$)&#x2F;;
     var lineBreak = &#x2F;\r\n?|\n&#x2F;;
-
+  
     var document = node.ownerDocument;
-
-    var whitespace;
-    if (node.currentStyle) {
-      whitespace = node.currentStyle.whiteSpace;
-    } else if (window.getComputedStyle) {
-      whitespace = document.defaultView.getComputedStyle(node, null)
-          .getPropertyValue(&#x27;white-space&#x27;);
-    }
-    &#x2F;&#x2F; If it&#x27;s preformatted, then we need to split lines on line breaks
-    &#x2F;&#x2F; in addition to &lt;BR&gt;s.
-    var isPreformatted = whitespace &amp;&amp; &#x27;pre&#x27; === whitespace.substring(0, 3);
-
-    var li = document.createElement(&#x27;LI&#x27;);
+  
+    var li = document.createElement(&#x27;li&#x27;);
     while (node.firstChild) {
       li.appendChild(node.firstChild);
     }
     &#x2F;&#x2F; An array of lines.  We split below, so this is initialized to one
     &#x2F;&#x2F; un-split line.
     var listItems = [li];
-
+  
     function walk(node) {
       switch (node.nodeType) {
         case 1:  &#x2F;&#x2F; Element
           if (nocode.test(node.className)) { break; }
-          if (&#x27;BR&#x27; === node.nodeName) {
+          if (&#x27;br&#x27; === node.nodeName) {
             breakAfter(node);
             &#x2F;&#x2F; Discard the &lt;BR&gt; since it is now flush against a &lt;&#x2F;LI&gt;.
             if (node.parentNode) {
@@ -2400,7 +2452,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           break;
       }
     }
-
+  
     &#x2F;&#x2F; Split a line after the given node.
     function breakAfter(lineEndNode) {
       &#x2F;&#x2F; If there&#x27;s nothing to the right, then we can skip ending the line
@@ -2410,7 +2462,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
         lineEndNode = lineEndNode.parentNode;
         if (!lineEndNode) { return; }
       }
-
+  
       function breakLeftOf(limit, copy) {
         &#x2F;&#x2F; Clone shallowly if this node needs to be on both sides of the break.
         var rightSide = copy ? limit.cloneNode(false) : limit;
@@ -2432,9 +2484,9 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
         }
         return rightSide;
       }
-
+  
       var copiedListItem = breakLeftOf(lineEndNode.nextSibling, 0);
-
+  
       &#x2F;&#x2F; Walk the parent chain until we reach an unattached LI.
       for (var parent;
            &#x2F;&#x2F; Check nodeType since IE invents document fragments.
@@ -2444,20 +2496,20 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       &#x2F;&#x2F; Put it on the list of lines for later processing.
       listItems.push(copiedListItem);
     }
-
+  
     &#x2F;&#x2F; Split lines while there are lines left to split.
     for (var i = 0;  &#x2F;&#x2F; Number of lines that have been split so far.
          i &lt; listItems.length;  &#x2F;&#x2F; length updated by breakAfter calls.
          ++i) {
       walk(listItems[i]);
     }
-
+  
     &#x2F;&#x2F; Make sure numeric indices show correctly.
     if (opt_startLineNum === (opt_startLineNum|0)) {
       listItems[0].setAttribute(&#x27;value&#x27;, opt_startLineNum);
     }
-
-    var ol = document.createElement(&#x27;OL&#x27;);
+  
+    var ol = document.createElement(&#x27;ol&#x27;);
     ol.className = &#x27;linenums&#x27;;
     var offset = Math.max(0, ((opt_startLineNum - 1 &#x2F;* zero index *&#x2F;)) | 0) || 0;
     for (var i = 0, n = listItems.length; i &lt; n; ++i) {
@@ -2471,7 +2523,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       }
       ol.appendChild(li);
     }
-
+  
     node.appendChild(ol);
   }
 
@@ -2489,25 +2541,26 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
    * @private
    *&#x2F;
   function recombineTagsAndDecorations(job) {
-    var isIE = &#x2F;\bMSIE\b&#x2F;.test(navigator.userAgent);
+    var isIE8OrEarlier = &#x2F;\bMSIE\s(\d+)&#x2F;.exec(navigator.userAgent);
+    isIE8OrEarlier = isIE8OrEarlier &amp;&amp; +isIE8OrEarlier[1] &lt;= 8;
     var newlineRe = &#x2F;\n&#x2F;g;
-
+  
     var source = job.sourceCode;
     var sourceLength = source.length;
     &#x2F;&#x2F; Index into source after the last code-unit recombined.
     var sourceIndex = 0;
-
+  
     var spans = job.spans;
     var nSpans = spans.length;
     &#x2F;&#x2F; Index into spans after the last span which ends at or before sourceIndex.
     var spanIndex = 0;
-
+  
     var decorations = job.decorations;
     var nDecorations = decorations.length;
     &#x2F;&#x2F; Index into decorations after the last decoration which ends at or before
     &#x2F;&#x2F; sourceIndex.
     var decorationIndex = 0;
-
+  
     &#x2F;&#x2F; Remove all zero-length decorations.
     decorations[nDecorations] = sourceLength;
     var decPos, i;
@@ -2520,7 +2573,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       }
     }
     nDecorations = decPos;
-
+  
     &#x2F;&#x2F; Simplify decorations.
     for (i = decPos = 0; i &lt; nDecorations;) {
       var startPos = decorations[i];
@@ -2534,52 +2587,65 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       decorations[decPos++] = startDec;
       i = end;
     }
-
+  
     nDecorations = decorations.length = decPos;
-
-    var decoration = null;
-    while (spanIndex &lt; nSpans) {
-      var spanStart = spans[spanIndex];
-      var spanEnd = spans[spanIndex + 2] || sourceLength;
-
-      var decStart = decorations[decorationIndex];
-      var decEnd = decorations[decorationIndex + 2] || sourceLength;
-
-      var end = Math.min(spanEnd, decEnd);
-
-      var textNode = spans[spanIndex + 1];
-      var styledText;
-      if (textNode.nodeType !== 1  &#x2F;&#x2F; Don&#x27;t muck with &lt;BR&gt;s or &lt;LI&gt;s
-          &#x2F;&#x2F; Don&#x27;t introduce spans around empty text nodes.
-          &amp;&amp; (styledText = source.substring(sourceIndex, end))) {
-        &#x2F;&#x2F; This may seem bizarre, and it is.  Emitting LF on IE causes the
-        &#x2F;&#x2F; code to display with spaces instead of line breaks.
-        &#x2F;&#x2F; Emitting Windows standard issue linebreaks (CRLF) causes a blank
-        &#x2F;&#x2F; space to appear at the beginning of every line but the first.
-        &#x2F;&#x2F; Emitting an old Mac OS 9 line separator makes everything spiffy.
-        if (isIE) { styledText = styledText.replace(newlineRe, &#x27;\r&#x27;); }
-        textNode.nodeValue = styledText;
-        var document = textNode.ownerDocument;
-        var span = document.createElement(&#x27;SPAN&#x27;);
-        span.className = decorations[decorationIndex + 1];
-        var parentNode = textNode.parentNode;
-        parentNode.replaceChild(span, textNode);
-        span.appendChild(textNode);
-        if (sourceIndex &lt; spanEnd) {  &#x2F;&#x2F; Split off a text node.
-          spans[spanIndex + 1] = textNode
-              &#x2F;&#x2F; TODO: Possibly optimize by using &#x27;&#x27; if there&#x27;s no flicker.
-              = document.createTextNode(source.substring(end, spanEnd));
-          parentNode.insertBefore(textNode, span.nextSibling);
+  
+    var sourceNode = job.sourceNode;
+    var oldDisplay;
+    if (sourceNode) {
+      oldDisplay = sourceNode.style.display;
+      sourceNode.style.display = &#x27;none&#x27;;
+    }
+    try {
+      var decoration = null;
+      while (spanIndex &lt; nSpans) {
+        var spanStart = spans[spanIndex];
+        var spanEnd = spans[spanIndex + 2] || sourceLength;
+  
+        var decEnd = decorations[decorationIndex + 2] || sourceLength;
+  
+        var end = Math.min(spanEnd, decEnd);
+  
+        var textNode = spans[spanIndex + 1];
+        var styledText;
+        if (textNode.nodeType !== 1  &#x2F;&#x2F; Don&#x27;t muck with &lt;BR&gt;s or &lt;LI&gt;s
+            &#x2F;&#x2F; Don&#x27;t introduce spans around empty text nodes.
+            &amp;&amp; (styledText = source.substring(sourceIndex, end))) {
+          &#x2F;&#x2F; This may seem bizarre, and it is.  Emitting LF on IE causes the
+          &#x2F;&#x2F; code to display with spaces instead of line breaks.
+          &#x2F;&#x2F; Emitting Windows standard issue linebreaks (CRLF) causes a blank
+          &#x2F;&#x2F; space to appear at the beginning of every line but the first.
+          &#x2F;&#x2F; Emitting an old Mac OS 9 line separator makes everything spiffy.
+          if (isIE8OrEarlier) {
+            styledText = styledText.replace(newlineRe, &#x27;\r&#x27;);
+          }
+          textNode.nodeValue = styledText;
+          var document = textNode.ownerDocument;
+          var span = document.createElement(&#x27;span&#x27;);
+          span.className = decorations[decorationIndex + 1];
+          var parentNode = textNode.parentNode;
+          parentNode.replaceChild(span, textNode);
+          span.appendChild(textNode);
+          if (sourceIndex &lt; spanEnd) {  &#x2F;&#x2F; Split off a text node.
+            spans[spanIndex + 1] = textNode
+                &#x2F;&#x2F; TODO: Possibly optimize by using &#x27;&#x27; if there&#x27;s no flicker.
+                = document.createTextNode(source.substring(end, spanEnd));
+            parentNode.insertBefore(textNode, span.nextSibling);
+          }
+        }
+  
+        sourceIndex = end;
+  
+        if (sourceIndex &gt;= spanEnd) {
+          spanIndex += 2;
+        }
+        if (sourceIndex &gt;= decEnd) {
+          decorationIndex += 2;
         }
       }
-
-      sourceIndex = end;
-
-      if (sourceIndex &gt;= spanEnd) {
-        spanIndex += 2;
-      }
-      if (sourceIndex &gt;= decEnd) {
-        decorationIndex += 2;
+    } finally {
+      if (sourceNode) {
+        sourceNode.style.display = oldDisplay;
       }
     }
   }
@@ -2608,7 +2674,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       var ext = fileExtensions[i];
       if (!langHandlerRegistry.hasOwnProperty(ext)) {
         langHandlerRegistry[ext] = handler;
-      } else if (window[&#x27;console&#x27;]) {
+      } else if (win[&#x27;console&#x27;]) {
         console[&#x27;warn&#x27;](&#x27;cannot override language handler %s&#x27;, ext);
       }
     }
@@ -2720,14 +2786,15 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
           &#x27;tripleQuotedStrings&#x27;: true,
           &#x27;regexLiterals&#x27;: true
         }), [&#x27;coffee&#x27;]);
-  registerLangHandler(createSimpleLexer([], [[PR_STRING, &#x2F;^[\s\S]+&#x2F;]]), [&#x27;regex&#x27;]);
+  registerLangHandler(
+      createSimpleLexer([], [[PR_STRING, &#x2F;^[\s\S]+&#x2F;]]), [&#x27;regex&#x27;]);
 
   function applyDecorator(job) {
     var opt_langExtension = job.langExtension;
 
     try {
       &#x2F;&#x2F; Extract tags, and convert the source code to plain text.
-      var sourceAndSpans = extractSourceSpans(job.sourceNode);
+      var sourceAndSpans = extractSourceSpans(job.sourceNode, job.pre);
       &#x2F;** Plain text. @type {string} *&#x2F;
       var source = sourceAndSpans.sourceCode;
       job.sourceCode = source;
@@ -2741,7 +2808,7 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
       &#x2F;&#x2F; modifying the sourceNode in place.
       recombineTagsAndDecorations(job);
     } catch (e) {
-      if (&#x27;console&#x27; in window) {
+      if (win[&#x27;console&#x27;]) {
         console[&#x27;log&#x27;](e &amp;&amp; e[&#x27;stack&#x27;] ? e[&#x27;stack&#x27;] : e);
       }
     }
@@ -2755,19 +2822,20 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
    *     or the 1-indexed number of the first line in sourceCodeHtml.
    *&#x2F;
   function prettyPrintOne(sourceCodeHtml, opt_langExtension, opt_numberLines) {
-    var container = document.createElement(&#x27;PRE&#x27;);
+    var container = document.createElement(&#x27;pre&#x27;);
     &#x2F;&#x2F; This could cause images to load and onload listeners to fire.
     &#x2F;&#x2F; E.g. &lt;img onerror=&quot;alert(1337)&quot; src=&quot;nosuchimage.png&quot;&gt;.
     &#x2F;&#x2F; We assume that the inner HTML is from a trusted source.
     container.innerHTML = sourceCodeHtml;
     if (opt_numberLines) {
-      numberLines(container, opt_numberLines);
+      numberLines(container, opt_numberLines, true);
     }
 
     var job = {
       langExtension: opt_langExtension,
       numberLines: opt_numberLines,
-      sourceNode: container
+      sourceNode: container,
+      pre: 1
     };
     applyDecorator(job);
     return container.innerHTML;
@@ -2797,59 +2865,88 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
 
     var langExtensionRe = &#x2F;\blang(?:uage)?-([\w.]+)(?!\S)&#x2F;;
     var prettyPrintRe = &#x2F;\bprettyprint\b&#x2F;;
+    var prettyPrintedRe = &#x2F;\bprettyprinted\b&#x2F;;
+    var preformattedTagNameRe = &#x2F;pre|xmp&#x2F;i;
+    var codeRe = &#x2F;^code$&#x2F;i;
+    var preCodeXmpRe = &#x2F;^(?:pre|code|xmp)$&#x2F;i;
 
     function doWork() {
-      var endTime = (window[&#x27;PR_SHOULD_USE_CONTINUATION&#x27;] ?
+      var endTime = (win[&#x27;PR_SHOULD_USE_CONTINUATION&#x27;] ?
                      clock[&#x27;now&#x27;]() + 250 &#x2F;* ms *&#x2F; :
                      Infinity);
       for (; k &lt; elements.length &amp;&amp; clock[&#x27;now&#x27;]() &lt; endTime; k++) {
         var cs = elements[k];
         var className = cs.className;
-        if (className.indexOf(&#x27;prettyprint&#x27;) &gt;= 0) {
-          &#x2F;&#x2F; If the classes includes a language extensions, use it.
-          &#x2F;&#x2F; Language extensions can be specified like
-          &#x2F;&#x2F;     &lt;pre class=&quot;prettyprint lang-cpp&quot;&gt;
-          &#x2F;&#x2F; the language extension &quot;cpp&quot; is used to find a language handler as
-          &#x2F;&#x2F; passed to PR.registerLangHandler.
-          &#x2F;&#x2F; HTML5 recommends that a language be specified using &quot;language-&quot;
-          &#x2F;&#x2F; as the prefix instead.  Google Code Prettify supports both.
-          &#x2F;&#x2F; http:&#x2F;&#x2F;dev.w3.org&#x2F;html5&#x2F;spec-author-view&#x2F;the-code-element.html
-          var langExtension = className.match(langExtensionRe);
-          &#x2F;&#x2F; Support &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-c&quot;&gt;
-          var wrapper;
-          if (!langExtension &amp;&amp; (wrapper = childContentWrapper(cs))
-              &amp;&amp; &quot;CODE&quot; === wrapper.tagName) {
-            langExtension = wrapper.className.match(langExtensionRe);
-          }
-
-          if (langExtension) {
-            langExtension = langExtension[1];
-          }
+        if (prettyPrintRe.test(className)
+            &#x2F;&#x2F; Don&#x27;t redo this if we&#x27;ve already done it.
+            &#x2F;&#x2F; This allows recalling pretty print to just prettyprint elements
+            &#x2F;&#x2F; that have been added to the page since last call.
+            &amp;&amp; !prettyPrintedRe.test(className)) {
 
           &#x2F;&#x2F; make sure this is not nested in an already prettified element
           var nested = false;
           for (var p = cs.parentNode; p; p = p.parentNode) {
-            if ((p.tagName === &#x27;pre&#x27; || p.tagName === &#x27;code&#x27; ||
-                 p.tagName === &#x27;xmp&#x27;) &amp;&amp;
-                p.className &amp;&amp; p.className.indexOf(&#x27;prettyprint&#x27;) &gt;= 0) {
+            var tn = p.tagName;
+            if (preCodeXmpRe.test(tn)
+                &amp;&amp; p.className &amp;&amp; prettyPrintRe.test(p.className)) {
               nested = true;
               break;
             }
           }
           if (!nested) {
+            &#x2F;&#x2F; Mark done.  If we fail to prettyprint for whatever reason,
+            &#x2F;&#x2F; we shouldn&#x27;t try again.
+            cs.className += &#x27; prettyprinted&#x27;;
+
+            &#x2F;&#x2F; If the classes includes a language extensions, use it.
+            &#x2F;&#x2F; Language extensions can be specified like
+            &#x2F;&#x2F;     &lt;pre class=&quot;prettyprint lang-cpp&quot;&gt;
+            &#x2F;&#x2F; the language extension &quot;cpp&quot; is used to find a language handler
+            &#x2F;&#x2F; as passed to PR.registerLangHandler.
+            &#x2F;&#x2F; HTML5 recommends that a language be specified using &quot;language-&quot;
+            &#x2F;&#x2F; as the prefix instead.  Google Code Prettify supports both.
+            &#x2F;&#x2F; http:&#x2F;&#x2F;dev.w3.org&#x2F;html5&#x2F;spec-author-view&#x2F;the-code-element.html
+            var langExtension = className.match(langExtensionRe);
+            &#x2F;&#x2F; Support &lt;pre class=&quot;prettyprint&quot;&gt;&lt;code class=&quot;language-c&quot;&gt;
+            var wrapper;
+            if (!langExtension &amp;&amp; (wrapper = childContentWrapper(cs))
+                &amp;&amp; codeRe.test(wrapper.tagName)) {
+              langExtension = wrapper.className.match(langExtensionRe);
+            }
+
+            if (langExtension) { langExtension = langExtension[1]; }
+
+            var preformatted;
+            if (preformattedTagNameRe.test(cs.tagName)) {
+              preformatted = 1;
+            } else {
+              var currentStyle = cs[&#x27;currentStyle&#x27;];
+              var whitespace = (
+                  currentStyle
+                  ? currentStyle[&#x27;whiteSpace&#x27;]
+                  : (document.defaultView
+                     &amp;&amp; document.defaultView.getComputedStyle)
+                  ? document.defaultView.getComputedStyle(cs, null)
+                  .getPropertyValue(&#x27;white-space&#x27;)
+                  : 0);
+              preformatted = whitespace
+                  &amp;&amp; &#x27;pre&#x27; === whitespace.substring(0, 3);
+            }
+
             &#x2F;&#x2F; Look for a class like linenums or linenums:&lt;n&gt; where &lt;n&gt; is the
             &#x2F;&#x2F; 1-indexed number of the first line.
             var lineNums = cs.className.match(&#x2F;\blinenums\b(?::(\d+))?&#x2F;);
             lineNums = lineNums
-                  ? lineNums[1] &amp;&amp; lineNums[1].length ? +lineNums[1] : true
-                  : false;
-            if (lineNums) { numberLines(cs, lineNums); }
+                ? lineNums[1] &amp;&amp; lineNums[1].length ? +lineNums[1] : true
+                : false;
+            if (lineNums) { numberLines(cs, lineNums, preformatted); }
 
             &#x2F;&#x2F; do the pretty printing
             prettyPrintingJob = {
               langExtension: langExtension,
               sourceNode: cs,
-              numberLines: lineNums
+              numberLines: lineNums,
+              pre: preformatted
             };
             applyDecorator(prettyPrintingJob);
           }
@@ -2866,26 +2963,11 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
     doWork();
   }
 
-   &#x2F;**
-    * Find all the {@code &lt;pre&gt;} and {@code &lt;code&gt;} tags in the DOM with
-    * {@code class=prettyprint} and prettify them.
-    *
-    * @param {Function?} opt_whenDone if specified, called when the last entry
-    *     has been finished.
-    *&#x2F;
-  window[&#x27;prettyPrintOne&#x27;] = prettyPrintOne;
-   &#x2F;**
-    * Pretty print a chunk of code.
-    *
-    * @param {string} sourceCodeHtml code as html
-    * @return {string} code as html, but prettier
-    *&#x2F;
-  window[&#x27;prettyPrint&#x27;] = prettyPrint;
-   &#x2F;**
-    * Contains functions for creating and registering new language handlers.
-    * @type {Object}
-    *&#x2F;
-  window[&#x27;PR&#x27;] = {
+  &#x2F;**
+   * Contains functions for creating and registering new language handlers.
+   * @type {Object}
+   *&#x2F;
+  var PR = win[&#x27;PR&#x27;] = {
         &#x27;createSimpleLexer&#x27;: createSimpleLexer,
         &#x27;registerLangHandler&#x27;: registerLangHandler,
         &#x27;sourceDecorator&#x27;: sourceDecorator,
@@ -2901,12 +2983,34 @@ var REGEXP_PRECEDER_PATTERN = &#x27;(?:^^\\.?|[+-]|\\!|\\!=|\\!==|\\#|\\%|\\%=|&
         &#x27;PR_SOURCE&#x27;: PR_SOURCE,
         &#x27;PR_STRING&#x27;: PR_STRING,
         &#x27;PR_TAG&#x27;: PR_TAG,
-        &#x27;PR_TYPE&#x27;: PR_TYPE
+        &#x27;PR_TYPE&#x27;: PR_TYPE,
+        &#x27;prettyPrintOne&#x27;: win[&#x27;prettyPrintOne&#x27;] = prettyPrintOne,
+        &#x27;prettyPrint&#x27;: win[&#x27;prettyPrint&#x27;] = prettyPrint
       };
+
+  &#x2F;&#x2F; Make PR available via the Asynchronous Module Definition (AMD) API.
+  &#x2F;&#x2F; Per https:&#x2F;&#x2F;github.com&#x2F;amdjs&#x2F;amdjs-api&#x2F;wiki&#x2F;AMD:
+  &#x2F;&#x2F; The Asynchronous Module Definition (AMD) API specifies a
+  &#x2F;&#x2F; mechanism for defining modules such that the module and its
+  &#x2F;&#x2F; dependencies can be asynchronously loaded.
+  &#x2F;&#x2F; ...
+  &#x2F;&#x2F; To allow a clear indicator that a global define function (as
+  &#x2F;&#x2F; needed for script src browser loading) conforms to the AMD API,
+  &#x2F;&#x2F; any global define function SHOULD have a property called &quot;amd&quot;
+  &#x2F;&#x2F; whose value is an object. This helps avoid conflict with any
+  &#x2F;&#x2F; other existing JavaScript code that could have defined a define()
+  &#x2F;&#x2F; function that does not conform to the AMD API.
+  if (typeof define === &quot;function&quot; &amp;&amp; define[&#x27;amd&#x27;]) {
+    define(&quot;google-code-prettify&quot;, [], function () {
+      return PR; 
+    });
+  }
 })();
 
-&#x2F;&#x2F; Contributed by Ryan Grove &lt;ryan@wonko.com&gt;
 
+&#x2F;&#x2F; ***** Customization begin
+
+&#x2F;&#x2F; Contributed by Ryan Grove &lt;ryan@wonko.com&gt;
 &#x2F;**
  * @fileoverview
  * Registers a language handler for Handlebars.
@@ -3032,6 +3136,8 @@ PR[&#x27;registerLangHandler&#x27;](
         ]),
     [&#x27;css-str&#x27;]);
 
+
+&#x2F;&#x2F; ****** Customization end
     </pre>
 </div>
 

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1532,11 +1536,21 @@ YQLRequest.prototype = {
 
         o.on.success = Y.bind(this._internal, this);
 
+        Y.log(&#x27;URL: &#x27; + url, &#x27;info&#x27;, &#x27;yql&#x27;);
+        this._send(url, o);
+        return this;
+    },
+    &#x2F;**
+    * Private method to send the request, overwritten in plugins
+    * @method _send
+    * @private
+    * @param {String} url The URL to request
+    * @param {Object} o The config object
+    *&#x2F;
+    _send: function(url, o) {
         if (o.allowCache !== false) {
             o.allowCache = true;
         }
-        Y.log(&#x27;URL: &#x27; + url, &#x27;info&#x27;, &#x27;yql&#x27;);
-
         if (!this._jsonp) {
             this._jsonp = Y.jsonp(url, o);
         } else {
@@ -1546,7 +1560,6 @@ YQLRequest.prototype = {
             }
             this._jsonp.send();
         }
-        return this;
     }
 };
 

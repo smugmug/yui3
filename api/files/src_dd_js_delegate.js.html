@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1429,7 +1433,7 @@
      * Provides the ability to drag multiple nodes under a container element using only one Y.DD.Drag instance as a delegate.
      * @module dd
      * @submodule dd-delegate
-     *&#x2F;     
+     *&#x2F;
     &#x2F;**
      * Provides the ability to drag multiple nodes under a container element using only one Y.DD.Drag instance as a delegate.
      * @class Delegate
@@ -1439,7 +1443,7 @@
      *&#x2F;
 
 
-    var Delegate = function(o) {
+    var Delegate = function() {
         Delegate.superclass.constructor.apply(this, arguments);
     },
     CONT = &#x27;container&#x27;,
@@ -1457,13 +1461,13 @@
         &#x2F;**
         * @property dd
         * @description A reference to the temporary dd instance used under the hood.
-        *&#x2F;    
+        *&#x2F;
         dd: null,
         &#x2F;**
         * @property _shimState
         * @private
         * @description The state of the Y.DD.DDM._noShim property to it can be reset.
-        *&#x2F;    
+        *&#x2F;
         _shimState: null,
         &#x2F;**
         * @private
@@ -1486,7 +1490,7 @@
         * @description Listens for the drag:end event and updates the temp dd instance.
         * @param {Event} e The Event.
         *&#x2F;
-        _afterDragEnd: function(e) {
+        _afterDragEnd: function() {
             Y.DD.DDM._noShim = this._shimState;
 
             this.set(&#x27;lastNode&#x27;, this.dd.get(&#x27;node&#x27;));
@@ -1505,7 +1509,7 @@
                 dd = this.dd,
                 dNode = tar,
                 config = this.get(&#x27;dragConfig&#x27;);
-            
+
             if (tar.test(this.get(NODES)) &amp;&amp; !tar.test(this.get(&#x27;invalid&#x27;))) {
                 this._shimState = Y.DD.DDM._noShim;
                 Y.DD.DDM._noShim = true;
@@ -1518,7 +1522,7 @@
                 }
                 dd.set(&#x27;dragNode&#x27;, dNode);
                 dd._prep();
-                
+
                 dd.fire(&#x27;drag:mouseDown&#x27;, { ev: e });
             }
         },
@@ -1528,7 +1532,7 @@
         * @description Sets the target shim state
         * @param {Event} e The MouseEnter Event
         *&#x2F;
-        _onMouseEnter: function(e) {
+        _onMouseEnter: function() {
             this._shimState = Y.DD.DDM._noShim;
             Y.DD.DDM._noShim = true;
         },
@@ -1538,10 +1542,10 @@
         * @description Resets the target shim state
         * @param {Event} e The MouseLeave Event
         *&#x2F;
-        _onMouseLeave: function(e) {
+        _onMouseLeave: function() {
             Y.DD.DDM._noShim = this._shimState;
         },
-        initializer: function(cfg) {
+        initializer: function() {
             this._handles = [];
             &#x2F;&#x2F;Create a tmp DD instance under the hood.
             &#x2F;&#x2F;var conf = Y.clone(this.get(&#x27;dragConfig&#x27;) || {}),
@@ -1579,7 +1583,7 @@
         * @description Applies the Y.Plugin.Drop to all nodes matching the cont + nodes selector query.
         * @return {Self}
         * @chainable
-        *&#x2F;        
+        *&#x2F;
         syncTargets: function() {
             if (!Y.Plugin.Drop || this.get(&#x27;destroyed&#x27;)) {
                 return;
@@ -1590,7 +1594,7 @@
                 items = Y.one(this.get(CONT)).all(this.get(NODES));
                 groups = this.dd.get(&#x27;groups&#x27;);
                 config = this.get(&#x27;dragConfig&#x27;);
-                
+
                 if (config &amp;&amp; config.groups) {
                     groups = config.groups;
                 }
@@ -1639,7 +1643,7 @@
             * @attribute container
             * @description A selector query to get the container to listen for mousedown events on. All &quot;nodes&quot; should be a child of this container.
             * @type String
-            *&#x2F;    
+            *&#x2F;
             container: {
                 value: &#x27;body&#x27;
             },
@@ -1647,7 +1651,7 @@
             * @attribute nodes
             * @description A selector query to get the children of the &quot;container&quot; to make draggable elements from.
             * @type String
-            *&#x2F;        
+            *&#x2F;
             nodes: {
                 value: &#x27;.dd-draggable&#x27;
             },
@@ -1655,7 +1659,7 @@
             * @attribute invalid
             * @description A selector query to test a node to see if it&#x27;s an invalid item.
             * @type String
-            *&#x2F;        
+            *&#x2F;
             invalid: {
                 value: &#x27;input, select, button, a, textarea&#x27;
             },
@@ -1663,7 +1667,7 @@
             * @attribute lastNode
             * @description Y.Node instance of the last item dragged.
             * @type Node
-            *&#x2F;        
+            *&#x2F;
             lastNode: {
                 value: _tmpNode
             },
@@ -1671,7 +1675,7 @@
             * @attribute currentNode
             * @description Y.Node instance of the dd node.
             * @type Node
-            *&#x2F;        
+            *&#x2F;
             currentNode: {
                 value: _tmpNode
             },
@@ -1679,7 +1683,7 @@
             * @attribute dragNode
             * @description Y.Node instance of the dd dragNode.
             * @type Node
-            *&#x2F;        
+            *&#x2F;
             dragNode: {
                 value: _tmpNode
             },
@@ -1687,7 +1691,7 @@
             * @attribute over
             * @description Is the mouse currently over the container
             * @type Boolean
-            *&#x2F;        
+            *&#x2F;
             over: {
                 value: false
             },
@@ -1695,7 +1699,7 @@
             * @attribute target
             * @description Should the items also be a drop target.
             * @type Boolean
-            *&#x2F;        
+            *&#x2F;
             target: {
                 value: false
             },
@@ -1703,7 +1707,7 @@
             * @attribute dragConfig
             * @description The default config to be used when creating the DD instance.
             * @type Object
-            *&#x2F;        
+            *&#x2F;
             dragConfig: {
                 value: null
             },
@@ -1711,7 +1715,7 @@
             * @attribute handles
             * @description The handles config option added to the temp DD instance.
             * @type Array
-            *&#x2F;        
+            *&#x2F;
             handles: {
                 value: null
             }
@@ -1753,7 +1757,7 @@
         }
     });
 
-    Y.namespace(&#x27;DD&#x27;);    
+    Y.namespace(&#x27;DD&#x27;);
     Y.DD.Delegate = Delegate;
 
 

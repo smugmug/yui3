@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1426,7 +1430,8 @@
     <pre class="code prettyprint linenums">
 
     &#x2F;**
-     * Extends the dd-ddm-base Class to add support for the viewport shim to allow a draggable node to drag to be dragged over an iframe or any other node that traps mousemove events.
+     * Extends the dd-ddm-base Class to add support for the viewport shim to allow a draggable
+     * anode to drag to be dragged over an iframe or any other node that traps mousemove events.
      * It is also required to have Drop Targets enabled, as the viewport shim will contain the shims for the Drop Targets.
      * @module dd
      * @submodule dd-ddm
@@ -1482,10 +1487,10 @@
             if (ah) {
                 cur = ah.getStyle(&#x27;cursor&#x27;);
             }
-            if (cur == &#x27;auto&#x27;) {
+            if (cur === &#x27;auto&#x27;) {
                 cur = this.get(&#x27;dragCursor&#x27;);
             }
-            
+
             this._pg_size();
             this._pg.setStyles({
                 top: 0,
@@ -1536,11 +1541,11 @@
             this._pg = pg;
             this._pg.on(&#x27;mousemove&#x27;, Y.throttle(Y.bind(this._move, this), this.get(&#x27;throttleTime&#x27;)));
             this._pg.on(&#x27;mouseup&#x27;, Y.bind(this._end, this));
-            
+
             win = Y.one(&#x27;win&#x27;);
             Y.on(&#x27;window:resize&#x27;, Y.bind(this._pg_size, this));
             win.on(&#x27;scroll&#x27;, Y.bind(this._pg_size, this));
-        }   
+        }
     }, true);
 
 

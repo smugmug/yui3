@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1445,6 +1449,7 @@ Y.mix(Y.IO.prototype, {
     _q: new Y.Queue(),
     _qActiveId: null,
     _qInit: false,
+
    &#x2F;**
     * Property to determine whether the queue is set to
     * 1 (active) or 0 (inactive).  When inactive, transactions
@@ -1530,6 +1535,18 @@ Y.mix(Y.IO.prototype, {
         this._q.remove(o);
     },
 
+   &#x2F;**
+    * Method for cancel all pending transaction from
+    * the queue.
+    *
+    * @method empty
+    * @static
+    * @since 3.7.3
+    *&#x2F;
+    qEmpty: function() {
+        this._q = new Y.Queue();
+    },
+
     qStart: function() {
         var io = this;
         io._qState = 1;
@@ -1577,6 +1594,7 @@ _queue.stop = function () { io.qStop(); };
 _queue.promote = function (o) { io.qPromote(o); };
 _queue.remove = function (o) { io.qRemove(o); };
 _queue.size = function () { io.qSize(); };
+_queue.empty = function () { io.qEmpty(); };
 Y.io.queue = _queue;
 
     </pre>

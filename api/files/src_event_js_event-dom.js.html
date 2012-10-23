@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1446,7 +1450,8 @@
 Y.Env.evt.dom_wrappers = {};
 Y.Env.evt.dom_map = {};
 
-var _eventenv = Y.Env.evt,
+var YDOM = Y.DOM,
+    _eventenv = Y.Env.evt,
     config = Y.config,
     win = config.win,
     add = YUI.Env.add,
@@ -1468,13 +1473,12 @@ var _eventenv = Y.Env.evt,
 
     shouldIterate = function(o) {
         try {
-            return (o &amp;&amp; typeof o !== &quot;string&quot; &amp;&amp; Y.Lang.isNumber(o.length) &amp;&amp;
-                    !o.tagName &amp;&amp; !o.alert);
+            &#x2F;&#x2F; TODO: See if there&#x27;s a more performant way to return true early on this, for the common case
+            return (o &amp;&amp; typeof o !== &quot;string&quot; &amp;&amp; Y.Lang.isNumber(o.length) &amp;&amp; !o.tagName &amp;&amp; !YDOM.isWindow(o));
         } catch(ex) {
             Y.log(&quot;collection check failure&quot;, &quot;warn&quot;, &quot;event&quot;);
             return false;
         }
-
     },
 
     &#x2F;&#x2F; aliases to support DOM event subscription clean up when the last
@@ -1840,7 +1844,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
                 &#x2F;&#x2F; oEl = (compat) ? Y.DOM.byId(el) : Y.Selector.query(el);
 
                 if (compat) {
-                    oEl = Y.DOM.byId(el);
+                    oEl = YDOM.byId(el);
                 } else {
 
                     oEl = Y.Selector.query(el);
@@ -1957,7 +1961,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
 
                 &#x2F;&#x2F; el = (compat) ? Y.DOM.byId(el) : Y.all(el);
                 if (compat) {
-                    el = Y.DOM.byId(el);
+                    el = YDOM.byId(el);
                 } else {
                     el = Y.Selector.query(el);
                     l = el.length;
@@ -2031,7 +2035,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
          * @static
          *&#x2F;
         generateId: function(el) {
-            return Y.DOM.generateID(el);
+            return YDOM.generateID(el);
         },
 
         &#x2F;**
@@ -2141,7 +2145,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
                 if (item &amp;&amp; !item.checkReady) {
 
                     &#x2F;&#x2F; el = (item.compat) ? Y.DOM.byId(item.id) : Y.one(item.id);
-                    el = (item.compat) ? Y.DOM.byId(item.id) : Y.Selector.query(item.id, null, true);
+                    el = (item.compat) ? YDOM.byId(item.id) : Y.Selector.query(item.id, null, true);
 
                     if (el) {
                         &#x2F;&#x2F; Y.log(&#x27;avail: &#x27; + el);
@@ -2160,7 +2164,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
                 if (item &amp;&amp; item.checkReady) {
 
                     &#x2F;&#x2F; el = (item.compat) ? Y.DOM.byId(item.id) : Y.one(item.id);
-                    el = (item.compat) ? Y.DOM.byId(item.id) : Y.Selector.query(item.id, null, true);
+                    el = (item.compat) ? YDOM.byId(item.id) : Y.Selector.query(item.id, null, true);
 
                     if (el) {
                         &#x2F;&#x2F; The element is available, but not necessarily ready
@@ -2211,9 +2215,8 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
             if (recurse &amp;&amp; oEl) {
                 lis = lis || [];
                 children = Y.Selector.query(&#x27;*&#x27;, oEl);
-                i = 0;
                 len = children.length;
-                for (; i &lt; len; ++i) {
+                for (i = 0; i &lt; len; ++i) {
                     child = Event.getListeners(children[i], type);
                     if (child) {
                         lis = lis.concat(child);
@@ -2372,7 +2375,7 @@ Event.Facade = Y.EventFacade;
 
 Event._poll();
 
-})();
+}());
 
     </pre>
 </div>

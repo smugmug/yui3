@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1429,7 +1433,7 @@ Virtual rollup of the &#x60;template-base&#x60; and &#x60;template-micro&#x60; m
 
 @module template
 @main template
-@since 3.7.0
+@since 3.8.0
 **&#x2F;
 
 &#x2F;**
@@ -1438,7 +1442,7 @@ Provides a generic API for using template engines such as Handlebars and
 
 @module template
 @submodule template-base
-@since 3.7.0
+@since 3.8.0
 **&#x2F;
 
 &#x2F;**
@@ -1450,8 +1454,8 @@ Provides a generic API for using template engines such as Handlebars and
 Using with &#x60;Y.Template.Micro&#x60; (the default template engine):
 
     YUI().use(&#x27;template&#x27;, function (Y) {
-        var template = new Y.Template(),
-            html     = template.render(&#x27;&lt;%= data.message %&gt;&#x27;, {message: &#x27;hello!&#x27;});
+        var micro = new Y.Template(),
+            html  = micro.render(&#x27;&lt;%= data.message %&gt;&#x27;, {message: &#x27;hello!&#x27;});
 
         &#x2F;&#x2F; ...
     });
@@ -1459,8 +1463,8 @@ Using with &#x60;Y.Template.Micro&#x60; (the default template engine):
 Using with Handlebars:
 
     YUI().use(&#x27;template-base&#x27;, &#x27;handlebars&#x27;, function (Y) {
-        var template = new Y.Template(Y.Handlebars),
-            html     = template.render(&#x27;{{message}}&#x27;, {message: &#x27;hello!&#x27;});
+        var handlebars = new Y.Template(Y.Handlebars),
+            html       = handlebars.render(&#x27;{{message}}&#x27;, {message: &#x27;hello!&#x27;});
 
         &#x2F;&#x2F; ...
     });
@@ -1470,7 +1474,7 @@ Using with Handlebars:
     &#x60;Y.Template.Micro&#x60; or &#x60;Y.Handlebars&#x60;. Defaults to &#x60;Y.Template.Micro&#x60; if not
     specified.
 @constructor
-@since 3.7.0
+@since 3.8.0
 **&#x2F;
 
 function Template(engine) {

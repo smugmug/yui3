@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1435,7 +1439,7 @@ var getClassName = Y.ClassNameManager.getClassName,
     _classNames,
 
     Transition = Y.Transition,
-    NATIVE_TRANSITIONS = Transition.useNative,    
+    NATIVE_TRANSITIONS = Transition.useNative,
     SCROLLBAR = &#x27;scrollbar&#x27;,
     SCROLLVIEW = &#x27;scrollview&#x27;,
 
@@ -1454,7 +1458,7 @@ var getClassName = Y.ClassNameManager.getClassName,
     HORIZ_CACHE = &quot;_sbh&quot;,
     VERT_CACHE = &quot;_sbv&quot;,
 
-    TRANSITION_PROPERTY = Transition._VENDOR_PREFIX + &quot;TransitionProperty&quot;,
+    TRANSITION_PROPERTY = Y.ScrollView._TRANSITION.PROPERTY,
     TRANSFORM = &quot;transform&quot;,
 
     TRANSLATE_X = &quot;translateX(&quot;,

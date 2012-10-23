@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1458,20 +1462,20 @@ Y.throttle = function(fn, ms) {
     ms = (ms) ? ms : (Y.config.throttleTime || 150);
 
     if (ms === -1) {
-        return (function() {
+        return function() {
             fn.apply(null, arguments);
-        });
+        };
     }
 
     var last = Y.Lang.now();
 
-    return (function() {
+    return function() {
         var now = Y.Lang.now();
         if (now - last &gt; ms) {
             last = now;
             fn.apply(null, arguments);
         }
-    });
+    };
 };
 
     </pre>

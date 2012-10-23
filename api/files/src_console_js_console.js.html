@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -2604,10 +2608,7 @@ Y.Console = Y.extend(Console, Y.Widget,
     FOOTER_TEMPLATE :
         &#x27;&lt;div class=&quot;{console_ft_class}&quot;&gt;&#x27;+
             &#x27;&lt;div class=&quot;{console_controls_class}&quot;&gt;&#x27;+
-                &#x27;&lt;label for=&quot;{id_guid}&quot; class=&quot;{console_pause_label_class}&quot;&gt;&#x27;+
-                    &#x27;&lt;input type=&quot;checkbox&quot; class=&quot;{console_checkbox_class} &#x27;+
-                        &#x27;{console_pause_class}&quot; value=&quot;1&quot; id=&quot;{id_guid}&quot;&gt; &#x27;+
-                    &#x27;{str_pause}&lt;&#x2F;label&gt;&#x27; +
+                &#x27;&lt;label class=&quot;{console_pause_label_class}&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;{console_checkbox_class} {console_pause_class}&quot; value=&quot;1&quot; id=&quot;{id_guid}&quot;&gt; {str_pause}&lt;&#x2F;label&gt;&#x27; +
                 &#x27;&lt;button type=&quot;button&quot; class=&quot;&#x27;+
                     &#x27;{console_button_class} {console_clear_class}&quot;&gt;{str_clear}&#x27;+
                 &#x27;&lt;&#x2F;button&gt;&#x27;+

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1425,46 +1429,46 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 var Lang = Y.Lang,
-	isBoolean = Lang.isBoolean,
-	isNumber = Lang.isNumber,
-	isString = Lang.isString,
-	capitalize = Y.Resize.capitalize,
+    isBoolean = Lang.isBoolean,
+    isNumber = Lang.isNumber,
+    isString = Lang.isString,
+    capitalize = Y.Resize.capitalize,
 
-	isNode = function(v) {
-		return (v instanceof Y.Node);
-	},
+    isNode = function(v) {
+        return (v instanceof Y.Node);
+    },
 
-	toNumber = function(num) {
-		return parseFloat(num) || 0;
-	},
+    toNumber = function(num) {
+        return parseFloat(num) || 0;
+    },
 
-	BORDER_BOTTOM_WIDTH = &#x27;borderBottomWidth&#x27;,
-	BORDER_LEFT_WIDTH = &#x27;borderLeftWidth&#x27;,
-	BORDER_RIGHT_WIDTH = &#x27;borderRightWidth&#x27;,
-	BORDER_TOP_WIDTH = &#x27;borderTopWidth&#x27;,
-	BORDER = &#x27;border&#x27;,
-	BOTTOM = &#x27;bottom&#x27;,
-	CON = &#x27;con&#x27;,
-	CONSTRAIN = &#x27;constrain&#x27;,
-	HOST = &#x27;host&#x27;,
-	LEFT = &#x27;left&#x27;,
-	MAX_HEIGHT = &#x27;maxHeight&#x27;,
-	MAX_WIDTH = &#x27;maxWidth&#x27;,
-	MIN_HEIGHT = &#x27;minHeight&#x27;,
-	MIN_WIDTH = &#x27;minWidth&#x27;,
-	NODE = &#x27;node&#x27;,
-	OFFSET_HEIGHT = &#x27;offsetHeight&#x27;,
-	OFFSET_WIDTH = &#x27;offsetWidth&#x27;,
-	PRESEVE_RATIO = &#x27;preserveRatio&#x27;,
-	REGION = &#x27;region&#x27;,
-	RESIZE_CONTRAINED = &#x27;resizeConstrained&#x27;,
-	RIGHT = &#x27;right&#x27;,
-	TICK_X = &#x27;tickX&#x27;,
-	TICK_Y = &#x27;tickY&#x27;,
-	TOP = &#x27;top&#x27;,
-	WIDTH = &#x27;width&#x27;,
-	VIEW = &#x27;view&#x27;,
-	VIEWPORT_REGION = &#x27;viewportRegion&#x27;;
+    BORDER_BOTTOM_WIDTH = &#x27;borderBottomWidth&#x27;,
+    BORDER_LEFT_WIDTH = &#x27;borderLeftWidth&#x27;,
+    BORDER_RIGHT_WIDTH = &#x27;borderRightWidth&#x27;,
+    BORDER_TOP_WIDTH = &#x27;borderTopWidth&#x27;,
+    BORDER = &#x27;border&#x27;,
+    BOTTOM = &#x27;bottom&#x27;,
+    CON = &#x27;con&#x27;,
+    CONSTRAIN = &#x27;constrain&#x27;,
+    HOST = &#x27;host&#x27;,
+    LEFT = &#x27;left&#x27;,
+    MAX_HEIGHT = &#x27;maxHeight&#x27;,
+    MAX_WIDTH = &#x27;maxWidth&#x27;,
+    MIN_HEIGHT = &#x27;minHeight&#x27;,
+    MIN_WIDTH = &#x27;minWidth&#x27;,
+    NODE = &#x27;node&#x27;,
+    OFFSET_HEIGHT = &#x27;offsetHeight&#x27;,
+    OFFSET_WIDTH = &#x27;offsetWidth&#x27;,
+    PRESEVE_RATIO = &#x27;preserveRatio&#x27;,
+    REGION = &#x27;region&#x27;,
+    RESIZE_CONTRAINED = &#x27;resizeConstrained&#x27;,
+    RIGHT = &#x27;right&#x27;,
+    TICK_X = &#x27;tickX&#x27;,
+    TICK_Y = &#x27;tickY&#x27;,
+    TOP = &#x27;top&#x27;,
+    WIDTH = &#x27;width&#x27;,
+    VIEW = &#x27;view&#x27;,
+    VIEWPORT_REGION = &#x27;viewportRegion&#x27;;
 
 &#x2F;**
 A Resize plugin that will attempt to constrain the resize node to the boundaries.
@@ -1478,15 +1482,15 @@ A Resize plugin that will attempt to constrain the resize node to the boundaries
 *&#x2F;
 
 function ResizeConstrained() {
-	ResizeConstrained.superclass.constructor.apply(this, arguments);
+    ResizeConstrained.superclass.constructor.apply(this, arguments);
 }
 
 Y.mix(ResizeConstrained, {
-	NAME: RESIZE_CONTRAINED,
+    NAME: RESIZE_CONTRAINED,
 
-	NS: CON,
+    NS: CON,
 
-	ATTRS: {
+    ATTRS: {
         &#x2F;**
         * Will attempt to constrain the resize node to the boundaries. Arguments:&lt;br&gt;
         * &#x27;view&#x27;: Contrain to Viewport&lt;br&gt;
@@ -1496,15 +1500,15 @@ Y.mix(ResizeConstrained, {
         * @attribute constrain
         * @type {String|Object|Node}
         *&#x2F;
-		constrain: {
-			setter: function(v) {
-				if (v &amp;&amp; (isNode(v) || isString(v) || v.nodeType)) {
-					v = Y.one(v);
-				}
+        constrain: {
+            setter: function(v) {
+                if (v &amp;&amp; (isNode(v) || isString(v) || v.nodeType)) {
+                    v = Y.one(v);
+                }
 
-				return v;
-			}
-		},
+                return v;
+            }
+        },
 
         &#x2F;**
          * The minimum height of the element
@@ -1513,10 +1517,10 @@ Y.mix(ResizeConstrained, {
          * @default 15
          * @type Number
          *&#x2F;
-		minHeight: {
-			value: 15,
-			validator: isNumber
-		},
+        minHeight: {
+            value: 15,
+            validator: isNumber
+        },
 
         &#x2F;**
          * The minimum width of the element
@@ -1525,10 +1529,10 @@ Y.mix(ResizeConstrained, {
          * @default 15
          * @type Number
          *&#x2F;
-		minWidth: {
-			value: 15,
-			validator: isNumber
-		},
+        minWidth: {
+            value: 15,
+            validator: isNumber
+        },
 
         &#x2F;**
          * The maximum height of the element
@@ -1537,10 +1541,10 @@ Y.mix(ResizeConstrained, {
          * @default Infinity
          * @type Number
          *&#x2F;
-		maxHeight: {
-			value: Infinity,
-			validator: isNumber
-		},
+        maxHeight: {
+            value: Infinity,
+            validator: isNumber
+        },
 
         &#x2F;**
          * The maximum width of the element
@@ -1549,33 +1553,33 @@ Y.mix(ResizeConstrained, {
          * @default Infinity
          * @type Number
          *&#x2F;
-		maxWidth: {
-			value: Infinity,
-			validator: isNumber
-		},
+        maxWidth: {
+            value: Infinity,
+            validator: isNumber
+        },
 
-		&#x2F;**
+        &#x2F;**
          * Maintain the element&#x27;s ratio when resizing.
          *
          * @attribute preserveRatio
          * @default false
          * @type boolean
          *&#x2F;
-		preserveRatio: {
-			value: false,
-			validator: isBoolean
-		},
+        preserveRatio: {
+            value: false,
+            validator: isBoolean
+        },
 
-		&#x2F;**
+        &#x2F;**
          * The number of x ticks to span the resize to.
          *
          * @attribute tickX
          * @default false
          * @type Number | false
          *&#x2F;
-		tickX: {
-			value: false
-		},
+        tickX: {
+            value: false
+        },
 
         &#x2F;**
          * The number of y ticks to span the resize to.
@@ -1584,79 +1588,79 @@ Y.mix(ResizeConstrained, {
          * @default false
          * @type Number | false
          *&#x2F;
-		tickY: {
-			value: false
-		}
-	}
+        tickY: {
+            value: false
+        }
+    }
 });
 
 Y.extend(ResizeConstrained, Y.Plugin.Base, {
-	&#x2F;**
-	 * Stores the &lt;code&gt;constrain&lt;&#x2F;code&gt;
-	 * surrounding information retrieved from
-	 * &lt;a href=&quot;Resize.html#method__getBoxSurroundingInfo&quot;&gt;_getBoxSurroundingInfo&lt;&#x2F;a&gt;.
-	 *
-	 * @property constrainSurrounding
-	 * @type Object
-	 * @default null
-	 *&#x2F;
-	constrainSurrounding: null,
+    &#x2F;**
+     * Stores the &lt;code&gt;constrain&lt;&#x2F;code&gt;
+     * surrounding information retrieved from
+     * &lt;a href=&quot;Resize.html#method__getBoxSurroundingInfo&quot;&gt;_getBoxSurroundingInfo&lt;&#x2F;a&gt;.
+     *
+     * @property constrainSurrounding
+     * @type Object
+     * @default null
+     *&#x2F;
+    constrainSurrounding: null,
 
-	initializer: function() {
-		var instance = this,
-			host = instance.get(HOST);
+    initializer: function() {
+        var instance = this,
+            host = instance.get(HOST);
 
-		host.delegate.dd.plug(
-			Y.Plugin.DDConstrained,
-			{
-				tickX: instance.get(TICK_X),
-				tickY: instance.get(TICK_Y)
-			}
-		);
+        host.delegate.dd.plug(
+            Y.Plugin.DDConstrained,
+            {
+                tickX: instance.get(TICK_X),
+                tickY: instance.get(TICK_Y)
+            }
+        );
 
-		host.after(&#x27;resize:align&#x27;, Y.bind(instance._handleResizeAlignEvent, instance));
-		host.on(&#x27;resize:start&#x27;, Y.bind(instance._handleResizeStartEvent, instance));
-	},
+        host.after(&#x27;resize:align&#x27;, Y.bind(instance._handleResizeAlignEvent, instance));
+        host.on(&#x27;resize:start&#x27;, Y.bind(instance._handleResizeStartEvent, instance));
+    },
 
-	&#x2F;**
+    &#x2F;**
      * Helper method to update the current values on
      * &lt;a href=&quot;Resize.html#property_info&quot;&gt;info&lt;&#x2F;a&gt; to respect the
      * constrain node.
-	 *
-	 * @method _checkConstrain
-	 * @param {String} axis &#x27;top&#x27; or &#x27;left&#x27;
-	 * @param {String} axisConstrain &#x27;bottom&#x27; or &#x27;right&#x27;
-	 * @param {String} offset &#x27;offsetHeight&#x27; or &#x27;offsetWidth&#x27;
-	 * @protected
-	 *&#x2F;
-	_checkConstrain: function(axis, axisConstrain, offset) {
-		var instance = this,
-			point1,
-			point1Constrain,
-			point2,
-			point2Constrain,
-			host = instance.get(HOST),
-			info = host.info,
-			constrainBorders = instance.constrainSurrounding.border,
-			region = instance._getConstrainRegion();
+     *
+     * @method _checkConstrain
+     * @param {String} axis &#x27;top&#x27; or &#x27;left&#x27;
+     * @param {String} axisConstrain &#x27;bottom&#x27; or &#x27;right&#x27;
+     * @param {String} offset &#x27;offsetHeight&#x27; or &#x27;offsetWidth&#x27;
+     * @protected
+     *&#x2F;
+    _checkConstrain: function(axis, axisConstrain, offset) {
+        var instance = this,
+            point1,
+            point1Constrain,
+            point2,
+            point2Constrain,
+            host = instance.get(HOST),
+            info = host.info,
+            constrainBorders = instance.constrainSurrounding.border,
+            region = instance._getConstrainRegion();
 
-		if (region) {
-			point1 = info[axis] + info[offset];
-			point1Constrain = region[axisConstrain] - toNumber(constrainBorders[capitalize(BORDER, axisConstrain, WIDTH)]);
+        if (region) {
+            point1 = info[axis] + info[offset];
+            point1Constrain = region[axisConstrain] - toNumber(constrainBorders[capitalize(BORDER, axisConstrain, WIDTH)]);
 
-			if (point1 &gt;= point1Constrain) {
-				info[offset] -= (point1 - point1Constrain);
-			}
+            if (point1 &gt;= point1Constrain) {
+                info[offset] -= (point1 - point1Constrain);
+            }
 
-			point2 = info[axis];
-			point2Constrain = region[axis] + toNumber(constrainBorders[capitalize(BORDER, axis, WIDTH)]);
+            point2 = info[axis];
+            point2Constrain = region[axis] + toNumber(constrainBorders[capitalize(BORDER, axis, WIDTH)]);
 
-			if (point2 &lt;= point2Constrain) {
-				info[axis] += (point2Constrain - point2);
-				info[offset] -= (point2Constrain - point2);
-			}
-		}
-	},
+            if (point2 &lt;= point2Constrain) {
+                info[axis] += (point2Constrain - point2);
+                info[offset] -= (point2Constrain - point2);
+            }
+        }
+    },
 
     &#x2F;**
      * Update the current values on &lt;a href=&quot;Resize.html#property_info&quot;&gt;info&lt;&#x2F;a&gt;
@@ -1665,23 +1669,23 @@ Y.extend(ResizeConstrained, Y.Plugin.Base, {
      * @method _checkHeight
      * @protected
      *&#x2F;
-	_checkHeight: function() {
-		var instance = this,
-			host = instance.get(HOST),
-			info = host.info,
-			maxHeight = (instance.get(MAX_HEIGHT) + host.totalVSurrounding),
-			minHeight = (instance.get(MIN_HEIGHT) + host.totalVSurrounding);
+    _checkHeight: function() {
+        var instance = this,
+            host = instance.get(HOST),
+            info = host.info,
+            maxHeight = (instance.get(MAX_HEIGHT) + host.totalVSurrounding),
+            minHeight = (instance.get(MIN_HEIGHT) + host.totalVSurrounding);
 
-		instance._checkConstrain(TOP, BOTTOM, OFFSET_HEIGHT);
+        instance._checkConstrain(TOP, BOTTOM, OFFSET_HEIGHT);
 
-		if (info.offsetHeight &gt; maxHeight) {
-			host._checkSize(OFFSET_HEIGHT, maxHeight);
-		}
+        if (info.offsetHeight &gt; maxHeight) {
+            host._checkSize(OFFSET_HEIGHT, maxHeight);
+        }
 
-		if (info.offsetHeight &lt; minHeight) {
-			host._checkSize(OFFSET_HEIGHT, minHeight);
-		}
-	},
+        if (info.offsetHeight &lt; minHeight) {
+            host._checkSize(OFFSET_HEIGHT, minHeight);
+        }
+    },
 
     &#x2F;**
      * Update the current values on &lt;a href=&quot;Resize.html#property_info&quot;&gt;info&lt;&#x2F;a&gt;
@@ -1690,103 +1694,103 @@ Y.extend(ResizeConstrained, Y.Plugin.Base, {
      * @method _checkRatio
      * @protected
      *&#x2F;
-	_checkRatio: function() {
-		var instance = this,
-			host = instance.get(HOST),
-			info = host.info,
-			originalInfo = host.originalInfo,
-			oWidth = originalInfo.offsetWidth,
-			oHeight = originalInfo.offsetHeight,
-			oTop = originalInfo.top,
-			oLeft = originalInfo.left,
-			oBottom = originalInfo.bottom,
-			oRight = originalInfo.right,
-			&#x2F;&#x2F; wRatio&#x2F;hRatio functions keep the ratio information always synced with the current info information
-			&#x2F;&#x2F; RETURN: percentage how much width&#x2F;height has changed from the original width&#x2F;height
-			wRatio = function() {
-				return (info.offsetWidth&#x2F;oWidth);
-			},
-			hRatio = function() {
-				return (info.offsetHeight&#x2F;oHeight);
-			},
-			isClosestToHeight = host.changeHeightHandles,
-			bottomDiff,
-			constrainBorders,
-			constrainRegion,
-			leftDiff,
-			rightDiff,
-			topDiff;
+    _checkRatio: function() {
+        var instance = this,
+            host = instance.get(HOST),
+            info = host.info,
+            originalInfo = host.originalInfo,
+            oWidth = originalInfo.offsetWidth,
+            oHeight = originalInfo.offsetHeight,
+            oTop = originalInfo.top,
+            oLeft = originalInfo.left,
+            oBottom = originalInfo.bottom,
+            oRight = originalInfo.right,
+            &#x2F;&#x2F; wRatio&#x2F;hRatio functions keep the ratio information always synced with the current info information
+            &#x2F;&#x2F; RETURN: percentage how much width&#x2F;height has changed from the original width&#x2F;height
+            wRatio = function() {
+                return (info.offsetWidth&#x2F;oWidth);
+            },
+            hRatio = function() {
+                return (info.offsetHeight&#x2F;oHeight);
+            },
+            isClosestToHeight = host.changeHeightHandles,
+            bottomDiff,
+            constrainBorders,
+            constrainRegion,
+            leftDiff,
+            rightDiff,
+            topDiff;
 
-		&#x2F;&#x2F; check whether the resizable node is closest to height or not
-		if (instance.get(CONSTRAIN) &amp;&amp; host.changeHeightHandles &amp;&amp; host.changeWidthHandles) {
-			constrainRegion = instance._getConstrainRegion();
-			constrainBorders = instance.constrainSurrounding.border;
-			bottomDiff = (constrainRegion.bottom - toNumber(constrainBorders[BORDER_BOTTOM_WIDTH])) - oBottom;
-			leftDiff = oLeft - (constrainRegion.left + toNumber(constrainBorders[BORDER_LEFT_WIDTH]));
-			rightDiff = (constrainRegion.right - toNumber(constrainBorders[BORDER_RIGHT_WIDTH])) - oRight;
-			topDiff = oTop - (constrainRegion.top + toNumber(constrainBorders[BORDER_TOP_WIDTH]));
+        &#x2F;&#x2F; check whether the resizable node is closest to height or not
+        if (instance.get(CONSTRAIN) &amp;&amp; host.changeHeightHandles &amp;&amp; host.changeWidthHandles) {
+            constrainRegion = instance._getConstrainRegion();
+            constrainBorders = instance.constrainSurrounding.border;
+            bottomDiff = (constrainRegion.bottom - toNumber(constrainBorders[BORDER_BOTTOM_WIDTH])) - oBottom;
+            leftDiff = oLeft - (constrainRegion.left + toNumber(constrainBorders[BORDER_LEFT_WIDTH]));
+            rightDiff = (constrainRegion.right - toNumber(constrainBorders[BORDER_RIGHT_WIDTH])) - oRight;
+            topDiff = oTop - (constrainRegion.top + toNumber(constrainBorders[BORDER_TOP_WIDTH]));
 
-			if (host.changeLeftHandles &amp;&amp; host.changeTopHandles) {
-				isClosestToHeight = (topDiff &lt; leftDiff);
-			}
-			else if (host.changeLeftHandles) {
-				isClosestToHeight = (bottomDiff &lt; leftDiff);
-			}
-			else if (host.changeTopHandles) {
-				isClosestToHeight = (topDiff &lt; rightDiff);
-			}
-			else {
-				isClosestToHeight = (bottomDiff &lt; rightDiff);
-			}
-		}
+            if (host.changeLeftHandles &amp;&amp; host.changeTopHandles) {
+                isClosestToHeight = (topDiff &lt; leftDiff);
+            }
+            else if (host.changeLeftHandles) {
+                isClosestToHeight = (bottomDiff &lt; leftDiff);
+            }
+            else if (host.changeTopHandles) {
+                isClosestToHeight = (topDiff &lt; rightDiff);
+            }
+            else {
+                isClosestToHeight = (bottomDiff &lt; rightDiff);
+            }
+        }
 
-		&#x2F;&#x2F; when the height of the resizable element touch the border of the constrain first
-		&#x2F;&#x2F; force the offsetWidth to be calculated based on the height ratio
-		if (isClosestToHeight) {
-			info.offsetWidth = oWidth*hRatio();
-			instance._checkWidth();
-			info.offsetHeight = oHeight*wRatio();
-		}
-		else {
-			info.offsetHeight = oHeight*wRatio();
-			instance._checkHeight();
-			info.offsetWidth = oWidth*hRatio();
-		}
+        &#x2F;&#x2F; when the height of the resizable element touch the border of the constrain first
+        &#x2F;&#x2F; force the offsetWidth to be calculated based on the height ratio
+        if (isClosestToHeight) {
+            info.offsetWidth = oWidth*hRatio();
+            instance._checkWidth();
+            info.offsetHeight = oHeight*wRatio();
+        }
+        else {
+            info.offsetHeight = oHeight*wRatio();
+            instance._checkHeight();
+            info.offsetWidth = oWidth*hRatio();
+        }
 
-		&#x2F;&#x2F; fixing the top on handles which are able to change top
-		&#x2F;&#x2F; the idea here is change the top based on how much the height has changed instead of follow the dy
-		if (host.changeTopHandles) {
-			info.top = oTop + (oHeight - info.offsetHeight);
-		}
+        &#x2F;&#x2F; fixing the top on handles which are able to change top
+        &#x2F;&#x2F; the idea here is change the top based on how much the height has changed instead of follow the dy
+        if (host.changeTopHandles) {
+            info.top = oTop + (oHeight - info.offsetHeight);
+        }
 
-		&#x2F;&#x2F; fixing the left on handles which are able to change left
-		&#x2F;&#x2F; the idea here is change the left based on how much the width has changed instead of follow the dx
-		if (host.changeLeftHandles) {
-			info.left = oLeft + (oWidth - info.offsetWidth);
-		}
+        &#x2F;&#x2F; fixing the left on handles which are able to change left
+        &#x2F;&#x2F; the idea here is change the left based on how much the width has changed instead of follow the dx
+        if (host.changeLeftHandles) {
+            info.left = oLeft + (oWidth - info.offsetWidth);
+        }
 
-		&#x2F;&#x2F; rounding values to avoid pixel jumpings
-		Y.each(info, function(value, key) {
-			if (isNumber(value)) {
-				info[key] = Math.round(value);
-			}
-		});
-	},
+        &#x2F;&#x2F; rounding values to avoid pixel jumpings
+        Y.each(info, function(value, key) {
+            if (isNumber(value)) {
+                info[key] = Math.round(value);
+            }
+        });
+    },
 
-	&#x2F;**
-	 * Check whether the resizable node is inside the constrain region.
-	 *
-	 * @method _checkRegion
-	 * @protected
-	 * @return {boolean}
-	 *&#x2F;
-	_checkRegion: function() {
-		var instance = this,
-			host = instance.get(HOST),
-			region = instance._getConstrainRegion();
+    &#x2F;**
+     * Check whether the resizable node is inside the constrain region.
+     *
+     * @method _checkRegion
+     * @protected
+     * @return {boolean}
+     *&#x2F;
+    _checkRegion: function() {
+        var instance = this,
+            host = instance.get(HOST),
+            region = instance._getConstrainRegion();
 
-		return Y.DOM.inRegion(null, region, true, host.info);
-	},
+        return Y.DOM.inRegion(null, region, true, host.info);
+    },
 
     &#x2F;**
      * Update the current values on &lt;a href=&quot;Resize.html#property_info&quot;&gt;info&lt;&#x2F;a&gt;
@@ -1795,81 +1799,81 @@ Y.extend(ResizeConstrained, Y.Plugin.Base, {
      * @method _checkWidth
      * @protected
      *&#x2F;
-	_checkWidth: function() {
-		var instance = this,
-			host = instance.get(HOST),
-			info = host.info,
-			maxWidth = (instance.get(MAX_WIDTH) + host.totalHSurrounding),
-			minWidth = (instance.get(MIN_WIDTH) + host.totalHSurrounding);
+    _checkWidth: function() {
+        var instance = this,
+            host = instance.get(HOST),
+            info = host.info,
+            maxWidth = (instance.get(MAX_WIDTH) + host.totalHSurrounding),
+            minWidth = (instance.get(MIN_WIDTH) + host.totalHSurrounding);
 
-		instance._checkConstrain(LEFT, RIGHT, OFFSET_WIDTH);
+        instance._checkConstrain(LEFT, RIGHT, OFFSET_WIDTH);
 
-		if (info.offsetWidth &lt; minWidth) {
-			host._checkSize(OFFSET_WIDTH, minWidth);
-		}
+        if (info.offsetWidth &lt; minWidth) {
+            host._checkSize(OFFSET_WIDTH, minWidth);
+        }
 
-		if (info.offsetWidth &gt; maxWidth) {
-			host._checkSize(OFFSET_WIDTH, maxWidth);
-		}
-	},
+        if (info.offsetWidth &gt; maxWidth) {
+            host._checkSize(OFFSET_WIDTH, maxWidth);
+        }
+    },
 
-	&#x2F;**
-	 * Get the constrain region based on the &lt;code&gt;constrain&lt;&#x2F;code&gt;
+    &#x2F;**
+     * Get the constrain region based on the &lt;code&gt;constrain&lt;&#x2F;code&gt;
      * attribute.
-	 *
-	 * @method _getConstrainRegion
-	 * @protected
-	 * @return {Object Region}
-	 *&#x2F;
-	_getConstrainRegion: function() {
-		var instance = this,
-			host = instance.get(HOST),
-			node = host.get(NODE),
-			constrain = instance.get(CONSTRAIN),
-			region = null;
+     *
+     * @method _getConstrainRegion
+     * @protected
+     * @return {Object Region}
+     *&#x2F;
+    _getConstrainRegion: function() {
+        var instance = this,
+            host = instance.get(HOST),
+            node = host.get(NODE),
+            constrain = instance.get(CONSTRAIN),
+            region = null;
 
-		if (constrain) {
-			if (constrain == VIEW) {
-				region = node.get(VIEWPORT_REGION);
-			}
-			else if (isNode(constrain)) {
-				region = constrain.get(REGION);
-			}
-			else {
-				region = constrain;
-			}
-		}
+        if (constrain) {
+            if (constrain === VIEW) {
+                region = node.get(VIEWPORT_REGION);
+            }
+            else if (isNode(constrain)) {
+                region = constrain.get(REGION);
+            }
+            else {
+                region = constrain;
+            }
+        }
 
-		return region;
-	},
+        return region;
+    },
 
-	_handleResizeAlignEvent: function(event) {
-		var instance = this,
-			host = instance.get(HOST);
+    _handleResizeAlignEvent: function() {
+        var instance = this,
+            host = instance.get(HOST);
 
-		&#x2F;&#x2F; check the max&#x2F;min height and locking top when these values are reach
-		instance._checkHeight();
+        &#x2F;&#x2F; check the max&#x2F;min height and locking top when these values are reach
+        instance._checkHeight();
 
-		&#x2F;&#x2F; check the max&#x2F;min width and locking left when these values are reach
-		instance._checkWidth();
+        &#x2F;&#x2F; check the max&#x2F;min width and locking left when these values are reach
+        instance._checkWidth();
 
-		&#x2F;&#x2F; calculating the ratio, for proportionally resizing
-		if (instance.get(PRESEVE_RATIO)) {
-			instance._checkRatio();
-		}
+        &#x2F;&#x2F; calculating the ratio, for proportionally resizing
+        if (instance.get(PRESEVE_RATIO)) {
+            instance._checkRatio();
+        }
 
-		if (instance.get(CONSTRAIN) &amp;&amp; !instance._checkRegion()) {
-			host.info = host.lastInfo;
-		}
-	},
+        if (instance.get(CONSTRAIN) &amp;&amp; !instance._checkRegion()) {
+            host.info = host.lastInfo;
+        }
+    },
 
-	_handleResizeStartEvent: function(event) {
-		var instance = this,
-			constrain = instance.get(CONSTRAIN),
-			host = instance.get(HOST);
+    _handleResizeStartEvent: function() {
+        var instance = this,
+            constrain = instance.get(CONSTRAIN),
+            host = instance.get(HOST);
 
-		instance.constrainSurrounding = host._getBoxSurroundingInfo(constrain);
-	}
+        instance.constrainSurrounding = host._getBoxSurroundingInfo(constrain);
+    }
 });
 
 Y.namespace(&#x27;Plugin&#x27;);

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1372,6 +1372,10 @@
                 <li><a href="..&#x2F;modules/widget-uievents.html">widget-uievents</a></li>
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
             
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
@@ -3999,10 +4003,10 @@ YArray.test = function (obj) {
         result = 1;
     } else if (Lang.isObject(obj)) {
         try {
-            &#x2F;&#x2F; indexed, but no tagName (element) or alert (window),
+            &#x2F;&#x2F; indexed, but no tagName (element) or scrollTo&#x2F;document (window. From DOM.isWindow test which we can&#x27;t use here),
             &#x2F;&#x2F; or functions without apply&#x2F;call (Safari
             &#x2F;&#x2F; HTMLElementCollection bug).
-            if (&#x27;length&#x27; in obj &amp;&amp; !obj.tagName &amp;&amp; !obj.alert &amp;&amp; !obj.apply) {
+            if (&#x27;length&#x27; in obj &amp;&amp; !obj.tagName &amp;&amp; !(obj.scrollTo &amp;&amp; obj.document) &amp;&amp; !obj.apply) {
                 result = 2;
             }
         } catch (ex) {}
@@ -4771,7 +4775,7 @@ YUI.Env.parseUA = function(subUA) {
     var numberify = function(s) {
             var c = 0;
             return parseFloat(s.replace(&#x2F;\.&#x2F;g, function() {
-                return (c++ == 1) ? &#x27;&#x27; : &#x27;.&#x27;;
+                return (c++ === 1) ? &#x27;&#x27; : &#x27;.&#x27;;
             }));
         },
 
@@ -4886,13 +4890,6 @@ YUI.Env.parseUA = function(subUA) {
          *&#x2F;
         phantomjs: 0,
         &#x2F;**
-         * Adobe AIR version number or 0.  Only populated if webkit is detected.
-         * Example: 1.0
-         * @property air
-         * @type float
-         *&#x2F;
-        air: 0,
-        &#x2F;**
          * Detects Apple iPad&#x27;s OS version
          * @property ipad
          * @type float
@@ -4981,7 +4978,21 @@ YUI.Env.parseUA = function(subUA) {
          * @default 0
          * @static
          *&#x2F;
-        nodejs: 0
+        nodejs: 0,
+        &#x2F;*
+        * Window8&#x2F;IE10 Application host environment
+        * @property winjs
+        * @type Boolean
+        * @static
+        *&#x2F;
+        winjs: !!((typeof Windows !== &quot;undefined&quot;) &amp;&amp; Windows.System),
+        &#x2F;**
+        * Are touch&#x2F;msPointer events available on this device
+        * @property touchEnabled
+        * @type Boolean
+        * @static
+        *&#x2F;
+        touchEnabled: false
     },
 
     ua = subUA || nav &amp;&amp; nav.userAgent,
@@ -5034,7 +5045,7 @@ YUI.Env.parseUA = function(subUA) {
         if (m &amp;&amp; m[1]) {
             o.webkit = numberify(m[1]);
             o.safari = o.webkit;
-            
+
             if (&#x2F;PhantomJS&#x2F;.test(ua)) {
                 m = ua.match(&#x2F;PhantomJS\&#x2F;([^\s]*)&#x2F;);
                 if (m &amp;&amp; m[1]) {
@@ -5153,10 +5164,16 @@ YUI.Env.parseUA = function(subUA) {
         }
     }
 
+    &#x2F;&#x2F;Check for known properties to tell if touch events are enabled on this device or if
+    &#x2F;&#x2F;the number of MSPointer touchpoints on this device is greater than 0.
+    if (win &amp;&amp; nav &amp;&amp; !(o.chrome &amp;&amp; o.chrome &lt; 6)) {
+        o.touchEnabled = ((&quot;ontouchstart&quot; in win) || ((&quot;msMaxTouchPoints&quot; in nav) &amp;&amp; (nav.msMaxTouchPoints &gt; 0)));
+    }
+
     &#x2F;&#x2F;It was a parsed UA, do not assign the global value.
     if (!subUA) {
 
-        if (typeof process == &#x27;object&#x27;) {
+        if (typeof process === &#x27;object&#x27;) {
 
             if (process.versions &amp;&amp; process.versions.node) {
                 &#x2F;&#x2F;NodeJS
@@ -5791,14 +5808,18 @@ Y.Get = Get = {
         &#x2F;&#x2F; feasible to load test files on every pageview just to perform a
         &#x2F;&#x2F; feature test. I&#x27;m sorry if this makes you sad.
         return (this._env = {
+
             &#x2F;&#x2F; True if this is a browser that supports disabling async mode on
             &#x2F;&#x2F; dynamically created script nodes. See
             &#x2F;&#x2F; https:&#x2F;&#x2F;developer.mozilla.org&#x2F;En&#x2F;HTML&#x2F;Element&#x2F;Script#Attributes
-            async: doc &amp;&amp; doc.createElement(&#x27;script&#x27;).async === true,
+
+            &#x2F;&#x2F; IE10 doesn&#x27;t return true for the MDN feature test, so setting it explicitly,
+            &#x2F;&#x2F; because it is async by default, and allows you to disable async by setting it to false
+            async: (doc &amp;&amp; doc.createElement(&#x27;script&#x27;).async === true) || (ua.ie &gt;= 10),
 
             &#x2F;&#x2F; True if this browser fires an event when a dynamically injected
             &#x2F;&#x2F; link node fails to load. This is currently true for Firefox 9+
-            &#x2F;&#x2F; and WebKit 535.24+.
+            &#x2F;&#x2F; and WebKit 535.24+
             cssFail: ua.gecko &gt;= 9 || ua.compareVersions(ua.webkit, 535.24) &gt;= 0,
 
             &#x2F;&#x2F; True if this browser fires an event when a dynamically injected
@@ -5815,7 +5836,7 @@ Y.Get = Get = {
             &#x2F;&#x2F; True if this browser preserves script execution order while
             &#x2F;&#x2F; loading scripts in parallel as long as the script node&#x27;s &#x60;async&#x60;
             &#x2F;&#x2F; attribute is set to false to explicitly disable async execution.
-            preservesScriptOrder: !!(ua.gecko || ua.opera)
+            preservesScriptOrder: !!(ua.gecko || ua.opera || (ua.ie &amp;&amp; ua.ie &gt;= 10))
         });
     },
 
@@ -5909,6 +5930,8 @@ Y.Get = Get = {
         options || (options = {});
         options.type = type;
 
+        options._onFinish = Get._onTransactionFinish;
+
         if (!this._env) {
             this._getEnv();
         }
@@ -5925,6 +5948,11 @@ Y.Get = Get = {
         return transaction;
     },
 
+    _onTransactionFinish : function() {
+        Get._pending = null;
+        Get._next();
+    },
+
     _next: function () {
         var item;
 
@@ -5936,13 +5964,7 @@ Y.Get = Get = {
 
         if (item) {
             this._pending = item;
-
-            item.transaction.execute(function () {
-                item.callback &amp;&amp; item.callback.apply(this, arguments);
-
-                Get._pending = null;
-                Get._next();
-            });
+            item.transaction.execute(item.callback);
         }
     },
 
@@ -6008,7 +6030,7 @@ Get.Transaction = Transaction = function (requests, options) {
 
     self._callbacks = []; &#x2F;&#x2F; callbacks to call after execution finishes
     self._queue     = [];
-    self._waiting   = 0;
+    self._reqsWaiting   = 0;
 
     &#x2F;&#x2F; Deprecated pre-3.5.0 properties.
     self.tId = self.id; &#x2F;&#x2F; Use &#x60;id&#x60; instead.
@@ -6106,7 +6128,7 @@ Transaction.prototype = {
         this._pendingCSS = null;
         this._pollTimer  = clearTimeout(this._pollTimer);
         this._queue      = [];
-        this._waiting    = 0;
+        this._reqsWaiting    = 0;
 
         this.errors.push({error: msg || &#x27;Aborted&#x27;});
         this._finish();
@@ -6156,8 +6178,10 @@ Transaction.prototype = {
             }, self.options.timeout);
         }
 
+        self._reqsWaiting = requests.length;
+
         for (i = 0, len = requests.length; i &lt; len; ++i) {
-            req = self.requests[i];
+            req = requests[i];
 
             if (req.async || req.type === &#x27;css&#x27;) {
                 &#x2F;&#x2F; No need to queue CSS or fully async JS.
@@ -6243,6 +6267,10 @@ Transaction.prototype = {
 
         if (options.onEnd) {
             options.onEnd.call(thisObj, data);
+        }
+
+        if (options._onFinish) {
+            options._onFinish();
         }
     },
 
@@ -6334,7 +6362,6 @@ Transaction.prototype = {
             self._progress(null, req);
         }
 
-
         &#x2F;&#x2F; Deal with script asynchronicity.
         if (isScript) {
             node.setAttribute(&#x27;src&#x27;, req.url);
@@ -6392,8 +6419,21 @@ Transaction.prototype = {
         } else {
             &#x2F;&#x2F; Script or CSS on everything else. Using DOM 0 events because that
             &#x2F;&#x2F; evens the playing field with older IEs.
-            node.onerror = onError;
-            node.onload  = onLoad;
+
+            if (ua.ie &gt;= 10) {
+
+                &#x2F;&#x2F; We currently need to introduce a timeout for IE10, since it 
+                &#x2F;&#x2F; calls onerror&#x2F;onload synchronously for 304s - messing up existing
+                &#x2F;&#x2F; program flow. 
+
+                &#x2F;&#x2F; Remove this block if the following bug gets fixed by GA
+                &#x2F;&#x2F; https:&#x2F;&#x2F;connect.microsoft.com&#x2F;IE&#x2F;feedback&#x2F;details&#x2F;763871&#x2F;dynamically-loaded-scripts-with-304s-responses-interrupt-the-currently-executing-js-thread-onload
+                node.onerror = function() { setTimeout(onError, 0); };
+                node.onload  = function() { setTimeout(onLoad, 0); };
+            } else {
+                node.onerror = onError;
+                node.onload  = onLoad;
+            }
 
             &#x2F;&#x2F; If this browser doesn&#x27;t fire an event when CSS fails to load,
             &#x2F;&#x2F; fail after a timeout to avoid blocking the transaction queue.
@@ -6401,8 +6441,6 @@ Transaction.prototype = {
                 cssTimeout = setTimeout(onError, req.timeout || 3000);
             }
         }
-
-        this._waiting += 1;
 
         this.nodes.push(node);
         insertBefore.parentNode.insertBefore(node, insertBefore);
@@ -6419,7 +6457,7 @@ Transaction.prototype = {
         &#x2F;&#x2F; for anything to load, then we&#x27;re done!
         if (this._queue.length) {
             this._insert(this._queue.shift());
-        } else if (!this._waiting) {
+        } else if (!this._reqsWaiting) {
             this._finish();
         }
     },
@@ -6527,7 +6565,8 @@ Transaction.prototype = {
             this._pending = null;
         }
 
-        this._waiting -= 1;
+        this._reqsWaiting -= 1;
+
         this._next();
     }
 };
@@ -6659,7 +6698,7 @@ add(&#x27;load&#x27;, &#x27;0&#x27;, {
         node = doc ? doc.documentElement : null;
 
     if (node &amp;&amp; node.style) {
-        return (&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style);
+        return (&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style || &#x27;transition&#x27; in node.style);
     }
 
     return false;
@@ -6688,10 +6727,8 @@ add(&#x27;load&#x27;, &#x27;1&#x27;, {
 &#x2F;&#x2F; dd-gestures
 add(&#x27;load&#x27;, &#x27;2&#x27;, {
     &quot;name&quot;: &quot;dd-gestures&quot;,
-    &quot;test&quot;: function(Y) {
-    return ((Y.config.win &amp;&amp; (&quot;ontouchstart&quot; in Y.config.win)) &amp;&amp; !(Y.UA.chrome &amp;&amp; Y.UA.chrome &lt; 6));
-},
-    &quot;trigger&quot;: &quot;dd-drag&quot;
+    &quot;trigger&quot;: &quot;dd-drag&quot;,
+    &quot;ua&quot;: &quot;touchEnabled&quot;
 });
 &#x2F;&#x2F; dom-style-ie
 add(&#x27;load&#x27;, &#x27;3&#x27;, {
@@ -6866,8 +6903,8 @@ add(&#x27;load&#x27;, &#x27;17&#x27;, {
         ret = true;
 
     if (node &amp;&amp; node.style) {
-        ret = !(&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style);
-    } 
+        ret = !(&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style || &#x27;transition&#x27; in node.style);
+    }
 
     return ret;
 },
@@ -6878,6 +6915,20 @@ add(&#x27;load&#x27;, &#x27;18&#x27;, {
     &quot;name&quot;: &quot;widget-base-ie&quot;,
     &quot;trigger&quot;: &quot;widget-base&quot;,
     &quot;ua&quot;: &quot;ie&quot;
+});
+&#x2F;&#x2F; yql-nodejs
+add(&#x27;load&#x27;, &#x27;19&#x27;, {
+    &quot;name&quot;: &quot;yql-nodejs&quot;,
+    &quot;trigger&quot;: &quot;yql&quot;,
+    &quot;ua&quot;: &quot;nodejs&quot;,
+    &quot;when&quot;: &quot;after&quot;
+});
+&#x2F;&#x2F; yql-winjs
+add(&#x27;load&#x27;, &#x27;20&#x27;, {
+    &quot;name&quot;: &quot;yql-winjs&quot;,
+    &quot;trigger&quot;: &quot;yql&quot;,
+    &quot;ua&quot;: &quot;winjs&quot;,
+    &quot;when&quot;: &quot;after&quot;
 });
 
 }, &#x27;@VERSION@&#x27;, {&quot;requires&quot;: [&quot;yui-base&quot;]});
@@ -7683,7 +7734,7 @@ add(&#x27;load&#x27;, &#x27;0&#x27;, {
         node = doc ? doc.documentElement : null;
 
     if (node &amp;&amp; node.style) {
-        return (&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style);
+        return (&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style || &#x27;transition&#x27; in node.style);
     }
 
     return false;
@@ -7712,10 +7763,8 @@ add(&#x27;load&#x27;, &#x27;1&#x27;, {
 &#x2F;&#x2F; dd-gestures
 add(&#x27;load&#x27;, &#x27;2&#x27;, {
     &quot;name&quot;: &quot;dd-gestures&quot;,
-    &quot;test&quot;: function(Y) {
-    return ((Y.config.win &amp;&amp; (&quot;ontouchstart&quot; in Y.config.win)) &amp;&amp; !(Y.UA.chrome &amp;&amp; Y.UA.chrome &lt; 6));
-},
-    &quot;trigger&quot;: &quot;dd-drag&quot;
+    &quot;trigger&quot;: &quot;dd-drag&quot;,
+    &quot;ua&quot;: &quot;touchEnabled&quot;
 });
 &#x2F;&#x2F; dom-style-ie
 add(&#x27;load&#x27;, &#x27;3&#x27;, {
@@ -7890,8 +7939,8 @@ add(&#x27;load&#x27;, &#x27;17&#x27;, {
         ret = true;
 
     if (node &amp;&amp; node.style) {
-        ret = !(&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style);
-    } 
+        ret = !(&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style || &#x27;transition&#x27; in node.style);
+    }
 
     return ret;
 },
@@ -7902,6 +7951,20 @@ add(&#x27;load&#x27;, &#x27;18&#x27;, {
     &quot;name&quot;: &quot;widget-base-ie&quot;,
     &quot;trigger&quot;: &quot;widget-base&quot;,
     &quot;ua&quot;: &quot;ie&quot;
+});
+&#x2F;&#x2F; yql-nodejs
+add(&#x27;load&#x27;, &#x27;19&#x27;, {
+    &quot;name&quot;: &quot;yql-nodejs&quot;,
+    &quot;trigger&quot;: &quot;yql&quot;,
+    &quot;ua&quot;: &quot;nodejs&quot;,
+    &quot;when&quot;: &quot;after&quot;
+});
+&#x2F;&#x2F; yql-winjs
+add(&#x27;load&#x27;, &#x27;20&#x27;, {
+    &quot;name&quot;: &quot;yql-winjs&quot;,
+    &quot;trigger&quot;: &quot;yql&quot;,
+    &quot;ua&quot;: &quot;winjs&quot;,
+    &quot;when&quot;: &quot;after&quot;
 });
 
 }, &#x27;@VERSION@&#x27;, {&quot;requires&quot;: [&quot;yui-base&quot;]});
@@ -8159,7 +8222,7 @@ Y_DOM = {
 
 
     isWindow: function(obj) {
-        return !!(obj &amp;&amp; obj.alert &amp;&amp; obj.document);
+        return !!(obj &amp;&amp; obj.scrollTo &amp;&amp; obj.document);
     },
 
     _removeChildNodes: function(node) {
@@ -16594,7 +16657,8 @@ Y.DOMEventFacade = DOMEventFacade;
 Y.Env.evt.dom_wrappers = {};
 Y.Env.evt.dom_map = {};
 
-var _eventenv = Y.Env.evt,
+var YDOM = Y.DOM,
+    _eventenv = Y.Env.evt,
     config = Y.config,
     win = config.win,
     add = YUI.Env.add,
@@ -16616,13 +16680,12 @@ var _eventenv = Y.Env.evt,
 
     shouldIterate = function(o) {
         try {
-            return (o &amp;&amp; typeof o !== &quot;string&quot; &amp;&amp; Y.Lang.isNumber(o.length) &amp;&amp;
-                    !o.tagName &amp;&amp; !o.alert);
+            &#x2F;&#x2F; TODO: See if there&#x27;s a more performant way to return true early on this, for the common case
+            return (o &amp;&amp; typeof o !== &quot;string&quot; &amp;&amp; Y.Lang.isNumber(o.length) &amp;&amp; !o.tagName &amp;&amp; !YDOM.isWindow(o));
         } catch(ex) {
             Y.log(&quot;collection check failure&quot;, &quot;warn&quot;, &quot;event&quot;);
             return false;
         }
-
     },
 
     &#x2F;&#x2F; aliases to support DOM event subscription clean up when the last
@@ -16988,7 +17051,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
                 &#x2F;&#x2F; oEl = (compat) ? Y.DOM.byId(el) : Y.Selector.query(el);
 
                 if (compat) {
-                    oEl = Y.DOM.byId(el);
+                    oEl = YDOM.byId(el);
                 } else {
 
                     oEl = Y.Selector.query(el);
@@ -17105,7 +17168,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
 
                 &#x2F;&#x2F; el = (compat) ? Y.DOM.byId(el) : Y.all(el);
                 if (compat) {
-                    el = Y.DOM.byId(el);
+                    el = YDOM.byId(el);
                 } else {
                     el = Y.Selector.query(el);
                     l = el.length;
@@ -17179,7 +17242,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
          * @static
          *&#x2F;
         generateId: function(el) {
-            return Y.DOM.generateID(el);
+            return YDOM.generateID(el);
         },
 
         &#x2F;**
@@ -17289,7 +17352,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
                 if (item &amp;&amp; !item.checkReady) {
 
                     &#x2F;&#x2F; el = (item.compat) ? Y.DOM.byId(item.id) : Y.one(item.id);
-                    el = (item.compat) ? Y.DOM.byId(item.id) : Y.Selector.query(item.id, null, true);
+                    el = (item.compat) ? YDOM.byId(item.id) : Y.Selector.query(item.id, null, true);
 
                     if (el) {
                         &#x2F;&#x2F; Y.log(&#x27;avail: &#x27; + el);
@@ -17308,7 +17371,7 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
                 if (item &amp;&amp; item.checkReady) {
 
                     &#x2F;&#x2F; el = (item.compat) ? Y.DOM.byId(item.id) : Y.one(item.id);
-                    el = (item.compat) ? Y.DOM.byId(item.id) : Y.Selector.query(item.id, null, true);
+                    el = (item.compat) ? YDOM.byId(item.id) : Y.Selector.query(item.id, null, true);
 
                     if (el) {
                         &#x2F;&#x2F; The element is available, but not necessarily ready
@@ -17359,9 +17422,8 @@ Y.log(type + &quot; attach call failed, invalid callback&quot;, &quot;error&quot
             if (recurse &amp;&amp; oEl) {
                 lis = lis || [];
                 children = Y.Selector.query(&#x27;*&#x27;, oEl);
-                i = 0;
                 len = children.length;
-                for (; i &lt; len; ++i) {
+                for (i = 0; i &lt; len; ++i) {
                     child = Event.getListeners(children[i], type);
                     if (child) {
                         lis = lis.concat(child);
@@ -17520,7 +17582,7 @@ Event.Facade = Y.EventFacade;
 
 Event._poll();
 
-})();
+}());
 
 &#x2F;**
  * DOM event listener abstraction layer
@@ -18876,9 +18938,9 @@ IO.prototype = {
             use;
 
         if (alt === &#x27;native&#x27;) {
-            &#x2F;&#x2F; Non-IE  can use XHR level 2 and not rely on an
+            &#x2F;&#x2F; Non-IE and IE &gt;= 10  can use XHR level 2 and not rely on an
             &#x2F;&#x2F; external transport.
-            alt = Y.UA.ie ? &#x27;xdr&#x27; : null;
+            alt = Y.UA.ie &amp;&amp; !SUPPORTS_CORS ? &#x27;xdr&#x27; : null;
 
             &#x2F;&#x2F; Prevent &quot;pre-flight&quot; OPTIONS request by removing the
             &#x2F;&#x2F; &#x60;X-Requested-With&#x60; HTTP header from CORS requests. This header
@@ -19468,10 +19530,8 @@ IO.prototype = {
 
             &#x2F;&#x2F; Will work only in browsers that implement the
             &#x2F;&#x2F; Cross-Origin Resource Sharing draft.
-            if (config.xdr &amp;&amp; config.xdr.credentials) {
-                if (!Y.UA.ie) {
-                    transaction.c.withCredentials = true;
-                }
+            if (config.xdr &amp;&amp; config.xdr.credentials &amp;&amp; SUPPORTS_CORS) {
+                transaction.c.withCredentials = true;
             }
 
             &#x2F;&#x2F; Using &quot;null&quot; with HTTP POST will result in a request
@@ -19669,7 +19729,11 @@ Y.IO = IO;
 Y.io._map = {};
 var XHR = win &amp;&amp; win.XMLHttpRequest,
     XDR = win &amp;&amp; win.XDomainRequest,
-    AX = win &amp;&amp; win.ActiveXObject;
+    AX = win &amp;&amp; win.ActiveXObject,
+
+    &#x2F;&#x2F; Checks for the presence of the &#x60;withCredentials&#x60; in an XHR instance
+    &#x2F;&#x2F; object, which will be present if the environment supports CORS.
+    SUPPORTS_CORS = XHR &amp;&amp; &#x27;withCredentials&#x27; in (new XMLHttpRequest());
 
 
 Y.mix(Y.IO, {
@@ -19775,7 +19839,7 @@ YUI.add(&#x27;json-parse&#x27;, function (Y, NAME) {
  *
  * &lt;p&gt;The &lt;code&gt;json&lt;&#x2F;code&gt; module is a rollup of &lt;code&gt;json-parse&lt;&#x2F;code&gt; and
  * &lt;code&gt;json-stringify&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
- * 
+ *
  * &lt;p&gt;As their names suggest, &lt;code&gt;json-parse&lt;&#x2F;code&gt; adds support for parsing
  * JSON data (Y.JSON.parse) and &lt;code&gt;json-stringify&lt;&#x2F;code&gt; for serializing
  * JavaScript data into JSON strings (Y.JSON.stringify).  You may choose to
@@ -19801,7 +19865,8 @@ YUI.add(&#x27;json-parse&#x27;, function (Y, NAME) {
 
 &#x2F;&#x2F; All internals kept private for security reasons
 function fromGlobal(ref) {
-    return (Y.config.win || this || {})[ref];
+    var g = ((typeof global === &#x27;object&#x27;) ? global : undefined);
+    return ((Y.UA.nodejs &amp;&amp; g) ? g : (Y.config.win || {}))[ref];
 }
 
 
@@ -19871,7 +19936,7 @@ var _JSON  = fromGlobal(&#x27;JSON&#x27;),
      * @private
      *&#x2F;
     _UNSAFE = &#x2F;[^\],:{}\s]&#x2F;,
-    
+
     &#x2F;**
      * Replaces specific unicode characters with their appropriate \unnnn
      * format. Some browsers ignore certain characters during eval.
@@ -19937,7 +20002,7 @@ var _JSON  = fromGlobal(&#x27;JSON&#x27;),
         &#x2F;&#x2F; incorrectly by some browser implementations.
         &#x2F;&#x2F; NOTE: This modifies the input if such characters are found!
         s = s.replace(_UNICODE_EXCEPTIONS, _escapeException);
-        
+
         &#x2F;&#x2F; Test for any remaining invalid characters
         if (!_UNSAFE.test(s.replace(_ESCAPES,&#x27;@&#x27;).
                             replace(_VALUES,&#x27;]&#x27;).
@@ -19950,7 +20015,7 @@ var _JSON  = fromGlobal(&#x27;JSON&#x27;),
 
         throw new SyntaxError(&#x27;JSON.parse&#x27;);
     };
-    
+
 Y.namespace(&#x27;JSON&#x27;).parse = function (s,reviver) {
         if (typeof s !== &#x27;string&#x27;) {
             s += &#x27;&#x27;;
@@ -20005,15 +20070,15 @@ var CAMEL_VENDOR_PREFIX = &#x27;&#x27;,
     DOCUMENT = Y.config.doc,
     DOCUMENT_ELEMENT = &#x27;documentElement&#x27;,
     TRANSITION = &#x27;transition&#x27;,
-    TRANSITION_CAMEL = &#x27;Transition&#x27;,
-    TRANSITION_PROPERTY_CAMEL,
+    TRANSITION_CAMEL = &#x27;transition&#x27;,
+    TRANSITION_PROPERTY_CAMEL = &#x27;transitionProperty&#x27;,
+    TRANSFORM_CAMEL = &#x27;transform&#x27;,
     TRANSITION_PROPERTY,
     TRANSITION_DURATION,
     TRANSITION_TIMING_FUNCTION,
     TRANSITION_DELAY,
     TRANSITION_END,
     ON_TRANSITION_END,
-    TRANSFORM_CAMEL,
 
     EMPTY_OBJ = {},
 
@@ -20048,13 +20113,13 @@ Transition._toCamel = function(property) {
 Transition._toHyphen = function(property) {
     property = property.replace(&#x2F;([A-Z]?)([a-z]+)([A-Z]?)&#x2F;g, function(m0, m1, m2, m3) {
         var str = ((m1) ? &#x27;-&#x27; + m1.toLowerCase() : &#x27;&#x27;) + m2;
-        
+
         if (m3) {
             str += &#x27;-&#x27; + m3.toLowerCase();
         }
 
         return str;
-    }); 
+    });
 
     return property;
 };
@@ -20064,30 +20129,37 @@ Transition.HIDE_TRANSITION = &#x27;fadeOut&#x27;;
 
 Transition.useNative = false;
 
-Y.Array.each(VENDORS, function(val) { &#x2F;&#x2F; then vendor specific
-    var property = val + TRANSITION_CAMEL;
-    if (property in DOCUMENT[DOCUMENT_ELEMENT].style) {
-        CAMEL_VENDOR_PREFIX = val;
-        VENDOR_PREFIX = Transition._toHyphen(val) + &#x27;-&#x27;;
+if (&#x27;transition&#x27; in DOCUMENT[DOCUMENT_ELEMENT].style) {
+    Transition.useNative = true;
+    Transition.supported = true; &#x2F;&#x2F; TODO: remove
+} else {
+    Y.Array.each(VENDORS, function(val) { &#x2F;&#x2F; then vendor specific
+        var property = val + &#x27;Transition&#x27;;
+        if (property in DOCUMENT[DOCUMENT_ELEMENT].style) {
+            CAMEL_VENDOR_PREFIX = val;
+            VENDOR_PREFIX       = Transition._toHyphen(val) + &#x27;-&#x27;;
 
-        Transition.useNative = true;
-        Transition.supported = true; &#x2F;&#x2F; TODO: remove
-        Transition._VENDOR_PREFIX = val;
-    }
-});
+            Transition.useNative = true;
+            Transition.supported = true; &#x2F;&#x2F; TODO: remove
+            Transition._VENDOR_PREFIX = val;
+        }
+    });
+}
 
-TRANSITION_CAMEL = CAMEL_VENDOR_PREFIX + TRANSITION_CAMEL;
-TRANSITION_PROPERTY_CAMEL = CAMEL_VENDOR_PREFIX + &#x27;TransitionProperty&#x27;;
-TRANSITION_PROPERTY = VENDOR_PREFIX + &#x27;transition-property&#x27;;
-TRANSITION_DURATION = VENDOR_PREFIX + &#x27;transition-duration&#x27;;
+if (CAMEL_VENDOR_PREFIX) {
+    TRANSITION_CAMEL          = CAMEL_VENDOR_PREFIX + &#x27;Transition&#x27;;
+    TRANSITION_PROPERTY_CAMEL = CAMEL_VENDOR_PREFIX + &#x27;TransitionProperty&#x27;;
+    TRANSFORM_CAMEL           = CAMEL_VENDOR_PREFIX + &#x27;Transform&#x27;;
+}
+
+TRANSITION_PROPERTY        = VENDOR_PREFIX + &#x27;transition-property&#x27;;
+TRANSITION_DURATION        = VENDOR_PREFIX + &#x27;transition-duration&#x27;;
 TRANSITION_TIMING_FUNCTION = VENDOR_PREFIX + &#x27;transition-timing-function&#x27;;
-TRANSITION_DELAY = VENDOR_PREFIX + &#x27;transition-delay&#x27;;
-TRANSITION_END = &#x27;transitionend&#x27;;
+TRANSITION_DELAY           = VENDOR_PREFIX + &#x27;transition-delay&#x27;;
+
+TRANSITION_END    = &#x27;transitionend&#x27;;
 ON_TRANSITION_END = &#x27;on&#x27; + CAMEL_VENDOR_PREFIX.toLowerCase() + &#x27;transitionend&#x27;;
-
-TRANSITION_END = VENDOR_TRANSITION_END[CAMEL_VENDOR_PREFIX] || TRANSITION_END;
-
-TRANSFORM_CAMEL = CAMEL_VENDOR_PREFIX + &#x27;Transform&#x27;;
+TRANSITION_END    = VENDOR_TRANSITION_END[CAMEL_VENDOR_PREFIX] || TRANSITION_END;
 
 Transition.fx = {};
 Transition.toggles = {};
@@ -20096,7 +20168,7 @@ Transition._hasEnd = {};
 
 Transition._reKeywords = &#x2F;^(?:node|duration|iterations|easing|delay|on|onstart|onend)$&#x2F;i;
 
-Y.Node.DOM_EVENTS[TRANSITION_END] = 1; 
+Y.Node.DOM_EVENTS[TRANSITION_END] = 1;
 
 Transition.NAME = &#x27;transition&#x27;;
 
@@ -20152,7 +20224,7 @@ Transition.prototype = {
         if (config &amp;&amp; config.value !== undefined) {
             val = config.value;
         } else if (config !== undefined) {
-            val = config; 
+            val = config;
             config = EMPTY_OBJ;
         }
 
@@ -20165,7 +20237,7 @@ Transition.prototype = {
             if (attr.transition !== anim) {
                 attr.transition._count--; &#x2F;&#x2F; remapping attr to this transition
             }
-        } 
+        }
 
         anim._count++; &#x2F;&#x2F; properties per transition
 
@@ -20224,7 +20296,7 @@ Transition.prototype = {
             if (config.hasOwnProperty(attr) &amp;&amp; !Transition._reKeywords.test(attr)) {
                 this.addProperty(attr, config[attr]);
 
-                &#x2F;&#x2F; when size is auto or % webkit starts from zero instead of computed 
+                &#x2F;&#x2F; when size is auto or % webkit starts from zero instead of computed
                 &#x2F;&#x2F; (https:&#x2F;&#x2F;bugs.webkit.org&#x2F;show_bug.cgi?id=16020)
                 &#x2F;&#x2F; TODO: selective set
                 if (node.style[attr] === &#x27;&#x27;) {
@@ -20239,7 +20311,7 @@ Transition.prototype = {
      * @method run
      * @chainable
      * @private
-     *&#x2F;    
+     *&#x2F;
     run: function(callback) {
         var anim = this,
             node = anim._node,
@@ -20272,9 +20344,9 @@ Transition.prototype = {
     },
 
     _prepDur: function(dur) {
-        dur = parseFloat(dur);
+        dur = parseFloat(dur) * 1000;
 
-        return dur + &#x27;s&#x27;;
+        return dur + &#x27;ms&#x27;;
     },
 
     _runNative: function(time) {
@@ -20333,7 +20405,7 @@ Transition.prototype = {
             Transition._hasEnd[uid] = true;
 
         }
-        
+
         style.cssText += transitionText + duration + easing + delay + cssText;
 
     },
@@ -20346,10 +20418,10 @@ Transition.prototype = {
             data = {
                 type: &#x27;transition:end&#x27;,
                 config: config,
-                elapsedTime: elapsed 
+                elapsedTime: elapsed
             },
 
-            nodeInstance = Y.one(node); 
+            nodeInstance = Y.one(node);
 
         anim._running = false;
         anim._callback = null;
@@ -20435,7 +20507,7 @@ Transition.prototype = {
 Y.Transition = Transition;
 Y.TransitionNative = Transition; &#x2F;&#x2F; TODO: remove
 
-&#x2F;** 
+&#x2F;**
  *   Animate one or more css properties to a given value. Requires the &quot;transition&quot; module.
  *   &lt;pre&gt;example usage:
  *       Y.one(&#x27;#demo&#x27;).transition({
@@ -20457,16 +20529,16 @@ Y.TransitionNative = Transition; &#x2F;&#x2F; TODO: remove
  *   @for Node
  *   @method transition
  *   @param {Object} config An object containing one or more style properties, a duration and an easing.
- *   @param {Function} callback A function to run after the transition has completed. 
+ *   @param {Function} callback A function to run after the transition has completed.
  *   @chainable
 *&#x2F;
 Y.Node.prototype.transition = function(name, config, callback) {
-    var 
+    var
         transitionAttrs = Transition._nodeAttrs[Y.stamp(this._node)],
         anim = (transitionAttrs) ? transitionAttrs.transition || null : null,
         fxConfig,
         prop;
-    
+
     if (typeof name === &#x27;string&#x27;) { &#x2F;&#x2F; named effect, pull config from registry
         if (typeof config === &#x27;function&#x27;) {
             callback = config;
@@ -20481,7 +20553,7 @@ Y.Node.prototype.transition = function(name, config, callback) {
             for (prop in fxConfig) {
                 if (fxConfig.hasOwnProperty(prop)) {
                     if (! (prop in config)) {
-                        config[prop] = fxConfig[prop]; 
+                        config[prop] = fxConfig[prop];
                     }
                 }
             }
@@ -20512,10 +20584,10 @@ Y.Node.prototype.show = function(name, config, callback) {
                 callback = config;
                 config = name;
             }
-            name = Transition.SHOW_TRANSITION; 
-        }    
+            name = Transition.SHOW_TRANSITION;
+        }
         this.transition(name, config, callback);
-    }    
+    }
     else if (name &amp;&amp; !Y.Transition) { Y.log(&#x27;unable to transition show; missing transition module&#x27;, &#x27;warn&#x27;, &#x27;node&#x27;); }
     return this;
 };
@@ -20544,17 +20616,17 @@ Y.Node.prototype.hide = function(name, config, callback) {
                 callback = config;
                 config = name;
             }
-            name = Transition.HIDE_TRANSITION; 
-        }    
+            name = Transition.HIDE_TRANSITION;
+        }
         this.transition(name, config, callback);
     } else if (name &amp;&amp; !Y.Transition) { Y.log(&#x27;unable to transition hide; missing transition module&#x27;, &#x27;warn&#x27;, &#x27;node&#x27;);
     } else {
         this._hide();
-    }    
+    }
     return this;
-}; 
+};
 
-&#x2F;** 
+&#x2F;**
  *   Animate one or more css properties to a given value. Requires the &quot;transition&quot; module.
  *   &lt;pre&gt;example usage:
  *       Y.all(&#x27;.demo&#x27;).transition({
@@ -20661,7 +20733,7 @@ Y.mix(Transition.fx, {
         },
         duration: 0.5,
         easing: &#x27;ease-in&#x27;,
-        
+
         on: {
             start: function() {
                 var overflow = this.getStyle(&#x27;overflow&#x27;);
@@ -20677,7 +20749,7 @@ Y.mix(Transition.fx, {
                     delete this._transitionOverflow;
                 }
             }
-        } 
+        }
     }
 });
 

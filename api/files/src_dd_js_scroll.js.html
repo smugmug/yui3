@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1558,7 +1562,7 @@
         * @private
         * @method _getVPRegion
         * @description Sets the _vpRegionCache property with an Object containing the dims from the viewport.
-        *&#x2F;        
+        *&#x2F;
         _getVPRegion: function() {
             var r = {},
                 n = this.get(PARENT_SCROLL),
@@ -1595,7 +1599,7 @@
         * @method _checkWinScroll
         * @description Check to see if we need to fire the scroll timer. If scroll timer is running this will scroll the window.
         * @param {Boolean} move Should we move the window. From Y.later
-        *&#x2F;        
+        *&#x2F;
         _checkWinScroll: function(move) {
             var r = this._getVPRegion(),
                 ho = this.get(HOST),
@@ -1616,7 +1620,7 @@
                 nl = left,
                 st = sTop,
                 sl = sLeft;
-            
+
             if (this.get(&#x27;horizontal&#x27;)) {
                 if (left &lt;= r.left) {
                     scroll = true;
@@ -1685,7 +1689,7 @@
         * @private
         * @method _initScroll
         * @description Cancel a previous scroll timer and init a new one.
-        *&#x2F;        
+        *&#x2F;
         _initScroll: function() {
             this._cancelScroll();
             this._scrollTimer = Y.Lang.later(this.get(&#x27;scrollDelay&#x27;), this, this._checkWinScroll, [true], true);
@@ -1695,7 +1699,7 @@
         * @private
         * @method _cancelScroll
         * @description Cancel a currently running scroll timer.
-        *&#x2F;        
+        *&#x2F;
         _cancelScroll: function() {
             this._scrolling = false;
             if (this._scrollTimer) {
@@ -1706,7 +1710,7 @@
         &#x2F;**
         * @method align
         * @description Called from the drag:align event to determine if we need to scroll.
-        *&#x2F;        
+        *&#x2F;
         align: function(e) {
             if (this._scrolling) {
                 this._cancelScroll();
@@ -1720,7 +1724,7 @@
         * @private
         * @method _setDimCache
         * @description Set the cache of the dragNode dims.
-        *&#x2F;        
+        *&#x2F;
         _setDimCache: function() {
             var node = this.get(HOST).get(&#x27;dragNode&#x27;);
             this._dimCache = {
@@ -1739,7 +1743,7 @@
         * @method end
         * @description Called from the drag:end event
         *&#x2F;
-        end: function(xy) {
+        end: function() {
             this._dimCache = null;
             this._cancelScroll();
         }
@@ -1747,7 +1751,7 @@
 
     Y.namespace(&#x27;Plugin&#x27;);
 
-    
+
     &#x2F;**
      * Extends the Scroll class to make the window scroll while dragging.
      * @class DDWindowScroll
@@ -1791,7 +1795,7 @@
     *&#x2F;
     WS.NAME = WS.NS = &#x27;winscroll&#x27;;
     Y.Plugin.DDWinScroll = WS;
-    
+
 
     &#x2F;**
      * Extends the Scroll class to make a parent node scroll while dragging.
@@ -1843,7 +1847,7 @@
     NS.NAME = NS.NS = &#x27;nodescroll&#x27;;
     Y.Plugin.DDNodeScroll = NS;
 
-    Y.DD.Scroll = S;    
+    Y.DD.Scroll = S;
 
 
 

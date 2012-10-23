@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1437,8 +1441,8 @@
 
     var EditorParaIE = function() {
         EditorParaIE.superclass.constructor.apply(this, arguments);
-    }, HOST = &#x27;host&#x27;, BODY = &#x27;body&#x27;, NODE_CHANGE = &#x27;nodeChange&#x27;, PARENT_NODE = &#x27;parentNode&#x27;,
-    FIRST_P = BODY + &#x27; &gt; p&#x27;, P = &#x27;p&#x27;, BR = &#x27;&lt;br&gt;&#x27;, FC = &#x27;firstChild&#x27;, LI = &#x27;li&#x27;;
+    }, HOST = &#x27;host&#x27;, NODE_CHANGE = &#x27;nodeChange&#x27;,
+    P = &#x27;p&#x27;;
 
 
     Y.extend(EditorParaIE, Y.Plugin.EditorParaBase, {
@@ -1449,14 +1453,14 @@
         *&#x2F;
         _onNodeChange: function(e) {
             var host = this.get(HOST), inst = host.getInstance(),
-                html, txt, par , d, sel, btag = inst.EditorSelection.DEFAULT_BLOCK_TAG,
-                inHTML, txt2, childs, aNode, index, node2, top, n, sib,
-                ps, br, item, p, imgs, t, LAST_CHILD = &#x27;:last-child&#x27;;
+                btag = inst.EditorSelection.DEFAULT_BLOCK_TAG,
+                prev, LAST_CHILD = &#x27;:last-child&#x27;, para, b, para2,
+                lc, lc2, found = false;
 
             switch (e.changedType) {
                 case &#x27;enter-up&#x27;:
-                    var para = ((this._lastPara) ? this._lastPara : e.changedNode),
-                        b = para.one(&#x27;br.yui-cursor&#x27;);
+                    para = ((this._lastPara) ? this._lastPara : e.changedNode);
+                    b = para.one(&#x27;br.yui-cursor&#x27;);
 
                     if (this._lastPara) {
                         delete this._lastPara;
@@ -1470,14 +1474,14 @@
                         }
                     }
                     if (!para.test(btag)) {
-                        var para2 = para.ancestor(btag);
+                        para2 = para.ancestor(btag);
                         if (para2) {
                             para = para2;
                             para2 = null;
                         }
                     }
                     if (para.test(btag)) {
-                        var prev = para.previous(), lc, lc2, found = false;
+                        prev = para.previous();
                         if (prev) {
                             lc = prev.one(LAST_CHILD);
                             while (!found) {
@@ -1502,7 +1506,7 @@
                     if (e.changedNode.test(&#x27;br&#x27;)) {
                         e.changedNode.remove();
                     } else if (e.changedNode.test(&#x27;p, span&#x27;)) {
-                        var b = e.changedNode.one(&#x27;br.yui-cursor&#x27;);
+                        b = e.changedNode.one(&#x27;br.yui-cursor&#x27;);
                         if (b) {
                             b.remove();
                         }
@@ -1538,9 +1542,9 @@
             }
         }
     });
-    
+
     Y.namespace(&#x27;Plugin&#x27;);
-    
+
     Y.Plugin.EditorPara = EditorParaIE;
 
 

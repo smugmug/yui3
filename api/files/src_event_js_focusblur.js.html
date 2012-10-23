@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1431,16 +1435,47 @@
  * @submodule event-focus
  *&#x2F;
 var Event    = Y.Event,
+
     YLang    = Y.Lang,
+
     isString = YLang.isString,
+
     arrayIndex = Y.Array.indexOf,
-    useActivate = YLang.isFunction(
-        Y.DOM.create(&#x27;&lt;p onbeforeactivate=&quot;;&quot;&#x2F;&gt;&#x27;).onbeforeactivate);
+
+    useActivate = (function() {
+
+        &#x2F;&#x2F; Changing the structure of this test, so that it doesn&#x27;t use inline JS in HTML,
+        &#x2F;&#x2F; which throws an exception in Win8 packaged apps, due to additional security restrictions:
+        &#x2F;&#x2F; http:&#x2F;&#x2F;msdn.microsoft.com&#x2F;en-us&#x2F;library&#x2F;windows&#x2F;apps&#x2F;hh465380.aspx#differences
+
+        var supported = false,
+            doc = Y.config.doc,
+            p;
+
+        if (doc) {
+
+            p = doc.createElement(&quot;p&quot;);
+            p.setAttribute(&quot;onbeforeactivate&quot;, &quot;;&quot;);
+
+            &#x2F;&#x2F; onbeforeactivate is a function in IE8+.
+            &#x2F;&#x2F; onbeforeactivate is a string in IE6,7 (unfortunate, otherwise we could have just checked for function below).
+            &#x2F;&#x2F; onbeforeactivate is a function in IE10, in a Win8 App environment (no exception running the test).
+
+            &#x2F;&#x2F; onbeforeactivate is undefined in Webkit&#x2F;Gecko.
+            &#x2F;&#x2F; onbeforeactivate is a function in Webkit&#x2F;Gecko if it&#x27;s a supported event (e.g. onclick).
+
+            supported = (p.onbeforeactivate !== undefined);
+        }
+
+        return supported;
+    }());
 
 function define(type, proxy, directEvent) {
     var nodeDataKey = &#x27;_&#x27; + type + &#x27;Notifiers&#x27;;
 
     Y.Event.define(type, {
+
+        _useActivate : useActivate,
 
         _attach: function (el, notifier, delegate) {
             if (Y.DOM.isWindow(el)) {

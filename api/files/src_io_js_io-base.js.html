@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1539,9 +1543,9 @@ IO.prototype = {
             use;
 
         if (alt === &#x27;native&#x27;) {
-            &#x2F;&#x2F; Non-IE  can use XHR level 2 and not rely on an
+            &#x2F;&#x2F; Non-IE and IE &gt;= 10  can use XHR level 2 and not rely on an
             &#x2F;&#x2F; external transport.
-            alt = Y.UA.ie ? &#x27;xdr&#x27; : null;
+            alt = Y.UA.ie &amp;&amp; !SUPPORTS_CORS ? &#x27;xdr&#x27; : null;
 
             &#x2F;&#x2F; Prevent &quot;pre-flight&quot; OPTIONS request by removing the
             &#x2F;&#x2F; &#x60;X-Requested-With&#x60; HTTP header from CORS requests. This header
@@ -2131,10 +2135,8 @@ IO.prototype = {
 
             &#x2F;&#x2F; Will work only in browsers that implement the
             &#x2F;&#x2F; Cross-Origin Resource Sharing draft.
-            if (config.xdr &amp;&amp; config.xdr.credentials) {
-                if (!Y.UA.ie) {
-                    transaction.c.withCredentials = true;
-                }
+            if (config.xdr &amp;&amp; config.xdr.credentials &amp;&amp; SUPPORTS_CORS) {
+                transaction.c.withCredentials = true;
             }
 
             &#x2F;&#x2F; Using &quot;null&quot; with HTTP POST will result in a request

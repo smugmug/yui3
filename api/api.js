@@ -669,6 +669,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "widget-stdmod",
         "widget-uievents",
         "yql",
+        "yql-nodejs",
+        "yql-winjs",
         "yui",
         "yui-base",
         "yui-base",
@@ -1000,7 +1002,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "createlink-base",
             "name": "createlink-base",
-            "description": "Adds prompt style link creation. Adds an override for the <a href=\"Plugin.ExecCommand.html#method_COMMANDS.createlink\">createlink execCommand</a>."
+            "description": "Adds prompt style link creation. Adds an override for the\n<a href=\"Plugin.ExecCommand.html#method_COMMANDS.createlink\">createlink execCommand</a>."
         },
         {
             "displayName": "dataschema",
@@ -1229,17 +1231,17 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "dd",
             "name": "dd",
-            "description": "The Drag & Drop Utility allows you to create a draggable interface efficiently, buffering you from browser-level abnormalities and enabling you to focus on the interesting logic surrounding your particular implementation. This component enables you to create a variety of standard draggable objects with just a few lines of code and then, using its extensive API, add your own specific implementation logic."
+            "description": "The Drag & Drop Utility allows you to create a draggable interface efficiently,\nbuffering you from browser-level abnormalities and enabling you to focus on the interesting\nlogic surrounding your particular implementation. This component enables you to create a\nvariety of standard draggable objects with just a few lines of code and then,\nusing its extensive API, add your own specific implementation logic."
         },
         {
             "displayName": "dd-constrain",
             "name": "dd-constrain",
-            "description": "The Drag & Drop Utility allows you to create a draggable interface efficiently, buffering you from browser-level abnormalities and enabling you to focus on the interesting logic surrounding your particular implementation. This component enables you to create a variety of standard draggable objects with just a few lines of code and then, using its extensive API, add your own specific implementation logic."
+            "description": "The Drag & Drop Utility allows you to create a draggable interface efficiently,\nbuffering you from browser-level abnormalities and enabling you to focus on the interesting\nlogic surrounding your particular implementation. This component enables you to create a\nvariety of standard draggable objects with just a few lines of code and then,\nusing its extensive API, add your own specific implementation logic."
         },
         {
             "displayName": "dd-ddm",
             "name": "dd-ddm",
-            "description": "Extends the dd-ddm-base Class to add support for the viewport shim to allow a draggable node to drag to be dragged over an iframe or any other node that traps mousemove events.\nIt is also required to have Drop Targets enabled, as the viewport shim will contain the shims for the Drop Targets."
+            "description": "Extends the dd-ddm-base Class to add support for the viewport shim to allow a draggable\nanode to drag to be dragged over an iframe or any other node that traps mousemove events.\nIt is also required to have Drop Targets enabled, as the viewport shim will contain the shims for the Drop Targets."
         },
         {
             "displayName": "dd-ddm-base",
@@ -1249,7 +1251,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "dd-ddm-drop",
             "name": "dd-ddm-drop",
-            "description": "Extends the dd-ddm Class to add support for the placement of Drop Target shims inside the viewport shim. It also handles all Drop Target related events and interactions."
+            "description": "Extends the dd-ddm Class to add support for the placement of Drop Target\nshims inside the viewport shim. It also handles all Drop Target related events and interactions."
         },
         {
             "displayName": "dd-delegate",
@@ -1359,7 +1361,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "editor-lists",
             "name": "editor-lists",
-            "description": "Handles list manipulation inside the Editor. Adds keyboard manipulation and execCommand support. Adds overrides for the <a href=\"Plugin.ExecCommand.html#method_COMMANDS.insertorderedlist\">insertorderedlist</a> and <a href=\"Plugin.ExecCommand.html#method_COMMANDS.insertunorderedlist\">insertunorderedlist</a> execCommands."
+            "description": "Handles list manipulation inside the Editor. Adds keyboard manipulation and execCommand support.\nAdds overrides for the <a href=\"Plugin.ExecCommand.html#method_COMMANDS.insertorderedlist\">insertorderedlist</a>\nand <a href=\"Plugin.ExecCommand.html#method_COMMANDS.insertunorderedlist\">insertunorderedlist</a> execCommands."
         },
         {
             "displayName": "editor-para",
@@ -1424,7 +1426,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "event-flick",
             "name": "event-flick",
-            "description": "Adds support for a \"flick\" event, which is fired at the end of a touch or mouse based flick gesture, and provides \nvelocity of the flick, along with distance and time information."
+            "description": "Adds support for a \"flick\" event, which is fired at the end of a touch or mouse based flick gesture, and provides\nvelocity of the flick, along with distance and time information.\n\n<p>Documentation for the flick event can be found on the <a href=\"../classes/YUI.html#event_flick\">YUI</a> global,\nalong with the other supported events.</p>"
         },
         {
             "displayName": "event-focus",
@@ -1434,7 +1436,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "event-gestures",
             "name": "event-gestures",
-            "description": "The gestures module provides gesture events such as \"flick\", which normalize user interactions\nacross touch and mouse or pointer based input devices. This layer can be used by application developers\nto build input device agnostic components which behave the same in response to either touch or mouse based  \ninteraction.\n\n<p>Documentation for events added by this module can be found in the event document for the <a href=\"YUI.html#events\">YUI</a> global.</p>"
+            "description": "The gestures module provides gesture events such as \"flick\", which normalize user interactions\nacross touch and mouse or pointer based input devices. This layer can be used by application developers\nto build input device agnostic components which behave the same in response to either touch or mouse based\ninteraction.\n\n<p>Documentation for events added by this module can be found in the event document for the <a href=\"../classes/YUI.html#events\">YUI</a> global.</p>"
         },
         {
             "displayName": "event-hover",
@@ -1459,7 +1461,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "event-move",
             "name": "event-move",
-            "description": "Adds lower level support for \"gesturemovestart\", \"gesturemove\" and \"gesturemoveend\" events, which can be used to create drag/drop\ninteractions which work across touch and mouse input devices. They correspond to \"touchstart\", \"touchmove\" and \"touchend\" on a touch input\ndevice, and \"mousedown\", \"mousemove\", \"mouseup\" on a mouse based input device."
+            "description": "Adds lower level support for \"gesturemovestart\", \"gesturemove\" and \"gesturemoveend\" events, which can be used to create drag/drop\ninteractions which work across touch and mouse input devices. They correspond to \"touchstart\", \"touchmove\" and \"touchend\" on a touch input\ndevice, and \"mousedown\", \"mousemove\", \"mouseup\" on a mouse based input device.\n\n<p>Documentation for the gesturemove triplet of events can be found on the <a href=\"../classes/YUI.html#event_gesturemove\">YUI</a> global,\nalong with the other supported events.</p>"
         },
         {
             "displayName": "event-outside",
@@ -1638,7 +1640,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "io-upload-iframe",
             "name": "io-upload-iframe",
-            "description": "Extends the IO  to enable file uploads, with HTML forms \nusing an iframe as the transport medium."
+            "description": "Extends the IO  to enable file uploads, with HTML forms\nusing an iframe as the transport medium."
         },
         {
             "displayName": "io-xdr",
@@ -2286,6 +2288,16 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "yql",
             "name": "yql",
             "description": "This class adds a sugar class to allow access to YQL (http://developer.yahoo.com/yql/)."
+        },
+        {
+            "displayName": "yql-nodejs",
+            "name": "yql-nodejs",
+            "description": "NodeJS plugin for YQL to use native request to make requests instead of JSONP.\nNot required by the user, it's conditionally loaded and should \"just work\"."
+        },
+        {
+            "displayName": "yql-winjs",
+            "name": "yql-winjs",
+            "description": "WinJS plugin for YQL to use native XHR to make requests instead of JSONP.\nNot required by the user, it's conditionally loaded and should \"just work\"."
         },
         {
             "displayName": "yui",

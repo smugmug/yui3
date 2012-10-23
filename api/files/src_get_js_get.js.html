@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1947,14 +1951,18 @@ Y.Get = Get = {
         &#x2F;&#x2F; feasible to load test files on every pageview just to perform a
         &#x2F;&#x2F; feature test. I&#x27;m sorry if this makes you sad.
         return (this._env = {
+
             &#x2F;&#x2F; True if this is a browser that supports disabling async mode on
             &#x2F;&#x2F; dynamically created script nodes. See
             &#x2F;&#x2F; https:&#x2F;&#x2F;developer.mozilla.org&#x2F;En&#x2F;HTML&#x2F;Element&#x2F;Script#Attributes
-            async: doc &amp;&amp; doc.createElement(&#x27;script&#x27;).async === true,
+
+            &#x2F;&#x2F; IE10 doesn&#x27;t return true for the MDN feature test, so setting it explicitly,
+            &#x2F;&#x2F; because it is async by default, and allows you to disable async by setting it to false
+            async: (doc &amp;&amp; doc.createElement(&#x27;script&#x27;).async === true) || (ua.ie &gt;= 10),
 
             &#x2F;&#x2F; True if this browser fires an event when a dynamically injected
             &#x2F;&#x2F; link node fails to load. This is currently true for Firefox 9+
-            &#x2F;&#x2F; and WebKit 535.24+.
+            &#x2F;&#x2F; and WebKit 535.24+
             cssFail: ua.gecko &gt;= 9 || ua.compareVersions(ua.webkit, 535.24) &gt;= 0,
 
             &#x2F;&#x2F; True if this browser fires an event when a dynamically injected
@@ -1971,7 +1979,7 @@ Y.Get = Get = {
             &#x2F;&#x2F; True if this browser preserves script execution order while
             &#x2F;&#x2F; loading scripts in parallel as long as the script node&#x27;s &#x60;async&#x60;
             &#x2F;&#x2F; attribute is set to false to explicitly disable async execution.
-            preservesScriptOrder: !!(ua.gecko || ua.opera)
+            preservesScriptOrder: !!(ua.gecko || ua.opera || (ua.ie &amp;&amp; ua.ie &gt;= 10))
         });
     },
 
@@ -2065,6 +2073,8 @@ Y.Get = Get = {
         options || (options = {});
         options.type = type;
 
+        options._onFinish = Get._onTransactionFinish;
+
         if (!this._env) {
             this._getEnv();
         }
@@ -2081,6 +2091,11 @@ Y.Get = Get = {
         return transaction;
     },
 
+    _onTransactionFinish : function() {
+        Get._pending = null;
+        Get._next();
+    },
+
     _next: function () {
         var item;
 
@@ -2092,13 +2107,7 @@ Y.Get = Get = {
 
         if (item) {
             this._pending = item;
-
-            item.transaction.execute(function () {
-                item.callback &amp;&amp; item.callback.apply(this, arguments);
-
-                Get._pending = null;
-                Get._next();
-            });
+            item.transaction.execute(item.callback);
         }
     },
 
@@ -2164,7 +2173,7 @@ Get.Transaction = Transaction = function (requests, options) {
 
     self._callbacks = []; &#x2F;&#x2F; callbacks to call after execution finishes
     self._queue     = [];
-    self._waiting   = 0;
+    self._reqsWaiting   = 0;
 
     &#x2F;&#x2F; Deprecated pre-3.5.0 properties.
     self.tId = self.id; &#x2F;&#x2F; Use &#x60;id&#x60; instead.
@@ -2262,7 +2271,7 @@ Transaction.prototype = {
         this._pendingCSS = null;
         this._pollTimer  = clearTimeout(this._pollTimer);
         this._queue      = [];
-        this._waiting    = 0;
+        this._reqsWaiting    = 0;
 
         this.errors.push({error: msg || &#x27;Aborted&#x27;});
         this._finish();
@@ -2312,8 +2321,10 @@ Transaction.prototype = {
             }, self.options.timeout);
         }
 
+        self._reqsWaiting = requests.length;
+
         for (i = 0, len = requests.length; i &lt; len; ++i) {
-            req = self.requests[i];
+            req = requests[i];
 
             if (req.async || req.type === &#x27;css&#x27;) {
                 &#x2F;&#x2F; No need to queue CSS or fully async JS.
@@ -2399,6 +2410,10 @@ Transaction.prototype = {
 
         if (options.onEnd) {
             options.onEnd.call(thisObj, data);
+        }
+
+        if (options._onFinish) {
+            options._onFinish();
         }
     },
 
@@ -2490,7 +2505,6 @@ Transaction.prototype = {
             self._progress(null, req);
         }
 
-
         &#x2F;&#x2F; Deal with script asynchronicity.
         if (isScript) {
             node.setAttribute(&#x27;src&#x27;, req.url);
@@ -2548,8 +2562,21 @@ Transaction.prototype = {
         } else {
             &#x2F;&#x2F; Script or CSS on everything else. Using DOM 0 events because that
             &#x2F;&#x2F; evens the playing field with older IEs.
-            node.onerror = onError;
-            node.onload  = onLoad;
+
+            if (ua.ie &gt;= 10) {
+
+                &#x2F;&#x2F; We currently need to introduce a timeout for IE10, since it 
+                &#x2F;&#x2F; calls onerror&#x2F;onload synchronously for 304s - messing up existing
+                &#x2F;&#x2F; program flow. 
+
+                &#x2F;&#x2F; Remove this block if the following bug gets fixed by GA
+                &#x2F;&#x2F; https:&#x2F;&#x2F;connect.microsoft.com&#x2F;IE&#x2F;feedback&#x2F;details&#x2F;763871&#x2F;dynamically-loaded-scripts-with-304s-responses-interrupt-the-currently-executing-js-thread-onload
+                node.onerror = function() { setTimeout(onError, 0); };
+                node.onload  = function() { setTimeout(onLoad, 0); };
+            } else {
+                node.onerror = onError;
+                node.onload  = onLoad;
+            }
 
             &#x2F;&#x2F; If this browser doesn&#x27;t fire an event when CSS fails to load,
             &#x2F;&#x2F; fail after a timeout to avoid blocking the transaction queue.
@@ -2557,8 +2584,6 @@ Transaction.prototype = {
                 cssTimeout = setTimeout(onError, req.timeout || 3000);
             }
         }
-
-        this._waiting += 1;
 
         this.nodes.push(node);
         insertBefore.parentNode.insertBefore(node, insertBefore);
@@ -2575,7 +2600,7 @@ Transaction.prototype = {
         &#x2F;&#x2F; for anything to load, then we&#x27;re done!
         if (this._queue.length) {
             this._insert(this._queue.shift());
-        } else if (!this._waiting) {
+        } else if (!this._reqsWaiting) {
             this._finish();
         }
     },
@@ -2683,7 +2708,8 @@ Transaction.prototype = {
             this._pending = null;
         }
 
-        this._waiting -= 1;
+        this._reqsWaiting -= 1;
+
         this._next();
     }
 };

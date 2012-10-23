@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1428,7 +1432,7 @@
     &#x2F;**
      * The class allows you to create a Drag &amp; Drop reordered list.
      * @module sortable
-     *&#x2F;     
+     *&#x2F;
     &#x2F;**
      * The class allows you to create a Drag &amp; Drop reordered list.
      * @class Sortable
@@ -1437,7 +1441,7 @@
      *&#x2F;
 
 
-    var Sortable = function(o) {
+    var Sortable = function() {
         Sortable.superclass.constructor.apply(this, arguments);
     },
     CURRENT_NODE = &#x27;currentNode&#x27;,
@@ -1509,10 +1513,10 @@
         _y: null,
         _onDrag: function(e) {
             if (e.pageY &lt; this._y) {
-                this._up = true; 
-            } else if (e.pageY &gt; this._y) { 
-                this._up = false; 
-            } 
+                this._up = true;
+            } else if (e.pageY &gt; this._y) {
+                this._up = false;
+            }
 
             this._y = e.pageY;
         },
@@ -1541,7 +1545,7 @@
             if (!e.drop.get(NODE).test(this.get(NODES))) {
                 return;
             }
-            if (e.drag.get(NODE) == e.drop.get(NODE)) {
+            if (e.drag.get(NODE) === e.drop.get(NODE)) {
                 return;
             }
             &#x2F;&#x2F; is drop a child of drag?
@@ -1554,7 +1558,7 @@
             if (e.drag.get(NODE).get(PARENT_NODE).contains(e.drop.get(NODE))) {
                 same = true;
             }
-            if (same &amp;&amp; moveType == &#x27;move&#x27;) {
+            if (same &amp;&amp; moveType === &#x27;move&#x27;) {
                 moveType = &#x27;insert&#x27;;
             }
             switch (moveType) {
@@ -1585,7 +1589,7 @@
                     if (same) {
                         Y.DD.DDM.swapNode(e.drag, e.drop);
                     } else {
-                        if (this.get(&#x27;moveType&#x27;) == &#x27;copy&#x27;) {
+                        if (this.get(&#x27;moveType&#x27;) === &#x27;copy&#x27;) {
                             &#x2F;&#x2F;New List
                             oldNode = e.drag.get(NODE);
                             newNode = oldNode.cloneNode(true);
@@ -1612,7 +1616,7 @@
         * @param Event e The Event Object
         * @description Handles the DragStart event and initializes some settings.
         *&#x2F;
-        _onDragStart: function(e) {
+        _onDragStart: function() {
             var del = this.delegate,
                 lastNode = del.get(&#x27;lastNode&#x27;);
             if (lastNode &amp;&amp; lastNode.getDOMNode()) {
@@ -1627,7 +1631,7 @@
         * @param Event e The Event Object
         * @description Handles the DragEnd event that cleans up the settings in the drag:start event.
         *&#x2F;
-        _onDragEnd: function(e) {
+        _onDragEnd: function() {
             this.delegate.get(this.get(OPACITY_NODE)).setStyle(OPACITY, 1);
             this.delegate.get(CURRENT_NODE).setStyles({
                 top: &#x27;&#x27;,
@@ -1734,9 +1738,10 @@
             sel.delegate.dd.addToGroup(this.get(ID));
         },
         &#x2F;**
-        * A custom callback to allow a user to extract some sort of id or any other data from the node to use in the &quot;ordering list&quot; and then that data should be returned from the callback.
+        * A custom callback to allow a user to extract some sort of id or any other data
+        * from the node to use in the &quot;ordering list&quot; and then that data should be returned from the callback.
         * @method getOrdering
-        * @param Function callback 
+        * @param Function callback
         * @return Array
         *&#x2F;
         getOrdering: function(callback) {
@@ -1760,7 +1765,7 @@
             * @attribute handles
             * @description Drag handles to pass on to the internal DD.Delegate instance.
             * @type Array
-            *&#x2F;    
+            *&#x2F;
             handles: {
                 value: false
             },
@@ -1768,7 +1773,7 @@
             * @attribute container
             * @description A selector query to get the container to listen for mousedown events on. All &quot;nodes&quot; should be a child of this container.
             * @type String
-            *&#x2F;    
+            *&#x2F;
             container: {
                 value: &#x27;body&#x27;
             },
@@ -1776,7 +1781,7 @@
             * @attribute nodes
             * @description A selector query to get the children of the &quot;container&quot; to make draggable elements from.
             * @type String
-            *&#x2F;        
+            *&#x2F;
             nodes: {
                 value: &#x27;.dd-draggable&#x27;
             },
@@ -1784,7 +1789,7 @@
             * @attribute opacity
             * @description The opacity to change the proxy item to when dragging.
             * @type String
-            *&#x2F;        
+            *&#x2F;
             opacity: {
                 value: &#x27;.75&#x27;
             },
@@ -1792,7 +1797,7 @@
             * @attribute opacityNode
             * @description The node to set opacity on when dragging (dragNode or currentNode). Default: currentNode.
             * @type String
-            *&#x2F;        
+            *&#x2F;
             opacityNode: {
                 value: &#x27;currentNode&#x27;
             },
@@ -1800,7 +1805,7 @@
             * @attribute id
             * @description The id of this Sortable, used to get a reference to this Sortable list from another list.
             * @type String
-            *&#x2F;        
+            *&#x2F;
             id: {
                 value: null
             },
@@ -1808,7 +1813,7 @@
             * @attribute moveType
             * @description How should an item move to another list: insert, swap, move, copy. Default: insert
             * @type String
-            *&#x2F;        
+            *&#x2F;
             moveType: {
                 value: &#x27;insert&#x27;
             },
@@ -1816,7 +1821,7 @@
             * @attribute invalid
             * @description A selector string to test if a list item is invalid and not sortable
             * @type String
-            *&#x2F;        
+            *&#x2F;
             invalid: {
                 value: &#x27;&#x27;
             }

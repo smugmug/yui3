@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1425,19 +1429,19 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 var ACTIVE_HANDLE_NODE = &#x27;activeHandleNode&#x27;,
-	CURSOR = &#x27;cursor&#x27;,
-	DRAG_CURSOR = &#x27;dragCursor&#x27;,
-	HOST = &#x27;host&#x27;,
-	PARENT_NODE = &#x27;parentNode&#x27;,
-	PROXY = &#x27;proxy&#x27;,
-	PROXY_NODE = &#x27;proxyNode&#x27;,
-	RESIZE = &#x27;resize&#x27;,
-	RESIZE_PROXY = &#x27;resize-proxy&#x27;,
-	WRAPPER = &#x27;wrapper&#x27;,
+    CURSOR = &#x27;cursor&#x27;,
+    DRAG_CURSOR = &#x27;dragCursor&#x27;,
+    HOST = &#x27;host&#x27;,
+    PARENT_NODE = &#x27;parentNode&#x27;,
+    PROXY = &#x27;proxy&#x27;,
+    PROXY_NODE = &#x27;proxyNode&#x27;,
+    RESIZE = &#x27;resize&#x27;,
+    RESIZE_PROXY = &#x27;resize-proxy&#x27;,
+    WRAPPER = &#x27;wrapper&#x27;,
 
-	getCN = Y.ClassNameManager.getClassName,
+    getCN = Y.ClassNameManager.getClassName,
 
-	CSS_RESIZE_PROXY = getCN(RESIZE, PROXY);
+    CSS_RESIZE_PROXY = getCN(RESIZE, PROXY);
 
 
 &#x2F;**
@@ -1448,7 +1452,7 @@ Adds a &#x60;proxyNode&#x60; attribute and resizes it instead of the actual node
         node: &#x27;#demo&#x27;
     });
     resize.plug(Y.Plugin.ResizeProxy);
-    
+
 
 @class ResizeProxy
 @module resize
@@ -1460,84 +1464,84 @@ Adds a &#x60;proxyNode&#x60; attribute and resizes it instead of the actual node
 
 
 function ResizeProxy() {
-	ResizeProxy.superclass.constructor.apply(this, arguments);
+    ResizeProxy.superclass.constructor.apply(this, arguments);
 }
 
 Y.mix(ResizeProxy, {
-	NAME: RESIZE_PROXY,
+    NAME: RESIZE_PROXY,
 
-	NS: PROXY,
+    NS: PROXY,
 
-	ATTRS: {
-		&#x2F;**
+    ATTRS: {
+        &#x2F;**
          * The Resize proxy element.
          *
          * @attribute proxyNode
          * @default Generated using an internal HTML markup
          * @type String|Node
          *&#x2F;
-		proxyNode: {
-			setter: Y.one,
-			valueFn: function() {
-				return Y.Node.create(this.PROXY_TEMPLATE);
-			}
-		}
-	}
+        proxyNode: {
+            setter: Y.one,
+            valueFn: function() {
+                return Y.Node.create(this.PROXY_TEMPLATE);
+            }
+        }
+    }
 });
 
 Y.extend(ResizeProxy, Y.Plugin.Base, {
-	&#x2F;**
+    &#x2F;**
      * Template used to create the resize proxy.
      *
      * @property PROXY_TEMPLATE
      * @type {String}
      *&#x2F;
-	PROXY_TEMPLATE: &#x27;&lt;div class=&quot;&#x27;+CSS_RESIZE_PROXY+&#x27;&quot;&gt;&lt;&#x2F;div&gt;&#x27;,
+    PROXY_TEMPLATE: &#x27;&lt;div class=&quot;&#x27;+CSS_RESIZE_PROXY+&#x27;&quot;&gt;&lt;&#x2F;div&gt;&#x27;,
 
-	initializer: function() {
-		var instance = this;
+    initializer: function() {
+        var instance = this;
 
-		instance.afterHostEvent(&#x27;resize:start&#x27;, instance._afterResizeStart);
-		instance.beforeHostMethod(&#x27;_resize&#x27;, instance._beforeHostResize);
-		instance.afterHostMethod(&#x27;_resizeEnd&#x27;, instance._afterHostResizeEnd);
-	},
+        instance.afterHostEvent(&#x27;resize:start&#x27;, instance._afterResizeStart);
+        instance.beforeHostMethod(&#x27;_resize&#x27;, instance._beforeHostResize);
+        instance.afterHostMethod(&#x27;_resizeEnd&#x27;, instance._afterHostResizeEnd);
+    },
 
-	destructor: function() {
-		var instance = this;
+    destructor: function() {
+        var instance = this;
 
-		instance.get(PROXY_NODE).remove(true);
-	},
+        instance.get(PROXY_NODE).remove(true);
+    },
 
-	_afterHostResizeEnd: function(event) {
-		var instance = this,
-			drag = event.dragEvent.target;
+    _afterHostResizeEnd: function(event) {
+        var instance = this,
+            drag = event.dragEvent.target;
 
-		&#x2F;&#x2F; reseting actXY from drag when drag end
-		drag.actXY = [];
+        &#x2F;&#x2F; reseting actXY from drag when drag end
+        drag.actXY = [];
 
-		&#x2F;&#x2F; if proxy is true, hide it on resize end
-		instance._syncProxyUI();
+        &#x2F;&#x2F; if proxy is true, hide it on resize end
+        instance._syncProxyUI();
 
-		instance.get(PROXY_NODE).hide();
-	},
+        instance.get(PROXY_NODE).hide();
+    },
 
-	_afterResizeStart: function(event) {
-		var instance = this;
+    _afterResizeStart: function() {
+        var instance = this;
 
-		instance._renderProxy();
-	},
+        instance._renderProxy();
+    },
 
-	_beforeHostResize: function(event) {
-		var instance = this,
-			host = this.get(HOST);
+    _beforeHostResize: function(event) {
+        var instance = this,
+            host = this.get(HOST);
 
-		host._handleResizeAlignEvent(event.dragEvent);
+        host._handleResizeAlignEvent(event.dragEvent);
 
-		&#x2F;&#x2F; if proxy is true _syncProxyUI instead of _syncUI
-		instance._syncProxyUI();
+        &#x2F;&#x2F; if proxy is true _syncProxyUI instead of _syncUI
+        instance._syncProxyUI();
 
-		return new Y.Do.Prevent();
-	},
+        return new Y.Do.Prevent();
+    },
 
     &#x2F;**
       * Render the &lt;a href=&quot;ResizeProxy.html#attr_proxyNode&quot;&gt;proxyNode&lt;&#x2F;a&gt; element and
@@ -1546,41 +1550,41 @@ Y.extend(ResizeProxy, Y.Plugin.Base, {
       * @method _renderProxy
       * @protected
       *&#x2F;
-	_renderProxy: function() {
-		var instance = this,
-			host = this.get(HOST),
-			proxyNode = instance.get(PROXY_NODE);
+    _renderProxy: function() {
+        var instance = this,
+            host = this.get(HOST),
+            proxyNode = instance.get(PROXY_NODE);
 
-		if (!proxyNode.inDoc()) {
-			host.get(WRAPPER).get(PARENT_NODE).append(
-				proxyNode.hide()
-			);
-		}
-	},
+        if (!proxyNode.inDoc()) {
+            host.get(WRAPPER).get(PARENT_NODE).append(
+                proxyNode.hide()
+            );
+        }
+    },
 
-	&#x2F;**
+    &#x2F;**
      * Sync the proxy UI with internal values from
      * &lt;a href=&quot;ResizeProxy.html#property_info&quot;&gt;info&lt;&#x2F;a&gt;.
      *
      * @method _syncProxyUI
      * @protected
      *&#x2F;
-	_syncProxyUI: function() {
-		var instance = this,
-			host = this.get(HOST),
-			info = host.info,
-			activeHandleNode = host.get(ACTIVE_HANDLE_NODE),
-			proxyNode = instance.get(PROXY_NODE),
-			cursor = activeHandleNode.getStyle(CURSOR);
+    _syncProxyUI: function() {
+        var instance = this,
+            host = this.get(HOST),
+            info = host.info,
+            activeHandleNode = host.get(ACTIVE_HANDLE_NODE),
+            proxyNode = instance.get(PROXY_NODE),
+            cursor = activeHandleNode.getStyle(CURSOR);
 
-		proxyNode.show().setStyle(CURSOR, cursor);
+        proxyNode.show().setStyle(CURSOR, cursor);
 
-		host.delegate.dd.set(DRAG_CURSOR, cursor);
+        host.delegate.dd.set(DRAG_CURSOR, cursor);
 
-		proxyNode.sizeTo(info.offsetWidth, info.offsetHeight);
+        proxyNode.sizeTo(info.offsetWidth, info.offsetHeight);
 
-		proxyNode.setXY([ info.left, info.top ]);
-	}
+        proxyNode.setXY([ info.left, info.top ]);
+    }
 });
 
 Y.namespace(&#x27;Plugin&#x27;);

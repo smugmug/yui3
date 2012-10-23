@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1425,7 +1429,7 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;**
-Extends the IO  to enable file uploads, with HTML forms 
+Extends the IO  to enable file uploads, with HTML forms
 using an iframe as the transport medium.
 @module io
 @submodule io-upload-iframe
@@ -1435,7 +1439,8 @@ using an iframe as the transport medium.
 var w = Y.config.win,
     d = Y.config.doc,
     _std = (d.documentMode &amp;&amp; d.documentMode &gt;= 8),
-    _d = decodeURIComponent;
+    _d = decodeURIComponent,
+    _end = Y.IO.prototype.end;
 
 &#x2F;**
  * Creates the iframe transported used in file upload
@@ -1458,7 +1463,7 @@ function _cFrame(o, c, io) {
 }
 
 &#x2F;**
- * Removes the iframe transport used in the file upload 
+ * Removes the iframe transport used in the file upload
  * transaction.
  *
  * @method _dFrame
@@ -1679,8 +1684,6 @@ Y.mix(Y.IO.prototype, {
         if (c.data) {
             io._removeData(f, fields);
         }
-        &#x2F;&#x2F; Restore HTML form attributes to their original values.
-        io._resetAttrs(f, attr);
 
         return {
             id: o.id,
@@ -1690,7 +1693,7 @@ Y.mix(Y.IO.prototype, {
                 if (Y.one(&#x27;#io_iframe&#x27; + o.id)) {
                     _dFrame(o.id);
                     io.complete(o, c);
-                    io.end(o, c);
+                    io.end(o, c, attr);
                     Y.log(&#x27;Transaction &#x27; + o.id + &#x27; aborted.&#x27;, &#x27;info&#x27;, &#x27;io&#x27;);
                 }
                 else {
@@ -1708,6 +1711,16 @@ Y.mix(Y.IO.prototype, {
     upload: function(o, uri, c) {
         _cFrame(o, c, this);
         return this._upload(o, uri, c);
+    },
+
+    end: function(transaction, config, attr) {
+        if (config &amp;&amp; config.form &amp;&amp; config.form.upload) {
+            var io = this;
+            &#x2F;&#x2F; Restore HTML form attributes to their original values.
+            io._resetAttrs(f, attr);
+        }
+
+        return _end.call(this, transaction, config);
     }
 });
 

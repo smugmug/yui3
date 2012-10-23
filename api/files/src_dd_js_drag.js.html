@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1429,7 +1433,7 @@
      * Provides the ability to drag a Node.
      * @module dd
      * @submodule dd-drag
-     *&#x2F;     
+     *&#x2F;
     &#x2F;**
      * Provides the ability to drag a Node.
      * @class Drag
@@ -1443,7 +1447,7 @@
         DRAGGING = &#x27;dragging&#x27;,
         DRAG_NODE = &#x27;dragNode&#x27;,
         OFFSET_HEIGHT = &#x27;offsetHeight&#x27;,
-        OFFSET_WIDTH = &#x27;offsetWidth&#x27;,        
+        OFFSET_WIDTH = &#x27;offsetWidth&#x27;,
         &#x2F;**
         * @event drag:mouseup
         * @description Handles the mouseup DOM event, does nothing internally just fires.
@@ -1614,7 +1618,7 @@
         * @bubbles DDM
         * @type {CustomEvent}
         *&#x2F;
-    
+
     Drag = function(o) {
         this._lazyAddAttrs = false;
         Drag.superclass.constructor.apply(this, arguments);
@@ -1626,7 +1630,7 @@
     };
 
     Drag.NAME = &#x27;drag&#x27;;
-    
+
     &#x2F;**
     * This property defaults to &quot;mousedown&quot;, but when drag-gestures is loaded, it is changed to &quot;gesturemovestart&quot;
     * @static
@@ -1742,24 +1746,25 @@
             value: true
         },
         &#x2F;**
+        * Config option is set by Drag to inform you of which handle fired the drag event (in the case that there are several handles): default false.
         * @attribute activeHandle
-        * @description This config option is set by Drag to inform you of which handle fired the drag event (in the case that there are several handles): default false.
         * @type Node
         *&#x2F;
         activeHandle: {
             value: false
         },
         &#x2F;**
+        * By default a drag operation will only begin if the mousedown occurred with the primary mouse button.
+        * Setting this to false will allow for all mousedown events to trigger a drag.
         * @attribute primaryButtonOnly
-        * @description By default a drag operation will only begin if the mousedown occurred with the primary mouse button. Setting this to false will allow for all mousedown events to trigger a drag.
         * @type Boolean
         *&#x2F;
         primaryButtonOnly: {
             value: true
         },
         &#x2F;**
+        * This attribute is not meant to be used by the implementor, it is meant to be used as an Event tracker so you can listen for it to change.
         * @attribute dragging
-        * @description This attribute is not meant to be used by the implementor, it is meant to be used as an Event tracker so you can listen for it to change.
         * @type Boolean
         *&#x2F;
         dragging: {
@@ -1781,8 +1786,8 @@
             }
         },
         &#x2F;**
+        * This attribute only works if the dd-drop module is active. It will set the dragMode (point, intersect, strict) of this Drag instance.
         * @attribute dragMode
-        * @description This attribute only works if the dd-drop module is active. It will set the dragMode (point, intersect, strict) of this Drag instance.
         * @type String
         *&#x2F;
         dragMode: {
@@ -1810,7 +1815,7 @@
             },
             setter: function(g) {
                 this._groups = {};
-                Y.each(g, function(v, k) {
+                Y.each(g, function(v) {
                     this._groups[v] = true;
                 }, this);
                 return g;
@@ -1826,7 +1831,7 @@
             setter: function(g) {
                 if (g) {
                     this._handles = {};
-                    Y.each(g, function(v, k) {
+                    Y.each(g, function(v) {
                         var key = v;
                         if (v instanceof Y.Node || v instanceof Y.NodeList) {
                             key = v._yuid;
@@ -1840,9 +1845,9 @@
             }
         },
         &#x2F;**
+        * Controls the default bubble parent for this Drag instance. Default: Y.DD.DDM. Set to false to disable bubbling. Use bubbleTargets in config
         * @deprecated
         * @attribute bubbles
-        * @description Controls the default bubble parent for this Drag instance. Default: Y.DD.DDM. Set to false to disable bubbling. Use bubbleTargets in config
         * @type Object
         *&#x2F;
         bubbles: {
@@ -1864,7 +1869,7 @@
 
     Y.extend(Drag, Y.Base, {
         &#x2F;**
-        * Checks the object for the methods needed to drag the object around. 
+        * Checks the object for the methods needed to drag the object around.
         * Normally this would be a node instance, but in the case of Graphics, it
         * may be an SVG node or something similar.
         * @method _canDrag
@@ -1951,7 +1956,7 @@
         * @description This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         *&#x2F;
         _createEvents: function() {
-            
+
             this.publish(EV_MOUSE_DOWN, {
                 defaultFn: this._defMouseDownFn,
                 queuable: false,
@@ -1959,7 +1964,7 @@
                 bubbles: true,
                 prefix: &#x27;drag&#x27;
             });
-            
+
             this.publish(EV_ALIGN, {
                 defaultFn: this._defAlignFn,
                 queuable: false,
@@ -1967,7 +1972,7 @@
                 bubbles: true,
                 prefix: &#x27;drag&#x27;
             });
-            
+
             this.publish(EV_DRAG, {
                 defaultFn: this._defDragFn,
                 queuable: false,
@@ -1975,7 +1980,7 @@
                 bubbles: true,
                 prefix: &#x27;drag&#x27;
             });
-            
+
             this.publish(EV_END, {
                 defaultFn: this._defEndFn,
                 preventedFn: this._prevEndFn,
@@ -1984,7 +1989,7 @@
                 bubbles: true,
                 prefix: &#x27;drag&#x27;
             });
-            
+
             var ev = [
                 EV_AFTER_MOUSE_DOWN,
                 EV_REMOVE_HANDLE,
@@ -1998,8 +2003,8 @@
                 &#x27;drag:enter&#x27;,
                 &#x27;drag:exit&#x27;
             ];
-            
-            Y.each(ev, function(v, k) {
+
+            Y.each(ev, function(v) {
                 this.publish(v, {
                     type: v,
                     emitFacade: true,
@@ -2046,9 +2051,9 @@
         *&#x2F;
         _invalids: null,
         &#x2F;**
+        * A private hash of the default invalid selector strings: {&#x27;textarea&#x27;: true, &#x27;input&#x27;: true, &#x27;a&#x27;: true, &#x27;button&#x27;: true, &#x27;select&#x27;: true}
         * @private
         * @property _invalidsDefault
-        * @description A private hash of the default invalid selector strings: {&#x27;textarea&#x27;: true, &#x27;input&#x27;: true, &#x27;a&#x27;: true, &#x27;button&#x27;: true, &#x27;select&#x27;: true}
         * @type {Object}
         *&#x2F;
         _invalidsDefault: {&#x27;textarea&#x27;: true, &#x27;input&#x27;: true, &#x27;a&#x27;: true, &#x27;button&#x27;: true, &#x27;select&#x27;: true },
@@ -2120,24 +2125,25 @@
         * @description A region object associated with this drag, used for checking regions while dragging.
         * @type Object
         *&#x2F;
-        region: null,       
+        region: null,
         &#x2F;**
         * @private
         * @method _handleMouseUp
         * @description Handler for the mouseup DOM event
         * @param {EventFacade} ev The Event
         *&#x2F;
-        _handleMouseUp: function(ev) {
+        _handleMouseUp: function() {
             this.fire(&#x27;drag:mouseup&#x27;);
             this._fixIEMouseUp();
             if (DDM.activeDrag) {
                 DDM._end();
             }
         },
-        &#x2F;** 
+        &#x2F;**
+        * The function we use as the ondragstart handler when we start a drag
+        * in Internet Explorer. This keeps IE from blowing up on images as drag handles.
         * @private
         * @method _fixDragStart
-        * @description The function we use as the ondragstart handler when we start a drag in Internet Explorer. This keeps IE from blowing up on images as drag handles.
         * @param {Event} e The Event
         *&#x2F;
         _fixDragStart: function(e) {
@@ -2145,7 +2151,7 @@
                 e.preventDefault();
             }
         },
-        &#x2F;** 
+        &#x2F;**
         * @private
         * @method _ieSelectFix
         * @description The function we use as the onselectstart handler when we start a drag in Internet Explorer
@@ -2153,7 +2159,7 @@
         _ieSelectFix: function() {
             return false;
         },
-        &#x2F;** 
+        &#x2F;**
         * @private
         * @property _ieSelectBack
         * @description We will hold a copy of the current &quot;onselectstart&quot; method on this property, and reset it after we are done using it.
@@ -2164,11 +2170,11 @@
         * @method _fixIEMouseDown
         * @description This method copies the onselectstart listner on the document to the _ieSelectFix property
         *&#x2F;
-        _fixIEMouseDown: function(e) {
+        _fixIEMouseDown: function() {
             if (Y.UA.ie) {
                 this._ieSelectBack = Y.config.doc.body.onselectstart;
                 Y.config.doc.body.onselectstart = this._ieSelectFix;
-            }           
+            }
         },
         &#x2F;**
         * @private
@@ -2178,7 +2184,7 @@
         _fixIEMouseUp: function() {
             if (Y.UA.ie) {
                 Y.config.doc.body.onselectstart = this._ieSelectBack;
-            }           
+            }
         },
         &#x2F;**
         * @private
@@ -2200,31 +2206,36 @@
 
             this._dragThreshMet = false;
             this._ev_md = ev;
-            
+
             if (this.get(&#x27;primaryButtonOnly&#x27;) &amp;&amp; ev.button &gt; 1) {
                 return false;
             }
             if (this.validClick(ev)) {
                 this._fixIEMouseDown(ev);
-                if (this.get(&#x27;haltDown&#x27;)) {
-                    Y.log(&#x27;Halting MouseDown&#x27;, &#x27;info&#x27;, &#x27;drag&#x27;);
-                    ev.halt();
-                } else {
-                    Y.log(&#x27;Preventing Default on MouseDown&#x27;, &#x27;info&#x27;, &#x27;drag&#x27;);
-                    ev.preventDefault();
+                if (Drag.START_EVENT.indexOf(&#x27;gesture&#x27;) !== 0) {
+                    &#x2F;&#x2F;Only do these if it&#x27;s not a gesture
+                    if (this.get(&#x27;haltDown&#x27;)) {
+                        Y.log(&#x27;Halting MouseDown&#x27;, &#x27;info&#x27;, &#x27;drag&#x27;);
+                        ev.halt();
+                    } else {
+                        Y.log(&#x27;Preventing Default on MouseDown&#x27;, &#x27;info&#x27;, &#x27;drag&#x27;);
+                        ev.preventDefault();
+                    }
                 }
-                
+
                 this._setStartPosition([ev.pageX, ev.pageY]);
 
                 DDM.activeDrag = this;
-                
+
                 this._clickTimeout = Y.later(this.get(&#x27;clickTimeThresh&#x27;), this, this._timeoutCheck);
             }
             this.fire(EV_AFTER_MOUSE_DOWN, { ev: ev });
         },
         &#x2F;**
+        * Method first checks to see if we have handles, if so it validates the click
+        * against the handle. Then if it finds a valid handle, it checks it against
+        * the invalid handles list. Returns true if a good handle was used, false otherwise.
         * @method validClick
-        * @description Method first checks to see if we have handles, if so it validates the click against the handle. Then if it finds a valid handle, it checks it against the invalid handles list. Returns true if a good handle was used, false otherwise.
         * @param {EventFacade} ev  The Event
         * @return {Boolean}
         *&#x2F;
@@ -2279,7 +2290,7 @@
                 if (hTest) {
                     els = ev.currentTarget.all(hTest);
                     set = false;
-                    els.each(function(n, i) {
+                    els.each(function(n) {
                         if ((n.contains(tar) || n.compareTo(tar)) &amp;&amp; !set) {
                             set = true;
                             this.set(&#x27;activeHandle&#x27;, n);
@@ -2299,9 +2310,9 @@
         *&#x2F;
         _setStartPosition: function(xy) {
             this.startXY = xy;
-            
+
             this.nodeXY = this.lastXY = this.realXY = this.get(NODE).getXY();
-            
+
             if (this.get(&#x27;offsetNode&#x27;)) {
                 this.deltaXY = [(this.startXY[0] - this.nodeXY[0]), (this.startXY[1] - this.nodeXY[1])];
             } else {
@@ -2323,7 +2334,7 @@
         &#x2F;**
         * @method removeHandle
         * @description Remove a Selector added by addHandle
-        * @param {String} str The selector for the handle to be removed. 
+        * @param {String} str The selector for the handle to be removed.
         * @return {Self}
         * @chainable
         *&#x2F;
@@ -2391,7 +2402,7 @@
         * @method initializer
         * @description Internal init handler
         *&#x2F;
-        initializer: function(cfg) {
+        initializer: function() {
 
             this.get(NODE).dd = this;
 
@@ -2401,11 +2412,11 @@
             }
 
             this.actXY = [];
-            
+
             this._invalids = Y.clone(this._invalidsDefault, true);
 
             this._createEvents();
-            
+
             if (!this.get(DRAG_NODE)) {
                 this.set(DRAG_NODE, this.get(NODE));
             }
@@ -2469,17 +2480,17 @@
                 });
                 node = this.get(DRAG_NODE);
                 xy = this.nodeXY;
-                
+
                 ow = node.get(OFFSET_WIDTH);
                 oh = node.get(OFFSET_HEIGHT);
-                
+
                 if (this.get(&#x27;startCentered&#x27;)) {
                     this._setStartPosition([xy[0] + (ow &#x2F; 2), xy[1] + (oh &#x2F; 2)]);
                 }
-                
-                
+
+
                 this.region = {
-                    &#x27;0&#x27;: xy[0], 
+                    &#x27;0&#x27;: xy[0],
                     &#x27;1&#x27;: xy[1],
                     area: 0,
                     top: xy[1],
@@ -2523,7 +2534,7 @@
         * @method _defEndFn
         * @description Handler for fixing the selection in IE
         *&#x2F;
-        _defEndFn: function(e) {
+        _defEndFn: function() {
             this._fixIEMouseUp();
             this._ev_md = null;
         },
@@ -2532,7 +2543,7 @@
         * @method _prevEndFn
         * @description Handler for preventing the drag:end event. It will reset the node back to it&#x27;s start position
         *&#x2F;
-        _prevEndFn: function(e) {
+        _prevEndFn: function() {
             this._fixIEMouseUp();
             &#x2F;&#x2F;Bug #1852577
             this.get(DRAG_NODE).setXY(this.nodeXY);
@@ -2588,7 +2599,7 @@
 
 
             this.region = {
-                &#x27;0&#x27;: xy[0], 
+                &#x27;0&#x27;: xy[0],
                 &#x27;1&#x27;: xy[1],
                 area: 0,
                 top: xy[1],
@@ -2606,9 +2617,9 @@
                     xy: xy,
                     delta: diffXY,
                     offset: diffXY2
-                } 
+                }
             });
-            
+
             this.lastXY = xy;
         },
         &#x2F;**
@@ -2645,6 +2656,10 @@
                 if (diffX &gt; this.get(&#x27;clickPixelThresh&#x27;) || diffY &gt; this.get(&#x27;clickPixelThresh&#x27;)) {
                     this._dragThreshMet = true;
                     this.start();
+                    &#x2F;&#x2F;This only happens on gestures to stop the page from scrolling
+                    if (ev &amp;&amp; ev.preventDefault) {
+                        ev.preventDefault();
+                    }
                     this._alignNode([ev.pageX, ev.pageY]);
                 }
             } else {
@@ -2679,7 +2694,7 @@
             DDM._unregDrag(this);
         }
     });
-    Y.namespace(&#x27;DD&#x27;);    
+    Y.namespace(&#x27;DD&#x27;);
     Y.DD.Drag = Drag;
 
 

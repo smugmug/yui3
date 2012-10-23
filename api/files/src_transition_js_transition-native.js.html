@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1437,15 +1441,15 @@ var CAMEL_VENDOR_PREFIX = &#x27;&#x27;,
     DOCUMENT = Y.config.doc,
     DOCUMENT_ELEMENT = &#x27;documentElement&#x27;,
     TRANSITION = &#x27;transition&#x27;,
-    TRANSITION_CAMEL = &#x27;Transition&#x27;,
-    TRANSITION_PROPERTY_CAMEL,
+    TRANSITION_CAMEL = &#x27;transition&#x27;,
+    TRANSITION_PROPERTY_CAMEL = &#x27;transitionProperty&#x27;,
+    TRANSFORM_CAMEL = &#x27;transform&#x27;,
     TRANSITION_PROPERTY,
     TRANSITION_DURATION,
     TRANSITION_TIMING_FUNCTION,
     TRANSITION_DELAY,
     TRANSITION_END,
     ON_TRANSITION_END,
-    TRANSFORM_CAMEL,
 
     EMPTY_OBJ = {},
 
@@ -1480,13 +1484,13 @@ Transition._toCamel = function(property) {
 Transition._toHyphen = function(property) {
     property = property.replace(&#x2F;([A-Z]?)([a-z]+)([A-Z]?)&#x2F;g, function(m0, m1, m2, m3) {
         var str = ((m1) ? &#x27;-&#x27; + m1.toLowerCase() : &#x27;&#x27;) + m2;
-        
+
         if (m3) {
             str += &#x27;-&#x27; + m3.toLowerCase();
         }
 
         return str;
-    }); 
+    });
 
     return property;
 };
@@ -1496,30 +1500,37 @@ Transition.HIDE_TRANSITION = &#x27;fadeOut&#x27;;
 
 Transition.useNative = false;
 
-Y.Array.each(VENDORS, function(val) { &#x2F;&#x2F; then vendor specific
-    var property = val + TRANSITION_CAMEL;
-    if (property in DOCUMENT[DOCUMENT_ELEMENT].style) {
-        CAMEL_VENDOR_PREFIX = val;
-        VENDOR_PREFIX = Transition._toHyphen(val) + &#x27;-&#x27;;
+if (&#x27;transition&#x27; in DOCUMENT[DOCUMENT_ELEMENT].style) {
+    Transition.useNative = true;
+    Transition.supported = true; &#x2F;&#x2F; TODO: remove
+} else {
+    Y.Array.each(VENDORS, function(val) { &#x2F;&#x2F; then vendor specific
+        var property = val + &#x27;Transition&#x27;;
+        if (property in DOCUMENT[DOCUMENT_ELEMENT].style) {
+            CAMEL_VENDOR_PREFIX = val;
+            VENDOR_PREFIX       = Transition._toHyphen(val) + &#x27;-&#x27;;
 
-        Transition.useNative = true;
-        Transition.supported = true; &#x2F;&#x2F; TODO: remove
-        Transition._VENDOR_PREFIX = val;
-    }
-});
+            Transition.useNative = true;
+            Transition.supported = true; &#x2F;&#x2F; TODO: remove
+            Transition._VENDOR_PREFIX = val;
+        }
+    });
+}
 
-TRANSITION_CAMEL = CAMEL_VENDOR_PREFIX + TRANSITION_CAMEL;
-TRANSITION_PROPERTY_CAMEL = CAMEL_VENDOR_PREFIX + &#x27;TransitionProperty&#x27;;
-TRANSITION_PROPERTY = VENDOR_PREFIX + &#x27;transition-property&#x27;;
-TRANSITION_DURATION = VENDOR_PREFIX + &#x27;transition-duration&#x27;;
+if (CAMEL_VENDOR_PREFIX) {
+    TRANSITION_CAMEL          = CAMEL_VENDOR_PREFIX + &#x27;Transition&#x27;;
+    TRANSITION_PROPERTY_CAMEL = CAMEL_VENDOR_PREFIX + &#x27;TransitionProperty&#x27;;
+    TRANSFORM_CAMEL           = CAMEL_VENDOR_PREFIX + &#x27;Transform&#x27;;
+}
+
+TRANSITION_PROPERTY        = VENDOR_PREFIX + &#x27;transition-property&#x27;;
+TRANSITION_DURATION        = VENDOR_PREFIX + &#x27;transition-duration&#x27;;
 TRANSITION_TIMING_FUNCTION = VENDOR_PREFIX + &#x27;transition-timing-function&#x27;;
-TRANSITION_DELAY = VENDOR_PREFIX + &#x27;transition-delay&#x27;;
-TRANSITION_END = &#x27;transitionend&#x27;;
+TRANSITION_DELAY           = VENDOR_PREFIX + &#x27;transition-delay&#x27;;
+
+TRANSITION_END    = &#x27;transitionend&#x27;;
 ON_TRANSITION_END = &#x27;on&#x27; + CAMEL_VENDOR_PREFIX.toLowerCase() + &#x27;transitionend&#x27;;
-
-TRANSITION_END = VENDOR_TRANSITION_END[CAMEL_VENDOR_PREFIX] || TRANSITION_END;
-
-TRANSFORM_CAMEL = CAMEL_VENDOR_PREFIX + &#x27;Transform&#x27;;
+TRANSITION_END    = VENDOR_TRANSITION_END[CAMEL_VENDOR_PREFIX] || TRANSITION_END;
 
 Transition.fx = {};
 Transition.toggles = {};
@@ -1528,7 +1539,7 @@ Transition._hasEnd = {};
 
 Transition._reKeywords = &#x2F;^(?:node|duration|iterations|easing|delay|on|onstart|onend)$&#x2F;i;
 
-Y.Node.DOM_EVENTS[TRANSITION_END] = 1; 
+Y.Node.DOM_EVENTS[TRANSITION_END] = 1;
 
 Transition.NAME = &#x27;transition&#x27;;
 
@@ -1584,7 +1595,7 @@ Transition.prototype = {
         if (config &amp;&amp; config.value !== undefined) {
             val = config.value;
         } else if (config !== undefined) {
-            val = config; 
+            val = config;
             config = EMPTY_OBJ;
         }
 
@@ -1597,7 +1608,7 @@ Transition.prototype = {
             if (attr.transition !== anim) {
                 attr.transition._count--; &#x2F;&#x2F; remapping attr to this transition
             }
-        } 
+        }
 
         anim._count++; &#x2F;&#x2F; properties per transition
 
@@ -1656,7 +1667,7 @@ Transition.prototype = {
             if (config.hasOwnProperty(attr) &amp;&amp; !Transition._reKeywords.test(attr)) {
                 this.addProperty(attr, config[attr]);
 
-                &#x2F;&#x2F; when size is auto or % webkit starts from zero instead of computed 
+                &#x2F;&#x2F; when size is auto or % webkit starts from zero instead of computed
                 &#x2F;&#x2F; (https:&#x2F;&#x2F;bugs.webkit.org&#x2F;show_bug.cgi?id=16020)
                 &#x2F;&#x2F; TODO: selective set
                 if (node.style[attr] === &#x27;&#x27;) {
@@ -1671,7 +1682,7 @@ Transition.prototype = {
      * @method run
      * @chainable
      * @private
-     *&#x2F;    
+     *&#x2F;
     run: function(callback) {
         var anim = this,
             node = anim._node,
@@ -1704,9 +1715,9 @@ Transition.prototype = {
     },
 
     _prepDur: function(dur) {
-        dur = parseFloat(dur);
+        dur = parseFloat(dur) * 1000;
 
-        return dur + &#x27;s&#x27;;
+        return dur + &#x27;ms&#x27;;
     },
 
     _runNative: function(time) {
@@ -1765,7 +1776,7 @@ Transition.prototype = {
             Transition._hasEnd[uid] = true;
 
         }
-        
+
         style.cssText += transitionText + duration + easing + delay + cssText;
 
     },
@@ -1778,10 +1789,10 @@ Transition.prototype = {
             data = {
                 type: &#x27;transition:end&#x27;,
                 config: config,
-                elapsedTime: elapsed 
+                elapsedTime: elapsed
             },
 
-            nodeInstance = Y.one(node); 
+            nodeInstance = Y.one(node);
 
         anim._running = false;
         anim._callback = null;
@@ -1867,7 +1878,7 @@ Transition.prototype = {
 Y.Transition = Transition;
 Y.TransitionNative = Transition; &#x2F;&#x2F; TODO: remove
 
-&#x2F;** 
+&#x2F;**
  *   Animate one or more css properties to a given value. Requires the &quot;transition&quot; module.
  *   &lt;pre&gt;example usage:
  *       Y.one(&#x27;#demo&#x27;).transition({
@@ -1889,16 +1900,16 @@ Y.TransitionNative = Transition; &#x2F;&#x2F; TODO: remove
  *   @for Node
  *   @method transition
  *   @param {Object} config An object containing one or more style properties, a duration and an easing.
- *   @param {Function} callback A function to run after the transition has completed. 
+ *   @param {Function} callback A function to run after the transition has completed.
  *   @chainable
 *&#x2F;
 Y.Node.prototype.transition = function(name, config, callback) {
-    var 
+    var
         transitionAttrs = Transition._nodeAttrs[Y.stamp(this._node)],
         anim = (transitionAttrs) ? transitionAttrs.transition || null : null,
         fxConfig,
         prop;
-    
+
     if (typeof name === &#x27;string&#x27;) { &#x2F;&#x2F; named effect, pull config from registry
         if (typeof config === &#x27;function&#x27;) {
             callback = config;
@@ -1913,7 +1924,7 @@ Y.Node.prototype.transition = function(name, config, callback) {
             for (prop in fxConfig) {
                 if (fxConfig.hasOwnProperty(prop)) {
                     if (! (prop in config)) {
-                        config[prop] = fxConfig[prop]; 
+                        config[prop] = fxConfig[prop];
                     }
                 }
             }
@@ -1944,10 +1955,10 @@ Y.Node.prototype.show = function(name, config, callback) {
                 callback = config;
                 config = name;
             }
-            name = Transition.SHOW_TRANSITION; 
-        }    
+            name = Transition.SHOW_TRANSITION;
+        }
         this.transition(name, config, callback);
-    }    
+    }
     else if (name &amp;&amp; !Y.Transition) { Y.log(&#x27;unable to transition show; missing transition module&#x27;, &#x27;warn&#x27;, &#x27;node&#x27;); }
     return this;
 };
@@ -1976,17 +1987,17 @@ Y.Node.prototype.hide = function(name, config, callback) {
                 callback = config;
                 config = name;
             }
-            name = Transition.HIDE_TRANSITION; 
-        }    
+            name = Transition.HIDE_TRANSITION;
+        }
         this.transition(name, config, callback);
     } else if (name &amp;&amp; !Y.Transition) { Y.log(&#x27;unable to transition hide; missing transition module&#x27;, &#x27;warn&#x27;, &#x27;node&#x27;);
     } else {
         this._hide();
-    }    
+    }
     return this;
-}; 
+};
 
-&#x2F;** 
+&#x2F;**
  *   Animate one or more css properties to a given value. Requires the &quot;transition&quot; module.
  *   &lt;pre&gt;example usage:
  *       Y.all(&#x27;.demo&#x27;).transition({
@@ -2093,7 +2104,7 @@ Y.mix(Transition.fx, {
         },
         duration: 0.5,
         easing: &#x27;ease-in&#x27;,
-        
+
         on: {
             start: function() {
                 var overflow = this.getStyle(&#x27;overflow&#x27;);
@@ -2109,7 +2120,7 @@ Y.mix(Transition.fx, {
                     delete this._transitionOverflow;
                 }
             }
-        } 
+        }
     }
 });
 

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1429,7 +1433,7 @@
      * Provides the ability to create a Drop Target.
      * @module dd
      * @submodule dd-drop
-     *&#x2F;     
+     *&#x2F;
     &#x2F;**
      * Provides the ability to create a Drop Target.
      * @class Drop
@@ -1449,7 +1453,7 @@
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The drop object at the time of the event.&lt;&#x2F;dd&gt;
         * &lt;dt&gt;drag&lt;&#x2F;dt&gt;&lt;dd&gt;The drag object at the time of the event.&lt;&#x2F;dd&gt;
-        * &lt;&#x2F;dl&gt;        
+        * &lt;&#x2F;dl&gt;
         * @bubbles DDM
         * @type {CustomEvent}
         *&#x2F;
@@ -1461,7 +1465,7 @@
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The drop object at the time of the event.&lt;&#x2F;dd&gt;
         * &lt;dt&gt;drag&lt;&#x2F;dt&gt;&lt;dd&gt;The drag object at the time of the event.&lt;&#x2F;dd&gt;
-        * &lt;&#x2F;dl&gt;        
+        * &lt;&#x2F;dl&gt;
         * @bubbles DDM
         * @type {CustomEvent}
         *&#x2F;
@@ -1483,11 +1487,11 @@
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The best guess on what was dropped on.&lt;&#x2F;dd&gt;
         * &lt;dt&gt;drag&lt;&#x2F;dt&gt;&lt;dd&gt;The drag object at the time of the event.&lt;&#x2F;dd&gt;
         * &lt;dt&gt;others&lt;&#x2F;dt&gt;&lt;dd&gt;An array of all the other drop targets that was dropped on.&lt;&#x2F;dd&gt;
-        * &lt;&#x2F;dl&gt;        
+        * &lt;&#x2F;dl&gt;
         * @bubbles DDM
         * @type {CustomEvent}
         *&#x2F;
-        
+
 
     Drop = function() {
         this._lazyAddAttrs = false;
@@ -1516,21 +1520,21 @@
         * @attribute node
         * @description Y.Node instanace to use as the element to make a Drop Target
         * @type Node
-        *&#x2F;        
+        *&#x2F;
         node: {
             setter: function(node) {
                 var n = Y.one(node);
                 if (!n) {
                     Y.error(&#x27;DD.Drop: Invalid Node Given: &#x27; + node);
                 }
-                return n;               
+                return n;
             }
         },
         &#x2F;**
         * @attribute groups
         * @description Array of groups to add this drop into.
         * @type Array
-        *&#x2F;        
+        *&#x2F;
         groups: {
             value: [&#x27;default&#x27;],
             getter: function() {
@@ -1542,15 +1546,15 @@
                     ret[ret.length] = k;
                 });
                 return ret;
-            },            
+            },
             setter: function(g) {
                 this._groups = {};
-                Y.each(g, function(v, k) {
+                Y.each(g, function(v) {
                     this._groups[v] = true;
                 }, this);
                 return g;
             }
-        },   
+        },
         &#x2F;**
         * @attribute padding
         * @description CSS style padding to make the Drop Target bigger than the node.
@@ -1566,7 +1570,7 @@
         * @attribute lock
         * @description Set to lock this drop element.
         * @type Boolean
-        *&#x2F;        
+        *&#x2F;
         lock: {
             value: false,
             setter: function(lock) {
@@ -1579,9 +1583,10 @@
             }
         },
         &#x2F;**
+        * Controls the default bubble parent for this Drop instance. Default: Y.DD.DDM. Set to false to disable bubbling.
+        * Use bubbleTargets in config.
         * @deprecated
         * @attribute bubbles
-        * @description Controls the default bubble parent for this Drop instance. Default: Y.DD.DDM. Set to false to disable bubbling. Use bubbleTargets in config.
         * @type Object
         *&#x2F;
         bubbles: {
@@ -1641,7 +1646,7 @@
         * @description This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         *&#x2F;
         _createEvents: function() {
-            
+
             var ev = [
                 EV_DROP_OVER,
                 EV_DROP_ENTER,
@@ -1649,7 +1654,7 @@
                 &#x27;drop:hit&#x27;
             ];
 
-            Y.each(ev, function(v, k) {
+            Y.each(ev, function(v) {
                 this.publish(v, {
                     type: v,
                     emitFacade: true,
@@ -1701,7 +1706,7 @@
         inGroup: function(groups) {
             this._valid = false;
             var ret = false;
-            Y.each(groups, function(v, k) {
+            Y.each(groups, function(v) {
                 if (this._groups[v]) {
                     ret = true;
                     this._valid = true;
@@ -1714,7 +1719,7 @@
         * @method initializer
         * @description Private lifecycle method
         *&#x2F;
-        initializer: function(cfg) {
+        initializer: function() {
             Y.later(100, this, this._createEvents);
 
             var node = this.get(NODE), id;
@@ -1724,7 +1729,7 @@
             }
             node.addClass(DDM.CSS_PREFIX + &#x27;-drop&#x27;);
             &#x2F;&#x2F;Shouldn&#x27;t have to do this..
-            this.set(&#x27;groups&#x27;, this.get(&#x27;groups&#x27;));           
+            this.set(&#x27;groups&#x27;, this.get(&#x27;groups&#x27;));
         },
         &#x2F;**
         * @private
@@ -1797,8 +1802,9 @@
             }
         },
         &#x2F;**
+        * Positions and sizes the shim with the raw data from the node,
+        * this can be used to programatically adjust the Targets shim for Animation..
         * @method sizeShim
-        * @description Positions and sizes the shim with the raw data from the node, this can be used to programatically adjust the Targets shim for Animation..
         *&#x2F;
         sizeShim: function() {
             if (!DDM.activeDrag) {
@@ -1828,21 +1834,21 @@
             nh = nh + p.top + p.bottom;
             xy[0] = xy[0] - p.left;
             xy[1] = xy[1] - p.top;
-            
+
 
             if (DDM.activeDrag.get(&#x27;dragMode&#x27;) === DDM.INTERSECT) {
                 &#x2F;&#x2F;Intersect Mode, make the shim bigger
                 dd = DDM.activeDrag;
                 dH = dd.get(NODE).get(OFFSET_HEIGHT);
                 dW = dd.get(NODE).get(OFFSET_WIDTH);
-                
+
                 nh = (nh + dH);
                 nw = (nw + dW);
                 xy[0] = xy[0] - (dW - dd.deltaXY[0]);
                 xy[1] = xy[1] - (dH - dd.deltaXY[1]);
 
             }
-            
+
             if (this.get(&#x27;useShim&#x27;)) {
                 &#x2F;&#x2F;Set the style on the shim
                 this.shim.setStyles({
@@ -1855,7 +1861,7 @@
 
             &#x2F;&#x2F;Create the region to be used by intersect when a drag node is over us.
             this.region = {
-                &#x27;0&#x27;: xy[0], 
+                &#x27;0&#x27;: xy[0],
                 &#x27;1&#x27;: xy[1],
                 area: 0,
                 top: xy[1],

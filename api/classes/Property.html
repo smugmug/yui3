@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1422,6 +1426,15 @@
                     <div class="content">
                         <h1>Property Class</h1>
 <div class="box meta">
+    
+        <div class="uses">
+            Uses
+            <ul class="inline commas">
+                
+                    <li><a href="EventTarget.html">EventTarget</a></li>
+                
+            </ul>
+        </div>
     
 
     
@@ -1601,6 +1614,55 @@ Attribute.</p></li>
 
                     <ul class="index-list methods extends">
                         
+                            <li class="index-item method private inherited inherited">
+                                <a href="#method__getType">_getType</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private inherited inherited">
+                                <a href="#method__monitor">_monitor</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private inherited inherited">
+                                <a href="#method__parseType">_parseType</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_addTarget">addTarget</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_after">after</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_before">before</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_bubble">bubble</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method inherited">
                                 <a href="#method_defineProperties">defineProperties</a>
 
@@ -1615,8 +1677,71 @@ Attribute.</p></li>
                                 
                             </li>
                         
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_detach">detach</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_detachAll">detachAll</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_fire">fire</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_getEvent">getEvent</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method inherited">
                                 <a href="#method_getPropertyDescriptor">getPropertyDescriptor</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_getTargets">getTargets</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_on">on</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_once">once</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_onceAfter">onceAfter</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_parseType">parseType</a>
 
                                 
                                 
@@ -1633,6 +1758,47 @@ Attribute.</p></li>
                                 <a href="#method_props">props</a>
 
                                 
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_publish">publish</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited inherited">
+                                <a href="#method_removeTarget">removeTarget</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method deprecated inherited inherited">
+                                <a href="#method_subscribe">subscribe</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method deprecated inherited inherited">
+                                <a href="#method_unsubscribe">unsubscribe</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method deprecated inherited inherited">
+                                <a href="#method_unsubscribeAll">unsubscribeAll</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
                                 
                             </li>
                         
@@ -1665,6 +1831,709 @@ Attribute.</p></li>
         
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__getType" class="method item private inherited">
+    <h3 class="name"><code>_getType</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method__getType">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l36"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:36</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If the instance has a prefix attribute and the
+event type is not prefixed, the instance prefix is
+applied to the supplied type.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__monitor" class="method item private inherited">
+    <h3 class="name"><code>_monitor</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>what</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>eventType</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>o</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method__monitor">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l604"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:604</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>This is the entry point for the event monitoring system.
+You can monitor 'attach', 'detach', 'fire', and 'publish'.
+When configured, these events generate an event.  click ->
+click<em>attach, click</em>detach, click_publish -- these can
+be subscribed to like other events to monitor the event
+system.  Inividual published events can have monitoring
+turned on or off (publish can't be turned off before it
+it published) by setting the events 'monitor' config.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">what</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>'attach', 'detach', 'fire', or 'publish'</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">eventType</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="../classes/CustomEvent.html" class="crosslink">CustomEvent</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The prefixed name of the event being monitored, or the CustomEvent object.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">o</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Information about the event interaction, such as
+                 fire() args, subscription category, publish config</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__parseType" class="method item private inherited">
+    <h3 class="name"><code>_parseType</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method__parseType">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l52"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:52</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns an array with the detach key (if provided),
+and the prefixed event name from _getType
+Y.on('detachcategory| menu:click', fn)</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_addTarget" class="method item inherited">
+    <h3 class="name"><code>addTarget</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>o</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_addTarget">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-facade.js.html#l387"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-facade.js:387</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Registers another EventTarget as a bubble target.  Bubble order
+is determined by the order registered.  Multiple targets can
+be specified.</p>
+
+<p>Events can only bubble if emitFacade is true.</p>
+
+<p>Included in the event-custom-complex submodule.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">o</code>
+                        <span class="type"><a href="../classes/EventTarget.html" class="crosslink">EventTarget</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the target to add</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_after" class="method item inherited">
+    <h3 class="name"><code>after</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>fn</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[context]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[arg*]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_after">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l744"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:744</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Subscribe to a custom event hosted by this object.  The
+supplied callback will execute after any listeners add
+via the subscribe method, and after the default function,
+if configured for the event, has executed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">fn</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The callback to execute in response to the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[context]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Override <code>this</code> object in callback</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[arg*]</code>
+                        <span class="type">Any</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>0..n additional arguments to supply to the subscriber</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>:
+                    
+                    A subscription handle capable of detaching the
+                      subscription
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_before" class="method item inherited">
+    <h3 class="name"><code>before</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_before">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l781"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:781</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Executes the callback before a DOM event, custom event
+or method.  If the first argument is a function, it
+is assumed the target is a method.  For DOM and custom
+events, this is an alias for Y.on.</p>
+
+<p>For DOM and custom events:
+type, callback, context, 0-n arguments</p>
+
+<p>For methods:
+callback, object (method host), methodName, context, 0-n arguments</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    detach handle
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_bubble" class="method item inherited">
+    <h3 class="name"><code>bubble</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>evt</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_bubble">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-facade.js.html#l424"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-facade.js:424</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Propagate an event.  Requires the event-custom-complex module.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">evt</code>
+                        <span class="type"><a href="../classes/CustomEvent.html" class="crosslink">CustomEvent</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the custom event to propagate</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    
+                    the aggregated return value from Event.Custom.fire
+                
+            </div>
+        </div>
+    
+
+    
+</div>
 
                 
                     <div id="method_defineProperties" class="method item inherited">
@@ -1982,6 +2851,519 @@ descriptors and accessor descriptors.</p>
 </div>
 
                 
+                    <div id="method_detach" class="method item inherited">
+    <h3 class="name"><code>detach</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>fn</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>context</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/EventTarget.html" class="crosslink">EventTarget</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_detach">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l344"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:344</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Detach one or more listeners the from the specified event</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Either the handle to the subscriber or the
+                       type of event.  If the type
+                       is not specified, it will attempt to remove
+                       the listener from all hosted events.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">fn</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The subscribed function to unsubscribe, if not
+                         supplied, all subscribers will be removed.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">context</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The custom object passed to subscribe.  This is
+                       optional, but if supplied will be used to
+                       disambiguate multiple listeners that are the same
+                       (e.g., you subscribe many object using a function
+                       that lives on the prototype)</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/EventTarget.html" class="crosslink">EventTarget</a></span>:
+                    
+                    the host
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_detachAll" class="method item inherited">
+    <h3 class="name"><code>detachAll</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_detachAll">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l464"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:464</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes all listeners from the specified event.  If the event type
+is not specified, all listeners from all hosted custom events will
+be removed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The type, or name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_fire" class="method item inherited">
+    <h3 class="name"><code>fire</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>arguments</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/EventTarget.html" class="crosslink">EventTarget</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_fire">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l641"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:641</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fire a custom event by name.  The callback functions will be executed
+from the context specified when the event was created, and with the
+following parameters.</p>
+
+<p>If the custom event object hasn't been created, then the event hasn't
+been published and it has no subscribers.  For performance sake, we
+immediate exit in this case.  This means the event won't bubble, so
+if the intention is that a bubble target be notified, the event must
+be published on this object first.</p>
+
+<p>The first argument is the event type, and any additional arguments are
+passed to the listeners as parameters.  If the first of these is an
+object literal, and the event is configured to emit an event facade,
+that object is mixed into the event facade and the facade is provided
+in place of the original object.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The type of the event, or an object that contains
+a 'type' property.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">arguments</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object*</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>an arbitrary set of parameters to pass to
+the handler.  If the first of these is an object literal and the event is
+configured to emit an event facade, the event facade will replace that
+parameter after the properties the object literal contains are copied to
+the event facade.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/EventTarget.html" class="crosslink">EventTarget</a></span>:
+                    
+                    the event host
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getEvent" class="method item inherited">
+    <h3 class="name"><code>getEvent</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>prefixed</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/CustomEvent.html" class="crosslink">CustomEvent</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_getEvent">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l726"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:726</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the custom event of the provided type has been created, a
+falsy value otherwise</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the type, or name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">prefixed</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>if true, the type is prefixed already</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/CustomEvent.html" class="crosslink">CustomEvent</a></span>:
+                    
+                    the custom event or null
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method_getPropertyDescriptor" class="method item inherited">
     <h3 class="name"><code>getPropertyDescriptor</code></h3>
 
@@ -2085,6 +3467,743 @@ the property has not been defined.</p>
 </div>
 
                 
+                    <div id="method_getTargets" class="method item inherited">
+    <h3 class="name"><code>getTargets</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_getTargets">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-facade.js.html#l405"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-facade.js:405</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns an array of bubble targets for this object.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    EventTarget[]
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_on" class="method item inherited">
+    <h3 class="name"><code>on</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>fn</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[context]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[arg*]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_on">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l191"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:191</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Subscribe a callback function to a custom event fired by this object or
+from an object that bubbles its events to this object.</p>
+
+<p>Callback functions for events published with <code>emitFacade = true</code> will
+receive an <code>EventFacade</code> as the first argument (typically named "e").
+These callbacks can then call <code>e.preventDefault()</code> to disable the
+behavior published to that event's <code>defaultFn</code>.  See the <code>EventFacade</code>
+API for all available properties and methods. Subscribers to
+non-<code>emitFacade</code> events will receive the arguments passed to <code>fire()</code>
+after the event name.</p>
+
+<p>To subscribe to multiple events at once, pass an object as the first
+argument, where the key:value pairs correspond to the eventName:callback,
+or pass an array of event names as the first argument to subscribe to
+all listed events with the same callback.</p>
+
+<p>Returning <code>false</code> from a callback is supported as an alternative to
+calling <code>e.preventDefault(); e.stopPropagation();</code>.  However, it is
+recommended to use the event methods whenever possible.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">fn</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The callback to execute in response to the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[context]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Override <code>this</code> object in callback</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[arg*]</code>
+                        <span class="type">Any</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>0..n additional arguments to supply to the subscriber</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>:
+                    
+                    A subscription handle capable of detaching that
+                      subscription
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_once" class="method item inherited">
+    <h3 class="name"><code>once</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>fn</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[context]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[arg*]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_once">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l127"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:127</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Listen to a custom event hosted by this object one time.
+This is the equivalent to <code>on</code> except the
+listener is immediatelly detached when it is executed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">fn</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The callback to execute in response to the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[context]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Override <code>this</code> object in callback</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[arg*]</code>
+                        <span class="type">Any</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>0..n additional arguments to supply to the subscriber</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>:
+                    
+                    A subscription handle capable of detaching the
+                      subscription
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_onceAfter" class="method item inherited">
+    <h3 class="name"><code>onceAfter</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>fn</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[context]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[arg*]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_onceAfter">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l149"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:149</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Listen to a custom event hosted by this object one time.
+This is the equivalent to <code>after</code> except the
+listener is immediatelly detached when it is executed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">fn</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The callback to execute in response to the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[context]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Override <code>this</code> object in callback</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[arg*]</code>
+                        <span class="type">Any</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>0..n additional arguments to supply to the subscriber</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/EventHandle.html" class="crosslink">EventHandle</a></span>:
+                    
+                    A subscription handle capable of detaching that
+                      subscription
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_parseType" class="method item inherited">
+    <h3 class="name"><code>parseType</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[pre=this._yuievt.config.prefix]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_parseType">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l171"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:171</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 3.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Takes the type parameter passed to 'on' and parses out the
+various pieces that could be included in the type.  If the
+event type is passed without a prefix, it will be expanded
+to include the prefix one is supplied or the event target
+is configured with a default prefix.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the type</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[pre=this._yuievt.config.prefix]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the prefix</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    
+                    an array containing:
+ * the detach category, if supplied,
+ * the prefixed event type,
+ * whether or not this is an after listener,
+ * the supplied event type
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method_prop" class="method item">
     <h3 class="name"><code>prop</code></h3>
 
@@ -2143,7 +4262,7 @@ the property has not been defined.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_property_js_property.js.html#l91"><code>src&#x2F;property&#x2F;js&#x2F;property.js:91</code></a>
+        <a href="..&#x2F;files&#x2F;src_property_js_property.js.html#l92"><code>src&#x2F;property&#x2F;js&#x2F;property.js:92</code></a>
         
         </p>
 
@@ -2455,6 +4574,482 @@ thing.props({
 </code></pre>
             </div>
         </div>
+    
+</div>
+
+                
+                    <div id="method_publish" class="method item inherited">
+    <h3 class="name"><code>publish</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>opts</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/CustomEvent.html" class="crosslink">CustomEvent</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_publish">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l488"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:488</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates a new custom event of the specified type.  If a custom event
+by that name already exists, it will not be re-created.  In either
+case the custom event is returned.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the type, or name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">opts</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>optional config params.  Valid properties are:</p>
+
+<p><ul>
+   <li>
+  'broadcast': whether or not the YUI instance and YUI global are notified when the event is fired (false)
+   </li>
+   <li>
+  'bubbles': whether or not this event bubbles (true)
+             Events can only bubble if emitFacade is true.
+   </li>
+   <li>
+  'context': the default execution context for the listeners (this)
+   </li>
+   <li>
+  'defaultFn': the default function to execute when this event fires if preventDefault was not called
+   </li>
+   <li>
+  'emitFacade': whether or not this event emits a facade (false)
+   </li>
+   <li>
+  'prefix': the prefix for this targets events, e.g., 'menu' in 'menu:click'
+   </li>
+   <li>
+  'fireOnce': if an event is configured to fire once, new subscribers after
+  the fire will be notified immediately.
+   </li>
+   <li>
+  'async': fireOnce event listeners will fire synchronously if the event has already
+   fired unless async is true.
+   </li>
+   <li>
+  'preventable': whether or not preventDefault() has an effect (true)
+   </li>
+   <li>
+  'preventedFn': a function that is executed when preventDefault is called
+   </li>
+   <li>
+  'queuable': whether or not this event can be queued during bubbling (false)
+   </li>
+   <li>
+  'silent': if silent is true, debug messages are not provided for this event.
+   </li>
+   <li>
+  'stoppedFn': a function that is executed when stopPropagation is called
+   </li></p>
+
+<p><li>
+  'monitored': specifies whether or not this event should send notifications about
+  when the event has been attached, detached, or published.
+   </li>
+   <li>
+  'type': the event type (valid option if not provided as the first parameter to publish)
+   </li>
+ </ul></p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/CustomEvent.html" class="crosslink">CustomEvent</a></span>:
+                    
+                    the custom event
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeTarget" class="method item inherited">
+    <h3 class="name"><code>removeTarget</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>o</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_removeTarget">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-facade.js.html#l414"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-facade.js:414</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes a bubble target</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">o</code>
+                        <span class="type"><a href="../classes/EventTarget.html" class="crosslink">EventTarget</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the target to remove</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_subscribe" class="method item deprecated inherited">
+    <h3 class="name"><code>subscribe</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="use on">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_subscribe">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l334"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:334</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: use on</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>subscribe to an event</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_unsubscribe" class="method item deprecated inherited">
+    <h3 class="name"><code>unsubscribe</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="use detach">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_unsubscribe">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l454"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:454</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: use detach</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>detach a listener</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_unsubscribeAll" class="method item deprecated inherited">
+    <h3 class="name"><code>unsubscribeAll</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="use detachAll">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="..&#x2F;classes&#x2F;EventTarget.html#method_unsubscribeAll">
+                EventTarget
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_event-custom_js_event-target.js.html#l475"><code>src&#x2F;event-custom&#x2F;js&#x2F;event-target.js:475</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: use detachAll</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes all listeners from the specified event.  If the event type
+is not specified, all listeners from all hosted custom events will
+be removed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The type, or name of the event</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
     
 </div>
 

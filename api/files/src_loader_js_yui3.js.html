@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1544,7 +1548,7 @@ YUI.Env[Y.version].modules = YUI.Env[Y.version].modules || {
         node = doc ? doc.documentElement : null;
 
     if (node &amp;&amp; node.style) {
-        return (&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style);
+        return (&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style || &#x27;transition&#x27; in node.style);
     }
 
     return false;
@@ -2108,6 +2112,7 @@ YUI.Env[Y.version].modules = YUI.Env[Y.version].modules || {
         &quot;requires&quot;: [
             &quot;datasource-local&quot;,
             &quot;plugin&quot;,
+            &quot;datatype-xml&quot;,
             &quot;dataschema-xml&quot;
         ]
     },
@@ -2432,10 +2437,8 @@ YUI.Env[Y.version].modules = YUI.Env[Y.version].modules || {
     &quot;dd-gestures&quot;: {
         &quot;condition&quot;: {
             &quot;name&quot;: &quot;dd-gestures&quot;,
-            &quot;test&quot;: function(Y) {
-    return ((Y.config.win &amp;&amp; (&quot;ontouchstart&quot; in Y.config.win)) &amp;&amp; !(Y.UA.chrome &amp;&amp; Y.UA.chrome &lt; 6));
-},
-            &quot;trigger&quot;: &quot;dd-drag&quot;
+            &quot;trigger&quot;: &quot;dd-drag&quot;,
+            &quot;ua&quot;: &quot;touchEnabled&quot;
         },
         &quot;requires&quot;: [
             &quot;dd-drag&quot;,
@@ -3739,7 +3742,8 @@ YUI.Env[Y.version].modules = YUI.Env[Y.version].modules || {
     &quot;test-console&quot;: {
         &quot;requires&quot;: [
             &quot;console-filters&quot;,
-            &quot;test&quot;
+            &quot;test&quot;,
+            &quot;array-extras&quot;
         ],
         &quot;skinnable&quot;: true
     },
@@ -3785,8 +3789,8 @@ YUI.Env[Y.version].modules = YUI.Env[Y.version].modules || {
         ret = true;
 
     if (node &amp;&amp; node.style) {
-        ret = !(&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style);
-    } 
+        ret = !(&#x27;MozTransition&#x27; in node.style || &#x27;WebkitTransition&#x27; in node.style || &#x27;transition&#x27; in node.style);
+    }
 
     return ret;
 },
@@ -4011,6 +4015,22 @@ YUI.Env[Y.version].modules = YUI.Env[Y.version].modules || {
             &quot;jsonp-url&quot;
         ]
     },
+    &quot;yql-nodejs&quot;: {
+        &quot;condition&quot;: {
+            &quot;name&quot;: &quot;yql-nodejs&quot;,
+            &quot;trigger&quot;: &quot;yql&quot;,
+            &quot;ua&quot;: &quot;nodejs&quot;,
+            &quot;when&quot;: &quot;after&quot;
+        }
+    },
+    &quot;yql-winjs&quot;: {
+        &quot;condition&quot;: {
+            &quot;name&quot;: &quot;yql-winjs&quot;,
+            &quot;trigger&quot;: &quot;yql&quot;,
+            &quot;ua&quot;: &quot;winjs&quot;,
+            &quot;when&quot;: &quot;after&quot;
+        }
+    },
     &quot;yui&quot;: {},
     &quot;yui-base&quot;: {},
     &quot;yui-later&quot;: {
@@ -4029,7 +4049,7 @@ YUI.Env[Y.version].modules = YUI.Env[Y.version].modules || {
         ]
     }
 };
-YUI.Env[Y.version].md5 = &#x27;a2857f1be37a1ef62628b4847bbe74d8&#x27;;
+YUI.Env[Y.version].md5 = &#x27;15ec4590bfa71dc7fd4e5e4163eaecd1&#x27;;
 
     </pre>
 </div>

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1450,13 +1454,14 @@
         _onNodeChange: function(e) {
             var host = this.get(HOST), inst = host.getInstance(),
                 html, txt, par , d, sel, btag = inst.EditorSelection.DEFAULT_BLOCK_TAG,
-                inHTML, txt2, childs, aNode, index, node2, top, n, sib,
-                ps, br, item, p, imgs, t, LAST_CHILD = &#x27;:last-child&#x27;;
+                inHTML, txt2, childs, aNode, node2, top, n, sib, para2, prev,
+                ps, br, item, p, imgs, t, LAST_CHILD = &#x27;:last-child&#x27;, para, b, dir,
+                lc, lc2, found = false, start;
 
             switch (e.changedType) {
                 case &#x27;enter-up&#x27;:
-                    var para = ((this._lastPara) ? this._lastPara : e.changedNode),
-                        b = para.one(&#x27;br.yui-cursor&#x27;);
+                    para = ((this._lastPara) ? this._lastPara : e.changedNode);
+                    b = para.one(&#x27;br.yui-cursor&#x27;);
 
                     if (this._lastPara) {
                         delete this._lastPara;
@@ -1470,14 +1475,14 @@
                         }
                     }
                     if (!para.test(btag)) {
-                        var para2 = para.ancestor(btag);
+                        para2 = para.ancestor(btag);
                         if (para2) {
                             para = para2;
                             para2 = null;
                         }
                     }
                     if (para.test(btag)) {
-                        var prev = para.previous(), lc, lc2, found = false;
+                        prev = para.previous();
                         if (prev) {
                             lc = prev.one(LAST_CHILD);
                             while (!found) {
@@ -1510,7 +1515,7 @@
                         html = inst.EditorSelection.getText(e.changedNode);
                         if (html === &#x27;&#x27;) {
                             par = e.changedNode.ancestor(&#x27;ol,ul&#x27;);
-                            var dir = par.getAttribute(&#x27;dir&#x27;);
+                            dir = par.getAttribute(&#x27;dir&#x27;);
                             if (dir !== &#x27;&#x27;) {
                                 dir = &#x27; dir = &quot;&#x27; + dir + &#x27;&quot;&#x27;;
                             }
@@ -1553,10 +1558,11 @@
                                         n = sib.cloneNode();
                                         n.set(&#x27;innerHTML&#x27;, &#x27;&#x27;);
                                         n.append(node2);
-                                        
+
                                         &#x2F;&#x2F;Get children..
                                         childs = sib.get(&#x27;childNodes&#x27;);
-                                        var start = false;
+                                        start = false;
+                                        &#x2F;*jshint loopfunc: true *&#x2F;
                                         childs.each(function(c) {
                                             if (start) {
                                                 n.append(c);
@@ -1619,7 +1625,7 @@
                         txt = inst.EditorSelection.getText(item);
                         txt = txt.replace(&#x2F; &#x2F;g, &#x27;&#x27;).replace(&#x2F;\n&#x2F;g, &#x27;&#x27;);
                         imgs = item.all(&#x27;img&#x27;);
-                        
+
                         if (txt.length === 0 &amp;&amp; !imgs.size()) {
                             &#x2F;&#x2F;God this is horrible..
                             if (!item.test(P)) {
@@ -1684,7 +1690,7 @@
                     }
                 }
             }
-            
+
         },
         initializer: function() {
             var host = this.get(HOST);
@@ -1714,9 +1720,9 @@
             }
         }
     });
-    
+
     Y.namespace(&#x27;Plugin&#x27;);
-    
+
     Y.Plugin.EditorPara = EditorPara;
 
 

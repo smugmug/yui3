@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1655,8 +1659,36 @@
                                 
                             </li>
                         
+                            <li class="index-item method protected">
+                                <a href="#method__defDisableFn">_defDisableFn</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__defEnableFn">_defEnableFn</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__defHideFn">_defHideFn</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method protected inherited">
                                 <a href="#method__defInitFn">_defInitFn</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__defShowFn">_defShowFn</a>
 
                                 
                                 
@@ -1949,6 +1981,13 @@
                                 
                             </li>
                         
+                            <li class="index-item method">
+                                <a href="#method_closeSubMenus">closeSubMenus</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method inherited">
                                 <a href="#method_createNode">createNode</a>
 
@@ -1984,8 +2023,22 @@
                                 
                             </li>
                         
+                            <li class="index-item method">
+                                <a href="#method_disableItem">disableItem</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method inherited">
                                 <a href="#method_emptyNode">emptyNode</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_enableItem">enableItem</a>
 
                                 
                                 
@@ -2035,6 +2088,13 @@
                         
                             <li class="index-item method inherited inherited">
                                 <a href="#method_getTargets">getTargets</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_hideItem">hideItem</a>
 
                                 
                                 
@@ -2154,6 +2214,13 @@
                         
                             <li class="index-item method inherited inherited">
                                 <a href="#method_setAttrs">setAttrs</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_showItem">showItem</a>
 
                                 
                                 
@@ -2367,6 +2434,27 @@
                                 
                             </li>
                         
+                            <li class="index-item event">
+                                <a href="#event_disable">disable</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_enable">enable</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_hide">hide</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item event inherited">
                                 <a href="#event_init">init</a>
 
@@ -2390,6 +2478,13 @@
                         
                             <li class="index-item event inherited">
                                 <a href="#event_select">select</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_show">show</a>
 
                                 
                                 
@@ -3187,6 +3282,273 @@ this class.</p>
 </div>
 
                 
+                    <div id="method__defDisableFn" class="method item protected">
+    <h3 class="name"><code>_defDisableFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l170"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:170</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default handler for the <code>disable</code> event.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="../classes/EventFacade.html" class="crosslink">EventFacade</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__defEnableFn" class="method item protected">
+    <h3 class="name"><code>_defEnableFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l181"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:181</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default handler for the <code>enable</code> event.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="../classes/EventFacade.html" class="crosslink">EventFacade</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__defHideFn" class="method item protected">
+    <h3 class="name"><code>_defHideFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l192"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:192</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default handler for the <code>hide</code> event.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="../classes/EventFacade.html" class="crosslink">EventFacade</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method__defInitFn" class="method item protected inherited">
     <h3 class="name"><code>_defInitFn</code></h3>
 
@@ -3259,6 +3621,95 @@ this class.</p>
                     <div class="param-description">
                         <p>Event object, with a cfg property which 
 refers to the configuration object passed to the constructor.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__defShowFn" class="method item protected">
+    <h3 class="name"><code>_defShowFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l203"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:203</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default handler for the <code>show</code> event.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="../classes/EventFacade.html" class="crosslink">EventFacade</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
                     </div>
 
                     
@@ -7952,6 +8403,62 @@ tree; otherwise, a new root node will be created.</p>
 </div>
 
                 
+                    <div id="method_closeSubMenus" class="method item">
+    <h3 class="name"><code>closeSubMenus</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l69"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:69</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Closes all open submenus of this menu.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_createNode" class="method item inherited">
     <h3 class="name"><code>createNode</code></h3>
 
@@ -8513,6 +9020,136 @@ be removed.</p>
 </div>
 
                 
+                    <div id="method_disableItem" class="method item">
+    <h3 class="name"><code>disableItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[options]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l84"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:84</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Disables the specified menu item.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item to disable.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[options]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Options.</p>
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[silent=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If <code>true</code>, the <code>disable</code> event
+        will be suppressed.</p>
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_emptyNode" class="method item inherited">
     <h3 class="name"><code>emptyNode</code></h3>
 
@@ -8666,6 +9303,136 @@ still be reusable unless the <code>destroy</code> option is truthy.</p>
                 
             </div>
         </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_enableItem" class="method item">
+    <h3 class="name"><code>enableItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[options]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l105"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:105</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Enables the specified menu item.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item to enable.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[options]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Options.</p>
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[silent=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If <code>true</code>, the <code>enable</code> event
+        will be suppressed.</p>
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
     
 
     
@@ -9381,6 +10148,136 @@ doesn't exist in this tree.</p>
                 
             </div>
         </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_hideItem" class="method item">
+    <h3 class="name"><code>hideItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[options]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l126"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:126</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Hides the specified menu item.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item to hide.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[options]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Options.</p>
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[silent=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If <code>true</code>, the <code>hide</code> event
+        will be suppressed.</p>
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
     
 
     
@@ -11714,6 +12611,136 @@ to set the value of a property within the object (e.g. <code>set("x.y.z", 5)</co
 </div>
 
                 
+                    <div id="method_showItem" class="method item">
+    <h3 class="name"><code>showItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[options]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l147"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:147</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Shows the specified menu item.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item to show.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[options]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Options.</p>
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[silent=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If <code>true</code>, the <code>show</code> event
+        will be suppressed.</p>
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_size" class="method item inherited">
     <h3 class="name"><code>size</code></h3>
 
@@ -13638,6 +14665,204 @@ destruction).
 </div>
 
                 
+                    <div id="event_disable" class="events item">
+    <h3 class="name"><code>disable</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l19"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:19</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired when a menu item is disabled.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item that was disabled.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_enable" class="events item">
+    <h3 class="name"><code>enable</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l28"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:28</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired when a menu item is enabled.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item that was enabled.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_hide" class="events item">
+    <h3 class="name"><code>hide</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l37"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:37</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired when a menu item is hidden.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item that was hidden.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
                     <div id="event_init" class="events item inherited">
     <h3 class="name"><code>init</code></h3>
     <span class="type"></span>
@@ -13918,6 +15143,72 @@ refers to the configuration object passed to the constructor.</p>
 
                     <div class="param-description">
                         <p>Node being selected.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_show" class="events item">
+    <h3 class="name"><code>show</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_menu_js_menu-base.js.html#l46"><code>src&#x2F;menu&#x2F;js&#x2F;menu-base.js:46</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired when a menu item is shown.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">item</code>
+                        <span class="type"><a href="../classes/Menu.Item.html" class="crosslink">Menu.Item</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Menu item that was shown.</p>
                     </div>
 
                     

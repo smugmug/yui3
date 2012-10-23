@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1462,7 +1466,7 @@ YUI.Env.parseUA = function(subUA) {
     var numberify = function(s) {
             var c = 0;
             return parseFloat(s.replace(&#x2F;\.&#x2F;g, function() {
-                return (c++ == 1) ? &#x27;&#x27; : &#x27;.&#x27;;
+                return (c++ === 1) ? &#x27;&#x27; : &#x27;.&#x27;;
             }));
         },
 
@@ -1577,13 +1581,6 @@ YUI.Env.parseUA = function(subUA) {
          *&#x2F;
         phantomjs: 0,
         &#x2F;**
-         * Adobe AIR version number or 0.  Only populated if webkit is detected.
-         * Example: 1.0
-         * @property air
-         * @type float
-         *&#x2F;
-        air: 0,
-        &#x2F;**
          * Detects Apple iPad&#x27;s OS version
          * @property ipad
          * @type float
@@ -1672,7 +1669,21 @@ YUI.Env.parseUA = function(subUA) {
          * @default 0
          * @static
          *&#x2F;
-        nodejs: 0
+        nodejs: 0,
+        &#x2F;*
+        * Window8&#x2F;IE10 Application host environment
+        * @property winjs
+        * @type Boolean
+        * @static
+        *&#x2F;
+        winjs: !!((typeof Windows !== &quot;undefined&quot;) &amp;&amp; Windows.System),
+        &#x2F;**
+        * Are touch&#x2F;msPointer events available on this device
+        * @property touchEnabled
+        * @type Boolean
+        * @static
+        *&#x2F;
+        touchEnabled: false
     },
 
     ua = subUA || nav &amp;&amp; nav.userAgent,
@@ -1725,7 +1736,7 @@ YUI.Env.parseUA = function(subUA) {
         if (m &amp;&amp; m[1]) {
             o.webkit = numberify(m[1]);
             o.safari = o.webkit;
-            
+
             if (&#x2F;PhantomJS&#x2F;.test(ua)) {
                 m = ua.match(&#x2F;PhantomJS\&#x2F;([^\s]*)&#x2F;);
                 if (m &amp;&amp; m[1]) {
@@ -1844,10 +1855,16 @@ YUI.Env.parseUA = function(subUA) {
         }
     }
 
+    &#x2F;&#x2F;Check for known properties to tell if touch events are enabled on this device or if
+    &#x2F;&#x2F;the number of MSPointer touchpoints on this device is greater than 0.
+    if (win &amp;&amp; nav &amp;&amp; !(o.chrome &amp;&amp; o.chrome &lt; 6)) {
+        o.touchEnabled = ((&quot;ontouchstart&quot; in win) || ((&quot;msMaxTouchPoints&quot; in nav) &amp;&amp; (nav.msMaxTouchPoints &gt; 0)));
+    }
+
     &#x2F;&#x2F;It was a parsed UA, do not assign the global value.
     if (!subUA) {
 
-        if (typeof process == &#x27;object&#x27;) {
+        if (typeof process === &#x27;object&#x27;) {
 
             if (process.versions &amp;&amp; process.versions.node) {
                 &#x2F;&#x2F;NodeJS

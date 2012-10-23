@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1442,6 +1446,42 @@ Base menu functionality.
 @extends Tree
 **&#x2F;
 
+&#x2F;**
+Fired when a menu item is disabled.
+
+@event disable
+@param {Menu.Item} item Menu item that was disabled.
+@preventable _defDisableFn
+**&#x2F;
+var EVT_DISABLE = &#x27;disable&#x27;;
+
+&#x2F;**
+Fired when a menu item is enabled.
+
+@event enable
+@param {Menu.Item} item Menu item that was enabled.
+@preventable _defEnableFn
+**&#x2F;
+var EVT_ENABLE = &#x27;enable&#x27;;
+
+&#x2F;**
+Fired when a menu item is hidden.
+
+@event hide
+@param {Menu.Item} item Menu item that was hidden.
+@preventable _defHideFn
+**&#x2F;
+var EVT_HIDE = &#x27;hide&#x27;;
+
+&#x2F;**
+Fired when a menu item is shown.
+
+@event show
+@param {Menu.Item} item Menu item that was shown.
+@preventable _defShowFn
+**&#x2F;
+var EVT_SHOW = &#x27;show&#x27;;
+
 var MenuBase = Y.Base.create(&#x27;menuBase&#x27;, Y.Tree, [], {
     nodeClass: Y.Menu.Item,
 
@@ -1452,6 +1492,153 @@ var MenuBase = Y.Base.create(&#x27;menuBase&#x27;, Y.Tree, [], {
         if (config.items) {
             this.appendNode(this.rootNode, config.items, {silent: true});
         }
+    },
+
+    &#x2F;&#x2F; -- Public Methods -------------------------------------------------------
+
+    &#x2F;**
+    Closes all open submenus of this menu.
+
+    @method closeSubMenus
+    @chainable
+    **&#x2F;
+    closeSubMenus: function () {
+        &#x2F;&#x2F; Close all open submenus.
+        Y.Object.each(this._openMenus, function (item) {
+            item.close();
+        }, this);
+
+        return this;
+    },
+
+    &#x2F;**
+    Disables the specified menu item.
+
+    @method disableItem
+    @param {Menu.Item} item Menu item to disable.
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;disable&#x60; event
+            will be suppressed.
+    @chainable
+    **&#x2F;
+    disableItem: function (item, options) {
+        if (!item.isDisabled()) {
+            this._fire(EVT_DISABLE, {item: item}, {
+                defaultFn: this._defDisableFn,
+                silent   : options &amp;&amp; options.silent
+            });
+        }
+
+        return this;
+    },
+
+    &#x2F;**
+    Enables the specified menu item.
+
+    @method enableItem
+    @param {Menu.Item} item Menu item to enable.
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;enable&#x60; event
+            will be suppressed.
+    @chainable
+    **&#x2F;
+    enableItem: function (item, options) {
+        if (item.isDisabled()) {
+            this._fire(EVT_ENABLE, {item: item}, {
+                defaultFn: this._defEnableFn,
+                silent   : options &amp;&amp; options.silent
+            });
+        }
+
+        return this;
+    },
+
+    &#x2F;**
+    Hides the specified menu item.
+
+    @method hideItem
+    @param {Menu.Item} item Menu item to hide.
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;hide&#x60; event
+            will be suppressed.
+    @chainable
+    **&#x2F;
+    hideItem: function (item, options) {
+        if (!item.isHidden()) {
+            this._fire(EVT_HIDE, {item: item}, {
+                defaultFn: this._defHideFn,
+                silent   : options &amp;&amp; options.silent
+            });
+        }
+
+        return this;
+    },
+
+    &#x2F;**
+    Shows the specified menu item.
+
+    @method showItem
+    @param {Menu.Item} item Menu item to show.
+    @param {Object} [options] Options.
+        @param {Boolean} [options.silent=false] If &#x60;true&#x60;, the &#x60;show&#x60; event
+            will be suppressed.
+    @chainable
+    **&#x2F;
+    showItem: function (item, options) {
+        if (item.isHidden()) {
+            this._fire(EVT_SHOW, {item: item}, {
+                defaultFn: this._defShowFn,
+                silent   : options &amp;&amp; options.silent
+            });
+        }
+
+        return this;
+    },
+
+    &#x2F;&#x2F; -- Default Event Handlers -----------------------------------------------
+
+    &#x2F;**
+    Default handler for the &#x60;disable&#x60; event.
+
+    @method _defDisableFn
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _defDisableFn: function (e) {
+        e.item.state.disabled = true;
+    },
+
+    &#x2F;**
+    Default handler for the &#x60;enable&#x60; event.
+
+    @method _defEnableFn
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _defEnableFn: function (e) {
+        delete e.item.state.disabled;
+    },
+
+    &#x2F;**
+    Default handler for the &#x60;hide&#x60; event.
+
+    @method _defHideFn
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _defHideFn: function (e) {
+        e.item.state.hidden = true;
+    },
+
+    &#x2F;**
+    Default handler for the &#x60;show&#x60; event.
+
+    @method _defShowFn
+    @param {EventFacade} e
+    @protected
+    **&#x2F;
+    _defShowFn: function (e) {
+        delete e.item.state.hidden;
     }
 });
 

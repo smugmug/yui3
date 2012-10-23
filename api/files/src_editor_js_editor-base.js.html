@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1440,7 +1444,7 @@
      * @submodule editor-base
      * @constructor
      *&#x2F;
-    
+
     var EditorBase = function() {
         EditorBase.superclass.constructor.apply(this, arguments);
     }, LAST_CHILD = &#x27;:last-child&#x27;, BODY = &#x27;body&#x27;;
@@ -1474,7 +1478,7 @@
                 bubbles: true,
                 defaultFn: this._defNodeChangeFn
             });
-            
+
             &#x2F;&#x2F;this.plug(Y.Plugin.EditorPara);
         },
         destructor: function() {
@@ -1485,7 +1489,7 @@
         &#x2F;**
         * Copy certain styles from one node instance to another (used for new paragraph creation mainly)
         * @method copyStyles
-        * @param {Node} from The Node instance to copy the styles from 
+        * @param {Node} from The Node instance to copy the styles from
         * @param {Node} to The Node instance to copy the styles to
         *&#x2F;
         copyStyles: function(from, to) {
@@ -1524,9 +1528,9 @@
         * @private
         *&#x2F;
         _resolveChangedNode: function(n) {
-            var inst = this.getInstance(), lc, lc2, found;
+            var inst = this.getInstance(), lc, lc2, found, sel;
             if (n &amp;&amp; n.test(BODY)) {
-                var sel = new inst.EditorSelection();
+                sel = new inst.EditorSelection();
                 if (sel &amp;&amp; sel.anchorNode) {
                     n = sel.anchorNode;
                 }
@@ -1571,10 +1575,12 @@
         * @private
         *&#x2F;
         _defNodeChangeFn: function(e) {
-            var startTime = (new Date()).getTime();
-            &#x2F;&#x2F;Y.log(&#x27;Default nodeChange function: &#x27; + e.changedType, &#x27;info&#x27;, &#x27;editor&#x27;);
-            var inst = this.getInstance(), sel, cur,
-                btag = inst.EditorSelection.DEFAULT_BLOCK_TAG;
+            var startTime = (new Date()).getTime(),
+                inst = this.getInstance(), sel,
+                changed, endTime,
+                cmds = {}, family, fsize, classes = [],
+                fColor = &#x27;&#x27;, bColor = &#x27;&#x27;, bq,
+                normal = false;
 
             if (Y.UA.ie) {
                 try {
@@ -1594,15 +1600,8 @@
             * Maybe static functions for the e.changeType and an object bag
             * to walk through and filter to pass off the event to before firing..
             *&#x2F;
-            
+
             switch (e.changedType) {
-                case &#x27;keydown&#x27;:
-                    if (!Y.UA.gecko) {
-                        if (!EditorBase.NC_KEYS[e.changedEvent.keyCode] &amp;&amp; !e.changedEvent.shiftKey &amp;&amp; !e.changedEvent.ctrlKey &amp;&amp; (e.changedEvent.keyCode !== 13)) {
-                            &#x2F;&#x2F;inst.later(100, inst, inst.EditorSelection.cleanCursor);
-                        }
-                    }
-                    break;
                 case &#x27;tab&#x27;:
                     if (!e.changedNode.test(&#x27;li, li *&#x27;) &amp;&amp; !e.changedEvent.shiftKey) {
                         e.changedEvent.frameEvent.preventDefault();
@@ -1619,8 +1618,8 @@
                 case &#x27;backspace-up&#x27;:
                     &#x2F;&#x2F; Fixes #2531090 - Joins text node strings so they become one for bidi
                     if (Y.UA.webkit &amp;&amp; e.changedNode) {
-			            e.changedNode.set(&#x27;innerHTML&#x27;, e.changedNode.get(&#x27;innerHTML&#x27;));
-		            }
+                        e.changedNode.set(&#x27;innerHTML&#x27;, e.changedNode.get(&#x27;innerHTML&#x27;));
+                    }
                     break;
             }
             if (Y.UA.webkit &amp;&amp; e.commands &amp;&amp; (e.commands.indent || e.commands.outdent)) {
@@ -1629,37 +1628,35 @@
                 * a class to the BLOCKQUOTE that adds left&#x2F;right margin to it
                 * This strips that style so it is just a normal BLOCKQUOTE
                 *&#x2F;
-                var bq = inst.all(&#x27;.webkit-indent-blockquote, blockquote&#x27;);
+                bq = inst.all(&#x27;.webkit-indent-blockquote, blockquote&#x27;);
                 if (bq.size()) {
                     bq.setStyle(&#x27;margin&#x27;, &#x27;&#x27;);
                 }
             }
 
-            var changed = this.getDomPath(e.changedNode, false),
-                cmds = {}, family, fsize, classes = [],
-                fColor = &#x27;&#x27;, bColor = &#x27;&#x27;;
+            changed = this.getDomPath(e.changedNode, false);
 
             if (e.commands) {
                 cmds = e.commands;
             }
-            
-            var normal = false;
+
 
             Y.each(changed, function(el) {
                 var tag = el.tagName.toLowerCase(),
-                    cmd = EditorBase.TAG2CMD[tag];
+                    cmd = EditorBase.TAG2CMD[tag], s,
+                    n, family2, cls, bColor2;
 
                 if (cmd) {
                     cmds[cmd] = 1;
                 }
 
                 &#x2F;&#x2F;Bold and Italic styles
-                var s = el.currentStyle || el.style;
-                
-                if ((&#x27;&#x27;+s.fontWeight) == &#x27;normal&#x27;) {
+                s = el.currentStyle || el.style;
+
+                if ((&#x27;&#x27;+s.fontWeight) === &#x27;normal&#x27;) {
                     normal = true;
                 }
-                if ((&#x27;&#x27;+s.fontWeight) == &#x27;bold&#x27;) { &#x2F;&#x2F;Cast this to a string
+                if ((&#x27;&#x27;+s.fontWeight) === &#x27;bold&#x27;) { &#x2F;&#x2F;Cast this to a string
                     cmds.bold = 1;
                 }
                 if (Y.UA.ie) {
@@ -1667,7 +1664,7 @@
                         cmds.bold = 1;
                     }
                 }
-                if (s.fontStyle == &#x27;italic&#x27;) {
+                if (s.fontStyle === &#x27;italic&#x27;) {
                     cmds.italic = 1;
                 }
 
@@ -1677,10 +1674,10 @@
                 if (s.textDecoration.indexOf(&#x27;line-through&#x27;) &gt; -1) {
                     cmds.strikethrough = 1;
                 }
-                
-                var n = inst.one(el);
+
+                n = inst.one(el);
                 if (n.getStyle(&#x27;fontFamily&#x27;)) {
-                    var family2 = n.getStyle(&#x27;fontFamily&#x27;).split(&#x27;,&#x27;)[0].toLowerCase();
+                    family2 = n.getStyle(&#x27;fontFamily&#x27;).split(&#x27;,&#x27;)[0].toLowerCase();
                     if (family2) {
                         family = family2;
                     }
@@ -1692,8 +1689,7 @@
                 fsize = EditorBase.NORMALIZE_FONTSIZE(n);
 
 
-                var cls = el.className.split(&#x27; &#x27;);
-
+                cls = el.className.split(&#x27; &#x27;);
                 Y.each(cls, function(v) {
                     if (v !== &#x27;&#x27; &amp;&amp; (v.substr(0, 4) !== &#x27;yui_&#x27;)) {
                         classes.push(v);
@@ -1701,15 +1697,15 @@
                 });
 
                 fColor = EditorBase.FILTER_RGB(n.getStyle(&#x27;color&#x27;));
-                var bColor2 = EditorBase.FILTER_RGB(s.backgroundColor);
+                bColor2 = EditorBase.FILTER_RGB(s.backgroundColor);
                 if (bColor2 !== &#x27;transparent&#x27;) {
                     if (bColor2 !== &#x27;&#x27;) {
                         bColor = bColor2;
                     }
                 }
-                
+
             });
-            
+
             if (normal) {
                 delete cmds.bold;
                 delete cmds.italic;
@@ -1733,39 +1729,39 @@
                 e.backgroundColor = bColor;
             }
 
-            var endTime = (new Date()).getTime();
+            endTime = (new Date()).getTime();
             Y.log(&#x27;_defNodeChangeTimer 2: &#x27; + (endTime - startTime) + &#x27;ms&#x27;, &#x27;info&#x27;, &#x27;selection&#x27;);
         },
         &#x2F;**
         * Walk the dom tree from this node up to body, returning a reversed array of parents.
         * @method getDomPath
-        * @param {Node} node The Node to start from 
+        * @param {Node} node The Node to start from
         *&#x2F;
         getDomPath: function(node, nodeList) {
-			var domPath = [], domNode,
+            var domPath = [], domNode,
                 inst = this.frame.getInstance();
 
             domNode = inst.Node.getDOMNode(node);
             &#x2F;&#x2F;return inst.all(domNode);
 
             while (domNode !== null) {
-                
+
                 if ((domNode === inst.config.doc.documentElement) || (domNode === inst.config.doc) || !domNode.tagName) {
                     domNode = null;
                     break;
                 }
-                
+
                 if (!inst.DOM.inDoc(domNode)) {
                     domNode = null;
                     break;
                 }
-                
+
                 &#x2F;&#x2F;Check to see if we get el.nodeName and nodeType
-                if (domNode.nodeName &amp;&amp; domNode.nodeType &amp;&amp; (domNode.nodeType == 1)) {
+                if (domNode.nodeName &amp;&amp; domNode.nodeType &amp;&amp; (domNode.nodeType === 1)) {
                     domPath.push(domNode);
                 }
 
-                if (domNode == inst.config.doc.body) {
+                if (domNode === inst.config.doc.body) {
                     domNode = null;
                     break;
                 }
@@ -1773,7 +1769,7 @@
                 domNode = domNode.parentNode;
             }
 
-            &#x2F;*{{{ Using Node 
+            &#x2F;*{{{ Using Node
             while (node !== null) {
                 if (node.test(&#x27;html&#x27;) || node.test(&#x27;doc&#x27;) || !node.get(&#x27;tagName&#x27;)) {
                     node = null;
@@ -1815,7 +1811,7 @@
         *&#x2F;
         _afterFrameReady: function() {
             var inst = this.frame.getInstance();
-            
+
             this.frame.on(&#x27;dom:mouseup&#x27;, Y.bind(this._onFrameMouseUp, this));
             this.frame.on(&#x27;dom:mousedown&#x27;, Y.bind(this._onFrameMouseDown, this));
             this.frame.on(&#x27;dom:keydown&#x27;, Y.bind(this._onFrameKeyDown, this));
@@ -1842,7 +1838,7 @@
             }
             var inst = this.getInstance(),
                 sel = inst.config.doc.selection.createRange();
-            
+
             if (sel.compareEndPoints &amp;&amp; !sel.compareEndPoints(&#x27;StartToEnd&#x27;, sel)) {
                 sel.pasteHTML(&#x27;&lt;var id=&quot;yui-ie-cursor&quot;&gt;&#x27;);
             }
@@ -1935,7 +1931,7 @@
                 this._currentSelectionTimer = Y.later(850, this, function() {
                     this._currentSelectionClear = true;
                 });
-                
+
                 inst = this.frame.getInstance();
                 sel = new inst.EditorSelection(e);
 
@@ -1948,12 +1944,20 @@
             sel = new inst.EditorSelection();
 
             this._currentSelection = sel;
-            
+
             if (sel &amp;&amp; sel.anchorNode) {
                 this.fire(&#x27;nodeChange&#x27;, { changedNode: sel.anchorNode, changedType: &#x27;keydown&#x27;, changedEvent: e.frameEvent });
                 if (EditorBase.NC_KEYS[e.keyCode]) {
-                    this.fire(&#x27;nodeChange&#x27;, { changedNode: sel.anchorNode, changedType: EditorBase.NC_KEYS[e.keyCode], changedEvent: e.frameEvent });
-                    this.fire(&#x27;nodeChange&#x27;, { changedNode: sel.anchorNode, changedType: EditorBase.NC_KEYS[e.keyCode] + &#x27;-down&#x27;, changedEvent: e.frameEvent });
+                    this.fire(&#x27;nodeChange&#x27;, {
+                        changedNode: sel.anchorNode,
+                        changedType: EditorBase.NC_KEYS[e.keyCode],
+                        changedEvent: e.frameEvent
+                    });
+                    this.fire(&#x27;nodeChange&#x27;, {
+                        changedNode: sel.anchorNode,
+                        changedType: EditorBase.NC_KEYS[e.keyCode] + &#x27;-down&#x27;,
+                        changedEvent: e.frameEvent
+                    });
                 }
             }
         },
@@ -1968,7 +1972,11 @@
             if (sel &amp;&amp; sel.anchorNode) {
                 this.fire(&#x27;nodeChange&#x27;, { changedNode: sel.anchorNode, changedType: &#x27;keypress&#x27;, changedEvent: e.frameEvent });
                 if (EditorBase.NC_KEYS[e.keyCode]) {
-                    this.fire(&#x27;nodeChange&#x27;, { changedNode: sel.anchorNode, changedType: EditorBase.NC_KEYS[e.keyCode] + &#x27;-press&#x27;, changedEvent: e.frameEvent });
+                    this.fire(&#x27;nodeChange&#x27;, {
+                        changedNode: sel.anchorNode,
+                        changedType: EditorBase.NC_KEYS[e.keyCode] + &#x27;-press&#x27;,
+                        changedEvent: e.frameEvent
+                    });
                 }
             }
         },
@@ -1984,7 +1992,12 @@
             if (sel &amp;&amp; sel.anchorNode) {
                 this.fire(&#x27;nodeChange&#x27;, { changedNode: sel.anchorNode, changedType: &#x27;keyup&#x27;, selection: sel, changedEvent: e.frameEvent  });
                 if (EditorBase.NC_KEYS[e.keyCode]) {
-                    this.fire(&#x27;nodeChange&#x27;, { changedNode: sel.anchorNode, changedType: EditorBase.NC_KEYS[e.keyCode] + &#x27;-up&#x27;, selection: sel, changedEvent: e.frameEvent  });
+                    this.fire(&#x27;nodeChange&#x27;, {
+                        changedNode: sel.anchorNode,
+                        changedType: EditorBase.NC_KEYS[e.keyCode] + &#x27;-up&#x27;,
+                        selection: sel,
+                        changedEvent: e.frameEvent
+                    });
                 }
             }
             if (this._currentSelectionClear) {
@@ -2101,7 +2114,7 @@
         *&#x2F;
         NORMALIZE_FONTSIZE: function(n) {
             var size = n.getStyle(&#x27;fontSize&#x27;), oSize = size;
-            
+
             switch (size) {
                 case &#x27;-webkit-xxx-large&#x27;:
                     size = &#x27;48px&#x27;;
@@ -2144,24 +2157,25 @@
         * @return String
         *&#x2F;
         FILTER_RGB: function(css) {
-            if (css.toLowerCase().indexOf(&#x27;rgb&#x27;) != -1) {
-                var exp = new RegExp(&quot;(.*?)rgb\\s*?\\(\\s*?([0-9]+).*?,\\s*?([0-9]+).*?,\\s*?([0-9]+).*?\\)(.*?)&quot;, &quot;gi&quot;);
-                var rgb = css.replace(exp, &quot;$1,$2,$3,$4,$5&quot;).split(&#x27;,&#x27;);
-            
-                if (rgb.length == 5) {
-                    var r = parseInt(rgb[1], 10).toString(16);
-                    var g = parseInt(rgb[2], 10).toString(16);
-                    var b = parseInt(rgb[3], 10).toString(16);
+            if (css.toLowerCase().indexOf(&#x27;rgb&#x27;) !== -1) {
+                var exp = new RegExp(&quot;(.*?)rgb\\s*?\\(\\s*?([0-9]+).*?,\\s*?([0-9]+).*?,\\s*?([0-9]+).*?\\)(.*?)&quot;, &quot;gi&quot;),
+                    rgb = css.replace(exp, &quot;$1,$2,$3,$4,$5&quot;).split(&#x27;,&#x27;),
+                    r, g, b;
 
-                    r = r.length == 1 ? &#x27;0&#x27; + r : r;
-                    g = g.length == 1 ? &#x27;0&#x27; + g : g;
-                    b = b.length == 1 ? &#x27;0&#x27; + b : b;
+                if (rgb.length === 5) {
+                    r = parseInt(rgb[1], 10).toString(16);
+                    g = parseInt(rgb[2], 10).toString(16);
+                    b = parseInt(rgb[3], 10).toString(16);
+
+                    r = r.length === 1 ? &#x27;0&#x27; + r : r;
+                    g = g.length === 1 ? &#x27;0&#x27; + g : g;
+                    b = b.length === 1 ? &#x27;0&#x27; + b : b;
 
                     css = &quot;#&quot; + r + g + b;
                 }
             }
             return css;
-        },        
+        },
         &#x2F;**
         * @static
         * @property TAG2CMD
@@ -2262,7 +2276,7 @@
             * @attribute linkedcss
             * @description An array of url&#x27;s to external linked style sheets
             * @type String
-            *&#x2F;            
+            *&#x2F;
             linkedcss: {
                 value: &#x27;&#x27;,
                 setter: function(css) {
@@ -2276,7 +2290,7 @@
             * @attribute extracss
             * @description A string of CSS to add to the Head of the Editor
             * @type String
-            *&#x2F;            
+            *&#x2F;
             extracss: {
                 value: false,
                 setter: function(css) {
@@ -2290,7 +2304,7 @@
             * @attribute defaultblock
             * @description The default tag to use for block level items, defaults to: p
             * @type String
-            *&#x2F;            
+            *&#x2F;
             defaultblock: {
                 value: &#x27;p&#x27;
             }

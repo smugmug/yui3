@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1435,17 +1439,17 @@
      * @class DDProxy
      * @extends Base
      * @constructor
-     * @namespace Plugin     
+     * @namespace Plugin
      *&#x2F;
     var DDM = Y.DD.DDM,
         NODE = &#x27;node&#x27;,
         DRAG_NODE = &#x27;dragNode&#x27;,
         HOST = &#x27;host&#x27;,
         TRUE = true, proto,
-        P = function(config) {
+        P = function() {
             P.superclass.constructor.apply(this, arguments);
         };
-    
+
     P.NAME = &#x27;DDProxy&#x27;;
     &#x2F;**
     * @property NS
@@ -1585,7 +1589,7 @@
             return c;
         }
     };
-    
+
     Y.namespace(&#x27;Plugin&#x27;);
     Y.extend(P, Y.Base, proto);
     Y.Plugin.DDProxy = P;
@@ -1630,12 +1634,12 @@
         *&#x2F;
         _setFrame: function(drag) {
             var n = drag.get(NODE), d = drag.get(DRAG_NODE), ah, cur = &#x27;auto&#x27;;
-            
+
             ah = DDM.activeDrag.get(&#x27;activeHandle&#x27;);
             if (ah) {
                 cur = ah.getStyle(&#x27;cursor&#x27;);
             }
-            if (cur == &#x27;auto&#x27;) {
+            if (cur === &#x27;auto&#x27;) {
                 cur = DDM.get(&#x27;dragCursor&#x27;);
             }
 

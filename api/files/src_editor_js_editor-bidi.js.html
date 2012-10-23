@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1438,7 +1442,7 @@
     var EditorBidi = function() {
         EditorBidi.superclass.constructor.apply(this, arguments);
     }, HOST = &#x27;host&#x27;, DIR = &#x27;dir&#x27;, BODY = &#x27;BODY&#x27;, NODE_CHANGE = &#x27;nodeChange&#x27;,
-    B_C_CHANGE = &#x27;bidiContextChange&#x27;, FIRST_P = BODY + &#x27; &gt; p&#x27;, STYLE = &#x27;style&#x27;;
+    B_C_CHANGE = &#x27;bidiContextChange&#x27;, STYLE = &#x27;style&#x27;;
 
     Y.extend(EditorBidi, Y.Base, {
         &#x2F;**
@@ -1464,7 +1468,7 @@
                 inst = host.getInstance(),
                 sel = new inst.EditorSelection(),
                 node, direction;
-            
+
             if (sel.isCollapsed) {
                 node = EditorBidi.blockParent(sel.focusNode);
                 if (node) {
@@ -1485,7 +1489,7 @@
         * @private
         * @method _afterNodeChange
         *&#x2F;
-        _afterNodeChange: function(e) { 
+        _afterNodeChange: function(e) {
             &#x2F;&#x2F; If this is the first event ever, or an event that can result in a context change
             if (this.firstEvent || EditorBidi.EVENTS[e.changedType]) {
                 this._checkForChange();
@@ -1498,7 +1502,7 @@
         * @private
         * @method _afterMouseUp
         *&#x2F;
-        _afterMouseUp: function(e) {
+        _afterMouseUp: function() {
             this._checkForChange();
             this.firstEvent = false;
         },
@@ -1506,7 +1510,7 @@
             var host = this.get(HOST);
 
             this.firstEvent = true;
-            
+
             host.after(NODE_CHANGE, Y.bind(this._afterNodeChange, this));
             host.after(&#x27;dom:mouseup&#x27;, Y.bind(this._afterMouseUp, this));
         }
@@ -1531,7 +1535,7 @@
 
         &#x2F;**
         * More elements may be needed. BODY *must* be in the list to take care of the special case.
-        * 
+        *
         * blockParent could be changed to use inst.EditorSelection.BLOCKS
         * instead, but that would make Y.Plugin.EditorBidi.blockParent
         * unusable in non-RTE contexts (it being usable is a nice
@@ -1554,11 +1558,11 @@
         *&#x2F;
         blockParent: function(node, wrap) {
             var parent = node, divNode, firstChild;
-            
+
             if (!parent) {
                 parent = Y.one(BODY);
             }
-            
+
             if (!parent.test(EditorBidi.BLOCKS)) {
                 parent = parent.ancestor(EditorBidi.BLOCKS);
             }
@@ -1567,7 +1571,7 @@
                 &#x2F;&#x2F; according to spec: we should get to a P before BODY. But
                 &#x2F;&#x2F; we don&#x27;t want to set the direction of BODY even if that
                 &#x2F;&#x2F; happens, so we wrap everything in a DIV.
-                
+
                 &#x2F;&#x2F; The code is based on YUI3&#x27;s Y.EditorSelection._wrapBlock function.
                 divNode = Y.Node.create(EditorBidi.DIV_WRAPPER);
                 parent.get(&#x27;children&#x27;).each(function(node, index) {
@@ -1596,6 +1600,12 @@
         *&#x2F;
         addParents: function(nodeArray) {
             var i, parent, addParent;
+                tester = function(sibling) {
+                    if (!sibling.getData(EditorBidi._NODE_SELECTED)) {
+                        addParent = false;
+                        return true; &#x2F;&#x2F; stop more processing
+                    }
+                };
 
             for (i = 0; i &lt; nodeArray.length; i += 1) {
                 nodeArray[i].setData(EditorBidi._NODE_SELECTED, true);
@@ -1614,18 +1624,13 @@
                 &#x2F;&#x2F; do it if the parent is already in the list.
                 if (!parent.test(BODY) &amp;&amp; !parent.getData(EditorBidi._NODE_SELECTED)) {
                     addParent = true;
-                    parent.get(&#x27;children&#x27;).some(function(sibling) {
-                        if (!sibling.getData(EditorBidi._NODE_SELECTED)) {
-                            addParent = false;
-                            return true; &#x2F;&#x2F; stop more processing
-                        }
-                    });
+                    parent.get(&#x27;children&#x27;).some(tester);
                     if (addParent) {
                         nodeArray.push(parent);
                         parent.setData(EditorBidi._NODE_SELECTED, true);
                     }
                 }
-            }   
+            }
 
             for (i = 0; i &lt; nodeArray.length; i += 1) {
                 nodeArray[i].clearData(EditorBidi._NODE_SELECTED);
@@ -1675,9 +1680,9 @@
             return n;
         }
     });
-    
+
     Y.namespace(&#x27;Plugin&#x27;);
-    
+
     Y.Plugin.EditorBidi = EditorBidi;
 
     &#x2F;**
@@ -1693,7 +1698,7 @@
         var inst = this.getInstance(),
             sel = new inst.EditorSelection(),
             ns = this.get(HOST).get(HOST).editorBidi,
-            returnValue, block,
+            returnValue, block, b,
             selected, selectedBlocks, dir;
 
         if (!ns) {
@@ -1713,7 +1718,7 @@
             if (!direction) {
                 &#x2F;&#x2F;If no direction is set, auto-detect the proper setting to make it &quot;toggle&quot;
                 dir = block.getAttribute(DIR);
-                if (!dir || dir == &#x27;ltr&#x27;) {
+                if (!dir || dir === &#x27;ltr&#x27;) {
                     direction = &#x27;rtl&#x27;;
                 } else {
                     direction = &#x27;ltr&#x27;;
@@ -1721,8 +1726,8 @@
             }
             block.setAttribute(DIR, direction);
             if (Y.UA.ie) {
-                var b = block.all(&#x27;br.yui-cursor&#x27;);
-                if (b.size() === 1 &amp;&amp; block.get(&#x27;childNodes&#x27;).size() == 1) {
+                b = block.all(&#x27;br.yui-cursor&#x27;);
+                if (b.size() === 1 &amp;&amp; block.get(&#x27;childNodes&#x27;).size() === 1) {
                     b.remove();
                 }
             }
@@ -1740,7 +1745,7 @@
                 n = EditorBidi.removeTextAlign(n);
                 if (!d) {
                     dir = n.getAttribute(DIR);
-                    if (!dir || dir == &#x27;ltr&#x27;) {
+                    if (!dir || dir === &#x27;ltr&#x27;) {
                         d = &#x27;rtl&#x27;;
                     } else {
                         d = &#x27;ltr&#x27;;

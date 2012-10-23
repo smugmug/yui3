@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1429,9 +1433,27 @@
  * interactions which work across touch and mouse input devices. They correspond to &quot;touchstart&quot;, &quot;touchmove&quot; and &quot;touchend&quot; on a touch input
  * device, and &quot;mousedown&quot;, &quot;mousemove&quot;, &quot;mouseup&quot; on a mouse based input device.
  *
+ * &lt;p&gt;Documentation for the gesturemove triplet of events can be found on the &lt;a href=&quot;..&#x2F;classes&#x2F;YUI.html#event_gesturemove&quot;&gt;YUI&lt;&#x2F;a&gt; global,
+ * along with the other supported events.&lt;&#x2F;p&gt;
+
+ @example
+
+     YUI().use(&#x27;event-move&#x27;, function (Y) {
+         Y.one(&#x27;#myNode&#x27;).on(&#x27;gesturemovestart&#x27;, function (e) {
+             Y.log(&#x27;gesturemovestart Fired.&#x27;);
+         });
+         Y.one(&#x27;#myNode&#x27;).on(&#x27;gesturemove&#x27;, function (e) {
+             Y.log(&#x27;gesturemove Fired.&#x27;);
+         });
+         Y.one(&#x27;#myNode&#x27;).on(&#x27;gesturemoveend&#x27;, function (e) {
+             Y.log(&#x27;gesturemoveend Fired.&#x27;);
+         });
+     });
+
  * @module event-gestures
  * @submodule event-move
  *&#x2F;
+
 
  var GESTURE_MAP = Y.Event._GESTURE_MAP,
      EVENT = {
@@ -1468,9 +1490,12 @@
     TARGET = &quot;target&quot;,
 
     NODE_TYPE = &quot;nodeType&quot;,
+    SUPPORTS_POINTER = Y.config.win &amp;&amp; (&quot;msPointerEnabled&quot; in Y.config.win.navigator),
+    MS_TOUCH_ACTION_COUNT = &#x27;msTouchActionCount&#x27;,
+    MS_INIT_TOUCH_ACTION = &#x27;msInitTouchAction&#x27;,
 
     _defArgsProcessor = function(se, args, delegate) {
-        var iConfig = (delegate) ? 4 : 3, 
+        var iConfig = (delegate) ? 4 : 3,
             config = (args.length &gt; iConfig) ? Y.merge(args.splice(iConfig,1)[0]) : {};
 
         if (!(PREVENT_DEFAULT in config)) {
@@ -1482,6 +1507,17 @@
 
     _getRoot = function(node, subscriber) {
         return subscriber._extra.root || (node.get(NODE_TYPE) === 9) ? node : node.get(OWNER_DOCUMENT);
+    },
+
+    &#x2F;&#x2F;Checks to see if the node is the document, and if it is, returns the documentElement.
+    _checkDocumentElem = function(node) {
+        var elem = node.getDOMNode();
+        if (node.compareTo(Y.config.doc) &amp;&amp; elem.documentElement) {
+            return elem.documentElement;
+        }
+        else {
+            return false;
+        }
     },
 
     _normTouchFacade = function(touchFacade, touch, params) {
@@ -1497,6 +1533,44 @@
         touchFacade[BUTTON] = (params &amp;&amp; params[BUTTON]) || 1; &#x2F;&#x2F; default to left (left as per vendors, not W3C which is 0)
     },
 
+    &#x2F;*
+    In IE10 touch mode, gestures will not work properly unless the -ms-touch-action CSS property is set to something other than &#x27;auto&#x27;. Read http:&#x2F;&#x2F;msdn.microsoft.com&#x2F;en-us&#x2F;library&#x2F;windows&#x2F;apps&#x2F;hh767313.aspx for more info. To get around this, we set -ms-touch-action: none which is the same as e.preventDefault() on touch environments. This tells the browser to fire DOM events for all touch events, and not perform any default behavior.
+
+    The user can over-ride this by setting a more lenient -ms-touch-action property on a node (such as pan-x, pan-y, etc.) via CSS when subscribing to the &#x27;gesturemovestart&#x27; event.
+    *&#x2F;
+    _setTouchActions = function (node) {
+        var elem = _checkDocumentElem(node) || node.getDOMNode(),
+            num = node.getData(MS_TOUCH_ACTION_COUNT);
+
+        &#x2F;&#x2F;Checks to see if msTouchAction is supported.
+        if (SUPPORTS_POINTER) {
+            if (!num) {
+                num = 0;
+                node.setData(MS_INIT_TOUCH_ACTION, elem.style.msTouchAction);
+            }
+            elem.style.msTouchAction = Y.Event._DEFAULT_TOUCH_ACTION;
+            num++;
+            node.setData(MS_TOUCH_ACTION_COUNT, num);
+        }
+    },
+
+    &#x2F;*
+    Resets the element&#x27;s -ms-touch-action property back to the original value, This is called on detach() and detachDelegate().
+    *&#x2F;
+    _unsetTouchActions = function (node) {
+        var elem = _checkDocumentElem(node) || node.getDOMNode(),
+            num = node.getData(MS_TOUCH_ACTION_COUNT),
+            initTouchAction = node.getData(MS_INIT_TOUCH_ACTION);
+
+        if (SUPPORTS_POINTER) {
+            num--;
+            node.setData(MS_TOUCH_ACTION_COUNT, num);
+            if (num === 0 &amp;&amp; elem.style.msTouchAction !== initTouchAction) {
+                elem.style.msTouchAction = initTouchAction;
+            }
+        }
+    },
+
     _prevent = function(e, preventDefault) {
         if (preventDefault) {
             &#x2F;&#x2F; preventDefault is a boolean or a function
@@ -1507,15 +1581,16 @@
     },
 
     define = Y.Event.define;
+    Y.Event._DEFAULT_TOUCH_ACTION = &#x27;none&#x27;;
 
 &#x2F;**
  * Sets up a &quot;gesturemovestart&quot; event, that is fired on touch devices in response to a single finger &quot;touchstart&quot;,
  * and on mouse based devices in response to a &quot;mousedown&quot;. The subscriber can specify the minimum time
  * and distance thresholds which should be crossed before the &quot;gesturemovestart&quot; is fired and for the mouse,
  * which button should initiate a &quot;gesturemovestart&quot;. This event can also be listened for using node.delegate().
- * 
+ *
  * &lt;p&gt;It is recommended that you use Y.bind to set up context and additional arguments for your event handler,
- * however if you want to pass the context and arguments as additional signature arguments to on&#x2F;delegate, 
+ * however if you want to pass the context and arguments as additional signature arguments to on&#x2F;delegate,
  * you need to provide a null value for the configuration object, e.g: &lt;code&gt;node.on(&quot;gesturemovestart&quot;, fn, null, context, arg1, arg2, arg3)&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
  *
  * @event gesturemovestart
@@ -1532,7 +1607,7 @@
  * &lt;dt&gt;button (no default)&lt;&#x2F;dt&gt;
  * &lt;dd&gt;In the case of a mouse input device, if the event should only be fired for a specific mouse button.&lt;&#x2F;dd&gt;
  * &lt;dt&gt;preventDefault (defaults to false)&lt;&#x2F;dt&gt;
- * &lt;dd&gt;Can be set to true&#x2F;false to prevent default behavior as soon as the touchstart or mousedown is received (that is before minTime or minDistance thresholds are crossed, and so before the gesturemovestart listener is notified) so that things like text selection and context popups (on touch devices) can be 
+ * &lt;dd&gt;Can be set to true&#x2F;false to prevent default behavior as soon as the touchstart or mousedown is received (that is before minTime or minDistance thresholds are crossed, and so before the gesturemovestart listener is notified) so that things like text selection and context popups (on touch devices) can be
  * prevented. This property can also be set to a function, which returns true or false, based on the event facade passed to it (for example, DragDrop can determine if the target is a valid handle or not before preventing default).&lt;&#x2F;dd&gt;
  * &lt;&#x2F;dl&gt;
  *
@@ -1543,7 +1618,10 @@ define(GESTURE_MOVE_START, {
 
     on: function (node, subscriber, ce) {
 
-        subscriber[_MOVE_START_HANDLE] = node.on(EVENT[START], 
+        &#x2F;&#x2F;Set -ms-touch-action on IE10 and set preventDefault to true
+        _setTouchActions(node);
+
+        subscriber[_MOVE_START_HANDLE] = node.on(EVENT[START],
             this._onStart,
             this,
             node,
@@ -1569,6 +1647,8 @@ define(GESTURE_MOVE_START, {
             handle.detach();
             subscriber[_DEL_MOVE_START_HANDLE] = null;
         }
+
+        _unsetTouchActions(node);
     },
 
     detach: function (node, subscriber, ce) {
@@ -1578,6 +1658,8 @@ define(GESTURE_MOVE_START, {
             startHandle.detach();
             subscriber[_MOVE_START_HANDLE] = null;
         }
+
+        _unsetTouchActions(node);
     },
 
     processArgs : function(args, delegate) {
@@ -1656,7 +1738,7 @@ define(GESTURE_MOVE_START, {
                             this._start(e, node, ce, params);
                         }
                     }, this));
-                }                        
+                }
             }
         }
     },
@@ -1698,18 +1780,18 @@ define(GESTURE_MOVE_START, {
 &#x2F;**
  * Sets up a &quot;gesturemove&quot; event, that is fired on touch devices in response to a single finger &quot;touchmove&quot;,
  * and on mouse based devices in response to a &quot;mousemove&quot;.
- * 
+ *
  * &lt;p&gt;By default this event is only fired when the same node
  * has received a &quot;gesturemovestart&quot; event. The subscriber can set standAlone to true, in the configuration properties,
  * if they want to listen for this event without an initial &quot;gesturemovestart&quot;.&lt;&#x2F;p&gt;
- * 
+ *
  * &lt;p&gt;By default this event sets up it&#x27;s internal &quot;touchmove&quot; and &quot;mousemove&quot; DOM listeners on the document element. The subscriber
- * can set the root configuration property, to specify which node to attach DOM listeners to, if different from the document.&lt;&#x2F;p&gt; 
+ * can set the root configuration property, to specify which node to attach DOM listeners to, if different from the document.&lt;&#x2F;p&gt;
  *
  * &lt;p&gt;This event can also be listened for using node.delegate().&lt;&#x2F;p&gt;
  *
  * &lt;p&gt;It is recommended that you use Y.bind to set up context and additional arguments for your event handler,
- * however if you want to pass the context and arguments as additional signature arguments to on&#x2F;delegate, 
+ * however if you want to pass the context and arguments as additional signature arguments to on&#x2F;delegate,
  * you need to provide a null value for the configuration object, e.g: &lt;code&gt;node.on(&quot;gesturemove&quot;, fn, null, context, arg1, arg2, arg3)&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
  *
  * @event gesturemove
@@ -1732,9 +1814,10 @@ define(GESTURE_MOVE, {
 
     on : function (node, subscriber, ce) {
 
-        var root = _getRoot(node, subscriber),
+        _setTouchActions(node);
+        var root = _getRoot(node, subscriber, EVENT[MOVE]),
 
-            moveHandle = root.on(EVENT[MOVE], 
+            moveHandle = root.on(EVENT[MOVE],
                 this._onMove,
                 this,
                 node,
@@ -1742,6 +1825,7 @@ define(GESTURE_MOVE, {
                 ce);
 
         subscriber[_MOVE_HANDLE] = moveHandle;
+
     },
 
     delegate : function(node, subscriber, ce, filter) {
@@ -1762,8 +1846,10 @@ define(GESTURE_MOVE, {
             moveHandle.detach();
             subscriber[_MOVE_HANDLE] = null;
         }
+
+        _unsetTouchActions(node);
     },
-    
+
     detachDelegate : function(node, subscriber, ce, filter) {
         var handle = subscriber[_DEL_MOVE_HANDLE];
 
@@ -1771,6 +1857,8 @@ define(GESTURE_MOVE, {
             handle.detach();
             subscriber[_DEL_MOVE_HANDLE] = null;
         }
+
+        _unsetTouchActions(node);
 
     },
 
@@ -1793,7 +1881,7 @@ define(GESTURE_MOVE, {
 
             if (e.touches) {
                 if (e.touches.length === 1) {
-                    _normTouchFacade(e, e.touches[0]);                    
+                    _normTouchFacade(e, e.touches[0]);
                 } else {
                     fireMove = false;
                 }
@@ -1810,25 +1898,25 @@ define(GESTURE_MOVE, {
             }
         }
     },
-    
+
     PREVENT_DEFAULT : false
 });
 
 &#x2F;**
  * Sets up a &quot;gesturemoveend&quot; event, that is fired on touch devices in response to a single finger &quot;touchend&quot;,
  * and on mouse based devices in response to a &quot;mouseup&quot;.
- * 
+ *
  * &lt;p&gt;By default this event is only fired when the same node
  * has received a &quot;gesturemove&quot; or &quot;gesturemovestart&quot; event. The subscriber can set standAlone to true, in the configuration properties,
  * if they want to listen for this event without a preceding &quot;gesturemovestart&quot; or &quot;gesturemove&quot;.&lt;&#x2F;p&gt;
  *
  * &lt;p&gt;By default this event sets up it&#x27;s internal &quot;touchend&quot; and &quot;mouseup&quot; DOM listeners on the document element. The subscriber
- * can set the root configuration property, to specify which node to attach DOM listeners to, if different from the document.&lt;&#x2F;p&gt; 
+ * can set the root configuration property, to specify which node to attach DOM listeners to, if different from the document.&lt;&#x2F;p&gt;
  *
  * &lt;p&gt;This event can also be listened for using node.delegate().&lt;&#x2F;p&gt;
  *
  * &lt;p&gt;It is recommended that you use Y.bind to set up context and additional arguments for your event handler,
- * however if you want to pass the context and arguments as additional signature arguments to on&#x2F;delegate, 
+ * however if you want to pass the context and arguments as additional signature arguments to on&#x2F;delegate,
  * you need to provide a null value for the configuration object, e.g: &lt;code&gt;node.on(&quot;gesturemoveend&quot;, fn, null, context, arg1, arg2, arg3)&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
  *
  *
@@ -1851,14 +1939,14 @@ define(GESTURE_MOVE, {
 define(GESTURE_MOVE_END, {
 
     on : function (node, subscriber, ce) {
-
+        _setTouchActions(node);
         var root = _getRoot(node, subscriber),
 
-            endHandle = root.on(EVENT[END], 
-                this._onEnd, 
+            endHandle = root.on(EVENT[END],
+                this._onEnd,
                 this,
                 node,
-                subscriber, 
+                subscriber,
                 ce);
 
         subscriber[_MOVE_END_HANDLE] = endHandle;
@@ -1883,15 +1971,19 @@ define(GESTURE_MOVE_END, {
             subscriber[_DEL_MOVE_END_HANDLE] = null;
         }
 
+        _unsetTouchActions(node);
+
     },
 
     detach : function (node, subscriber, ce) {
         var endHandle = subscriber[_MOVE_END_HANDLE];
-    
+
         if (endHandle) {
             endHandle.detach();
             subscriber[_MOVE_END_HANDLE] = null;
         }
+
+        _unsetTouchActions(node);
     },
 
     processArgs : function(args, delegate) {
@@ -1911,7 +2003,7 @@ define(GESTURE_MOVE_END, {
 
             if (e.changedTouches) {
                 if (e.changedTouches.length === 1) {
-                    _normTouchFacade(e, e.changedTouches[0]);                    
+                    _normTouchFacade(e, e.changedTouches[0]);
                 } else {
                     fireMoveEnd = false;
                 }
@@ -1932,6 +2024,7 @@ define(GESTURE_MOVE_END, {
 
     PREVENT_DEFAULT : false
 });
+
     </pre>
 </div>
 

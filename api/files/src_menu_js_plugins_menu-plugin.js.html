@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.2-smugmug</em>
+            <em>API Docs for: 3.7.3-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -1373,6 +1373,10 @@
             
                 <li><a href="..&#x2F;modules/yql.html">yql</a></li>
             
+                <li><a href="..&#x2F;modules/yql-nodejs.html">yql-nodejs</a></li>
+            
+                <li><a href="..&#x2F;modules/yql-winjs.html">yql-winjs</a></li>
+            
                 <li><a href="..&#x2F;modules/yui.html">yui</a></li>
             
                 <li><a href="..&#x2F;modules/yui-base.html">yui-base</a></li>
@@ -1487,11 +1491,15 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
         if (this.get(&#x27;visible&#x27;)) {
             this.hide();
         } else {
-            var anchorRegion = this._host.get(&#x27;region&#x27;),
-                container    = this.get(&#x27;container&#x27;);
+            var container = this.get(&#x27;container&#x27;),
 
-            &#x2F;&#x2F; TODO: support more anchoring options beyond bottom left.
-            container.setXY([anchorRegion.left, anchorRegion.bottom]);
+                menuRegion = this._getSortedAnchorRegions(
+                    [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;],
+                    container.get(&#x27;region&#x27;),
+                    this._host.get(&#x27;region&#x27;)
+                )[0].region;
+
+            container.setXY([menuRegion.left, menuRegion.top]);
             this.show();
         }
     },
