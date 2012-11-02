@@ -1472,14 +1472,61 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
         this._attachMenuPluginEvents();
     },
 
+    destructor: function () {
+        clearTimeout(this._pluginHideTimeout);
+    },
+
+    &#x2F;&#x2F; -- Public Methods -------------------------------------------------------
+
+    &#x2F;**
+    Repositions this dropdown menu so that it is anchored to its host node at
+    the most advantageous position to ensure that as much of the menu as
+    possible is visible within the viewport.
+
+    @method reposition
+    @chainable
+    **&#x2F;
+    reposition: function () {
+        var container = this.get(&#x27;container&#x27;),
+
+            menuRegion = this._getSortedAnchorRegions(
+                [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;],
+                container.get(&#x27;region&#x27;),
+                this._host.get(&#x27;region&#x27;)
+            )[0].region;
+
+        container.setXY([menuRegion.left, menuRegion.top]);
+
+        return this;
+    },
+
+    show: function () {
+        this.reposition();
+        return Y.Menu.prototype.show.call(this);
+    },
+
     &#x2F;&#x2F; -- Protected Methods ----------------------------------------------------
     _attachMenuPluginEvents: function () {
-        &#x2F;&#x2F; This event will be cleaned up by Y.Menu.
+        &#x2F;&#x2F; These events will be cleaned up by Y.Menu.
         this._menuEvents.push(
             Y.one(&#x27;doc&#x27;).after(&#x27;click&#x27;, this._afterDocClick, this)
         );
 
         this.afterHostEvent(&#x27;click&#x27;, this._afterAnchorClick);
+
+        if (this.get(&#x27;showOnHover&#x27;)) {
+            this.afterHostEvent({
+                blur      : this._afterAnchorBlur,
+                focus     : this._afterAnchorFocus,
+                mouseenter: this._afterAnchorMouseEnter,
+                mouseleave: this._afterAnchorMouseLeave
+            });
+
+            this._menuEvents.push(this.get(&#x27;container&#x27;).after({
+                mouseenter: Y.bind(this._afterContainerMouseEnter, this),
+                mouseleave: Y.bind(this._afterContainerMouseLeave, this)
+            }));
+        }
     },
 
     &#x2F;&#x2F; -- Protected Event Handlers ---------------------------------------------
@@ -1488,23 +1535,59 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
             this.render();
         }
 
-        if (this.get(&#x27;visible&#x27;)) {
-            this.hide();
-        } else {
-            var container = this.get(&#x27;container&#x27;),
+        this.toggle();
+    },
 
-                menuRegion = this._getSortedAnchorRegions(
-                    [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;],
-                    container.get(&#x27;region&#x27;),
-                    this._host.get(&#x27;region&#x27;)
-                )[0].region;
+    _afterAnchorBlur: function () {
+        this.hide();
+    },
 
-            container.setXY([menuRegion.left, menuRegion.top]);
-            this.show();
+    _afterAnchorFocus: function () {
+        clearTimeout(this._pluginHideTimeout);
+
+        if (!this.rendered) {
+            this.render();
         }
+
+        this.show();
+    },
+
+    _afterAnchorMouseEnter: function () {
+        clearTimeout(this._pluginHideTimeout);
+
+        if (!this.rendered) {
+            this.render();
+        }
+
+        this.show();
+    },
+
+    _afterAnchorMouseLeave: function () {
+        var self = this;
+
+        this._pluginHideTimeout = setTimeout(function () {
+            console.log(&#x27;anchorTimeout&#x27;);
+            self.hide();
+        }, 300);
+    },
+
+    _afterContainerMouseEnter: function () {
+        clearTimeout(this._pluginHideTimeout);
+    },
+
+    _afterContainerMouseLeave: function () {
+        var self = this;
+
+        this._pluginHideTimeout = setTimeout(function () {
+            self.hide();
+        }, 300);
     },
 
     _afterDocClick: function (e) {
+        if (!this.get(&#x27;visible&#x27;)) {
+            return;
+        }
+
         var container = this.get(&#x27;container&#x27;),
             host      = this._host;
 
@@ -1515,7 +1598,22 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
         }
     }
 }, {
-    NS: &#x27;menu&#x27;
+    NS: &#x27;menu&#x27;,
+
+    ATTRS: {
+        &#x2F;**
+        If &#x60;true&#x60;, this menu will be shown when the host node is hovered or
+        receives focus instead of only being shown when it&#x27;s clicked.
+
+        @attribute {Boolean} showOnHover
+        @default false
+        @initOnly
+        **&#x2F;
+        showOnHover: {
+            value: false,
+            writeOnce: &#x27;initOnly&#x27;
+        }
+    }
 });
 
     </pre>

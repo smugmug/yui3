@@ -1733,8 +1733,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     @chainable
     **&#x2F;
     toggle: function () {
-        this.set(&#x27;visible&#x27;, !this.get(&#x27;visible&#x27;));
-        return this;
+        return this[this.get(&#x27;visible&#x27;) ? &#x27;hide&#x27; : &#x27;show&#x27;]();
     },
 
     &#x2F;&#x2F; -- Protected Methods ----------------------------------------------------
