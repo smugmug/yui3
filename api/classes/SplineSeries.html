@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1623,20 +1647,27 @@
     </div>
 
     <div class="description">
-        <p>Style properties used for drawing lines. This attribute is inherited from <code>Renderer</code>. Below are the default values:
+        <p>Style properties used for drawing lines. This attribute is inherited from <code>Renderer</code>.
+Below are the default values:
  <dl>
-     <dt>color</dt><dd>The color of the line. The default value is determined by the order of the series on the graph. The color will be
-     retrieved from the following array: 
+     <dt>color</dt><dd>The color of the line. The default value is determined by the order of the series on
+     the graph. The color will be retrieved from the following array:
      <code>["#426ab3", "#d09b2c", "#000000", "#b82837", "#b384b5", "#ff7200", "#779de3", "#cbc8ba", "#7ed7a6", "#007a6c"]</code>
      <dt>weight</dt><dd>Number that indicates the width of the line. The default value is 6.</dd>
      <dt>alpha</dt><dd>Number between 0 and 1 that indicates the opacity of the line. The default value is 1.</dd>
-     <dt>lineType</dt><dd>Indicates whether the line is solid or dashed. The default value is solid.</dd> 
-     <dt>dashLength</dt><dd>When the <code>lineType</code> is dashed, indicates the length of the dash. The default value is 10.</dd>
-     <dt>gapSpace</dt><dd>When the <code>lineType</code> is dashed, indicates the distance between dashes. The default value is 10.</dd>
-     <dt>connectDiscontinuousPoints</dt><dd>Indicates whether or not to connect lines when there is a missing or null value between points. The default value is true.</dd> 
-     <dt>discontinuousType</dt><dd>Indicates whether the line between discontinuous points is solid or dashed. The default value is solid.</dd>
-     <dt>discontinuousDashLength</dt><dd>When the <code>discontinuousType</code> is dashed, indicates the length of the dash. The default value is 10.</dd>
-     <dt>discontinuousGapSpace</dt><dd>When the <code>discontinuousType</code> is dashed, indicates the distance between dashes. The default value is 10.</dd>
+     <dt>lineType</dt><dd>Indicates whether the line is solid or dashed. The default value is solid.</dd>
+     <dt>dashLength</dt><dd>When the <code>lineType</code> is dashed, indicates the length of the dash. The default value
+     is 10.</dd>
+     <dt>gapSpace</dt><dd>When the <code>lineType</code> is dashed, indicates the distance between dashes. The default value is
+     10.</dd>
+     <dt>connectDiscontinuousPoints</dt><dd>Indicates whether or not to connect lines when there is a missing or null
+     value between points. The default value is true.</dd>
+     <dt>discontinuousType</dt><dd>Indicates whether the line between discontinuous points is solid or dashed. The
+     default value is solid.</dd>
+     <dt>discontinuousDashLength</dt><dd>When the <code>discontinuousType</code> is dashed, indicates the length of the dash.
+     The default value is 10.</dd>
+     <dt>discontinuousGapSpace</dt><dd>When the <code>discontinuousType</code> is dashed, indicates the distance between dashes.
+     The default value is 10.</dd>
  </dl></p>
     </div>
 

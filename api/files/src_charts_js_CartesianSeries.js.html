@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1456,7 +1480,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
      * @private
      *&#x2F;
     _yDisplayName: null,
-    
+
     &#x2F;**
      * Th x-coordinate for the left edge of the series.
      *
@@ -1468,7 +1492,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
 
     &#x2F;**
      * The y-coordinate for the bottom edge of the series.
-     * 
+     *
      * @property _bottomOrigin
      * @type String
      * @private
@@ -1532,7 +1556,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
         });
         this._visibleChangeHandle = this.after(&quot;visibleChange&quot;, this._handleVisibleChange);
     },
-  
+
     &#x2F;**
      * Event handler for the xAxisChange event.
      *
@@ -1546,7 +1570,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
         xAxis.after(&quot;dataReady&quot;, Y.bind(this._xDataChangeHandler, this));
         xAxis.after(&quot;dataUpdate&quot;, Y.bind(this._xDataChangeHandler, this));
     },
-    
+
     &#x2F;**
      * Event handler the yAxisChange event.
      *
@@ -1575,7 +1599,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
      *
      * @method _xDataChangeHandler
      * @param {Object} event Event object.
-     * @private 
+     * @private
      *&#x2F;
     _xDataChangeHandler: function(event)
     {
@@ -1591,7 +1615,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
      *
      * @method _yDataChangeHandler
      * @param {Object} event Event object.
-     * @private 
+     * @private
      *&#x2F;
     _yDataChangeHandler: function(event)
     {
@@ -1603,11 +1627,12 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
     },
 
     &#x2F;**
-     * Checks to ensure that both xAxis and yAxis data are available. If so, set the &#x60;xData&#x60; and &#x60;yData&#x60; attributes and return &#x60;true&#x60;. Otherwise, return &#x60;false&#x60;.
+     * Checks to ensure that both xAxis and yAxis data are available. If so, set the &#x60;xData&#x60; and &#x60;yData&#x60; attributes
+     * and return &#x60;true&#x60;. Otherwise, return &#x60;false&#x60;.
      *
      * @method _updateAxisData
      * @return Boolean
-     * @private 
+     * @private
      *&#x2F;
     _updateAxisData: function()
     {
@@ -1710,18 +1735,18 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
         dataLength = xData.length;
         xOffset *= 0.5;
         yOffset *= 0.5;
-        &#x2F;&#x2F;Assuming a vertical graph has a range&#x2F;category for its vertical axis.    
+        &#x2F;&#x2F;Assuming a vertical graph has a range&#x2F;category for its vertical axis.
         if(direction === &quot;vertical&quot;)
         {
             yData = yData.reverse();
         }
         this._leftOrigin = Math.round(((0 - xMin) * xScaleFactor) + leftPadding + xOffset);
-        this._bottomOrigin = Math.round((dataHeight + topPadding + yOffset)); 
+        this._bottomOrigin = Math.round((dataHeight + topPadding + yOffset));
         if(yMin &lt; 0)
         {
             this._bottomOrigin = this._bottomOrigin - ((0 - yMin) * yScaleFactor);
         }
-        for (; i &lt; dataLength; ++i) 
+        for (; i &lt; dataLength; ++i)
 		{
             xValue = parseFloat(xData[i]);
             yValue = parseFloat(yData[i]);
@@ -1835,16 +1860,16 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
             }
         }
     },
-    
+
     &#x2F;**
-     * Default value for plane offsets when the parent chart&#x27;s &#x60;interactiveType&#x60; is &#x60;planar&#x60;. 
+     * Default value for plane offsets when the parent chart&#x27;s &#x60;interactiveType&#x60; is &#x60;planar&#x60;.
      *
      * @property _defaultPlaneOffset
      * @type Number
      * @private
      *&#x2F;
     _defaultPlaneOffset: 4,
-    
+
     &#x2F;**
      * Gets the default value for the &#x60;styles&#x60; attribute. Overrides
      * base implementation.
@@ -1880,7 +1905,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
      * @protected
      *&#x2F;
     _defaultFillColors:[&quot;#6084d0&quot;, &quot;#eeb647&quot;, &quot;#6c6b5f&quot;, &quot;#d6484f&quot;, &quot;#ce9ed1&quot;, &quot;#ff9f3b&quot;, &quot;#93b7ff&quot;, &quot;#e0ddd0&quot;, &quot;#94ecba&quot;, &quot;#309687&quot;],
-    
+
     &#x2F;**
      * Collection of default colors used for marker borders in a series when not specified by user.
      *
@@ -1889,7 +1914,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
      * @protected
      *&#x2F;
     _defaultBorderColors:[&quot;#205096&quot;, &quot;#b38206&quot;, &quot;#000000&quot;, &quot;#94001e&quot;, &quot;#9d6fa0&quot;, &quot;#e55b00&quot;, &quot;#5e85c9&quot;, &quot;#adab9e&quot;, &quot;#6ac291&quot;, &quot;#006457&quot;],
-    
+
     &#x2F;**
      * Collection of default colors used for area fills, histogram fills and pie fills in a series when not specified by user.
      *
@@ -1926,7 +1951,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
         type = type || &quot;fill&quot;;
         return colors[type][index];
     },
-    
+
     &#x2F;**
      * Shows&#x2F;hides contents of the series.
      *
@@ -1934,7 +1959,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
      * @param {Object} e Event object.
      * @protected
      *&#x2F;
-    _handleVisibleChange: function(e) 
+    _handleVisibleChange: function(e)
     {
         this._toggleVisible(this.get(&quot;visible&quot;));
     },
@@ -2012,12 +2037,12 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
     }
         &#x2F;**
          * Event handle for the x-axis&#x27; dataReady event.
-         * 
+         *
          * @property _xDataReadyHandle
          * @type {EventHandle}
          * @private
          *&#x2F;
-        
+
         &#x2F;**
          * Event handle for the x-axis dataUpdate event.
          *
@@ -2025,7 +2050,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
          * @type {EventHandle}
          * @private
          *&#x2F;
-        
+
         &#x2F;**
          * Event handle for the y-axis dataReady event.
          *
@@ -2121,7 +2146,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
                 return val;
             }
         },
-        
+
         &#x2F;**
          * Name used for for displaying category data
          *
@@ -2179,7 +2204,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
                 return val;
             }
         },
-        
+
         &#x2F;**
          * Read-only attribute indicating the type of series.
          *
@@ -2187,7 +2212,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
          * @type String
          * @default cartesian
          *&#x2F;
-        type: {		
+        type: {
             value: &quot;cartesian&quot;
         },
 
@@ -2214,7 +2239,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
          * @type Array
          *&#x2F;
         xcoords: {},
-        
+
         &#x2F;**
          * y coordinates for the series
          *
@@ -2238,7 +2263,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
                 return this.get(&quot;graph&quot;).get(&quot;chart&quot;);
             }
         },
-        
+
         &#x2F;**
          * Reference to the &#x60;Graph&#x60; in which the series is drawn into.
          *
@@ -2248,25 +2273,25 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
         graph: {},
 
         &#x2F;**
-         * Reference to the &#x60;Axis&#x60; instance used for assigning 
+         * Reference to the &#x60;Axis&#x60; instance used for assigning
          * x-values to the graph.
          *
          * @attribute xAxis
          * @type Axis
          *&#x2F;
         xAxis: {},
-        
+
         &#x2F;**
-         * Reference to the &#x60;Axis&#x60; instance used for assigning 
+         * Reference to the &#x60;Axis&#x60; instance used for assigning
          * y-values to the graph.
          *
          * @attribute yAxis
          * @type Axis
          *&#x2F;
         yAxis: {},
-        
+
         &#x2F;**
-         * Indicates which array to from the hash of value arrays in 
+         * Indicates which array to from the hash of value arrays in
          * the x-axis &#x60;Axis&#x60; instance.
          *
          * @attribute xKey
@@ -2280,7 +2305,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
         },
 
         &#x2F;**
-         * Indicates which array to from the hash of value arrays in 
+         * Indicates which array to from the hash of value arrays in
          * the y-axis &#x60;Axis&#x60; instance.
          *
          * @attribute yKey
@@ -2308,7 +2333,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
          * @type Array
          *&#x2F;
         yData: {},
-       
+
         &#x2F;**
          * Indicates whether the Series has been through its initial set up.
          *
@@ -2327,7 +2352,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
          *&#x2F;
         width: {
             readOnly: true,
-            
+
             getter: function()
             {
                 this.get(&quot;graph&quot;).get(&quot;width&quot;);
@@ -2342,7 +2367,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
          *&#x2F;
         height: {
             readOnly: true,
-            
+
             getter: function()
             {
                 this.get(&quot;graph&quot;).get(&quot;height&quot;);
@@ -2368,7 +2393,7 @@ Y.CartesianSeries = Y.Base.create(&quot;cartesianSeries&quot;, Y.Base, [Y.Render
          * @type Array
          *&#x2F;
         xMarkerPlane: {},
-        
+
         &#x2F;**
          * Collection of area maps along the yAxis. Used to determine mouseover for multiple
          * series.

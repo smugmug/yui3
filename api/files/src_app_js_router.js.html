@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1439,7 +1463,6 @@ Provides URL-based routing using HTML5 &#x60;pushState()&#x60; or the location h
 var HistoryHash = Y.HistoryHash,
     QS          = Y.QueryString,
     YArray      = Y.Array,
-    YLang       = Y.Lang,
 
     win = Y.config.win,
 
@@ -1627,7 +1650,9 @@ Y.Router = Y.extend(Router, Y.Base, {
             instances.splice(instanceIndex, 1);
         }
 
-        this._historyEvents &amp;&amp; this._historyEvents.detach();
+        if (this._historyEvents) {
+            this._historyEvents.detach();
+        }
     },
 
     &#x2F;&#x2F; -- Public Methods -------------------------------------------------------
@@ -2049,6 +2074,7 @@ Y.Router = Y.extend(Router, Y.Base, {
     **&#x2F;
     _dispatch: function (path, url, src) {
         var self      = this,
+            decode    = self._decode,
             routes    = self.match(path),
             callbacks = [],
             matches, req, res;
@@ -2087,9 +2113,13 @@ Y.Router = Y.extend(Router, Y.Base, {
                 callback.call(self, req, res, req.next);
 
             } else if ((route = routes.shift())) {
-                &#x2F;&#x2F; Make a copy of this route&#x27;s &#x60;callbacks&#x60; and find its matches.
+                &#x2F;&#x2F; Make a copy of this route&#x27;s &#x60;callbacks&#x60; so the original array
+                &#x2F;&#x2F; is preserved.
                 callbacks = route.callbacks.concat();
-                matches   = route.regex.exec(path);
+
+                &#x2F;&#x2F; Decode each of the path matches so that the any URL-encoded
+                &#x2F;&#x2F; path segments are decoded in the &#x60;req.params&#x60; object.
+                matches = YArray.map(route.regex.exec(path) || [], decode);
 
                 &#x2F;&#x2F; Use named keys for parameter names if the route path contains
                 &#x2F;&#x2F; named keys. Otherwise, use numerical match indices.
@@ -2099,7 +2129,7 @@ Y.Router = Y.extend(Router, Y.Base, {
                     req.params = matches.concat();
                 }
 
-                &#x2F;&#x2F; Allow access tot he num of remaining routes for this request.
+                &#x2F;&#x2F; Allow access to the num of remaining routes for this request.
                 req.pendingRoutes = routes.length;
 
                 &#x2F;&#x2F; Execute this route&#x27;s &#x60;callbacks&#x60;.
@@ -2580,7 +2610,9 @@ Y.Router = Y.extend(Router, Y.Base, {
         }
 
         &#x2F;&#x2F; Joins the &#x60;url&#x60; with the &#x60;root&#x60;.
-        urlIsString &amp;&amp; (url = this._joinURL(url));
+        if (urlIsString) {
+            url = this._joinURL(url);
+        }
 
         &#x2F;&#x2F; Force _ready to true to ensure that the history change is handled
         &#x2F;&#x2F; even if _save is called before the &#x60;ready&#x60; event fires.
@@ -2664,11 +2696,13 @@ Y.Router = Y.extend(Router, Y.Base, {
             hash = hash.replace(hashPrefix, &#x27;&#x27;);
         }
 
-        hash &amp;&amp; (hashPath = this._getHashPath(hash));
-
         &#x2F;&#x2F; If the hash looks like a URL path, assume it is, and upgrade it!
-        if (hashPath) {
-            return this._resolveURL(hashPath);
+        if (hash) {
+            hashPath = this._getHashPath(hash);
+
+            if (hashPath) {
+                return this._resolveURL(hashPath);
+            }
         }
 
         return url;

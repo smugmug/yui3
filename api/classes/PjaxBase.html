@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1463,7 +1487,7 @@ older, less-capable browsers.</p>
 <code>Router</code>-based class to add Pjax functionality to that Router. For a pre-made
 standalone Pjax router, see the <code>Pjax</code> class.</p>
 
-<pre class="code"><code class="prettyprint">var MyRouter = Y.Base.create('myRouter', Y.Router, [Y.PjaxBase], {
+<pre class="code prettyprint"><code>var MyRouter = Y.Base.create('myRouter', Y.Router, [Y.PjaxBase], {
     // ...
 });
 </code></pre>
@@ -1658,7 +1682,7 @@ standalone Pjax router, see the <code>Pjax</code> class.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l298"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:298</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l300"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:300</code></a>
         
         </p>
 
@@ -1756,7 +1780,7 @@ and will scroll the page to the top if configured to do so.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l159"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:159</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l161"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:161</code></a>
         
         </p>
 
@@ -1876,7 +1900,7 @@ anchor elements (IE reports a value for the default port, e.g. "80").</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l208"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:208</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l210"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:210</code></a>
         
         </p>
 
@@ -2034,7 +2058,7 @@ anchor elements (IE reports a value for the default port, e.g. "80").</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l323"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:323</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l325"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:325</code></a>
         
         </p>
 
@@ -2125,7 +2149,7 @@ behave natively.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l277"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:277</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l279"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:279</code></a>
         
         </p>
 
@@ -2205,7 +2229,7 @@ using HTML5 history.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l112"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:112</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l114"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:114</code></a>
         
         </p>
 
@@ -2482,7 +2506,7 @@ different scheme, host, or port.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l373"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:373</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l381"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:381</code></a>
         
         </p>
 
@@ -2594,7 +2618,7 @@ will be handled by the browser just like any old link.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l393"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:393</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l401"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:401</code></a>
         
         </p>
 
@@ -2706,7 +2730,7 @@ enhance in-page navigation.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l411"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:411</code></a>
+        <a href="..&#x2F;files&#x2F;src_pjax_js_pjax-base.js.html#l419"><code>src&#x2F;pjax&#x2F;js&#x2F;pjax-base.js:419</code></a>
         
         </p>
 

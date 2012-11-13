@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1458,7 +1482,7 @@
 
 <p>Using with <code>Y.Template.Micro</code> (the default template engine):</p>
 
-<pre class="code"><code class="prettyprint">YUI().use('template', function (Y) {
+<pre class="code prettyprint"><code>YUI().use('template', function (Y) {
     var micro = new Y.Template(),
         html  = micro.render('&lt;%= data.message %&gt;', {message: 'hello!'});
 
@@ -1468,7 +1492,7 @@
 
 <p>Using with Handlebars:</p>
 
-<pre class="code"><code class="prettyprint">YUI().use('template-base', 'handlebars', function (Y) {
+<pre class="code prettyprint"><code>YUI().use('template-base', 'handlebars', function (Y) {
     var handlebars = new Y.Template(Y.Handlebars),
         html       = handlebars.render('{{message}}', {message: 'hello!'});
 
@@ -1709,13 +1733,15 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l64"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:64</code></a>
+        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l65"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:65</code></a>
         
         </p>
 
 
         
 
+        
+            <p>Available since 3.8.0</p>
         
     </div>
 
@@ -1837,13 +1863,15 @@ template function.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l78"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:78</code></a>
+        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l80"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:80</code></a>
         
         </p>
 
 
         
 
+        
+            <p>Available since 3.8.0</p>
         
     </div>
 
@@ -1971,13 +1999,15 @@ containing JavaScript source code for the precompiled template.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l92"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:92</code></a>
+        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l95"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:95</code></a>
         
         </p>
 
 
         
 
+        
+            <p>Available since 3.8.0</p>
         
     </div>
 
@@ -2114,13 +2144,15 @@ step, and returns the rendered result.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l111"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:111</code></a>
+        <a href="..&#x2F;files&#x2F;src_template_js_template-base.js.html#l115"><code>src&#x2F;template&#x2F;js&#x2F;template-base.js:115</code></a>
         
         </p>
 
 
         
 
+        
+            <p>Available since 3.8.0</p>
         
     </div>
 
@@ -2228,6 +2260,8 @@ been evaluated; this method won't evaluate it for you.</p>
 
         
 
+        
+            <p>Available since 3.8.0</p>
         
     </div>
 

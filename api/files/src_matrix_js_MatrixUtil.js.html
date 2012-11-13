@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1443,7 +1467,7 @@ var MatrixUtil = {
          * @private
          *&#x2F;
         _rounder: 100000,
-        
+
         &#x2F;**
          * Rounds values
          *
@@ -1496,7 +1520,7 @@ var MatrixUtil = {
         },
 
         &#x2F;**
-         * Converts a transform object to an array of column vectors. 
+         * Converts a transform object to an array of column vectors.
          *
          * &#x2F;                                             \
          * | matrix[0][0]   matrix[1][0]    matrix[2][0] |
@@ -1518,7 +1542,7 @@ var MatrixUtil = {
         },
 
         &#x2F;**
-         * Returns the determinant of a given matrix. 
+         * Returns the determinant of a given matrix.
          *
          * &#x2F;                                             \
          * | matrix[0][0]   matrix[1][0]    matrix[2][0] |
@@ -1547,7 +1571,7 @@ var MatrixUtil = {
                 multiplier = matrix[i][0];
                 if(i % 2 === 0 || i === 0)
                 {
-                    determinant += multiplier * MatrixUtil.getDeterminant(MatrixUtil.getMinors(matrix, i, 0));  
+                    determinant += multiplier * MatrixUtil.getDeterminant(MatrixUtil.getMinors(matrix, i, 0));
                 }
                 else
                 {
@@ -1581,13 +1605,13 @@ var MatrixUtil = {
                 adjunct = [],
                 &#x2F;&#x2F;vector representing 2x2 matrix
                 minor = [];
-            if(len === 2) 
+            if(len === 2)
             {
                 determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
                 inverse = [
                     [matrix[1][1] * determinant, -matrix[1][0] * determinant],
                     [-matrix[0][1] * determinant, matrix[0][0] * determinant]
-                ]; 
+                ];
             }
             else
             {
@@ -1729,7 +1753,7 @@ var MatrixUtil = {
             }
             return product;
         },
-        
+
         &#x2F;**
          * Breaks up a 2d transform matrix into a series of transform operations.
          *
@@ -1781,7 +1805,7 @@ var MatrixUtil = {
         &#x2F;**
          * Parses a transform string and returns an array of transform arrays.
          *
-         * @method getTransformArray 
+         * @method getTransformArray
          * @param {String} val A transform string
          * @return Array
          *&#x2F;
@@ -1792,9 +1816,9 @@ var MatrixUtil = {
                 m,
                 decomp,
                 methods = MatrixUtil.transformMethods;
-            
+
             while ((m = re.exec(transform))) {
-                if (methods.hasOwnProperty(m[1])) 
+                if (methods.hasOwnProperty(m[1]))
                 {
                     args = m[2].split(&#x27;,&#x27;);
                     args.unshift(m[1]);
@@ -1816,7 +1840,7 @@ var MatrixUtil = {
             }
             return transforms;
         },
-        
+
         &#x2F;**
          * Returns an array of transform arrays representing transform functions and arguments.
          *
@@ -1850,7 +1874,7 @@ var MatrixUtil = {
         },
 
         &#x2F;**
-         * Compares to arrays or transform functions to ensure both contain the same functions in the same 
+         * Compares to arrays or transform functions to ensure both contain the same functions in the same
          * order.
          *
          * @method compareTransformSequence

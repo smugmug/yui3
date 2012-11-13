@@ -18,6 +18,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "AttributeEvents",
         "AttributeExtras",
         "AttributeLite",
+        "AttributeObservable",
         "AutoComplete",
         "AutoCompleteBase",
         "AutoCompleteFilters",
@@ -28,6 +29,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "BarSeries",
         "Base",
         "BaseCore",
+        "BaseObservable",
         "BottomAxisLayout",
         "Button",
         "ButtonCore",
@@ -55,6 +57,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "CircleGroup",
         "ClassNameManager",
         "ClickableRail",
+        "Color.Base",
+        "Color.HSL",
+        "Color.HSV",
+        "Color.Harmony",
         "ColumnSeries",
         "ComboSeries",
         "ComboSplineSeries",
@@ -371,8 +377,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "attribute-base",
         "attribute-complex",
         "attribute-core",
-        "attribute-events",
         "attribute-extras",
+        "attribute-observable",
         "autocomplete",
         "autocomplete-base",
         "autocomplete-filters",
@@ -387,6 +393,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "base-base",
         "base-build",
         "base-core",
+        "base-observable",
         "base-pluginhost",
         "button",
         "button-core",
@@ -405,6 +412,11 @@ YUI.add("yuidoc-meta", function(Y) {
         "classnamemanager",
         "clickable-rail",
         "collection",
+        "color",
+        "color-base",
+        "color-harmony",
+        "color-hsl",
+        "color-hsv",
         "console",
         "console-filters",
         "cookie",
@@ -594,7 +606,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "querystring-parse-simple",
         "querystring-stringify",
         "querystring-stringify-simple",
-        "querystring-stringify-simple",
         "queue-promote",
         "range-slider",
         "recordset",
@@ -704,7 +715,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "anim-curve",
             "name": "anim-curve",
-            "description": "Adds support for the <code>curve</code> property for the <code>to</code> \nattribute.  A curve is zero or more control points and an end point."
+            "description": "Adds support for the <code>curve</code> property for the <code>to</code>\nattribute.  A curve is zero or more control points and an end point."
         },
         {
             "displayName": "anim-easing",
@@ -734,7 +745,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "anim-xy",
             "name": "anim-xy",
-            "description": "Adds support for the <code>xy</code> property in <code>from</code> and \n<code>to</code> attributes."
+            "description": "Adds support for the <code>xy</code> property in <code>from</code> and\n<code>to</code> attributes."
         },
         {
             "displayName": "app",
@@ -798,7 +809,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "attribute",
             "name": "attribute",
-            "description": "The attribute module provides an augmentable Attribute implementation, which \nadds configurable attributes and attribute change events to the class being \naugmented. It also provides a State class, which is used internally by Attribute,\nbut can also be used independently to provide a name/property/value data structure to\nstore state."
+            "description": "The attribute module provides an augmentable Attribute implementation, which\nadds configurable attributes and attribute change events to the class being\naugmented. It also provides a State class, which is used internally by Attribute,\nbut can also be used independently to provide a name/property/value data structure to\nstore state."
         },
         {
             "displayName": "attribute-base",
@@ -813,17 +824,17 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "attribute-core",
             "name": "attribute-core",
-            "description": "The attribute-core submodule provides the lightest level of attribute handling support \nwithout Attribute change events, or lesser used methods such as reset(), modifyAttrs(),\nand removeAttr()."
-        },
-        {
-            "displayName": "attribute-events",
-            "name": "attribute-events",
-            "description": "The attribute-events submodule provides augmentable attribute change event support \nfor AttributeCore based implementations."
+            "description": "The attribute-core submodule provides the lightest level of attribute handling support\nwithout Attribute change events, or lesser used methods such as reset(), modifyAttrs(),\nand removeAttr()."
         },
         {
             "displayName": "attribute-extras",
             "name": "attribute-extras",
-            "description": "The attribute-extras submodule provides less commonly used attribute methods, and can \nbe augmented/mixed into an implemention which used attribute-core."
+            "description": "The attribute-extras submodule provides less commonly used attribute methods, and can\nbe augmented/mixed into an implemention which used attribute-core."
+        },
+        {
+            "displayName": "attribute-observable",
+            "name": "attribute-observable",
+            "description": "The `attribute-observable` submodule provides augmentable attribute change event support\nfor AttributeCore based implementations."
         },
         {
             "displayName": "autocomplete",
@@ -878,27 +889,32 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "base",
             "name": "base",
-            "description": "The base module provides the Base class, which objects requiring attribute and custom event support can extend. \nThe module also provides two ways to reuse code - It augments Base with the Plugin.Host interface which provides \nplugin support and also provides the BaseCore.build method which provides a way to build custom classes using extensions."
+            "description": "The base module provides the Base class, which objects requiring attribute and custom event support can extend.\nThe module also provides two ways to reuse code - It augments Base with the Plugin.Host interface which provides\nplugin support and also provides the BaseCore.build method which provides a way to build custom classes using extensions."
         },
         {
             "displayName": "base-base",
             "name": "base-base",
-            "description": "The base-base submodule provides the Base class without the Plugin support, provided by Plugin.Host, \nand without the extension support provided by BaseCore.build."
+            "description": "The base-base submodule provides the Base class without the Plugin support, provided by Plugin.Host,\nand without the extension support provided by BaseCore.build."
         },
         {
             "displayName": "base-build",
             "name": "base-build",
-            "description": "The base-build submodule provides Base.build functionality, which\ncan be used to create custom classes, by aggregating extensions onto \na main class."
+            "description": "The base-build submodule provides Base.build functionality, which\ncan be used to create custom classes, by aggregating extensions onto\na main class."
         },
         {
             "displayName": "base-core",
             "name": "base-core",
-            "description": "<p>The base-core module provides the BaseCore class, the lightest version of Base, \nwhich provides Base's basic lifecycle management and ATTRS construction support, \nbut doesn't fire init/destroy or attribute change events.</p> \n\n<p>It mixes in AttributeCore, which is the lightest version of Attribute</p>"
+            "description": "<p>The base-core module provides the BaseCore class, the lightest version of Base,\nwhich provides Base's basic lifecycle management and ATTRS construction support,\nbut doesn't fire init/destroy or attribute change events.</p>\n\n<p>It mixes in AttributeCore, which is the lightest version of Attribute</p>"
+        },
+        {
+            "displayName": "base-observable",
+            "name": "base-observable",
+            "description": "The `base-observable` submodule adds observability to Base's lifecycle and\nattributes, and also make it an `EventTarget`."
         },
         {
             "displayName": "base-pluginhost",
             "name": "base-pluginhost",
-            "description": "The base-pluginhost submodule adds Plugin support to Base, by augmenting Base with \nPlugin.Host and setting up static (class level) Base.plug and Base.unplug methods."
+            "description": "The base-pluginhost submodule adds Plugin support to Base, by augmenting Base with\nPlugin.Host and setting up static (class level) Base.plug and Base.unplug methods."
         },
         {
             "displayName": "button",
@@ -983,6 +999,30 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "collection",
             "name": "collection"
+        },
+        {
+            "displayName": "color",
+            "name": "color"
+        },
+        {
+            "displayName": "color-base",
+            "name": "color-base",
+            "description": "Color provides static methods for color conversion.\n\n    Y.Color.toRGB('f00'); // rgb(255, 0, 0)\n\n    Y.Color.toHex('rgb(255, 255, 0)'); // #ffff00"
+        },
+        {
+            "displayName": "color-harmony",
+            "name": "color-harmony",
+            "description": "Color Harmony provides methods useful for color combination discovery."
+        },
+        {
+            "displayName": "color-hsl",
+            "name": "color-hsl",
+            "description": "Color provides static methods for color conversion to hsl values.\n\n    Y.Color.toHSL('f00'); // hsl(0, 100%, 50%)\n\n    Y.Color.toHSLA('rgb(255, 255, 0'); // hsla(60, 100%, 50%, 1)"
+        },
+        {
+            "displayName": "color-hsv",
+            "name": "color-hsv",
+            "description": "Color provides static methods for color conversion hsv values.\n\n    Y.Color.toHSV('f00'); // hsv(0, 100%, 100%)\n\n    Y.Color.toHSVA('rgb(255, 255, 0'); // hsva(60, 100%, 100%, 1)"
         },
         {
             "displayName": "console",
@@ -1546,7 +1586,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "graphics",
             "name": "graphics",
-            "description": "<p>The `Graphics` module provides a JavaScript API for creating shapes in a variety of formats across \n a <a href=\"http://developer.yahoo.com/yui/articles/gbs\">browser test baseline</a>. \n Based on device and browser capabilities, `Graphics` leverages <a href=\"http://www.w3.org/TR/SVG/\">SVG</a>, \n <a href=\"http://www.w3.org/TR/html5/the-canvas-element.html\">Canvas</a> and <a href=\"http://www.w3.org/TR/NOTE-VML\">VML</a> \n to render its graphical elements.</p>\n\n <p>The `Graphics` module features a <a href=\"../classes/Graphic.html\">`Graphic`</a> class that allows you to easily create and manage shapes. \n Currently, a <a href=\"../classes/Graphic.html\">`Graphic`</a> instance can be used to create predifined shapes and free-form polygons with fill \n and stroke properties.</p>  \n\n <p>The `Graphics` module normalizes an API through the use of alias and implementation classes that share\n interfaces. Each alias class points to an appropriate implementation class dependent on the browser's \n capabilities. There should rarely, if ever, be a need to interact directly with an implementation class.</p>\n\n <p>Below is a list of available classes. \n     <ul>\n         <li><a href=\"../classes/Graphic.html\">`Graphic`</a>\n         <li><a href=\"../classes/Shape.html\">`Shape`</a>\n         <li><a href=\"../classes/Circle.html\">`Circle`</a>\n         <li><a href=\"../classes/Ellipse.html\">`Ellipse`</a>\n         <li><a href=\"../classes/Rect.html\">`Rect`</a>\n         <li><a href=\"../classes/Path.html\">`Path`</a>\n     </ul>\n You can also extend the `Shape` class to create your own custom shape classes.</p>"
+            "description": "<p>The `Graphics` module provides a JavaScript API for creating shapes in a variety of formats across\n a <a href=\"http://developer.yahoo.com/yui/articles/gbs\">browser test baseline</a>.\n Based on device and browser capabilities, `Graphics` leverages <a href=\"http://www.w3.org/TR/SVG/\">SVG</a>,\n <a href=\"http://www.w3.org/TR/html5/the-canvas-element.html\">Canvas</a> and <a href=\"http://www.w3.org/TR/NOTE-VML\">VML</a>\n to render its graphical elements.</p>\n<p>The `Graphics` module features a <a href=\"../classes/Graphic.html\">`Graphic`</a> class that allows you to easily create and manage shapes.\n Currently, a <a href=\"../classes/Graphic.html\">`Graphic`</a> instance can be used to create predifined shapes and free-form polygons with fill\n and stroke properties.</p>\n<p>The `Graphics` module normalizes an API through the use of alias and implementation classes that share\n interfaces. Each alias class points to an appropriate implementation class dependent on the browser's\n capabilities. There should rarely, if ever, be a need to interact directly with an implementation class.</p>\n<p>Below is a list of available classes.\n     <ul>\n         <li><a href=\"../classes/Graphic.html\">`Graphic`</a>\n         <li><a href=\"../classes/Shape.html\">`Shape`</a>\n         <li><a href=\"../classes/Circle.html\">`Circle`</a>\n         <li><a href=\"../classes/Ellipse.html\">`Ellipse`</a>\n         <li><a href=\"../classes/Rect.html\">`Rect`</a>\n         <li><a href=\"../classes/Path.html\">`Path`</a>\n     </ul>\n You can also extend the `Shape` class to create your own custom shape classes.</p>"
         },
         {
             "displayName": "handlebars",

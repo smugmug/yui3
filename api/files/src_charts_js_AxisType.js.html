@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1505,17 +1529,17 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * @private
      *&#x2F;
     GUID: &quot;yuibaseaxis&quot;,
-	
+
     &#x2F;**
      * Type of data used in &#x60;Axis&#x60;.
      *
      * @property _type
-     * @type String 
+     * @type String
      * @readOnly
      * @private
      *&#x2F;
     _type: null,
-	
+
     &#x2F;**
      * Storage for &#x60;setMaximum&#x60; attribute.
      *
@@ -1524,7 +1548,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * @private
      *&#x2F;
     _setMaximum: null,
-	
+
     &#x2F;**
      * Storage for &#x60;dataMaximum&#x60; attribute.
      *
@@ -1533,7 +1557,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * @private
      *&#x2F;
     _dataMaximum: null,
-	
+
     &#x2F;**
      * Storage for &#x60;setMinimum&#x60; attribute.
      *
@@ -1542,7 +1566,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * @private
      *&#x2F;
     _setMinimum: null,
-	
+
     &#x2F;**
      * Reference to data array.
      *
@@ -1570,7 +1594,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * @private
      *&#x2F;
     _dataReady: false,
-	
+
     &#x2F;**
      * Adds an array to the key hash.
      *
@@ -1612,14 +1636,14 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * @method _setDataByKey
      * @param {String} key Key value to use.
      * @param {Array} data Array to use.
-     * @private 
+     * @private
      *&#x2F;
     _setDataByKey: function(key, data)
     {
         var i,
-            obj, 
-            arr = [], 
-            dv = this._dataClone.concat(), 
+            obj,
+            arr = [],
+            dv = this._dataClone.concat(),
             len = dv.length;
         for(i = 0; i &lt; len; ++i)
         {
@@ -1653,15 +1677,15 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
 
     &#x2F;**
      * Removes an array from the key hash.
-     * 
+     *
      * @method removeKey
-     * @param {String} value Indicates what key to use in removing from 
+     * @param {String} value Indicates what key to use in removing from
      * the hash.
      *&#x2F;
     removeKey: function(value)
     {
         var keys = this.get(&quot;keys&quot;);
-        if(keys.hasOwnProperty(value)) 
+        if(keys.hasOwnProperty(value))
         {
             delete keys[value];
             this._keyChangeHandler();
@@ -1674,7 +1698,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * @method getKeyValueAt
      * @param {String} key value used to look up the correct array
      * @param {Number} index within the array
-     * @return Number 
+     * @return Number
      *&#x2F;
     getKeyValueAt: function(key, index)
     {
@@ -1708,9 +1732,9 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
      * Calculates the maximum and minimum values for the &#x60;Axis&#x60;.
      *
      * @method _updateMinAndMax
-     * @private 
+     * @private
      *&#x2F;
-    _updateMinAndMax: function() 
+    _updateMinAndMax: function()
     {
         var data = this.get(&quot;data&quot;),
             max = 0,
@@ -1725,7 +1749,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
             if(len &gt; 1)
             {
                 for(i = 1; i &lt; len; i++)
-                {	
+                {
                     num = data[i];
                     if(isNaN(num))
                     {
@@ -1751,15 +1775,15 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
         var units,
             majorUnit = this.get(&quot;styles&quot;).majorUnit,
             len = this.get(&quot;length&quot;);
-        if(majorUnit.determinant === &quot;count&quot;) 
+        if(majorUnit.determinant === &quot;count&quot;)
         {
             units = majorUnit.count;
         }
-        else if(majorUnit.determinant === &quot;distance&quot;) 
+        else if(majorUnit.determinant === &quot;distance&quot;)
         {
             units = (len&#x2F;majorUnit.distance) + 1;
         }
-        return units; 
+        return units;
     },
 
     &#x2F;**
@@ -1784,7 +1808,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
         }
         return dist;
     },
-    
+
     &#x2F;**
      * Gets the distance that the first and last ticks are offset from there respective
      * edges.
@@ -1851,7 +1875,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
     },
 
     &#x2F;**
-     * Returns a string corresponding to the first label on an 
+     * Returns a string corresponding to the first label on an
      * axis.
      *
      * @method getMinimumValue
@@ -1863,7 +1887,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
     },
 
     &#x2F;**
-     * Returns a string corresponding to the last label on an 
+     * Returns a string corresponding to the last label on an
      * axis.
      *
      * @method getMaximumValue
@@ -1887,7 +1911,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
             setter: function(val)
             {
                 var keys = {},
-                    i, 
+                    i,
                     len,
                     data = this.get(&quot;dataProvider&quot;);
                 if(Y_Lang.isArray(val))
@@ -1895,9 +1919,9 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
                     len = val.length;
                     for(i = 0; i &lt; len; ++i)
                     {
-                        keys[val[i]] = this._getKeyArray(val[i], data);   
+                        keys[val[i]] = this._getKeyArray(val[i], data);
                     }
-                    
+
                 }
                 else if(Y_Lang.isString(val))
                 {
@@ -1914,7 +1938,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
                         }
                     }
                 }
-	            this._updateTotalDataFlag = true;
+                this._updateTotalDataFlag = true;
                 return keys;
             }
         },
@@ -1940,7 +1964,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
          *Returns the type of axis data
          *  &lt;dl&gt;
          *      &lt;dt&gt;time&lt;&#x2F;dt&gt;&lt;dd&gt;Manages time data&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;stacked&lt;&#x2F;dt&gt;&lt;dd&gt;Manages stacked numeric data&lt;&#x2F;dd&gt;      
+         *      &lt;dt&gt;stacked&lt;&#x2F;dt&gt;&lt;dd&gt;Manages stacked numeric data&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;numeric&lt;&#x2F;dt&gt;&lt;dd&gt;Manages numeric data&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;category&lt;&#x2F;dt&gt;&lt;dd&gt;Manages categorical data&lt;&#x2F;dd&gt;
          *  &lt;&#x2F;dl&gt;
@@ -1983,7 +2007,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
             getter: function ()
             {
                 if(!this._dataMaximum)
-                {   
+                {
                     this._updateMinAndMax();
                 }
                 return this._dataMaximum;
@@ -2066,7 +2090,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
         },
 
         &#x2F;**
-         * Determines whether the maximum is calculated or explicitly 
+         * Determines whether the maximum is calculated or explicitly
          * set by the user.
          *
          * @attribute setMax
@@ -2116,7 +2140,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
 
         &#x2F;**
          * Array containing all the keys in the axis.
-        
+
          * @attribute keyCollection
          * @type Array
          *&#x2F;
@@ -2124,7 +2148,7 @@ Y.AxisType = Y.Base.create(&quot;baseAxis&quot;, Y.Axis, [], {
             getter: function()
             {
                 var keys = this.get(&quot;keys&quot;),
-                    i, 
+                    i,
                     col = [];
                 for(i in keys)
                 {

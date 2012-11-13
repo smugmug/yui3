@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1441,23 +1465,23 @@
     &#x2F;&#x2F;TODO CSS class name for the bestMatch..
     Y.mix(Y.DD.DDM, {
         &#x2F;**
+        * This flag turns off the use of the mouseover&#x2F;mouseout shim. It should not be used unless you know what you are doing.
         * @private
         * @property _noShim
-        * @description This flag turns off the use of the mouseover&#x2F;mouseout shim. It should not be used unless you know what you are doing.
         * @type {Boolean}
         *&#x2F;
         _noShim: false,
         &#x2F;**
+        * Placeholder for all active shims on the page
         * @private
         * @property _activeShims
-        * @description Placeholder for all active shims on the page
         * @type {Array}
         *&#x2F;
         _activeShims: [],
         &#x2F;**
+        * This method checks the _activeShims Object to see if there is a shim active.
         * @private
         * @method _hasActiveShim
-        * @description This method checks the _activeShims Object to see if there is a shim active.
         * @return {Boolean}
         *&#x2F;
         _hasActiveShim: function() {
@@ -1467,127 +1491,127 @@
             return this._activeShims.length;
         },
         &#x2F;**
+        * Adds a Drop Target to the list of active shims
         * @private
         * @method _addActiveShim
-        * @description Adds a Drop Target to the list of active shims
         * @param {Object} d The Drop instance to add to the list.
         *&#x2F;
         _addActiveShim: function(d) {
-            this._activeShims[this._activeShims.length] = d;
+            this._activeShims.push(d);
         },
         &#x2F;**
+        * Removes a Drop Target to the list of active shims
         * @private
         * @method _removeActiveShim
-        * @description Removes a Drop Target to the list of active shims
         * @param {Object} d The Drop instance to remove from the list.
         *&#x2F;
         _removeActiveShim: function(d) {
             var s = [];
-            Y.each(this._activeShims, function(v) {
+            Y.Array.each(this._activeShims, function(v) {
                 if (v._yuid !== d._yuid) {
-                    s[s.length] = v;
+                    s.push(v);
                 }
 
             });
             this._activeShims = s;
         },
         &#x2F;**
+        * This method will sync the position of the shims on the Drop Targets that are currently active.
         * @method syncActiveShims
-        * @description This method will sync the position of the shims on the Drop Targets that are currently active.
         * @param {Boolean} force Resize&#x2F;sync all Targets.
         *&#x2F;
         syncActiveShims: function(force) {
             Y.later(0, this, function(force) {
                 var drops = ((force) ? this.targets : this._lookup());
-                Y.each(drops, function(v) {
+                Y.Array.each(drops, function(v) {
                     v.sizeShim.call(v);
                 }, this);
             }, force);
         },
         &#x2F;**
+        * The mode that the drag operations will run in 0 for Point, 1 for Intersect, 2 for Strict
         * @private
         * @property mode
-        * @description The mode that the drag operations will run in 0 for Point, 1 for Intersect, 2 for Strict
         * @type Number
         *&#x2F;
         mode: 0,
         &#x2F;**
+        * In point mode, a Drop is targeted by the cursor being over the Target
         * @private
         * @property POINT
-        * @description In point mode, a Drop is targeted by the cursor being over the Target
         * @type Number
         *&#x2F;
         POINT: 0,
         &#x2F;**
+        * In intersect mode, a Drop is targeted by &quot;part&quot; of the drag node being over the Target
         * @private
         * @property INTERSECT
-        * @description In intersect mode, a Drop is targeted by &quot;part&quot; of the drag node being over the Target
         * @type Number
         *&#x2F;
         INTERSECT: 1,
         &#x2F;**
+        * In strict mode, a Drop is targeted by the &quot;entire&quot; drag node being over the Target
         * @private
         * @property STRICT
-        * @description In strict mode, a Drop is targeted by the &quot;entire&quot; drag node being over the Target
         * @type Number
         *&#x2F;
         STRICT: 2,
         &#x2F;**
+        * Should we only check targets that are in the viewport on drags (for performance), default: true
         * @property useHash
-        * @description Should we only check targets that are in the viewport on drags (for performance), default: true
         * @type {Boolean}
         *&#x2F;
         useHash: true,
         &#x2F;**
+        * A reference to the active Drop Target
         * @property activeDrop
-        * @description A reference to the active Drop Target
         * @type {Object}
         *&#x2F;
         activeDrop: null,
         &#x2F;**
+        * An array of the valid Drop Targets for this interaction.
         * @property validDrops
-        * @description An array of the valid Drop Targets for this interaction.
         * @type {Array}
         *&#x2F;
         &#x2F;&#x2F;TODO Change array&#x2F;object literals to be in sync..
         validDrops: [],
         &#x2F;**
+        * An object literal of Other Drop Targets that we encountered during this interaction (in the case of overlapping Drop Targets)
         * @property otherDrops
-        * @description An object literal of Other Drop Targets that we encountered during this interaction (in the case of overlapping Drop Targets)
         * @type {Object}
         *&#x2F;
         otherDrops: {},
         &#x2F;**
+        * All of the Targets
         * @property targets
-        * @description All of the Targets
         * @type {Array}
         *&#x2F;
         targets: [],
         &#x2F;**
+        * Add a Drop Target to the list of Valid Targets. This list get&#x27;s regenerated on each new drag operation.
         * @private
         * @method _addValid
-        * @description Add a Drop Target to the list of Valid Targets. This list get&#x27;s regenerated on each new drag operation.
         * @param {Object} drop
         * @return {Self}
         * @chainable
         *&#x2F;
         _addValid: function(drop) {
-            this.validDrops[this.validDrops.length] = drop;
+            this.validDrops.push(drop);
             return this;
         },
         &#x2F;**
+        * Removes a Drop Target from the list of Valid Targets. This list get&#x27;s regenerated on each new drag operation.
         * @private
         * @method _removeValid
-        * @description Removes a Drop Target from the list of Valid Targets. This list get&#x27;s regenerated on each new drag operation.
         * @param {Object} drop
         * @return {Self}
         * @chainable
         *&#x2F;
         _removeValid: function(drop) {
             var drops = [];
-            Y.each(this.validDrops, function(v) {
+            Y.Array.each(this.validDrops, function(v) {
                 if (v !== drop) {
-                    drops[drops.length] = v;
+                    drops.push(v);
                 }
             });
 
@@ -1595,8 +1619,8 @@
             return this;
         },
         &#x2F;**
+        * Check to see if the Drag element is over the target, method varies on current mode
         * @method isOverTarget
-        * @description Check to see if the Drag element is over the target, method varies on current mode
         * @param {Object} drop The drop to check against
         * @return {Boolean}
         *&#x2F;
@@ -1630,8 +1654,8 @@
             return false;
         },
         &#x2F;**
+        * Clears the cache data used for this interaction.
         * @method clearCache
-        * @description Clears the cache data used for this interaction.
         *&#x2F;
         clearCache: function() {
             this.validDrops = [];
@@ -1639,14 +1663,14 @@
             this._activeShims = [];
         },
         &#x2F;**
+        * Clear the cache and activate the shims of all the targets
         * @private
         * @method _activateTargets
-        * @description Clear the cache and activate the shims of all the targets
         *&#x2F;
         _activateTargets: function() {
             this._noShim = true;
             this.clearCache();
-            Y.each(this.targets, function(v) {
+            Y.Array.each(this.targets, function(v) {
                 v._activateShim([]);
                 if (v.get(&#x27;noShim&#x27;) === true) {
                     this._noShim = false;
@@ -1656,8 +1680,8 @@
 
         },
         &#x2F;**
+        * This method will gather the area for all potential targets and see which has the hightest covered area and return it.
         * @method getBestMatch
-        * @description This method will gather the area for all potential targets and see which has the hightest covered area and return it.
         * @param {Array} drops An Array of drops to scan for the best match.
         * @param {Boolean} all If present, it returns an Array. First item is best match, second is an Array of the other items in the original Array.
         * @return {Object or Array}
@@ -1665,7 +1689,7 @@
         getBestMatch: function(drops, all) {
             var biggest = null, area = 0, out;
 
-            Y.each(drops, function(v) {
+            Y.Array.each(drops, function(v) {
                 var inter = this.activeDrag.get(&#x27;dragNode&#x27;).intersect(v.get(&#x27;node&#x27;));
                 v.region.area = inter.area;
 
@@ -1679,9 +1703,9 @@
             if (all) {
                 out = [];
                 &#x2F;&#x2F;TODO Sort the others in numeric order by area covered..
-                Y.each(drops, function(v) {
+                Y.Array.each(drops, function(v) {
                     if (v !== biggest) {
-                        out[out.length] = v;
+                        out.push(v);
                     }
                 }, this);
                 return [biggest, out];
@@ -1689,9 +1713,9 @@
             return biggest;
         },
         &#x2F;**
+        * This method fires the drop:hit, drag:drophit, drag:dropmiss methods and deactivates the shims..
         * @private
         * @method _deactivateTargets
-        * @description This method fires the drop:hit, drag:drophit, drag:dropmiss methods and deactivates the shims..
         *&#x2F;
         _deactivateTargets: function() {
             var other = [], tmp,
@@ -1721,28 +1745,28 @@
 
             this.activeDrop = null;
 
-            Y.each(this.targets, function(v) {
+            Y.Array.each(this.targets, function(v) {
                 v._deactivateShim([]);
             }, this);
         },
         &#x2F;**
+        * This method is called when the move method is called on the Drag Object.
         * @private
         * @method _dropMove
-        * @description This method is called when the move method is called on the Drag Object.
         *&#x2F;
         _dropMove: function() {
             if (this._hasActiveShim()) {
                 this._handleTargetOver();
             } else {
-                Y.each(this.otherDrops, function(v) {
+                Y.Array.each(this.otherDrops, function(v) {
                     v._handleOut.apply(v, []);
                 });
             }
         },
         &#x2F;**
+        * Filters the list of Drops down to those in the viewport.
         * @private
         * @method _lookup
-        * @description Filters the list of Drops down to those in the viewport.
         * @return {Array} The valid Drop Targets that are in the viewport.
         *&#x2F;
         _lookup: function() {
@@ -1751,61 +1775,61 @@
             }
             var drops = [];
             &#x2F;&#x2F;Only scan drop shims that are in the Viewport
-            Y.each(this.validDrops, function(v) {
+            Y.Array.each(this.validDrops, function(v) {
                 if (v.shim &amp;&amp; v.shim.inViewportRegion(false, v.region)) {
-                    drops[drops.length] = v;
+                    drops.push(v);
                 }
             });
             return drops;
 
         },
         &#x2F;**
+        * This method execs _handleTargetOver on all valid Drop Targets
         * @private
         * @method _handleTargetOver
-        * @description This method execs _handleTargetOver on all valid Drop Targets
         *&#x2F;
         _handleTargetOver: function() {
             var drops = this._lookup();
-            Y.each(drops, function(v) {
+            Y.Array.each(drops, function(v) {
                 v._handleTargetOver.call(v);
             }, this);
         },
         &#x2F;**
+        * Add the passed in Target to the targets collection
         * @private
         * @method _regTarget
-        * @description Add the passed in Target to the targets collection
         * @param {Object} t The Target to add to the targets collection
         *&#x2F;
         _regTarget: function(t) {
-            this.targets[this.targets.length] = t;
+            this.targets.push(t);
         },
         &#x2F;**
+        * Remove the passed in Target from the targets collection
         * @private
         * @method _unregTarget
-        * @description Remove the passed in Target from the targets collection
         * @param {Object} drop The Target to remove from the targets collection
         *&#x2F;
         _unregTarget: function(drop) {
             var targets = [], vdrops;
-            Y.each(this.targets, function(v) {
+            Y.Array.each(this.targets, function(v) {
                 if (v !== drop) {
-                    targets[targets.length] = v;
+                    targets.push(v);
                 }
             }, this);
             this.targets = targets;
 
             vdrops = [];
-            Y.each(this.validDrops, function(v) {
+            Y.Array.each(this.validDrops, function(v) {
                 if (v !== drop) {
-                    vdrops[vdrops.length] = v;
+                    vdrops.push(v);
                 }
             });
 
             this.validDrops = vdrops;
         },
         &#x2F;**
+        * Get a valid Drop instance back from a Node or a selector string, false otherwise
         * @method getDrop
-        * @description Get a valid Drop instance back from a Node or a selector string, false otherwise
         * @param {String&#x2F;Object} node The Node instance or Selector string to check for a valid Drop Object
         * @return {Object}
         *&#x2F;
@@ -1813,7 +1837,7 @@
             var drop = false,
                 n = Y.one(node);
             if (n instanceof Y.Node) {
-                Y.each(this.targets, function(v) {
+                Y.Array.each(this.targets, function(v) {
                     if (n.compareTo(v.get(&#x27;node&#x27;))) {
                         drop = v;
                     }

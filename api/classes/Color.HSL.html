@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src&#x2F;attribute&#x2F;js&#x2F;AttributeEvents.js - YUI 3 (SmugMug fork)</title>
+    <title>Color.HSL - YUI 3 (SmugMug fork)</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.7.0&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1424,202 +1448,940 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src&#x2F;attribute&#x2F;js&#x2F;AttributeEvents.js</h1>
+                        <h1>Color.HSL Class</h1>
+<div class="box meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-    &#x2F;**
-     * The attribute module provides an augmentable Attribute implementation, which 
-     * adds configurable attributes and attribute change events to the class being 
-     * augmented. It also provides a State class, which is used internally by Attribute,
-     * but can also be used independently to provide a name&#x2F;property&#x2F;value data structure to
-     * store state.
-     *
-     * @module attribute
-     *&#x2F;
+    
 
-    &#x2F;**
-     * The attribute-events submodule provides augmentable attribute change event support 
-     * for AttributeCore based implementations.
-     *
-     * @module attribute
-     * @submodule attribute-events
-     *&#x2F;
-    var EventTarget = Y.EventTarget,
+    
+        <div class="foundat">
+            Defined in: <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l1"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:1</code></a>
+        </div>
+    
 
-        CHANGE = &quot;Change&quot;,
-        BROADCAST = &quot;broadcast&quot;,
-        PUBLISHED = &quot;published&quot;;
+    
+        
+            Module: <a href="../modules/color-hsl.html">color-hsl</a><br>
+            Parent Module: <a href="../modules/color.html">color</a>
+        
+    
 
-    &#x2F;**
-     * Provides an augmentable implementation of attribute change events for 
-     * AttributeCore. 
-     *
-     * @class AttributeEvents
-     * @uses EventTarget
-     *&#x2F;
-    function AttributeEvents() {
-        &#x2F;&#x2F; Perf tweak - avoid creating event literals if not required.
-        this._ATTR_E_FACADE = {};
-        EventTarget.call(this, {emitFacade:true});
-    }
+    
+</div>
 
-    AttributeEvents._ATTR_CFG = [BROADCAST];
 
-    AttributeEvents.prototype = {
 
-        &#x2F;**
-         * Sets the value of an attribute.
-         *
-         * @method set
-         * @chainable
-         *
-         * @param {String} name The name of the attribute. If the 
-         * current value of the attribute is an Object, dot notation can be used
-         * to set the value of a property within the object (e.g. &lt;code&gt;set(&quot;x.y.z&quot;, 5)&lt;&#x2F;code&gt;).
-         *
-         * @param {Any} value The value to set the attribute to.
-         *
-         * @param {Object} opts (Optional) Optional event data to be mixed into
-         * the event facade passed to subscribers of the attribute&#x27;s change event. This 
-         * can be used as a flexible way to identify the source of a call to set, allowing 
-         * the developer to distinguish between set called internally by the host, vs. 
-         * set called externally by the application developer.
-         *
-         * @return {Object} A reference to the host object.
-         *&#x2F;
-        set : function(name, val, opts) {
-            return this._setAttr(name, val, opts);
-        },
+<div class="box intro">
+    <p>Color provides static methods for color conversion to hsl values.</p>
 
-        &#x2F;**
-         * Allows setting of readOnly&#x2F;writeOnce attributes. See &lt;a href=&quot;#method_set&quot;&gt;set&lt;&#x2F;a&gt; for argument details.
-         *
-         * @method _set
-         * @protected
-         * @chainable
-         * 
-         * @param {String} name The name of the attribute.
-         * @param {Any} val The value to set the attribute to.
-         * @param {Object} opts (Optional) Optional event data to be mixed into
-         * the event facade passed to subscribers of the attribute&#x27;s change event.
-         * @return {Object} A reference to the host object.
-         *&#x2F;
-        _set : function(name, val, opts) {
-            return this._setAttr(name, val, opts, true);
-        },
+<pre class="code prettyprint"><code>Y.Color.toHSL('f00'); // hsl(0, 100%, 50%)
 
-        &#x2F;**
-         * Sets multiple attribute values.
-         *
-         * @method setAttrs
-         * @param {Object} attrs  An object with attributes name&#x2F;value pairs.
-         * @param {Object} opts  Properties to mix into the event payload. These are shared and mixed into each set 
-         * @return {Object} A reference to the host object.
-         * @chainable
-         *&#x2F;
-        setAttrs : function(attrs, opts) {
-            return this._setAttrs(attrs, opts);
-        },
+Y.Color.toHSLA('rgb(255, 255, 0'); // hsla(60, 100%, 50%, 1)
+</code></pre>
+</div>
 
-        &#x2F;**
-         * Implementation behind the public setAttrs method, to set multiple attribute values.
-         *
-         * @method _setAttrs
-         * @protected
-         * @param {Object} attrs  An object with attributes name&#x2F;value pairs.
-         * @param {Object} opts  Properties to mix into the event payload. These are shared and mixed into each set 
-         * @return {Object} A reference to the host object.
-         * @chainable
-         *&#x2F;
-        _setAttrs : function(attrs, opts) {
-            var attr;
-            for (attr in attrs) {
-                if ( attrs.hasOwnProperty(attr) ) {
-                    this.set(attr, attrs[attr], opts);
-                }
-            }
-            return this;
-        },
 
-        &#x2F;**
-         * Utility method to help setup the event payload and fire the attribute change event.
-         * 
-         * @method _fireAttrChange
-         * @private
-         * @param {String} attrName The name of the attribute
-         * @param {String} subAttrName The full path of the property being changed, 
-         * if this is a sub-attribute value being change. Otherwise null.
-         * @param {Any} currVal The current value of the attribute
-         * @param {Any} newVal The new value of the attribute
-         * @param {Object} opts Any additional event data to mix into the attribute change event&#x27;s event facade.
-         *&#x2F;
-        _fireAttrChange : function(attrName, subAttrName, currVal, newVal, opts) {
-            var host = this,
-                eventName = attrName + CHANGE,
-                state = host._state,
-                facade,
-                broadcast,
-                evtCfg;
 
-            if (!state.get(attrName, PUBLISHED)) {
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__hslToRgb">_hslToRgb</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__hueToRGB">_hueToRGB</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__rgbToHsl">_rgbToHsl</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method public">
+                                <a href="#method_toHSL">toHSL</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method public">
+                                <a href="#method_toHSLA">toHSLA</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property">
+                                <a href="#property_REGEX_HSL">REGEX_HSL</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_STR_HSL">STR_HSL</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_STR_HSLA">STR_HSLA</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
                 
-                evtCfg = {
-                    queuable:false,
-                    defaultTargetOnly: true, 
-                    defaultFn:host._defAttrChangeFn, 
-                    silent:true
-                };
+                    <div id="method__hslToRgb" class="method item protected">
+    <h3 class="name"><code>_hslToRgb</code></h3>
 
-                broadcast = state.get(attrName, BROADCAST);
-                if (broadcast !== undefined) {
-                    evtCfg.broadcast = broadcast;
-                }
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>str</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[toArray]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
 
-                host.publish(eventName, evtCfg);
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
                 
-                state.add(attrName, PUBLISHED, true);
-            }
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l135"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:135</code></a>
+        
+        </p>
 
-            facade = (opts) ? Y.merge(opts) : host._ATTR_E_FACADE;
 
-            &#x2F;&#x2F; Not using the single object signature for fire({type:..., newVal:...}), since 
-            &#x2F;&#x2F; we don&#x27;t want to override type. Changed to the fire(type, {newVal:...}) signature.
+        
 
-            &#x2F;&#x2F; facade.type = eventName;
-            facade.attrName = attrName;
-            facade.subAttrName = subAttrName;
-            facade.prevVal = currVal;
-            facade.newVal = newVal;
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
 
-            &#x2F;&#x2F; host.fire(facade);
-            host.fire(eventName, facade);
-        },
+    <div class="description">
+        <p>Parses the HSL string into r, b, g values. Will return an Array
+    of values or an RGB string.</p>
+    </div>
 
-        &#x2F;**
-         * Default function for attribute change events.
-         *
-         * @private
-         * @method _defAttrChangeFn
-         * @param {EventFacade} e The event object for attribute change events.
-         *&#x2F;
-        _defAttrChangeFn : function(e) {
-            if (!this._setAttrVal(e.attrName, e.subAttrName, e.prevVal, e.newVal)) {
-                Y.log(&#x27;State not updated and stopImmediatePropagation called for attribute: &#x27; + e.attrName + &#x27; , value:&#x27; + e.newVal, &#x27;warn&#x27;, &#x27;attribute&#x27;);
-                &#x2F;&#x2F; Prevent &quot;after&quot; listeners from being invoked since nothing changed.
-                e.stopImmediatePropagation();
-            } else {
-                e.newVal = this.get(e.attrName);
-            }
-        }
-    };
+    
+        <div class="params">
+            <h4>Parameters:</h4>
 
-    &#x2F;&#x2F; Basic prototype augment - no lazy constructor invocation.
-    Y.mix(AttributeEvents, EventTarget, false, null, 1);
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">str</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
 
-    Y.AttributeEvents = AttributeEvents;
+                    
 
-    </pre>
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[toArray]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__hueToRGB" class="method item protected">
+    <h3 class="name"><code>_hueToRGB</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>p</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>q</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>hue</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l177"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:177</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Converts the HSL hue to the different channels for RGB</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">p</code>
+                        <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">q</code>
+                        <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">hue</code>
+                        <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>:
+                    
+                    value for requested channel
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__rgbToHsl" class="method item protected">
+    <h3 class="name"><code>_rgbToHsl</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>str</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[toArray]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l69"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:69</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Parses the RGB string into h, s, l values. Will return an Array
+    of values or an HSL string.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">str</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[toArray]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_toHSL" class="method item public">
+    <h3 class="name"><code>toHSL</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>str</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l43"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:43</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Converts provided color value to an HSL string.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">str</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_toHSLA" class="method item public">
+    <h3 class="name"><code>toHSLA</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>str</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l56"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:56</code></a>
+        
+        </p>
+
+
+        
+
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Converts provided color value to an HSLA string.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">str</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property_REGEX_HSL" class="property item">
+    <h3 class="name"><code>REGEX_HSL</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/RegExp" class="crosslink external" target="_blank">RegExp</a></span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l16"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:16</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <p><strong>Default:</strong> &#x2F;hsla?\(([.\d]*), ?([.\d]*)%, ?([.\d]*)%,? ?([.\d]*)?\)&#x2F;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_STR_HSL" class="property item">
+    <h3 class="name"><code>STR_HSL</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l25"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:25</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <p><strong>Default:</strong> hsl({*}, {*}%, {*}%)</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_STR_HSLA" class="property item">
+    <h3 class="name"><code>STR_HSLA</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_color_js_color-hsl.js.html#l34"><code>src&#x2F;color&#x2F;js&#x2F;color-hsl.js:34</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.8.0</p>
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <p><strong>Default:</strong> hsla({*}, {*}%, {*}%, {*})</p>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+    </div>
 </div>
 
                     </div>

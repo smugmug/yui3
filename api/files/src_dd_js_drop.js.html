@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1447,8 +1471,8 @@
         OFFSET_HEIGHT = &#x27;offsetHeight&#x27;,
         OFFSET_WIDTH = &#x27;offsetWidth&#x27;,
         &#x2F;**
+        * Fires when a drag element is over this target.
         * @event drop:over
-        * @description Fires when a drag element is over this target.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The drop object at the time of the event.&lt;&#x2F;dd&gt;
@@ -1459,8 +1483,8 @@
         *&#x2F;
         EV_DROP_OVER = &#x27;drop:over&#x27;,
         &#x2F;**
+        * Fires when a drag element enters this target.
         * @event drop:enter
-        * @description Fires when a drag element enters this target.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The drop object at the time of the event.&lt;&#x2F;dd&gt;
@@ -1471,8 +1495,8 @@
         *&#x2F;
         EV_DROP_ENTER = &#x27;drop:enter&#x27;,
         &#x2F;**
+        * Fires when a drag element exits this target.
         * @event drop:exit
-        * @description Fires when a drag element exits this target.
         * @param {EventFacade} event An Event Facade object
         * @bubbles DDM
         * @type {CustomEvent}
@@ -1480,8 +1504,8 @@
         EV_DROP_EXIT = &#x27;drop:exit&#x27;,
 
         &#x2F;**
+        * Fires when a draggable node is dropped on this Drop Target. (Fired from dd-ddm-drop)
         * @event drop:hit
-        * @description Fires when a draggable node is dropped on this Drop Target. (Fired from dd-ddm-drop)
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The best guess on what was dropped on.&lt;&#x2F;dd&gt;
@@ -1517,8 +1541,8 @@
 
     Drop.ATTRS = {
         &#x2F;**
+        * Y.Node instanace to use as the element to make a Drop Target
         * @attribute node
-        * @description Y.Node instanace to use as the element to make a Drop Target
         * @type Node
         *&#x2F;
         node: {
@@ -1531,8 +1555,8 @@
             }
         },
         &#x2F;**
+        * Array of groups to add this drop into.
         * @attribute groups
-        * @description Array of groups to add this drop into.
         * @type Array
         *&#x2F;
         groups: {
@@ -1540,24 +1564,19 @@
             getter: function() {
                 if (!this._groups) {
                     this._groups = {};
+                    return [];
                 }
-                var ret = [];
-                Y.each(this._groups, function(v, k) {
-                    ret[ret.length] = k;
-                });
-                return ret;
+
+                return Y.Object.keys(this._groups);
             },
             setter: function(g) {
-                this._groups = {};
-                Y.each(g, function(v) {
-                    this._groups[v] = true;
-                }, this);
+                this._groups = Y.Array.hash(g);
                 return g;
             }
         },
         &#x2F;**
+        * CSS style padding to make the Drop Target bigger than the node.
         * @attribute padding
-        * @description CSS style padding to make the Drop Target bigger than the node.
         * @type String
         *&#x2F;
         padding: {
@@ -1567,8 +1586,8 @@
             }
         },
         &#x2F;**
+        * Set to lock this drop element.
         * @attribute lock
-        * @description Set to lock this drop element.
         * @type Boolean
         *&#x2F;
         lock: {
@@ -1597,9 +1616,9 @@
             }
         },
         &#x2F;**
+        * Use the Drop shim. Default: true
         * @deprecated
         * @attribute useShim
-        * @description Use the Drop shim. Default: true
         * @type Boolean
         *&#x2F;
         useShim: {
@@ -1613,14 +1632,14 @@
 
     Y.extend(Drop, Y.Base, {
         &#x2F;**
+        * The default bubbleTarget for this object. Default: Y.DD.DDM
         * @private
         * @property _bubbleTargets
-        * @description The default bubbleTarget for this object. Default: Y.DD.DDM
         *&#x2F;
         _bubbleTargets: Y.DD.DDM,
         &#x2F;**
+        * Add this Drop instance to a group, this should be used for on-the-fly group additions.
         * @method addToGroup
-        * @description Add this Drop instance to a group, this should be used for on-the-fly group additions.
         * @param {String} g The group to add this Drop Instance to.
         * @return {Self}
         * @chainable
@@ -1630,8 +1649,8 @@
             return this;
         },
         &#x2F;**
+        * Remove this Drop instance from a group, this should be used for on-the-fly group removals.
         * @method removeFromGroup
-        * @description Remove this Drop instance from a group, this should be used for on-the-fly group removals.
         * @param {String} g The group to remove this Drop Instance from.
         * @return {Self}
         * @chainable
@@ -1641,9 +1660,9 @@
             return this;
         },
         &#x2F;**
+        * This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         * @private
         * @method _createEvents
-        * @description This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         *&#x2F;
         _createEvents: function() {
 
@@ -1654,7 +1673,7 @@
                 &#x27;drop:hit&#x27;
             ];
 
-            Y.each(ev, function(v) {
+            Y.Array.each(ev, function(v) {
                 this.publish(v, {
                     type: v,
                     emitFacade: true,
@@ -1666,47 +1685,47 @@
             }, this);
         },
         &#x2F;**
+        * Flag for determining if the target is valid in this operation.
         * @private
         * @property _valid
-        * @description Flag for determining if the target is valid in this operation.
         * @type Boolean
         *&#x2F;
         _valid: null,
         &#x2F;**
+        * The groups this target belongs to.
         * @private
         * @property _groups
-        * @description The groups this target belongs to.
         * @type Array
         *&#x2F;
         _groups: null,
         &#x2F;**
+        * Node reference to the targets shim
         * @property shim
-        * @description Node reference to the targets shim
         * @type {Object}
         *&#x2F;
         shim: null,
         &#x2F;**
+        * A region object associated with this target, used for checking regions while dragging.
         * @property region
-        * @description A region object associated with this target, used for checking regions while dragging.
         * @type Object
         *&#x2F;
         region: null,
         &#x2F;**
+        * This flag is tripped when a drag element is over this target.
         * @property overTarget
-        * @description This flag is tripped when a drag element is over this target.
         * @type Boolean
         *&#x2F;
         overTarget: null,
         &#x2F;**
+        * Check if this target is in one of the supplied groups.
         * @method inGroup
-        * @description Check if this target is in one of the supplied groups.
         * @param {Array} groups The groups to check against
         * @return Boolean
         *&#x2F;
         inGroup: function(groups) {
             this._valid = false;
             var ret = false;
-            Y.each(groups, function(v) {
+            Y.Array.each(groups, function(v) {
                 if (this._groups[v]) {
                     ret = true;
                     this._valid = true;
@@ -1715,9 +1734,9 @@
             return ret;
         },
         &#x2F;**
+        * Private lifecycle method
         * @private
         * @method initializer
-        * @description Private lifecycle method
         *&#x2F;
         initializer: function() {
             Y.later(100, this, this._createEvents);
@@ -1732,9 +1751,9 @@
             this.set(&#x27;groups&#x27;, this.get(&#x27;groups&#x27;));
         },
         &#x2F;**
+        * Lifecycle destructor, unreg the drag from the DDM and remove listeners
         * @private
         * @method destructor
-        * @description Lifecycle destructor, unreg the drag from the DDM and remove listeners
         *&#x2F;
         destructor: function() {
             DDM._unregTarget(this);
@@ -1747,9 +1766,9 @@
             this.detachAll();
         },
         &#x2F;**
+        * Removes classes from the target, resets some flags and sets the shims deactive position [-999, -999]
         * @private
         * @method _deactivateShim
-        * @description Removes classes from the target, resets some flags and sets the shims deactive position [-999, -999]
         *&#x2F;
         _deactivateShim: function() {
             if (!this.shim) {
@@ -1769,9 +1788,9 @@
             this.overTarget = false;
         },
         &#x2F;**
+        * Activates the shim and adds some interaction CSS classes
         * @private
         * @method _activateShim
-        * @description Activates the shim and adds some interaction CSS classes
         *&#x2F;
         _activateShim: function() {
             if (!DDM.activeDrag) {
@@ -1871,9 +1890,9 @@
             };
         },
         &#x2F;**
+        * Creates the Target shim and adds it to the DDM&#x27;s playground..
         * @private
         * @method _createShim
-        * @description Creates the Target shim and adds it to the DDM&#x27;s playground..
         *&#x2F;
         _createShim: function() {
             &#x2F;&#x2F;No playground, defer
@@ -1911,9 +1930,9 @@
             this.shim = s;
         },
         &#x2F;**
+        * This handles the over target call made from this object or from the DDM
         * @private
         * @method _handleOverTarget
-        * @description This handles the over target call made from this object or from the DDM
         *&#x2F;
         _handleTargetOver: function() {
             if (DDM.isOverTarget(this)) {
@@ -1939,27 +1958,27 @@
             }
         },
         &#x2F;**
+        * Handles the mouseover DOM event on the Target Shim
         * @private
         * @method _handleOverEvent
-        * @description Handles the mouseover DOM event on the Target Shim
         *&#x2F;
         _handleOverEvent: function() {
             this.shim.setStyle(&#x27;zIndex&#x27;, &#x27;999&#x27;);
             DDM._addActiveShim(this);
         },
         &#x2F;**
+        * Handles the mouseout DOM event on the Target Shim
         * @private
         * @method _handleOutEvent
-        * @description Handles the mouseout DOM event on the Target Shim
         *&#x2F;
         _handleOutEvent: function() {
             this.shim.setStyle(&#x27;zIndex&#x27;, &#x27;1&#x27;);
             DDM._removeActiveShim(this);
         },
         &#x2F;**
+        * Handles out of target calls&#x2F;checks
         * @private
         * @method _handleOut
-        * @description Handles out of target calls&#x2F;checks
         *&#x2F;
         _handleOut: function(force) {
             if (!DDM.isOverTarget(this) || force) {

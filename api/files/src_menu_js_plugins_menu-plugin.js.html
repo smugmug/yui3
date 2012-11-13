@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1466,9 +1490,9 @@ Node plugin that toggles a dropdown menu when the host node is clicked.
 Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.Menu, [Y.Plugin.Base], {
     &#x2F;&#x2F; -- Lifecycle Methods ----------------------------------------------------
     initializer: function (config) {
-        this._host = config.host;
+        this._host       = config.host;
+        this._hostIsBody = this._host === Y.one(&#x27;body&#x27;);
 
-        this._published = {};
         this._attachMenuPluginEvents();
     },
 
@@ -1479,47 +1503,55 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
     &#x2F;&#x2F; -- Public Methods -------------------------------------------------------
 
     &#x2F;**
-    Repositions this dropdown menu so that it is anchored to its host node at
-    the most advantageous position to ensure that as much of the menu as
-    possible is visible within the viewport.
+    Repositions this menu so that it is anchored to a specified node, region, or
+    set of pixel coordinates.
+
+    The menu will be displayed at the most advantageous position relative to the
+    anchor point to ensure that as much of the menu as possible is visible
+    within the viewport.
+
+    If no anchor point is specified, the menu will be positioned relative to its
+    host node.
 
     @method reposition
+    @param {Node|Number[]|Object} [anchorPoint] Anchor point at which this menu
+        should be positioned. The point may be specified as a &#x60;Y.Node&#x60;
+        reference, a region object, or an array of X and Y pixel coordinates.
     @chainable
     **&#x2F;
-    reposition: function () {
-        var container = this.get(&#x27;container&#x27;),
-
-            menuRegion = this._getSortedAnchorRegions(
-                [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;],
-                container.get(&#x27;region&#x27;),
-                this._host.get(&#x27;region&#x27;)
-            )[0].region;
-
-        container.setXY([menuRegion.left, menuRegion.top]);
-
-        return this;
-    },
-
-    show: function () {
-        this.reposition();
-        return Y.Menu.prototype.show.call(this);
+    reposition: function (anchorPoint) {
+        return Y.Menu.prototype.reposition.call(this, anchorPoint || this._host);
     },
 
     &#x2F;&#x2F; -- Protected Methods ----------------------------------------------------
     _attachMenuPluginEvents: function () {
-        &#x2F;&#x2F; These events will be cleaned up by Y.Menu.
+        var doc = Y.one(&#x27;doc&#x27;);
+
+        &#x2F;&#x2F; Events added to this._menuEvents will be cleaned up by Y.Menu.
         this._menuEvents.push(
-            Y.one(&#x27;doc&#x27;).after(&#x27;click&#x27;, this._afterDocClick, this)
+            doc.after(&#x27;mousedown&#x27;, this._afterDocMouseDown, this)
         );
 
-        this.afterHostEvent(&#x27;click&#x27;, this._afterAnchorClick);
+        if (this.get(&#x27;showOnClick&#x27;)) {
+            this.afterHostEvent(&#x27;click&#x27;, this._afterHostClick);
+        }
+
+        if (this.get(&#x27;showOnContext&#x27;)) {
+            &#x2F;&#x2F; If the host node is the &lt;body&gt; element, we need to listen on the
+            &#x2F;&#x2F; document.
+            if (this._hostIsBody) {
+                this._menuEvents.push(doc.on(&#x27;contextmenu&#x27;, this._onHostContext, this));
+            } else {
+                this.onHostEvent(&#x27;contextmenu&#x27;, this._onHostContext);
+            }
+        }
 
         if (this.get(&#x27;showOnHover&#x27;)) {
             this.afterHostEvent({
-                blur      : this._afterAnchorBlur,
-                focus     : this._afterAnchorFocus,
-                mouseenter: this._afterAnchorMouseEnter,
-                mouseleave: this._afterAnchorMouseLeave
+                blur      : this._afterHostBlur,
+                focus     : this._afterHostFocus,
+                mouseenter: this._afterHostMouseEnter,
+                mouseleave: this._afterHostMouseLeave
             });
 
             this._menuEvents.push(this.get(&#x27;container&#x27;).after({
@@ -1530,43 +1562,42 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
     },
 
     &#x2F;&#x2F; -- Protected Event Handlers ---------------------------------------------
-    _afterAnchorClick: function () {
-        if (!this.rendered) {
-            this.render();
-        }
-
-        this.toggle();
-    },
-
-    _afterAnchorBlur: function () {
+    _afterHostBlur: function () {
         this.hide();
     },
 
-    _afterAnchorFocus: function () {
+    _afterHostClick: function () {
+        if (!this.rendered) {
+            this.render();
+        }
+
+        this.toggle({anchorPoint: this._host});
+    },
+
+    _afterHostFocus: function () {
         clearTimeout(this._pluginHideTimeout);
 
         if (!this.rendered) {
             this.render();
         }
 
-        this.show();
+        this.show({anchorPoint: this._host});
     },
 
-    _afterAnchorMouseEnter: function () {
+    _afterHostMouseEnter: function () {
         clearTimeout(this._pluginHideTimeout);
 
         if (!this.rendered) {
             this.render();
         }
 
-        this.show();
+        this.show({anchorPoint: this._host});
     },
 
-    _afterAnchorMouseLeave: function () {
+    _afterHostMouseLeave: function () {
         var self = this;
 
         this._pluginHideTimeout = setTimeout(function () {
-            console.log(&#x27;anchorTimeout&#x27;);
             self.hide();
         }, 300);
     },
@@ -1583,24 +1614,65 @@ Y.namespace(&#x27;Plugin&#x27;).Menu = Y.Base.create(&#x27;menuPlugin&#x27;, Y.M
         }, 300);
     },
 
-    _afterDocClick: function (e) {
+    _afterDocMouseDown: function (e) {
         if (!this.get(&#x27;visible&#x27;)) {
             return;
         }
 
         var container = this.get(&#x27;container&#x27;),
-            host      = this._host;
+            host      = this._hostIsBody ? null : this._host;
 
         if (!e.target.ancestor(function (node) {
             return node === container || node === host;
         }, true)) {
             this.hide();
         }
+    },
+
+    _onHostContext: function (e) {
+        e.preventDefault();
+
+        if (!this.rendered) {
+            this.render();
+        }
+
+        this.show({anchorPoint: [e.clientX, e.clientY]});
     }
 }, {
     NS: &#x27;menu&#x27;,
 
     ATTRS: {
+        &#x2F;**
+        If &#x60;true&#x60;, this menu will be shown when the host node is clicked with
+        the left mouse button or (in the case of &#x60;&lt;button&gt;&#x60;, &#x60;&lt;input&gt;&#x60;, and
+        &#x60;&lt;a&gt;&#x60; elements) activated with the Return key.
+
+        @attribute {Boolean} showOnClick
+        @default true
+        @initOnly
+        **&#x2F;
+        showOnClick: {
+            value: true,
+            writeOnce: &#x27;initOnly&#x27;
+        },
+
+        &#x2F;**
+        If &#x60;true&#x60;, this menu will be shown when the host node&#x27;s &#x60;contextmenu&#x60;
+        event occurs, which happens when the user takes an action that would
+        normally display the browser&#x27;s context menu (such as right-clicking).
+
+        When &#x60;true&#x60;, the browser&#x27;s default context menu will be prevented from
+        appearing.
+
+        @attribute {Boolean} showOnContext
+        @default false
+        @initOnly
+        **&#x2F;
+        showOnContext: {
+            value: false,
+            writeOnce: &#x27;initOnly&#x27;
+        },
+
         &#x2F;**
         If &#x60;true&#x60;, this menu will be shown when the host node is hovered or
         receives focus instead of only being shown when it&#x27;s clicked.

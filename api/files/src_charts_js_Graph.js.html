@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1499,7 +1523,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
             vgl.draw();
         }
     },
-   
+
     &#x2F;**
      * Object of arrays containing series mapped to a series type.
      *
@@ -1511,7 +1535,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
 
     &#x2F;**
      * Returns a series instance based on an index.
-     * 
+     *
      * @method getSeriesByIndex
      * @param {Number} val index of the series
      * @return CartesianSeries
@@ -1529,7 +1553,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
 
     &#x2F;**
      * Returns a series instance based on a key value.
-     * 
+     *
      * @method getSeriesByKey
      * @param {String} val key value of the series
      * @return CartesianSeries
@@ -1567,10 +1591,10 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
      *
      * @property _seriesCollection
      * @type Array
-     * @private 
+     * @private
      *&#x2F;
     _seriesCollection: null,
-    
+
     &#x2F;**
      * Object containing key value pairs of &#x60;CartesianSeries&#x60; instances.
      *
@@ -1592,7 +1616,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
         if(!val)
         {
             return;
-        }	
+        }
         var len = val.length,
             i = 0,
             series,
@@ -1601,7 +1625,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
         this._seriesDictionary = {};
         this.seriesTypes = [];
         for(; i &lt; len; ++i)
-        {	
+        {
             series = val[i];
             if(!(series instanceof Y.CartesianSeries) &amp;&amp; !(series instanceof Y.PieSeries))
             {
@@ -1632,8 +1656,8 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
             seriesCollection = this.get(&quot;seriesCollection&quot;),
             graphSeriesLength = seriesCollection.length,
             seriesTypes = this.seriesTypes,
-            typeSeriesCollection;	
-        if(!series.get(&quot;graph&quot;)) 
+            typeSeriesCollection;
+        if(!series.get(&quot;graph&quot;))
         {
             series.set(&quot;graph&quot;, this);
         }
@@ -1652,8 +1676,8 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
     },
 
     &#x2F;**
-     * Creates a &#x60;CartesianSeries&#x60; instance from an object containing attribute key value pairs. The key value pairs include attributes for the specific series and a type value which defines the type of
-     * series to be used. 
+     * Creates a &#x60;CartesianSeries&#x60; instance from an object containing attribute key value pairs. The key value pairs include
+     * attributes for the specific series and a type value which defines the type of series to be used.
      *
      * @method createSeries
      * @param {Object} seriesData Series attribute key value pairs.
@@ -1687,7 +1711,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
             series.render();
         }
     },
-    
+
     &#x2F;**
      * String reference for pre-defined &#x60;Series&#x60; classes.
      *
@@ -1720,22 +1744,22 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
     },
 
     &#x2F;**
-     * Returns a specific &#x60;CartesianSeries&#x60; class based on key value from a look up table of a direct reference to a class. When specifying a key value, the following options
-     * are available:
+     * Returns a specific &#x60;CartesianSeries&#x60; class based on key value from a look up table of a direct reference to a
+     * class. When specifying a key value, the following options are available:
      *
      *  &lt;table&gt;
      *      &lt;tr&gt;&lt;th&gt;Key Value&lt;&#x2F;th&gt;&lt;th&gt;Class&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;
-     *      &lt;tr&gt;&lt;td&gt;line&lt;&#x2F;td&gt;&lt;td&gt;Y.LineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;column&lt;&#x2F;td&gt;&lt;td&gt;Y.ColumnSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;bar&lt;&#x2F;td&gt;&lt;td&gt;Y.BarSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;area&lt;&#x2F;td&gt;&lt;td&gt;Y.AreaSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;stackedarea&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedAreaSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;stackedline&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedLineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;stackedcolumn&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedColumnSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;stackedbar&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedBarSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;markerseries&lt;&#x2F;td&gt;&lt;td&gt;Y.MarkerSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;spline&lt;&#x2F;td&gt;&lt;td&gt;Y.SplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
-     *      &lt;tr&gt;&lt;td&gt;areaspline&lt;&#x2F;td&gt;&lt;td&gt;Y.AreaSplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;    
+     *      &lt;tr&gt;&lt;td&gt;line&lt;&#x2F;td&gt;&lt;td&gt;Y.LineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;column&lt;&#x2F;td&gt;&lt;td&gt;Y.ColumnSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;bar&lt;&#x2F;td&gt;&lt;td&gt;Y.BarSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;area&lt;&#x2F;td&gt;&lt;td&gt;Y.AreaSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;stackedarea&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedAreaSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;stackedline&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedLineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;stackedcolumn&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedColumnSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;stackedbar&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedBarSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;markerseries&lt;&#x2F;td&gt;&lt;td&gt;Y.MarkerSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;spline&lt;&#x2F;td&gt;&lt;td&gt;Y.SplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+     *      &lt;tr&gt;&lt;td&gt;areaspline&lt;&#x2F;td&gt;&lt;td&gt;Y.AreaSplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
      *      &lt;tr&gt;&lt;td&gt;stackedspline&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedSplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
      *      &lt;tr&gt;&lt;td&gt;stackedareaspline&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedAreaSplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
      *      &lt;tr&gt;&lt;td&gt;stackedmarkerseries&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedMarkerSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
@@ -1745,8 +1769,9 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
      *      &lt;tr&gt;&lt;td&gt;combospline&lt;&#x2F;td&gt;&lt;td&gt;Y.ComboSplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
      *      &lt;tr&gt;&lt;td&gt;stackedcombospline&lt;&#x2F;td&gt;&lt;td&gt;Y.StackedComboSplineSeries&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
      *  &lt;&#x2F;table&gt;
-     * 
-     * When referencing a class directly, you can specify any of the above classes or any custom class that extends &#x60;CartesianSeries&#x60; or &#x60;PieSeries&#x60;.
+     *
+     * When referencing a class directly, you can specify any of the above classes or any custom class that extends
+     * &#x60;CartesianSeries&#x60; or &#x60;PieSeries&#x60;.
      *
      * @method _getSeries
      * @param {String | Object} type Series type.
@@ -1760,7 +1785,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
         {
             seriesClass = this._seriesMap[type];
         }
-        else 
+        else
         {
             seriesClass = type;
         }
@@ -1891,7 +1916,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
         {
             this._drawSeries();
         }
-    },  
+    },
 
     &#x2F;**
      * Event handler for series drawingComplete event.
@@ -2029,7 +2054,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
                 return this._seriesCollection;
             }
         },
-       
+
         &#x2F;**
          * Indicates whether the &#x60;Graph&#x60; has a background.
          *
@@ -2087,7 +2112,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
                 }
             }
         },
-        
+
         &#x2F;**
          * Reference to the vertical &#x60;Gridlines&#x60; instance.
          *
@@ -2132,7 +2157,7 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
                 if(!this._background)
                 {
                     this._backgroundGraphic = new Y.Graphic({render:this.get(&quot;contentBox&quot;)});
-                    this._backgroundGraphic.get(&quot;node&quot;).style.zIndex = 0; 
+                    this._backgroundGraphic.get(&quot;node&quot;).style.zIndex = 0;
                     this._background = this._backgroundGraphic.addShape({type: &quot;rect&quot;});
                 }
                 return this._background;
@@ -2154,13 +2179,13 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
                 if(!this._gridlines)
                 {
                     this._gridlinesGraphic = new Y.Graphic({render:this.get(&quot;contentBox&quot;)});
-                    this._gridlinesGraphic.get(&quot;node&quot;).style.zIndex = 1; 
+                    this._gridlinesGraphic.get(&quot;node&quot;).style.zIndex = 1;
                     this._gridlines = this._gridlinesGraphic.addShape({type: &quot;path&quot;});
                 }
                 return this._gridlines;
             }
         },
-        
+
         &#x2F;**
          * Reference to graphic instance used for series.
          *
@@ -2171,12 +2196,12 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
         graphic: {
             readOnly: true,
 
-            getter: function() 
+            getter: function()
             {
                 if(!this._graphic)
                 {
                     this._graphic = new Y.Graphic({render:this.get(&quot;contentBox&quot;)});
-                    this._graphic.get(&quot;node&quot;).style.zIndex = 2; 
+                    this._graphic.get(&quot;node&quot;).style.zIndex = 2;
                     this._graphic.set(&quot;autoDraw&quot;, false);
                 }
                 return this._graphic;
@@ -2201,13 +2226,15 @@ Y.Graph = Y.Base.create(&quot;graph&quot;, Y.Widget, [Y.Renderer], {
          *              &lt;dt&gt;fill&lt;&#x2F;dt&gt;&lt;dd&gt;Defines the style properties for the fill. Contains the following values:
          *                  &lt;dl&gt;
          *                      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;Color of the fill. The default value is #faf9f2.&lt;&#x2F;dd&gt;
-         *                      &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the background fill. The default value is 1.&lt;&#x2F;dd&gt;
+         *                      &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the background fill.
+         *                      The default value is 1.&lt;&#x2F;dd&gt;
          *                  &lt;&#x2F;dl&gt;
          *              &lt;&#x2F;dd&gt;
          *              &lt;dt&gt;border&lt;&#x2F;dt&gt;&lt;dd&gt;Defines the style properties for the border. Contains the following values:
          *                  &lt;dl&gt;
          *                      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;Color of the border. The default value is #dad8c9.&lt;&#x2F;dd&gt;
-         *                      &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the background border. The default value is 1.&lt;&#x2F;dd&gt;
+         *                      &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the background border.
+         *                      The default value is 1.&lt;&#x2F;dd&gt;
          *                      &lt;dt&gt;weight&lt;&#x2F;dt&gt;&lt;dd&gt;Number indicating the width of the border. The default value is 1.&lt;&#x2F;dd&gt;
          *                  &lt;&#x2F;dl&gt;
          *              &lt;&#x2F;dd&gt;

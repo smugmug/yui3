@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1429,22 +1453,22 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;**
- * 
- * &lt;p&gt;The &#x60;Graphics&#x60; module provides a JavaScript API for creating shapes in a variety of formats across 
- * a &lt;a href=&quot;http:&#x2F;&#x2F;developer.yahoo.com&#x2F;yui&#x2F;articles&#x2F;gbs&quot;&gt;browser test baseline&lt;&#x2F;a&gt;. 
- * Based on device and browser capabilities, &#x60;Graphics&#x60; leverages &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt;, 
- * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html5&#x2F;the-canvas-element.html&quot;&gt;Canvas&lt;&#x2F;a&gt; and &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;NOTE-VML&quot;&gt;VML&lt;&#x2F;a&gt; 
+ *
+ * &lt;p&gt;The &#x60;Graphics&#x60; module provides a JavaScript API for creating shapes in a variety of formats across
+ * a &lt;a href=&quot;http:&#x2F;&#x2F;developer.yahoo.com&#x2F;yui&#x2F;articles&#x2F;gbs&quot;&gt;browser test baseline&lt;&#x2F;a&gt;.
+ * Based on device and browser capabilities, &#x60;Graphics&#x60; leverages &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt;,
+ * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html5&#x2F;the-canvas-element.html&quot;&gt;Canvas&lt;&#x2F;a&gt; and &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;NOTE-VML&quot;&gt;VML&lt;&#x2F;a&gt;
  * to render its graphical elements.&lt;&#x2F;p&gt;
  *
- * &lt;p&gt;The &#x60;Graphics&#x60; module features a &lt;a href=&quot;..&#x2F;classes&#x2F;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class that allows you to easily create and manage shapes. 
- * Currently, a &lt;a href=&quot;..&#x2F;classes&#x2F;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; instance can be used to create predifined shapes and free-form polygons with fill 
- * and stroke properties.&lt;&#x2F;p&gt;  
+ * &lt;p&gt;The &#x60;Graphics&#x60; module features a &lt;a href=&quot;..&#x2F;classes&#x2F;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class that allows you to easily create and manage shapes.
+ * Currently, a &lt;a href=&quot;..&#x2F;classes&#x2F;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; instance can be used to create predifined shapes and free-form polygons with fill
+ * and stroke properties.&lt;&#x2F;p&gt;
  *
  * &lt;p&gt;The &#x60;Graphics&#x60; module normalizes an API through the use of alias and implementation classes that share
- * interfaces. Each alias class points to an appropriate implementation class dependent on the browser&#x27;s 
+ * interfaces. Each alias class points to an appropriate implementation class dependent on the browser&#x27;s
  * capabilities. There should rarely, if ever, be a need to interact directly with an implementation class.&lt;&#x2F;p&gt;
  *
- * &lt;p&gt;Below is a list of available classes. 
+ * &lt;p&gt;Below is a list of available classes.
  *     &lt;ul&gt;
  *         &lt;li&gt;&lt;a href=&quot;..&#x2F;classes&#x2F;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt;
  *         &lt;li&gt;&lt;a href=&quot;..&#x2F;classes&#x2F;Shape.html&quot;&gt;&#x60;Shape&#x60;&lt;&#x2F;a&gt;
@@ -1467,10 +1491,10 @@ var SETTER = &quot;setter&quot;,
     WRITE_ONCE = &quot;writeOnce&quot;,
     GraphicBase,
     AttributeLite;
-    
+
     &#x2F;**
-	 * AttributeLite provides Attribute-like getters and setters for shape classes in the Graphics module. It provides a get&#x2F;set API without the event infastructure.
-     * This class is temporary and a work in progress.
+	 * AttributeLite provides Attribute-like getters and setters for shape classes in the Graphics module.
+     * It provides a get&#x2F;set API without the event infastructure. This class is temporary and a work in progress.
 	 *
 	 * @class AttributeLite
 	 * @constructor
@@ -1478,10 +1502,10 @@ var SETTER = &quot;setter&quot;,
     AttributeLite = function()
     {
         var host = this; &#x2F;&#x2F; help compression
-        
+
         &#x2F;&#x2F; Perf tweak - avoid creating event literals if not required.
         host._ATTR_E_FACADE = {};
-        
+
         Y.EventTarget.call(this, {emitFacade:true});
         host._state = {};
         host.prototype = Y.mix(AttributeLite.prototype, host.prototype);
@@ -1489,7 +1513,7 @@ var SETTER = &quot;setter&quot;,
 
     AttributeLite.prototype = {
 		&#x2F;**
-		 * Initializes the attributes for a shape. If an attribute config is passed into the constructor of the host, 
+		 * Initializes the attributes for a shape. If an attribute config is passed into the constructor of the host,
 		 * the initial values will be overwritten.
 		 *
 		 * @method addAttrs
@@ -1498,7 +1522,7 @@ var SETTER = &quot;setter&quot;,
 		addAttrs: function(cfg)
 		{
 			var host = this,
-				attrConfig = this.constructor.ATTRS, 
+				attrConfig = this.constructor.ATTRS,
 				attr,
 				i,
 				fn,
@@ -1524,7 +1548,7 @@ var SETTER = &quot;setter&quot;,
 							state[i] = fn.apply(host);
 						}
 					}
-			    }
+                }
             }
 			host._state = state;
             for(i in attrConfig)
@@ -1585,14 +1609,14 @@ var SETTER = &quot;setter&quot;,
             }
             return null;
         },
-    
+
         &#x2F;**
          * Sets the value of an attribute.
          *
          * @method set
-         * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can 
+         * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can
          * be passed in to set multiple attributes at once.
-         * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as 
+         * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as
          * the name param.
          *&#x2F;
         set: function(attr, val)
@@ -1618,9 +1642,9 @@ var SETTER = &quot;setter&quot;,
          * Provides setter logic. Used by &#x60;set&#x60;.
          *
          * @method _set
-         * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can 
+         * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can
          * be passed in to set multiple attributes at once.
-         * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as 
+         * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as
          * the name param.
 		 * @protected
 		 *&#x2F;
@@ -1642,7 +1666,7 @@ var SETTER = &quot;setter&quot;,
 					}
 					else
                     {
-					    val = attrConfig[attr].setter.apply(host, args);
+                        val = attrConfig[attr].setter.apply(host, args);
                     }
 				}
 				host._state[attr] = val;
@@ -1664,11 +1688,11 @@ var SETTER = &quot;setter&quot;,
     GraphicBase = function(cfg)
     {
         var host = this,
-            PluginHost = Y.Plugin &amp;&amp; Y.Plugin.Host;  
+            PluginHost = Y.Plugin &amp;&amp; Y.Plugin.Host;
         if (host._initPlugins &amp;&amp; PluginHost) {
             PluginHost.call(host);
         }
-        
+
         host.name = host.constructor.NAME;
         host._eventPrefix = host.constructor.EVENT_PREFIX || host.constructor.NAME;
         AttributeLite.call(host);
@@ -1689,7 +1713,7 @@ var SETTER = &quot;setter&quot;,
          * Fires an init event after calling &#x60;initializer&#x60; on implementers.
          *
          * @method init
-         * @protected 
+         * @protected
          *&#x2F;
         init: function()
         {
@@ -1724,7 +1748,7 @@ Y.GraphicBase = GraphicBase;
 
 
 &#x2F;**
- * &#x60;Drawing&#x60; provides a set of drawing methods used by &#x60;Path&#x60; and custom shape classes. 
+ * &#x60;Drawing&#x60; provides a set of drawing methods used by &#x60;Path&#x60; and custom shape classes.
  * &#x60;Drawing&#x60; has the following implementations based on browser capability.
  *  &lt;ul&gt;
  *      &lt;li&gt;&lt;a href=&quot;SVGDrawing.html&quot;&gt;&#x60;SVGDrawing&#x60;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
@@ -1737,7 +1761,7 @@ Y.GraphicBase = GraphicBase;
  *&#x2F;
     &#x2F;**
      * Draws a line segment using the current line style from the current drawing position to the specified x and y coordinates.
-     * 
+     *
      * @method lineTo
      * @param {Number} point1 x-coordinate for the end point.
      * @param {Number} point2 y-coordinate for the end point.
@@ -1780,7 +1804,7 @@ Y.GraphicBase = GraphicBase;
      *&#x2F;
     &#x2F;**
      * Draws a rectangle with rounded corners.
-     * 
+     *
      * @method drawRoundRect
      * @param {Number} x x-coordinate
      * @param {Number} y y-coordinate
@@ -1790,7 +1814,7 @@ Y.GraphicBase = GraphicBase;
      * @param {Number} eh height of the ellipse used to draw the rounded corners
      *&#x2F;
     &#x2F;**
-     * Completes a drawing operation. 
+     * Completes a drawing operation.
      *
      * @method end
      *&#x2F;
@@ -1843,7 +1867,7 @@ Y.GraphicBase = GraphicBase;
 	 * Add a class name to each node.
 	 *
 	 * @method addClass
-	 * @param {String} className the class name to add to the node&#x27;s class attribute 
+	 * @param {String} className the class name to add to the node&#x27;s class attribute
 	 *&#x2F;
 	&#x2F;**
 	 * Removes a class name from each node.
@@ -1864,7 +1888,7 @@ Y.GraphicBase = GraphicBase;
 	 * @param {Array} Contains x &amp; y values for new position (coordinates are page-based)
 	 *&#x2F;
 	&#x2F;**
-	 * Determines whether the node is an ancestor of another HTML element in the DOM hierarchy. 
+	 * Determines whether the node is an ancestor of another HTML element in the DOM hierarchy.
 	 *
 	 * @method contains
 	 * @param {Shape | HTMLElement} needle The possible node or descendent
@@ -1888,9 +1912,9 @@ Y.GraphicBase = GraphicBase;
      * Sets the value of an attribute.
      *
      * @method set
-     * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can 
+     * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can
      * be passed in to set multiple attributes at once.
-     * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as 
+     * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as
      * the name param.
      *&#x2F;
 	&#x2F;**
@@ -1949,7 +1973,7 @@ Y.GraphicBase = GraphicBase;
 	 * Returns the bounds for a shape.
 	 *
      * Calculates the a new bounding box from the original corner coordinates (base on size and position) and the transform matrix.
-     * The calculated bounding box is used by the graphic instance to calculate its viewBox. 
+     * The calculated bounding box is used by the graphic instance to calculate its viewBox.
      *
 	 * @method getBounds
 	 * @return Object
@@ -1960,7 +1984,7 @@ Y.GraphicBase = GraphicBase;
      * @method destroy
      *&#x2F;
 	&#x2F;**
-	 * An array of x, y values which indicates the transformOrigin in which to rotate the shape. Valid values range between 0 and 1 representing a 
+	 * An array of x, y values which indicates the transformOrigin in which to rotate the shape. Valid values range between 0 and 1 representing a
 	 * fraction of the shape&#x27;s corresponding bounding box dimension. The default value is [0.5, 0.5].
 	 *
 	 * @config transformOrigin
@@ -1968,7 +1992,7 @@ Y.GraphicBase = GraphicBase;
 	 *&#x2F;
     &#x2F;**
      * &lt;p&gt;A string containing, in order, transform operations applied to the shape instance. The &#x60;transform&#x60; string can contain the following values:
-     *     
+     *
      *    &lt;dl&gt;
      *        &lt;dt&gt;rotate&lt;&#x2F;dt&gt;&lt;dd&gt;Rotates the shape clockwise around it transformOrigin.&lt;&#x2F;dd&gt;
      *        &lt;dt&gt;translate&lt;&#x2F;dt&gt;&lt;dd&gt;Specifies a 2d translation.&lt;&#x2F;dd&gt;
@@ -1978,10 +2002,12 @@ Y.GraphicBase = GraphicBase;
      *        &lt;dt&gt;translateY&lt;&#x2F;dt&gt;&lt;dd&gt;Translates the shape along the y-axis.&lt;&#x2F;dd&gt;
      *        &lt;dt&gt;skewX&lt;&#x2F;dt&gt;&lt;dd&gt;Skews the shape around the x-axis.&lt;&#x2F;dd&gt;
      *        &lt;dt&gt;skewY&lt;&#x2F;dt&gt;&lt;dd&gt;Skews the shape around the y-axis.&lt;&#x2F;dd&gt;
+     *        &lt;dt&gt;matrix&lt;&#x2F;dt&gt;&lt;dd&gt;Specifies a 2D transformation matrix comprised of the specified six values.&lt;&#x2F;dd&gt;
      *    &lt;&#x2F;dl&gt;
      * &lt;&#x2F;p&gt;
-     * &lt;p&gt;Applying transforms through the transform attribute will reset the transform matrix and apply a new transform. The shape class also contains corresponding methods for each transform
-     * that will apply the transform to the current matrix. The below code illustrates how you might use the &#x60;transform&#x60; attribute to instantiate a recangle with a rotation of 45 degrees.&lt;&#x2F;p&gt;
+     * &lt;p&gt;Applying transforms through the transform attribute will reset the transform matrix and apply a new transform. The shape class also contains
+     * corresponding methods for each transform that will apply the transform to the current matrix. The below code illustrates how you might use the
+     * &#x60;transform&#x60; attribute to instantiate a recangle with a rotation of 45 degrees.&lt;&#x2F;p&gt;
             var myRect = new Y.Rect({
                 type:&quot;rect&quot;,
                 width: 50,
@@ -1989,10 +2015,10 @@ Y.GraphicBase = GraphicBase;
                 transform: &quot;rotate(45)&quot;
             };
      * &lt;p&gt;The code below would apply &#x60;translate&#x60; and &#x60;rotate&#x60; to an existing shape.&lt;&#x2F;p&gt;
-    
+
         myRect.set(&quot;transform&quot;, &quot;translate(40, 50) rotate(45)&quot;);
 	 * @config transform
-     * @type String  
+     * @type String
 	 *&#x2F;
 	&#x2F;**
 	 * Unique id for class instance.
@@ -2020,7 +2046,7 @@ Y.GraphicBase = GraphicBase;
 	 *&#x2F;
 	&#x2F;**
 	 * Indicates the height of the shape
-	 * 
+	 *
 	 * @config height
 	 * @type Number
 	 *&#x2F;
@@ -2031,7 +2057,7 @@ Y.GraphicBase = GraphicBase;
 	 * @type Boolean
 	 *&#x2F;
 	&#x2F;**
-	 * Contains information about the fill of the shape. 
+	 * Contains information about the fill of the shape.
      *  &lt;dl&gt;
      *      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the fill.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;opacity&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 that indicates the opacity of the fill. The default value is 1.&lt;&#x2F;dd&gt;
@@ -2048,28 +2074,32 @@ Y.GraphicBase = GraphicBase;
      *      &lt;dt&gt;stops&lt;&#x2F;dt&gt;&lt;dd&gt;An array of objects containing the following properties:
      *          &lt;dl&gt;
      *              &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the stop.&lt;&#x2F;dd&gt;
-     *              &lt;dt&gt;opacity&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 that indicates the opacity of the stop. The default value is 1. Note: No effect for IE 6 - 8&lt;&#x2F;dd&gt;
-     *              &lt;dt&gt;offset&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 indicating where the color stop is positioned.&lt;&#x2F;dd&gt; 
+     *              &lt;dt&gt;opacity&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 that indicates the opacity of the stop. The default value is 1.
+     *              Note: No effect for IE 6 - 8&lt;&#x2F;dd&gt;
+     *              &lt;dt&gt;offset&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 indicating where the color stop is positioned.&lt;&#x2F;dd&gt;
      *          &lt;&#x2F;dl&gt;
      *      &lt;&#x2F;dd&gt;
      *      &lt;p&gt;Linear gradients also have the following property:&lt;&#x2F;p&gt;
-     *      &lt;dt&gt;rotation&lt;&#x2F;dt&gt;&lt;dd&gt;Linear gradients flow left to right by default. The rotation property allows you to change the flow by rotation. (e.g. A rotation of 180 would make the gradient pain from right to left.)&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;rotation&lt;&#x2F;dt&gt;&lt;dd&gt;Linear gradients flow left to right by default. The rotation property allows you to change the
+     *      flow by rotation. (e.g. A rotation of 180 would make the gradient pain from right to left.)&lt;&#x2F;dd&gt;
      *      &lt;p&gt;Radial gradients have the following additional properties:&lt;&#x2F;p&gt;
      *      &lt;dt&gt;r&lt;&#x2F;dt&gt;&lt;dd&gt;Radius of the gradient circle.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;fx&lt;&#x2F;dt&gt;&lt;dd&gt;Focal point x-coordinate of the gradient.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;fy&lt;&#x2F;dt&gt;&lt;dd&gt;Focal point y-coordinate of the gradient.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;cx&lt;&#x2F;dt&gt;&lt;dd&gt;
      *          &lt;p&gt;The x-coordinate of the center of the gradient circle. Determines where the color stop begins. The default value 0.5.&lt;&#x2F;p&gt;
-     *          &lt;p&gt;&lt;strong&gt;Note: &lt;&#x2F;strong&gt;Currently, this property is not implemented for corresponding &#x60;CanvasShape&#x60; and &#x60;VMLShape&#x60; classes which are used on Android or IE 6 - 8.&lt;&#x2F;p&gt;
+     *          &lt;p&gt;&lt;strong&gt;Note: &lt;&#x2F;strong&gt;Currently, this property is not implemented for corresponding &#x60;CanvasShape&#x60; and
+     *          &#x60;VMLShape&#x60; classes which are used on Android or IE 6 - 8.&lt;&#x2F;p&gt;
      *      &lt;&#x2F;dd&gt;
      *      &lt;dt&gt;cy&lt;&#x2F;dt&gt;&lt;dd&gt;
      *          &lt;p&gt;The y-coordinate of the center of the gradient circle. Determines where the color stop begins. The default value 0.5.&lt;&#x2F;p&gt;
-     *          &lt;p&gt;&lt;strong&gt;Note: &lt;&#x2F;strong&gt;Currently, this property is not implemented for corresponding &#x60;CanvasShape&#x60; and &#x60;VMLShape&#x60; classes which are used on Android or IE 6 - 8.&lt;&#x2F;p&gt;
+     *          &lt;p&gt;&lt;strong&gt;Note: &lt;&#x2F;strong&gt;Currently, this property is not implemented for corresponding &#x60;CanvasShape&#x60; and &#x60;VMLShape&#x60;
+     *          classes which are used on Android or IE 6 - 8.&lt;&#x2F;p&gt;
      *      &lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
 	 *
 	 * @config fill
-	 * @type Object 
+	 * @type Object
 	 *&#x2F;
 	&#x2F;**
 	 * Contains information about the stroke of the shape.
@@ -2077,8 +2107,8 @@ Y.GraphicBase = GraphicBase;
      *      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the stroke.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;weight&lt;&#x2F;dt&gt;&lt;dd&gt;Number that indicates the width of the stroke.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;opacity&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 that indicates the opacity of the stroke. The default value is 1.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;dashstyle&lt;&#x2F;dt&gt;Indicates whether to draw a dashed stroke. When set to &quot;none&quot;, a solid stroke is drawn. When set to an array, the first index indicates the
-     *  length of the dash. The second index indicates the length of gap.
+     *      &lt;dt&gt;dashstyle&lt;&#x2F;dt&gt;Indicates whether to draw a dashed stroke. When set to &quot;none&quot;, a solid stroke is drawn. When set
+     *      to an array, the first index indicates the length of the dash. The second index indicates the length of gap.
      *      &lt;dt&gt;linecap&lt;&#x2F;dt&gt;&lt;dd&gt;Specifies the linecap for the stroke. The following values can be specified:
      *          &lt;dl&gt;
      *              &lt;dt&gt;butt (default)&lt;&#x2F;dt&gt;&lt;dd&gt;Specifies a butt linecap.&lt;&#x2F;dd&gt;
@@ -2090,8 +2120,8 @@ Y.GraphicBase = GraphicBase;
      *          &lt;dl&gt;
      *              &lt;dt&gt;round (default)&lt;&#x2F;dt&gt;&lt;dd&gt;Specifies that the linejoin will be round.&lt;&#x2F;dd&gt;
      *              &lt;dt&gt;bevel&lt;&#x2F;dt&gt;&lt;dd&gt;Specifies a bevel for the linejoin.&lt;&#x2F;dd&gt;
-     *              &lt;dt&gt;miter limit&lt;&#x2F;dt&gt;&lt;dd&gt;An integer specifying the miter limit of a miter linejoin. If you want to specify a linejoin of miter, you simply specify the limit as opposed to having
-     *  separate miter and miter limit values.&lt;&#x2F;dd&gt;
+     *              &lt;dt&gt;miter limit&lt;&#x2F;dt&gt;&lt;dd&gt;An integer specifying the miter limit of a miter linejoin. If you want to specify a linejoin
+     *              of miter, you simply specify the limit as opposed to having separate miter and miter limit values.&lt;&#x2F;dd&gt;
      *          &lt;&#x2F;dl&gt;
      *      &lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
@@ -2107,9 +2137,10 @@ Y.GraphicBase = GraphicBase;
 	 * @readOnly
 	 *&#x2F;
     &#x2F;**
-     * Represents an SVG Path string. This will be parsed and added to shape&#x27;s API to represent the SVG data across all implementations. Note that when using VML or SVG 
-     * implementations, part of this content will be added to the DOM using respective VML&#x2F;SVG attributes. If your content comes from an untrusted source, you will need 
-     * to ensure that no malicious code is included in that content. 
+     * Represents an SVG Path string. This will be parsed and added to shape&#x27;s API to represent the SVG data across all
+     * implementations. Note that when using VML or SVG implementations, part of this content will be added to the DOM using
+     * respective VML&#x2F;SVG attributes. If your content comes from an untrusted source, you will need to ensure that no
+     * malicious code is included in that content.
      *
      * @config data
      * @type String
@@ -2123,10 +2154,11 @@ Y.GraphicBase = GraphicBase;
 	 *&#x2F;
 
 &#x2F;**
- * &lt;p&gt;Creates circle shape with editable attributes.&lt;&#x2F;p&gt; 
- * &lt;p&gt;&#x60;Circle&#x60; instances can be created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt; method of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. 
- * The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute. Assigning &quot;circle&quot; or &#x60;Y.Circle&#x60; to this attribute will create a &#x60;Circle&#x60; instance. Required attributes
- * for instantiating a &#x60;Circle&#x60; are &#x60;type&#x60; and &#x60;radius&#x60;. Optional attributes include:
+ * &lt;p&gt;Creates circle shape with editable attributes.&lt;&#x2F;p&gt;
+ * &lt;p&gt;&#x60;Circle&#x60; instances can be created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt; method of the
+ * &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute. Assigning &quot;circle&quot;
+ * or &#x60;Y.Circle&#x60; to this attribute will create a &#x60;Circle&#x60; instance. Required attributes for instantiating a &#x60;Circle&#x60; are
+ * &#x60;type&#x60; and &#x60;radius&#x60;. Optional attributes include:
  *  &lt;ul&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_fill&quot;&gt;fill&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_id&quot;&gt;id&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
@@ -2137,7 +2169,7 @@ Y.GraphicBase = GraphicBase;
  *      &lt;li&gt;&lt;a href=&quot;#attr_x&quot;&gt;x&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_y&quot;&gt;y&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *  &lt;&#x2F;ul&gt;
- * 
+ *
  * The below code creates a circle by defining the &#x60;type&#x60; attribute as &quot;circle&quot;:&lt;&#x2F;p&gt;
 
         var myCircle = myGraphic.addShape({
@@ -2165,7 +2197,7 @@ Y.GraphicBase = GraphicBase;
                 color: &quot;#000&quot;
             }
         });
- * 
+ *
  * &lt;p&gt;&#x60;Circle&#x60; has the following implementations based on browser capability.
  *  &lt;ul&gt;
  *      &lt;li&gt;&lt;a href=&quot;SVGCircle.html&quot;&gt;&#x60;SVGCircle&#x60;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
@@ -2187,9 +2219,10 @@ Y.GraphicBase = GraphicBase;
      *&#x2F;
 &#x2F;**
  * &lt;p&gt;Creates an ellipse shape with editable attributes.&lt;&#x2F;p&gt;
- * &lt;p&gt;&#x60;Ellipse&#x60; instances can be created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt; method of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. 
- * The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute. Assigning &quot;ellipse&quot; or &#x60;Y.Ellipse&#x60; to this attribute will create a &#x60;Ellipse&#x60; instance. Required attributes
- * for instantiating a &#x60;Ellipse&#x60; are &#x60;type&#x60;, &#x60;width&#x60; and &#x60;height&#x60;. Optional attributes include:
+ * &lt;p&gt;&#x60;Ellipse&#x60; instances can be created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt; method of the
+ * &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute. Assigning &quot;ellipse&quot;
+ * or &#x60;Y.Ellipse&#x60; to this attribute will create a &#x60;Ellipse&#x60; instance. Required attributes for instantiating a &#x60;Ellipse&#x60; are
+ * &#x60;type&#x60;, &#x60;width&#x60; and &#x60;height&#x60;. Optional attributes include:
  *  &lt;ul&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_fill&quot;&gt;fill&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_id&quot;&gt;id&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
@@ -2200,7 +2233,7 @@ Y.GraphicBase = GraphicBase;
  *      &lt;li&gt;&lt;a href=&quot;#attr_x&quot;&gt;x&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_y&quot;&gt;y&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *  &lt;&#x2F;ul&gt;
- * 
+ *
  * The below code creates an ellipse by defining the &#x60;type&#x60; attribute as &quot;ellipse&quot;:&lt;&#x2F;p&gt;
 
         var myEllipse = myGraphic.addShape({
@@ -2230,7 +2263,7 @@ Y.GraphicBase = GraphicBase;
                 color: &quot;#000&quot;
             }
         });
- * 
+ *
  * &lt;p&gt;&#x60;Ellipse&#x60; has the following implementations based on browser capability.
  *  &lt;ul&gt;
  *      &lt;li&gt;&lt;a href=&quot;SVGEllipse.html&quot;&gt;&#x60;SVGEllipse&#x60;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
@@ -2246,9 +2279,10 @@ Y.GraphicBase = GraphicBase;
  *&#x2F;
 &#x2F;**
  * &lt;p&gt;Creates an rectangle shape with editable attributes.&lt;&#x2F;p&gt;
- * &lt;p&gt;&#x60;Rect&#x60; instances can be created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt; method of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; 
- * class. The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute. Assigning &quot;rect&quot; or &#x60;Y.Rect&#x60; to this attribute will create a &#x60;Rect&#x60; instance. 
- * Required attributes for instantiating a &#x60;Rect&#x60; are &#x60;type&#x60;, &#x60;width&#x60; and &#x60;height&#x60;. Optional attributes include:
+ * &lt;p&gt;&#x60;Rect&#x60; instances can be created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt; method of the
+ * &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute. Assigning &quot;rect&quot;
+ * or &#x60;Y.Rect&#x60; to this attribute will create a &#x60;Rect&#x60; instance. Required attributes for instantiating a &#x60;Rect&#x60; are &#x60;type&#x60;,
+ * &#x60;width&#x60; and &#x60;height&#x60;. Optional attributes include:
  *  &lt;ul&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_fill&quot;&gt;fill&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *      &lt;li&gt;&lt;a href=&quot;#attr_id&quot;&gt;id&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
@@ -2316,10 +2350,11 @@ Y.GraphicBase = GraphicBase;
  *      &lt;li&gt;&lt;a href=&quot;#method_quadraticCurveTo&quot;&gt;&#x60;quadraticCurveTo&#x60;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *  &lt;&#x2F;ul&gt;
  *
- *  &lt;p&gt;Like other shapes, &#x60;Path&#x60; elements are created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt; method of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; 
- *  class. The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute. Assigning &quot;path&quot; or &#x60;Y.Path&#x60; to this attribute will create a &#x60;Path&#x60; instance.
- *  After instantiation, a series of drawing operations must be performed in order to render a shape. The below code instantiates a path element by defining the &#x60;type&#x60; 
- *  attribute as &quot;path&quot;:&lt;&#x2F;p&gt;
+ *  &lt;p&gt;Like other shapes, &#x60;Path&#x60; elements are created using the &lt;a href=&quot;Graphic.html#method_addShape&quot;&gt;&#x60;addShape&#x60;&lt;&#x2F;a&gt;
+ *  method of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. The method&#x27;s &#x60;cfg&#x60; argument contains a &#x60;type&#x60; attribute.
+ *  Assigning &quot;path&quot; or &#x60;Y.Path&#x60; to this attribute will create a &#x60;Path&#x60; instance. After instantiation, a series of drawing
+ *  operations must be performed in order to render a shape. The below code instantiates a path element by defining the
+ *  &#x60;type&#x60; attribute as &quot;path&quot;:&lt;&#x2F;p&gt;
 
         var myPath = myGraphic.addShape({
             type: &quot;path&quot;,
@@ -2345,9 +2380,9 @@ Y.GraphicBase = GraphicBase;
             }
         });
 
- * After instantiation, a shape or segment needs to be drawn for an element to render. After all draw operations are performed, the &lt;a href=&quot;#method_end&quot;&gt;&#x60;end&#x60;&lt;&#x2F;a&gt;
- * method will render the shape. The code below will draw a triangle:
- 
+ * After instantiation, a shape or segment needs to be drawn for an element to render. After all draw operations are performed,
+ * the &lt;a href=&quot;#method_end&quot;&gt;&#x60;end&#x60;&lt;&#x2F;a&gt; method will render the shape. The code below will draw a triangle:
+
         myPath.moveTo(35, 5);
         myPath.lineTo(65, 65);
         myPath.lineTo(5, 65);
@@ -2359,7 +2394,7 @@ Y.GraphicBase = GraphicBase;
  *      &lt;li&gt;&lt;a href=&quot;SVGPath.html&quot;&gt;&#x60;SVGPath&#x60;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *      &lt;li&gt;&lt;a href=&quot;VMLPath.html&quot;&gt;&#x60;VMLPath&#x60;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
  *      &lt;li&gt;&lt;a href=&quot;CanvasPath.html&quot;&gt;&#x60;CanvasPath&#x60;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
- *  &lt;&#x2F;ul&gt; 
+ *  &lt;&#x2F;ul&gt;
  * It is not necessary to interact with these classes directly. &#x60;Path&#x60; will point to the appropriate implemention.&lt;&#x2F;p&gt;
  *
  * @class Path
@@ -2375,9 +2410,9 @@ Y.GraphicBase = GraphicBase;
      * @readOnly
 	 *&#x2F;
 &#x2F;**
- * &#x60;Graphic&#x60; acts a factory and container for shapes. You need at least one &#x60;Graphic&#x60; instance to create shapes for your application. 
+ * &#x60;Graphic&#x60; acts a factory and container for shapes. You need at least one &#x60;Graphic&#x60; instance to create shapes for your application.
  * &lt;p&gt;The code block below creates a &#x60;Graphic&#x60; instance and appends it to an HTMLElement with the id &#x27;mygraphiccontainer&#x27;.&lt;&#x2F;p&gt;
-    
+
         var myGraphic = new Y.Graphic({render:&quot;#mygraphiccontainer&quot;});
 
  * &lt;p&gt;Alternatively, you can add a &#x60;Graphic&#x60; instance to the DOM using the &lt;a href=&quot;#method_render&quot;&gt;&#x60;render&#x60;&lt;&#x2F;a&gt; method.&lt;&#x2F;p&gt;
@@ -2397,10 +2432,11 @@ Y.GraphicBase = GraphicBase;
  * @constructor
  *&#x2F;
     &#x2F;**
-     * Whether or not to render the &#x60;Graphic&#x60; automatically after to a specified parent node after init. This can be a Node instance or a CSS selector string.
-     * 
+     * Whether or not to render the &#x60;Graphic&#x60; automatically after to a specified parent node after init. This can be a Node
+     * instance or a CSS selector string.
+     *
      * @config render
-     * @type Node | String 
+     * @type Node | String
      *&#x2F;
     &#x2F;**
 	 * Unique id for class instance.
@@ -2419,7 +2455,7 @@ Y.GraphicBase = GraphicBase;
      *  Object containing size and coordinate data for the content of a Graphic in relation to the coordSpace node.
      *
      *  @config contentBounds
-     *  @type Object 
+     *  @type Object
      *  @readOnly
      *&#x2F;
     &#x2F;**
@@ -2430,27 +2466,30 @@ Y.GraphicBase = GraphicBase;
      *  @readOnly
      *&#x2F;
 	&#x2F;**
-	 * Indicates the width of the &#x60;Graphic&#x60;. 
+	 * Indicates the width of the &#x60;Graphic&#x60;.
 	 *
 	 * @config width
 	 * @type Number
 	 *&#x2F;
 	&#x2F;**
-	 * Indicates the height of the &#x60;Graphic&#x60;. 
+	 * Indicates the height of the &#x60;Graphic&#x60;.
 	 *
-	 * @config height 
+	 * @config height
 	 * @type Number
 	 *&#x2F;
     &#x2F;**
-     *  Determines the sizing of the Graphic. 
+     *  Determines the sizing of the Graphic.
      *
      *  &lt;dl&gt;
-     *      &lt;dt&gt;sizeContentToGraphic&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt;
-     *      attributes or are determined by the dimensions of the parent element. The content contained in the Graphic will be sized to fit with in the Graphic instance&#x27;s 
-     *      dimensions. When using this setting, the &lt;code&gt;preserveAspectRatio&lt;&#x2F;code&gt; attribute will determine how the contents are sized.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;sizeGraphicToContent&lt;&#x2F;dt&gt;&lt;dd&gt;(Also accepts a value of true) The Graphic&#x27;s width and height are determined by the size and positioning of the content.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;false&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt;
-     *      attributes or are determined by the dimensions of the parent element. The contents of the Graphic instance are not affected by this setting.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;sizeContentToGraphic&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the
+     *      &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt; attributes or are determined by the dimensions of the parent element. The
+     *      content contained in the Graphic will be sized to fit with in the Graphic instance&#x27;s dimensions. When using this
+     *      setting, the &lt;code&gt;preserveAspectRatio&lt;&#x2F;code&gt; attribute will determine how the contents are sized.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;sizeGraphicToContent&lt;&#x2F;dt&gt;&lt;dd&gt;(Also accepts a value of true) The Graphic&#x27;s width and height are determined by the
+     *      size and positioning of the content.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;false&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt;
+     *      and &lt;code&gt;height&lt;&#x2F;code&gt; attributes or are determined by the dimensions of the parent element. The contents of the
+     *      Graphic instance are not affected by this setting.&lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
      *
      *
@@ -2462,7 +2501,7 @@ Y.GraphicBase = GraphicBase;
      * Determines how content is sized when &lt;code&gt;autoSize&lt;&#x2F;code&gt; is set to &lt;code&gt;sizeContentToGraphic&lt;&#x2F;code&gt;.
      *
      *  &lt;dl&gt;
-     *      &lt;dt&gt;none&lt;dt&gt;&lt;dd&gt;Do not force uniform scaling. Scale the graphic content of the given element non-uniformly if necessary 
+     *      &lt;dt&gt;none&lt;dt&gt;&lt;dd&gt;Do not force uniform scaling. Scale the graphic content of the given element non-uniformly if necessary
      *      such that the element&#x27;s bounding box exactly matches the viewport rectangle.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMinYMin&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling position along the top left of the Graphic&#x27;s node.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMidYMin&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling horizontally centered and positioned at the top of the Graphic&#x27;s node.&lt;dd&gt;
@@ -2474,7 +2513,7 @@ Y.GraphicBase = GraphicBase;
      *      &lt;dt&gt;xMidYMax&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling horizontally centered and position vertically from the bottom.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMaxYMax&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling positioned horizontally from the right and vertically from the bottom.&lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
-     * 
+     *
      * @config preserveAspectRatio
      * @type String
      * @default xMidYMid
@@ -2483,7 +2522,7 @@ Y.GraphicBase = GraphicBase;
      * The contentBounds will resize to greater values but not to smaller values. (for performance)
      * When resizing the contentBounds down is desirable, set the resizeDown value to true.
      *
-     * @config resizeDown 
+     * @config resizeDown
      * @type Boolean
      *&#x2F;
 	&#x2F;**
@@ -2521,7 +2560,7 @@ Y.GraphicBase = GraphicBase;
      *&#x2F;
     &#x2F;**
      * Adds the graphics node to the dom.
-     * 
+     *
      * @method render
      * @param {Node|String} parentNode node in which to render the graphics node into.
      *&#x2F;
@@ -2547,7 +2586,7 @@ Y.GraphicBase = GraphicBase;
                 }
             });
      *
-     * &lt;p&gt;The &#x60;Graphics&#x60; module includes a few basic shapes. More information on their creation 
+     * &lt;p&gt;The &#x60;Graphics&#x60; module includes a few basic shapes. More information on their creation
      * can be found in each shape&#x27;s documentation:
      *
      *  &lt;ul&gt;
@@ -2575,7 +2614,7 @@ Y.GraphicBase = GraphicBase;
             });
      *
      * @method addShape
-     * @param {Object} cfg Object containing the shape&#x27;s type and attributes. 
+     * @param {Object} cfg Object containing the shape&#x27;s type and attributes.
      * @return Shape
      *&#x2F;
     &#x2F;**

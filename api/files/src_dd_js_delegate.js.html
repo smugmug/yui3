@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1453,41 +1477,41 @@
 
     Y.extend(Delegate, Y.Base, {
         &#x2F;**
+        * The default bubbleTarget for this object. Default: Y.DD.DDM
         * @private
         * @property _bubbleTargets
-        * @description The default bubbleTarget for this object. Default: Y.DD.DDM
         *&#x2F;
         _bubbleTargets: Y.DD.DDM,
         &#x2F;**
+        * A reference to the temporary dd instance used under the hood.
         * @property dd
-        * @description A reference to the temporary dd instance used under the hood.
         *&#x2F;
         dd: null,
         &#x2F;**
+        * The state of the Y.DD.DDM._noShim property to it can be reset.
         * @property _shimState
         * @private
-        * @description The state of the Y.DD.DDM._noShim property to it can be reset.
         *&#x2F;
         _shimState: null,
         &#x2F;**
+        * Array of event handles to be destroyed
         * @private
         * @property _handles
-        * @description Array of event handles to be destroyed
         *&#x2F;
         _handles: null,
         &#x2F;**
+        * Listens to the nodeChange event and sets the dragNode on the temp dd instance.
         * @private
         * @method _onNodeChange
-        * @description Listens to the nodeChange event and sets the dragNode on the temp dd instance.
         * @param {Event} e The Event.
         *&#x2F;
         _onNodeChange: function(e) {
             this.set(&#x27;dragNode&#x27;, e.newVal);
         },
         &#x2F;**
+        * Listens for the drag:end event and updates the temp dd instance.
         * @private
         * @method _afterDragEnd
-        * @description Listens for the drag:end event and updates the temp dd instance.
         * @param {Event} e The Event.
         *&#x2F;
         _afterDragEnd: function() {
@@ -1499,9 +1523,9 @@
             this.dd.set(&#x27;node&#x27;, _tmpNode);
         },
         &#x2F;**
+        * The callback for the Y.DD.Delegate instance used
         * @private
         * @method _delMouseDown
-        * @description The callback for the Y.DD.Delegate instance used
         * @param {Event} e The MouseDown Event.
         *&#x2F;
         _delMouseDown: function(e) {
@@ -1527,9 +1551,9 @@
             }
         },
         &#x2F;**
+        * Sets the target shim state
         * @private
         * @method _onMouseEnter
-        * @description Sets the target shim state
         * @param {Event} e The MouseEnter Event
         *&#x2F;
         _onMouseEnter: function() {
@@ -1537,9 +1561,9 @@
             Y.DD.DDM._noShim = true;
         },
         &#x2F;**
+        * Resets the target shim state
         * @private
         * @method _onMouseLeave
-        * @description Resets the target shim state
         * @param {Event} e The MouseLeave Event
         *&#x2F;
         _onMouseLeave: function() {
@@ -1579,8 +1603,8 @@
             Y.DD.DDM.regDelegate(this);
         },
         &#x2F;**
+        * Applies the Y.Plugin.Drop to all nodes matching the cont + nodes selector query.
         * @method syncTargets
-        * @description Applies the Y.Plugin.Drop to all nodes matching the cont + nodes selector query.
         * @return {Self}
         * @chainable
         *&#x2F;
@@ -1606,8 +1630,8 @@
             return this;
         },
         &#x2F;**
+        * Apply the Drop plugin to this node
         * @method createDrop
-        * @description Apply the Drop plugin to this node
         * @param {Node} node The Node to apply the plugin to
         * @param {Array} groups The default groups to assign this target to.
         * @return Node
@@ -1632,7 +1656,7 @@
                 var targets = Y.one(this.get(CONT)).all(this.get(NODES));
                 targets.unplug(Y.Plugin.Drop);
             }
-            Y.each(this._handles, function(v) {
+            Y.Array.each(this._handles, function(v) {
                 v.detach();
             });
         }
@@ -1640,80 +1664,80 @@
         NAME: &#x27;delegate&#x27;,
         ATTRS: {
             &#x2F;**
+            * A selector query to get the container to listen for mousedown events on. All &quot;nodes&quot; should be a child of this container.
             * @attribute container
-            * @description A selector query to get the container to listen for mousedown events on. All &quot;nodes&quot; should be a child of this container.
             * @type String
             *&#x2F;
             container: {
                 value: &#x27;body&#x27;
             },
             &#x2F;**
+            * A selector query to get the children of the &quot;container&quot; to make draggable elements from.
             * @attribute nodes
-            * @description A selector query to get the children of the &quot;container&quot; to make draggable elements from.
             * @type String
             *&#x2F;
             nodes: {
                 value: &#x27;.dd-draggable&#x27;
             },
             &#x2F;**
+            * A selector query to test a node to see if it&#x27;s an invalid item.
             * @attribute invalid
-            * @description A selector query to test a node to see if it&#x27;s an invalid item.
             * @type String
             *&#x2F;
             invalid: {
                 value: &#x27;input, select, button, a, textarea&#x27;
             },
             &#x2F;**
+            * Y.Node instance of the last item dragged.
             * @attribute lastNode
-            * @description Y.Node instance of the last item dragged.
             * @type Node
             *&#x2F;
             lastNode: {
                 value: _tmpNode
             },
             &#x2F;**
+            * Y.Node instance of the dd node.
             * @attribute currentNode
-            * @description Y.Node instance of the dd node.
             * @type Node
             *&#x2F;
             currentNode: {
                 value: _tmpNode
             },
             &#x2F;**
+            * Y.Node instance of the dd dragNode.
             * @attribute dragNode
-            * @description Y.Node instance of the dd dragNode.
             * @type Node
             *&#x2F;
             dragNode: {
                 value: _tmpNode
             },
             &#x2F;**
+            * Is the mouse currently over the container
             * @attribute over
-            * @description Is the mouse currently over the container
             * @type Boolean
             *&#x2F;
             over: {
                 value: false
             },
             &#x2F;**
+            * Should the items also be a drop target.
             * @attribute target
-            * @description Should the items also be a drop target.
             * @type Boolean
             *&#x2F;
             target: {
                 value: false
             },
             &#x2F;**
+            * The default config to be used when creating the DD instance.
             * @attribute dragConfig
-            * @description The default config to be used when creating the DD instance.
             * @type Object
             *&#x2F;
             dragConfig: {
                 value: null
             },
             &#x2F;**
+            * The handles config option added to the temp DD instance.
             * @attribute handles
-            * @description The handles config option added to the temp DD instance.
             * @type Array
             *&#x2F;
             handles: {
@@ -1724,31 +1748,31 @@
 
     Y.mix(Y.DD.DDM, {
         &#x2F;**
+        * Holder for all Y.DD.Delegate instances
         * @private
         * @for DDM
         * @property _delegates
-        * @description Holder for all Y.DD.Delegate instances
         * @type Array
         *&#x2F;
         _delegates: [],
         &#x2F;**
+        * Register a Delegate with the DDM
         * @for DDM
         * @method regDelegate
-        * @description Register a Delegate with the DDM
         *&#x2F;
         regDelegate: function(del) {
             this._delegates.push(del);
         },
         &#x2F;**
+        * Get a delegate instance from a container node
         * @for DDM
         * @method getDelegate
-        * @description Get a delegate instance from a container node
         * @return Y.DD.Delegate
         *&#x2F;
         getDelegate: function(node) {
             var del = null;
             node = Y.one(node);
-            Y.each(this._delegates, function(v) {
+            Y.Array.each(this._delegates, function(v) {
                 if (node.test(v.get(CONT))) {
                     del = v;
                 }

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1452,9 +1476,9 @@ var IMPLEMENTATION = &quot;vml&quot;,
 function VMLDrawing() {}
 
 &#x2F;**
- * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;NOTE-VML&quot;&gt;VML&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class. 
- * &#x60;VMLDrawing&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class. 
- * If the browser lacks &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; and &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html5&#x2F;the-canvas-element.html&quot;&gt;Canvas&lt;&#x2F;a&gt; 
+ * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;NOTE-VML&quot;&gt;VML&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class.
+ * &#x60;VMLDrawing&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class.
+ * If the browser lacks &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; and &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html5&#x2F;the-canvas-element.html&quot;&gt;Canvas&lt;&#x2F;a&gt;
  * capabilities, the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class will point to the &#x60;VMLDrawing&#x60; class.
  *
  * @module graphics
@@ -1539,7 +1563,7 @@ VMLDrawing.prototype = {
      * @private
      *&#x2F;
     _currentY: 0,
-    
+
     &#x2F;**
      * Draws a bezier curve.
      *
@@ -1569,7 +1593,7 @@ VMLDrawing.prototype = {
     relativeCurveTo: function() {
         this._curveTo.apply(this, [Y.Array(arguments), true]);
     },
-    
+
     &#x2F;**
      * Implements curveTo methods.
      *
@@ -1599,7 +1623,7 @@ VMLDrawing.prototype = {
             relativeX = relative ? parseFloat(this._currentX) : 0,
             relativeY = relative ? parseFloat(this._currentY) : 0;
         len = args.length - 5;
-        path = command; 
+        path = command;
         for(i = 0; i &lt; len; i = i + 6)
         {
             cp1x = parseFloat(args[i]);
@@ -1612,7 +1636,7 @@ VMLDrawing.prototype = {
             {
                 path = path + &quot;, &quot;;
             }
-            path = path + this._round(cp1x) + &quot;, &quot; + this._round(cp1y) + &quot;, &quot; + this._round(cp2x) + &quot;, &quot; + this._round(cp2y) + &quot;, &quot; + this._round(x) + &quot;, &quot; + this._round(y); 
+            path = path + this._round(cp1x) + &quot;, &quot; + this._round(cp1y) + &quot;, &quot; + this._round(cp2x) + &quot;, &quot; + this._round(cp2y) + &quot;, &quot; + this._round(x) + &quot;, &quot; + this._round(y);
             cp1x = cp1x + relativeX;
             cp1y = cp1y + relativeY;
             cp2x = cp2x + relativeX;
@@ -1625,7 +1649,7 @@ VMLDrawing.prototype = {
             top = Math.min(y, Math.min(cp1y, cp2y));
             w = Math.abs(right - left);
             h = Math.abs(bottom - top);
-            pts = [[this._currentX, this._currentY] , [cp1x, cp1y], [cp2x, cp2y], [x, y]]; 
+            pts = [[this._currentX, this._currentY] , [cp1x, cp1y], [cp2x, cp2y], [x, y]];
             this._setCurveBoundingBox(pts, w, h);
             this._currentX = x;
             this._currentY = y;
@@ -1668,13 +1692,13 @@ VMLDrawing.prototype = {
      * @private
      *&#x2F;
     _quadraticCurveTo: function(args, relative) {
-        var cpx, 
+        var cpx,
             cpy,
             cp1x,
             cp1y,
             cp2x,
             cp2y,
-            x, 
+            x,
             y,
             currentX = this._currentX,
             currentY = this._currentY,
@@ -1725,7 +1749,7 @@ VMLDrawing.prototype = {
 
     &#x2F;**
      * Draws a rectangle with rounded corners.
-     * 
+     *
      * @method drawRect
      * @param {Number} x x-coordinate
      * @param {Number} y y-coordinate
@@ -1768,7 +1792,7 @@ VMLDrawing.prototype = {
         this._addToPath(&quot; ae &quot; + this._round(x + radius) + &quot;, &quot; + this._round(y + radius) + &quot;, &quot; + this._round(radius) + &quot;, &quot; + this._round(radius) + &quot;, &quot; + startAngle + &quot;, &quot; + endAngle);
         return this;
     },
-    
+
     &#x2F;**
      * Draws an ellipse.
      *
@@ -1791,10 +1815,10 @@ VMLDrawing.prototype = {
         this._addToPath(&quot; ae &quot; + this._round(x + radius) + &quot;, &quot; + this._round(x + radius) + &quot;, &quot; + this._round(y + yRadius) + &quot;, &quot; + this._round(radius) + &quot;, &quot; + this._round(yRadius) + &quot;, &quot; + startAngle + &quot;, &quot; + endAngle);
         return this;
     },
-    
+
     &#x2F;**
-     * Draws a diamond.     
-     * 
+     * Draws a diamond.
+     *
      * @method drawDiamond
      * @param {Number} x y-coordinate
      * @param {Number} y x-coordinate
@@ -1841,13 +1865,13 @@ VMLDrawing.prototype = {
         arc = Math.round(arc);
         this.moveTo(x, y);
         this._addToPath(&quot; ae &quot; + this._round(x) + &quot;, &quot; + this._round(y) + &quot;, &quot; + this._round(radius) + &quot; &quot; + this._round(radius) + &quot;, &quot; +  startAngle + &quot;, &quot; + arc);
-        this._trackSize(diameter, diameter); 
+        this._trackSize(diameter, diameter);
         return this;
     },
 
     &#x2F;**
      * Draws a line segment from the current drawing position to the specified x and y coordinates.
-     * 
+     *
      * @method lineTo
      * @param {Number} point1 x-coordinate for the end point.
      * @param {Number} point2 y-coordinate for the end point.
@@ -1859,7 +1883,7 @@ VMLDrawing.prototype = {
 
     &#x2F;**
      * Draws a line segment using the current line style from the current drawing position to the relative x and y coordinates.
-     * 
+     *
      * @method relativeLineTo
      * @param {Number} point1 x-coordinate for the end point.
      * @param {Number} point2 y-coordinate for the end point.
@@ -1916,7 +1940,7 @@ VMLDrawing.prototype = {
         this._addToPath(path);
         return this;
     },
-    
+
     &#x2F;**
      * Moves the current drawing position to specified x and y coordinates.
      *
@@ -2010,7 +2034,7 @@ VMLDrawing.prototype = {
     },
 
     &#x2F;**
-     * Completes a drawing operation. 
+     * Completes a drawing operation.
      *
      * @method end
      *&#x2F;
@@ -2045,7 +2069,7 @@ VMLDrawing.prototype = {
         this._path = &quot;&quot;;
         this._movePath = null;
     },
-    
+
     &#x2F;**
      * Returns the points on a curve
      *
@@ -2055,7 +2079,7 @@ VMLDrawing.prototype = {
      * @return Array
      * @private
      *&#x2F;
-    getBezierData: function(points, t) {  
+    getBezierData: function(points, t) {
         var n = points.length,
             tmp = [],
             i,
@@ -2064,16 +2088,16 @@ VMLDrawing.prototype = {
         for (i = 0; i &lt; n; ++i){
             tmp[i] = [points[i][0], points[i][1]]; &#x2F;&#x2F; save input
         }
-        
+
         for (j = 1; j &lt; n; ++j) {
             for (i = 0; i &lt; n - j; ++i) {
                 tmp[i][0] = (1 - t) * tmp[i][0] + t * tmp[parseInt(i + 1, 10)][0];
-                tmp[i][1] = (1 - t) * tmp[i][1] + t * tmp[parseInt(i + 1, 10)][1]; 
+                tmp[i][1] = (1 - t) * tmp[i][1] + t * tmp[parseInt(i + 1, 10)][1];
             }
         }
-        return [ tmp[0][0], tmp[0][1] ]; 
+        return [ tmp[0][0], tmp[0][1] ];
     },
-  
+
     &#x2F;**
      * Calculates the bounding box for a curve
      *
@@ -2123,13 +2147,13 @@ VMLDrawing.prototype = {
         }
         if(w &lt; this._left)
         {
-            this._left = w;    
+            this._left = w;
         }
         if (h &lt; this._top)
         {
             this._top = h;
         }
-        if (h &gt; this._bottom) 
+        if (h &gt; this._bottom)
         {
             this._bottom = h;
         }

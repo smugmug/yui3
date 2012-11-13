@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1429,9 +1453,9 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;**
- * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;NOTE-VML&quot;&gt;VML&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. 
- * &#x60;VMLGraphic&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. 
- * If the browser lacks &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; and &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html5&#x2F;the-canvas-element.html&quot;&gt;Canvas&lt;&#x2F;a&gt; 
+ * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;NOTE-VML&quot;&gt;VML&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class.
+ * &#x60;VMLGraphic&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class.
+ * If the browser lacks &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; and &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;html5&#x2F;the-canvas-element.html&quot;&gt;Canvas&lt;&#x2F;a&gt;
  * capabilities, the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class will point to the &#x60;VMLGraphic&#x60; class.
  *
  * @module graphics
@@ -1439,20 +1463,21 @@
  * @constructor
  *&#x2F;
 VMLGraphic = function() {
-    VMLGraphic.superclass.constructor.apply(this, arguments);    
+    VMLGraphic.superclass.constructor.apply(this, arguments);
 };
 
 VMLGraphic.NAME = &quot;vmlGraphic&quot;;
 
 VMLGraphic.ATTRS = {
     &#x2F;**
-     * Whether or not to render the &#x60;Graphic&#x60; automatically after to a specified parent node after init. This can be a Node instance or a CSS selector string.
-     * 
+     * Whether or not to render the &#x60;Graphic&#x60; automatically after to a specified parent node after init. This can be a Node
+     * instance or a CSS selector string.
+     *
      * @config render
-     * @type Node | String 
+     * @type Node | String
      *&#x2F;
     render: {},
-	
+
     &#x2F;**
 	 * Unique id for class instance.
 	 *
@@ -1523,7 +1548,7 @@ VMLGraphic.ATTRS = {
     },
 
 	&#x2F;**
-	 * Indicates the width of the &#x60;Graphic&#x60;. 
+	 * Indicates the width of the &#x60;Graphic&#x60;.
 	 *
 	 * @config width
 	 * @type Number
@@ -1540,9 +1565,9 @@ VMLGraphic.ATTRS = {
     },
 
 	&#x2F;**
-	 * Indicates the height of the &#x60;Graphic&#x60;. 
+	 * Indicates the height of the &#x60;Graphic&#x60;.
 	 *
-	 * @config height 
+	 * @config height
 	 * @type Number
 	 *&#x2F;
     height: {
@@ -1557,15 +1582,18 @@ VMLGraphic.ATTRS = {
     },
 
     &#x2F;**
-     *  Determines the sizing of the Graphic. 
+     *  Determines the sizing of the Graphic.
      *
      *  &lt;dl&gt;
-     *      &lt;dt&gt;sizeContentToGraphic&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt;
-     *      attributes or are determined by the dimensions of the parent element. The content contained in the Graphic will be sized to fit with in the Graphic instance&#x27;s 
-     *      dimensions. When using this setting, the &lt;code&gt;preserveAspectRatio&lt;&#x2F;code&gt; attribute will determine how the contents are sized.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;sizeGraphicToContent&lt;&#x2F;dt&gt;&lt;dd&gt;(Also accepts a value of true) The Graphic&#x27;s width and height are determined by the size and positioning of the content.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;false&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt;
-     *      attributes or are determined by the dimensions of the parent element. The contents of the Graphic instance are not affected by this setting.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;sizeContentToGraphic&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the
+     *      &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt; attributes or are determined by the dimensions of the parent element. The
+     *      content contained in the Graphic will be sized to fit with in the Graphic instance&#x27;s dimensions. When using this
+     *      setting, the &lt;code&gt;preserveAspectRatio&lt;&#x2F;code&gt; attribute will determine how the contents are sized.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;sizeGraphicToContent&lt;&#x2F;dt&gt;&lt;dd&gt;(Also accepts a value of true) The Graphic&#x27;s width and height are determined by the
+     *      size and positioning of the content.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;false&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt;
+     *      and &lt;code&gt;height&lt;&#x2F;code&gt; attributes or are determined by the dimensions of the parent element. The contents of the
+     *      Graphic instance are not affected by this setting.&lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
      *
      *
@@ -1581,7 +1609,7 @@ VMLGraphic.ATTRS = {
      * Determines how content is sized when &lt;code&gt;autoSize&lt;&#x2F;code&gt; is set to &lt;code&gt;sizeContentToGraphic&lt;&#x2F;code&gt;.
      *
      *  &lt;dl&gt;
-     *      &lt;dt&gt;none&lt;dt&gt;&lt;dd&gt;Do not force uniform scaling. Scale the graphic content of the given element non-uniformly if necessary 
+     *      &lt;dt&gt;none&lt;dt&gt;&lt;dd&gt;Do not force uniform scaling. Scale the graphic content of the given element non-uniformly if necessary
      *      such that the element&#x27;s bounding box exactly matches the viewport rectangle.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMinYMin&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling position along the top left of the Graphic&#x27;s node.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMidYMin&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling horizontally centered and positioned at the top of the Graphic&#x27;s node.&lt;dd&gt;
@@ -1593,7 +1621,7 @@ VMLGraphic.ATTRS = {
      *      &lt;dt&gt;xMidYMax&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling horizontally centered and position vertically from the bottom.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMaxYMax&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling positioned horizontally from the right and vertically from the bottom.&lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
-     * 
+     *
      * @config preserveAspectRatio
      * @type String
      * @default xMidYMid
@@ -1606,7 +1634,7 @@ VMLGraphic.ATTRS = {
      * The contentBounds will resize to greater values but not values. (for performance)
      * When resizing the contentBounds down is desirable, set the resizeDown value to true.
      *
-     * @config resizeDown 
+     * @config resizeDown
      * @type Boolean
      *&#x2F;
     resizeDown: {
@@ -1688,12 +1716,12 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
      * Sets the value of an attribute.
      *
      * @method set
-     * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can 
+     * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can
      * be passed in to set multiple attributes at once.
-     * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as 
+     * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as
      * the name param.
      *&#x2F;
-	set: function(attr, value) 
+	set: function(attr, value)
 	{
 		var host = this,
             redrawAttrs = {
@@ -1704,7 +1732,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
             },
             key,
             forceRedraw = false;
-		AttributeLite.prototype.set.apply(host, arguments);	
+		AttributeLite.prototype.set.apply(host, arguments);
         if(host._state.autoDraw === true &amp;&amp; Y.Object.size(this._shapes) &gt; 0)
         {
             if(Y_LANG.isString &amp;&amp; redrawAttrs[attr])
@@ -1798,10 +1826,10 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
             this.render(render);
         }
     },
-    
+
     &#x2F;**
      * Adds the graphics node to the dom.
-     * 
+     *
      * @method render
      * @param {HTMLElement} parentNode node in which to render the graphics node into.
      *&#x2F;
@@ -1860,7 +1888,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
     {
         var node = shape.node,
             parentNode = this._frag || this._node;
-        if(this.get(&quot;autoDraw&quot;) || this.get(&quot;autoSize&quot;) == &quot;sizeContentToGraphic&quot;) 
+        if(this.get(&quot;autoDraw&quot;) || this.get(&quot;autoSize&quot;) == &quot;sizeContentToGraphic&quot;)
         {
             parentNode.appendChild(node);
         }
@@ -1981,7 +2009,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
 
     &#x2F;**
      * Sets the size of the graphics object.
-     * 
+     *
      * @method setSize
      * @param w {Number} width to set for the instance.
      * @param h {Number} height to set for the instance.
@@ -2031,7 +2059,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
     _createGraphicNode: function(type)
     {
         return DOCUMENT.createElement(&#x27;&lt;&#x27; + type + &#x27; xmlns=&quot;urn:schemas-microsft.com:vml&quot; style=&quot;behavior:url(#default#VML);display:inline-block;zoom:1;&quot; &#x2F;&gt;&#x27;);
-    
+
     },
 
     &#x2F;**
@@ -2047,11 +2075,11 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
     },
 
     &#x2F;**
-     * Returns a shape class. Used by &#x60;addShape&#x60;. 
+     * Returns a shape class. Used by &#x60;addShape&#x60;.
      *
      * @method _getShapeClass
-     * @param {Shape | String} val Indicates which shape class. 
-     * @return Function 
+     * @param {Shape | String} val Indicates which shape class.
+     * @return Function
      * @private
      *&#x2F;
     _getShapeClass: function(val)
@@ -2092,7 +2120,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
         method.apply();
         this.set(&quot;autoDraw&quot;, autoDraw);
     },
-    
+
     &#x2F;**
      * Returns a document fragment to for attaching shapes.
      *
@@ -2110,7 +2138,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
     },
 
     &#x2F;**
-     * Adds a shape to the redraw queue and calculates the contentBounds. 
+     * Adds a shape to the redraw queue and calculates the contentBounds.
      *
      * @method addToRedrawQueue
      * @param shape {VMLShape}
@@ -2133,7 +2161,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
             box.height = box.bottom - box.top;
             this._contentBounds = box;
         }
-        if(this.get(&quot;autoDraw&quot;)) 
+        if(this.get(&quot;autoDraw&quot;))
         {
             this._redraw();
         }
@@ -2180,7 +2208,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
                     xCoordSize = contentWidth;
                     yCoordSize = contentHeight;
                 }
-                else 
+                else
                 {
                     if(contentWidth * nodeHeight&#x2F;contentHeight &gt; nodeWidth)
                     {
@@ -2207,7 +2235,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
                 this._node.style.height = nodeHeight + &quot;px&quot;;
                 this._node.coordOrigin = xCoordOrigin + &quot;, &quot; + yCoordOrigin;
             }
-            else 
+            else
             {
                 xCoordSize = contentWidth;
                 yCoordSize = contentHeight;
@@ -2235,7 +2263,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
             this._node.style.visibility = &quot;visible&quot;;
         }
     },
-    
+
     &#x2F;**
      * Determines the value for either an x or y coordinate to be used for the &lt;code&gt;coordOrigin&lt;&#x2F;code&gt; of the Graphic.
      *
@@ -2268,7 +2296,7 @@ Y.extend(VMLGraphic, Y.GraphicBase, {
      * Recalculates and returns the &#x60;contentBounds&#x60; for the &#x60;Graphic&#x60; instance.
      *
      * @method _getUpdatedContentBounds
-     * @return {Object} 
+     * @return {Object}
      * @private
      *&#x2F;
     _getUpdatedContentBounds: function()

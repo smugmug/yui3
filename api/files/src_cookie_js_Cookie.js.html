@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1437,7 +1461,7 @@
     var L       = Y.Lang,
         O       = Y.Object,
         NULL    = null,
-        
+
         &#x2F;&#x2F;shortcuts to functions
         isString    = L.isString,
         isObject    = L.isObject,
@@ -1445,46 +1469,46 @@
         isFunction  = L.isFunction,
         encode      = encodeURIComponent,
         decode      = decodeURIComponent,
-        
+
         &#x2F;&#x2F;shortcut to document
         doc         = Y.config.doc;
-        
+
     &#x2F;*
      * Throws an error message.
      *&#x2F;
     function error(message){
         throw new TypeError(message);
-    }        
-    
+    }
+
     &#x2F;*
      * Checks the validity of a cookie name.
      *&#x2F;
     function validateCookieName(name){
         if (!isString(name) || name === &quot;&quot;){
             error(&quot;Cookie name must be a non-empty string.&quot;);
-        }               
+        }
     }
-    
+
     &#x2F;*
      * Checks the validity of a subcookie name.
-     *&#x2F;    
+     *&#x2F;
     function validateSubcookieName(subName){
         if (!isString(subName) || subName === &quot;&quot;){
             error(&quot;Subcookie name must be a non-empty string.&quot;);
-        }    
+        }
     }
-    
+
     &#x2F;**
      * Cookie utility.
      * @class Cookie
      * @static
      *&#x2F;
     Y.Cookie = {
-                    
+
         &#x2F;&#x2F;-------------------------------------------------------------------------
         &#x2F;&#x2F; Private Methods
         &#x2F;&#x2F;-------------------------------------------------------------------------
-        
+
         &#x2F;**
          * Creates a cookie string that can be assigned into document.cookie.
          * @param {String} name The name of the cookie.
@@ -1497,40 +1521,40 @@
          * @static
          *&#x2F;
         _createCookieString : function (name &#x2F;*:String*&#x2F;, value &#x2F;*:Variant*&#x2F;, encodeValue &#x2F;*:Boolean*&#x2F;, options &#x2F;*:Object*&#x2F;) &#x2F;*:String*&#x2F; {
-        
+
             options = options || {};
-            
+
             var text &#x2F;*:String*&#x2F; = encode(name) + &quot;=&quot; + (encodeValue ? encode(value) : value),
                 expires = options.expires,
                 path    = options.path,
                 domain  = options.domain;
-            
-        
+
+
             if (isObject(options)){
                 &#x2F;&#x2F;expiration date
                 if (expires instanceof Date){
                     text += &quot;; expires=&quot; + expires.toUTCString();
                 }
-            
+
                 &#x2F;&#x2F;path
                 if (isString(path) &amp;&amp; path !== &quot;&quot;){
                     text += &quot;; path=&quot; + path;
                 }
-        
+
                 &#x2F;&#x2F;domain
                 if (isString(domain) &amp;&amp; domain !== &quot;&quot;){
                     text += &quot;; domain=&quot; + domain;
                 }
-                
+
                 &#x2F;&#x2F;secure
                 if (options.secure === true){
                     text += &quot;; secure&quot;;
                 }
             }
-            
+
             return text;
         },
-        
+
         &#x2F;**
          * Formats a cookie value for an object containing multiple values.
          * @param {Object} hash An object of key-value pairs to create a string for.
@@ -1543,18 +1567,18 @@
             if (!isObject(hash)){
                 error(&quot;Cookie._createCookieHashString(): Argument must be an object.&quot;);
             }
-            
+
             var text &#x2F;*:Array*&#x2F; = [];
 
             O.each(hash, function(value, key){
                 if (!isFunction(value) &amp;&amp; !isUndefined(value)){
                     text.push(encode(key) + &quot;=&quot; + encode(String(value)));
-                }            
+                }
             });
-            
+
             return text.join(&quot;&amp;&quot;);
         },
-        
+
         &#x2F;**
          * Parses a cookie hash string into an object.
          * @param {String} text The cookie hash string to parse (format: n1=v1&amp;n2=v2).
@@ -1564,44 +1588,44 @@
          * @static
          *&#x2F;
         _parseCookieHash : function (text) {
-        
+
             var hashParts   = text.split(&quot;&amp;&quot;),
                 hashPart    = NULL,
                 hash        = {};
-            
+
             if (text.length){
                 for (var i=0, len=hashParts.length; i &lt; len; i++){
                     hashPart = hashParts[i].split(&quot;=&quot;);
                     hash[decode(hashPart[0])] = decode(hashPart[1]);
                 }
             }
-            
-            return hash;          
+
+            return hash;
         },
-        
+
         &#x2F;**
          * Parses a cookie string into an object representing all accessible cookies.
          * @param {String} text The cookie string to parse.
          * @param {Boolean} shouldDecode (Optional) Indicates if the cookie values should be decoded or not. Default is true.
+         * @param {Object} options (Optional) Contains settings for loading the cookie.
          * @return {Object} An object containing entries for each accessible cookie.
          * @method _parseCookieString
          * @private
          * @static
          *&#x2F;
-        _parseCookieString : function (text &#x2F;*:String*&#x2F;, shouldDecode &#x2F;*:Boolean*&#x2F;) &#x2F;*:Object*&#x2F; {
-        
-            var cookies &#x2F;*:Object*&#x2F; = {};        
-            
+        _parseCookieString : function (text &#x2F;*:String*&#x2F;, shouldDecode &#x2F;*:Boolean*&#x2F;, options &#x2F;*:Object*&#x2F;) &#x2F;*:Object*&#x2F; {
+
+            var cookies &#x2F;*:Object*&#x2F; = {};
+
             if (isString(text) &amp;&amp; text.length &gt; 0) {
-            
-                var decodeValue = (shouldDecode === false ? function(s){return s;} : decode),  
+
+                var decodeValue = (shouldDecode === false ? function(s){return s;} : decode),
                     cookieParts = text.split(&#x2F;;\s&#x2F;g),
                     cookieName  = NULL,
                     cookieValue = NULL,
                     cookieNameValue = NULL;
-                
+
                 for (var i=0, len=cookieParts.length; i &lt; len; i++){
-                
                     &#x2F;&#x2F;check for normally-formatted cookie (name-value)
                     cookieNameValue = cookieParts[i].match(&#x2F;([^=]+)=&#x2F;i);
                     if (cookieNameValue instanceof Array){
@@ -1616,34 +1640,41 @@
                         cookieName = decode(cookieParts[i]);
                         cookieValue = &quot;&quot;;
                     }
-                    cookies[cookieName] = cookieValue;
+                    &#x2F;&#x2F; don&#x27;t overwrite an already loaded cookie if set by option
+                    if (!isUndefined(options) &amp;&amp; options.reverseCookieLoading) {
+                        if (isUndefined(cookies[cookieName])) {
+                            cookies[cookieName] = cookieValue;
+                        }
+                    } else {
+                        cookies[cookieName] = cookieValue;
+                    }
                 }
 
             }
-            
+
             return cookies;
-        },    
-        
+        },
+
         &#x2F;**
          * Sets the document object that the cookie utility uses for setting
          * cookies. This method is necessary to ensure that the cookie utility
          * unit tests can pass even when run on a domain instead of locally.
-         * This method should not be used otherwise; you should use 
+         * This method should not be used otherwise; you should use
          * &lt;code&gt;Y.config.doc&lt;&#x2F;code&gt; to change the document that the cookie
          * utility uses for everyday purposes.
          * @param {Object} newDoc The object to use as the document.
          * @return {void}
          * @method _setDoc
          * @private
-         *&#x2F;         
+         *&#x2F;
         _setDoc: function(newDoc){
             doc = newDoc;
         },
-        
+
         &#x2F;&#x2F;-------------------------------------------------------------------------
         &#x2F;&#x2F; Public Methods
         &#x2F;&#x2F;-------------------------------------------------------------------------
-    
+
         &#x2F;**
          * Determines if the cookie with the given name exists. This is useful for
          * Boolean cookies (those that do not follow the name=value convention).
@@ -1653,19 +1684,20 @@
          * @static
          *&#x2F;
         exists: function(name) {
-    
+
             validateCookieName(name);   &#x2F;&#x2F;throws error
-    
+
             var cookies = this._parseCookieString(doc.cookie, true);
-            
+
             return cookies.hasOwnProperty(name);
-        },    
-        
+        },
+
         &#x2F;**
          * Returns the cookie value for the given name.
          * @param {String} name The name of the cookie to retrieve.
          * @param {Function|Object} options (Optional) An object containing one or more
-         *      cookie options: raw (true&#x2F;false) and converter (a function).
+         *      cookie options: raw (true&#x2F;false), reverseCookieLoading (true&#x2F;false)
+         *      and converter (a function).
          *      The converter function is run on the value before returning it. The
          *      function is not used if the cookie doesn&#x27;t exist. The function can be
          *      passed instead of the options object for backwards compatibility. When
@@ -1677,13 +1709,13 @@
          * @static
          *&#x2F;
         get : function (name, options) {
-            
-            validateCookieName(name);   &#x2F;&#x2F;throws error                        
-            
+
+            validateCookieName(name);   &#x2F;&#x2F;throws error
+
             var cookies,
                 cookie,
                 converter;
-                
+
             &#x2F;&#x2F;if options is a function, then it&#x27;s the converter
             if (isFunction(options)) {
                 converter = options;
@@ -1693,28 +1725,29 @@
             } else {
                 options = {};
             }
-            
-            cookies = this._parseCookieString(doc.cookie, !options.raw);
+
+            cookies = this._parseCookieString(doc.cookie, !options.raw, options);
             cookie = cookies[name];
-            
+
             &#x2F;&#x2F;should return null, not undefined if the cookie doesn&#x27;t exist
             if (isUndefined(cookie)) {
                 return NULL;
             }
-            
+
             if (!isFunction(converter)){
                 return cookie;
             } else {
                 return converter(cookie);
             }
         },
-        
+
         &#x2F;**
          * Returns the value of a subcookie.
          * @param {String} name The name of the cookie to retrieve.
          * @param {String} subName The name of the subcookie to retrieve.
          * @param {Function} converter (Optional) A function to run on the value before returning
          *      it. The function is not used if the cookie doesn&#x27;t exist.
+         * @param {Object} options (Optional) Containing one or more settings for cookie parsing.
          * @return {Variant} If the cookie doesn&#x27;t exist, null is returned. If the subcookie
          *      doesn&#x27;t exist, null if also returned. If no converter is specified and the
          *      subcookie exists, a string is returned. If a converter is specified and the
@@ -1722,18 +1755,18 @@
          * @method getSub
          * @static
          *&#x2F;
-        getSub : function (name &#x2F;*:String*&#x2F;, subName &#x2F;*:String*&#x2F;, converter &#x2F;*:Function*&#x2F;) &#x2F;*:Variant*&#x2F; {
-          
-            var hash &#x2F;*:Variant*&#x2F; = this.getSubs(name);  
-    
+        getSub : function (name &#x2F;*:String*&#x2F;, subName &#x2F;*:String*&#x2F;, converter &#x2F;*:Function*&#x2F;, options &#x2F;*:Object*&#x2F;) &#x2F;*:Variant*&#x2F; {
+
+            var hash &#x2F;*:Variant*&#x2F; = this.getSubs(name, options);
+
             if (hash !== NULL) {
-                
+
                 validateSubcookieName(subName);   &#x2F;&#x2F;throws error
-                
+
                 if (isUndefined(hash[subName])){
                     return NULL;
-                }            
-            
+                }
+
                 if (!isFunction(converter)){
                     return hash[subName];
                 } else {
@@ -1742,34 +1775,35 @@
             } else {
                 return NULL;
             }
-        
+
         },
-        
+
         &#x2F;**
          * Returns an object containing name-value pairs stored in the cookie with the given name.
          * @param {String} name The name of the cookie to retrieve.
+         * @param {Object} options (Optional) Containing one or more settings for cookie parsing.
          * @return {Object} An object of name-value pairs if the cookie with the given name
          *      exists, null if it does not.
          * @method getSubs
          * @static
          *&#x2F;
-        getSubs : function (name) {
-            
+        getSubs : function (name &#x2F;*:String*&#x2F;, options &#x2F;*:Object*&#x2F;) {
+
             validateCookieName(name);   &#x2F;&#x2F;throws error
-            
-            var cookies = this._parseCookieString(doc.cookie, false);
+
+            var cookies = this._parseCookieString(doc.cookie, false, options);
             if (isString(cookies[name])){
                 return this._parseCookieHash(cookies[name]);
             }
             return NULL;
         },
-        
+
         &#x2F;**
          * Removes a cookie from the machine by setting its expiration date to
          * sometime in the past.
          * @param {String} name The name of the cookie to remove.
          * @param {Object} options (Optional) An object containing one or more
-         *      cookie options: path (a string), domain (a string), 
+         *      cookie options: path (a string), domain (a string),
          *      and secure (true&#x2F;false). The expires option will be overwritten
          *      by the method.
          * @return {String} The created cookie string.
@@ -1777,18 +1811,18 @@
          * @static
          *&#x2F;
         remove : function (name, options) {
-            
+
             validateCookieName(name);   &#x2F;&#x2F;throws error
-            
+
             &#x2F;&#x2F;set options
             options = Y.merge(options || {}, {
                 expires: new Date(0)
             });
-            
+
             &#x2F;&#x2F;set cookie
             return this.set(name, &quot;&quot;, options);
         },
-    
+
         &#x2F;**
          * Removes a sub cookie with a given name.
          * @param {String} name The name of the cookie in which the subcookie exists.
@@ -1802,23 +1836,23 @@
          * @static
          *&#x2F;
         removeSub : function(name, subName, options) {
-        
+
             validateCookieName(name);   &#x2F;&#x2F;throws error
-            
+
             validateSubcookieName(subName);   &#x2F;&#x2F;throws error
-            
+
             options = options || {};
-            
+
             &#x2F;&#x2F;get all subcookies for this cookie
             var subs = this.getSubs(name);
-            
+
             &#x2F;&#x2F;delete the indicated subcookie
             if (isObject(subs) &amp;&amp; subs.hasOwnProperty(subName)){
                 delete subs[subName];
-                
+
                 if (!options.removeIfEmpty) {
                     &#x2F;&#x2F;reset the cookie
-    
+
                     return this.setSubs(name, subs, options);
                 } else {
                     &#x2F;&#x2F;reset the cookie if there are subcookies left, else remove
@@ -1827,15 +1861,15 @@
                             return this.setSubs(name, subs, options);
                         }
                     }
-                    
+
                     return this.remove(name, options);
-                }                
+                }
             } else {
                 return &quot;&quot;;
             }
-            
+
         },
-    
+
         &#x2F;**
          * Sets a cookie with a given name and value.
          * @param {String} name The name of the cookie to set.
@@ -1849,20 +1883,20 @@
          * @static
          *&#x2F;
         set : function (name, value, options) {
-        
+
             validateCookieName(name);   &#x2F;&#x2F;throws error
-            
+
             if (isUndefined(value)){
                 error(&quot;Cookie.set(): Value cannot be undefined.&quot;);
             }
-            
+
             options = options || {};
-        
+
             var text = this._createCookieString(name, value, !options.raw, options);
             doc.cookie = text;
             return text;
         },
-            
+
         &#x2F;**
          * Sets a sub cookie with a given name to a particular value.
          * @param {String} name The name of the cookie to set.
@@ -1878,25 +1912,25 @@
         setSub : function (name, subName, value, options) {
 
             validateCookieName(name);   &#x2F;&#x2F;throws error
-    
+
             validateSubcookieName(subName);   &#x2F;&#x2F;throws error
-            
+
             if (isUndefined(value)){
                 error(&quot;Cookie.setSub(): Subcookie value cannot be undefined.&quot;);
             }
-    
+
             var hash = this.getSubs(name);
-            
+
             if (!isObject(hash)){
                 hash = {};
             }
-            
-            hash[subName] = value;        
-            
+
+            hash[subName] = value;
+
             return this.setSubs(name, hash, options);
-            
+
         },
-        
+
         &#x2F;**
          * Sets a cookie with a given name to contain a hash of name-value pairs.
          * @param {String} name The name of the cookie to set.
@@ -1909,18 +1943,18 @@
          * @static
          *&#x2F;
         setSubs : function (name, value, options) {
-            
+
             validateCookieName(name);   &#x2F;&#x2F;throws error
-            
+
             if (!isObject(value)){
                 error(&quot;Cookie.setSubs(): Cookie value must be an object.&quot;);
             }
-        
+
             var text &#x2F;*:String*&#x2F; = this._createCookieString(name, this._createCookieHashString(value), false, options);
             doc.cookie = text;
-            return text;        
-        }     
-    
+            return text;
+        }
+
     };
 
     </pre>

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1436,7 +1460,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l758"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:758</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l766"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:766</code></a>
         </div>
     
 
@@ -1454,9 +1478,10 @@
 <div class="box intro">
     <p>Creates an ellipse shape with editable attributes.</p>
 
-<p><code>Ellipse</code> instances can be created using the <a href="Graphic.html#method_addShape"><code>addShape</code></a> method of the <a href="Graphic.html"><code>Graphic</code></a> class. 
-The method's <code>cfg</code> argument contains a <code>type</code> attribute. Assigning "ellipse" or <code>Y.Ellipse</code> to this attribute will create a <code>Ellipse</code> instance. Required attributes
-for instantiating a <code>Ellipse</code> are <code>type</code>, <code>width</code> and <code>height</code>. Optional attributes include:
+<p><code>Ellipse</code> instances can be created using the <a href="Graphic.html#method_addShape"><code>addShape</code></a> method of the
+<a href="Graphic.html"><code>Graphic</code></a> class. The method's <code>cfg</code> argument contains a <code>type</code> attribute. Assigning "ellipse"
+or <code>Y.Ellipse</code> to this attribute will create a <code>Ellipse</code> instance. Required attributes for instantiating a <code>Ellipse</code> are
+<code>type</code>, <code>width</code> and <code>height</code>. Optional attributes include:
  <ul>
      <li><a href="#attr_fill">fill</a></li>
      <li><a href="#attr_id">id</a></li>
@@ -1470,7 +1495,7 @@ for instantiating a <code>Ellipse</code> are <code>type</code>, <code>width</cod
 
 The below code creates an ellipse by defining the <code>type</code> attribute as "ellipse":</p>
 
-<pre class="code"><code class="prettyprint">   var myEllipse = myGraphic.addShape({
+<pre class="code prettyprint"><code>   var myEllipse = myGraphic.addShape({
        type: "ellipse",
        width: 20,
        height: 10,
@@ -1486,7 +1511,7 @@ The below code creates an ellipse by defining the <code>type</code> attribute as
 
 <p>Below, the same ellipse is created by defining the <code>type</code> attribute with a class reference:</p>
 
-<pre class="code"><code class="prettyprint">   var myEllipse = myGraphic.addShape({
+<pre class="code prettyprint"><code>   var myEllipse = myGraphic.addShape({
        type: Y.Ellipse,
        width: 20,
        height: 10,
@@ -1545,7 +1570,7 @@ It is not necessary to interact with these classes directly. <code>Ellipse</code
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l758"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:758</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l766"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:766</code></a>
         
         </p>
 
@@ -2713,7 +2738,7 @@ Calls <code>initializer</code> method.</p>
                     
 
                     <div class="param-description">
-                        <p>The name of the attribute. Alternatively, an object of key value pairs can 
+                        <p>The name of the attribute. Alternatively, an object of key value pairs can
 be passed in to set multiple attributes at once.</p>
                     </div>
 
@@ -2729,7 +2754,7 @@ be passed in to set multiple attributes at once.</p>
                     
 
                     <div class="param-description">
-                        <p>The value to set the attribute to. This value is ignored if an object is received as 
+                        <p>The value to set the attribute to. This value is ignored if an object is received as
 the name param.</p>
                     </div>
 
@@ -3514,7 +3539,7 @@ use the <code>translate</code> method.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l679"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:679</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l685"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:685</code></a>
         
         </p>
 
@@ -3524,9 +3549,10 @@ use the <code>translate</code> method.</p>
     </div>
 
     <div class="description">
-        <p>Represents an SVG Path string. This will be parsed and added to shape's API to represent the SVG data across all implementations. Note that when using VML or SVG 
-implementations, part of this content will be added to the DOM using respective VML/SVG attributes. If your content comes from an untrusted source, you will need 
-to ensure that no malicious code is included in that content.</p>
+        <p>Represents an SVG Path string. This will be parsed and added to shape's API to represent the SVG data across all
+implementations. Note that when using VML or SVG implementations, part of this content will be added to the DOM using
+respective VML/SVG attributes. If your content comes from an untrusted source, you will need to ensure that no
+malicious code is included in that content.</p>
     </div>
 
     
@@ -3564,7 +3590,7 @@ to ensure that no malicious code is included in that content.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l603"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:603</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l605"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:605</code></a>
         
         </p>
 
@@ -3574,7 +3600,7 @@ to ensure that no malicious code is included in that content.</p>
     </div>
 
     <div class="description">
-        <p>Contains information about the fill of the shape. 
+        <p>Contains information about the fill of the shape.
  <dl>
      <dt>color</dt><dd>The color of the fill.</dd>
      <dt>opacity</dt><dd>Number between 0 and 1 that indicates the opacity of the fill. The default value is 1.</dd>
@@ -3591,24 +3617,28 @@ to ensure that no malicious code is included in that content.</p>
      <dt>stops</dt><dd>An array of objects containing the following properties:
          <dl>
              <dt>color</dt><dd>The color of the stop.</dd>
-             <dt>opacity</dt><dd>Number between 0 and 1 that indicates the opacity of the stop. The default value is 1. Note: No effect for IE 6 - 8</dd>
-             <dt>offset</dt><dd>Number between 0 and 1 indicating where the color stop is positioned.</dd> 
+             <dt>opacity</dt><dd>Number between 0 and 1 that indicates the opacity of the stop. The default value is 1.
+             Note: No effect for IE 6 - 8</dd>
+             <dt>offset</dt><dd>Number between 0 and 1 indicating where the color stop is positioned.</dd>
          </dl>
      </dd>
      <p>Linear gradients also have the following property:</p>
 
-<pre class="code"><code class="prettyprint"> &lt;dt&gt;rotation&lt;/dt&gt;&lt;dd&gt;Linear gradients flow left to right by default. The rotation property allows you to change the flow by rotation. (e.g. A rotation of 180 would make the gradient pain from right to left.)&lt;/dd&gt;
+<pre class="code prettyprint"><code> &lt;dt&gt;rotation&lt;/dt&gt;&lt;dd&gt;Linear gradients flow left to right by default. The rotation property allows you to change the
+ flow by rotation. (e.g. A rotation of 180 would make the gradient pain from right to left.)&lt;/dd&gt;
  &lt;p&gt;Radial gradients have the following additional properties:&lt;/p&gt;
  &lt;dt&gt;r&lt;/dt&gt;&lt;dd&gt;Radius of the gradient circle.&lt;/dd&gt;
  &lt;dt&gt;fx&lt;/dt&gt;&lt;dd&gt;Focal point x-coordinate of the gradient.&lt;/dd&gt;
  &lt;dt&gt;fy&lt;/dt&gt;&lt;dd&gt;Focal point y-coordinate of the gradient.&lt;/dd&gt;
  &lt;dt&gt;cx&lt;/dt&gt;&lt;dd&gt;
      &lt;p&gt;The x-coordinate of the center of the gradient circle. Determines where the color stop begins. The default value 0.5.&lt;/p&gt;
-     &lt;p&gt;&lt;strong&gt;Note: &lt;/strong&gt;Currently, this property is not implemented for corresponding &lt;code&gt;CanvasShape&lt;/code&gt; and &lt;code&gt;VMLShape&lt;/code&gt; classes which are used on Android or IE 6 - 8.&lt;/p&gt;
+     &lt;p&gt;&lt;strong&gt;Note: &lt;/strong&gt;Currently, this property is not implemented for corresponding &lt;code&gt;CanvasShape&lt;/code&gt; and
+     &lt;code&gt;VMLShape&lt;/code&gt; classes which are used on Android or IE 6 - 8.&lt;/p&gt;
  &lt;/dd&gt;
  &lt;dt&gt;cy&lt;/dt&gt;&lt;dd&gt;
      &lt;p&gt;The y-coordinate of the center of the gradient circle. Determines where the color stop begins. The default value 0.5.&lt;/p&gt;
-     &lt;p&gt;&lt;strong&gt;Note: &lt;/strong&gt;Currently, this property is not implemented for corresponding &lt;code&gt;CanvasShape&lt;/code&gt; and &lt;code&gt;VMLShape&lt;/code&gt; classes which are used on Android or IE 6 - 8.&lt;/p&gt;
+     &lt;p&gt;&lt;strong&gt;Note: &lt;/strong&gt;Currently, this property is not implemented for corresponding &lt;code&gt;CanvasShape&lt;/code&gt; and &lt;code&gt;VMLShape&lt;/code&gt;
+     classes which are used on Android or IE 6 - 8.&lt;/p&gt;
  &lt;/dd&gt;
 </code></pre>
 
@@ -3652,7 +3682,7 @@ to ensure that no malicious code is included in that content.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l687"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:687</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l694"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:694</code></a>
         
         </p>
 
@@ -3700,7 +3730,7 @@ to ensure that no malicious code is included in that content.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l591"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:591</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l593"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:593</code></a>
         
         </p>
 
@@ -3748,7 +3778,7 @@ to ensure that no malicious code is included in that content.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l567"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:567</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l569"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:569</code></a>
         
         </p>
 
@@ -3798,7 +3828,7 @@ to ensure that no malicious code is included in that content.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l672"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:672</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l678"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:678</code></a>
         
         </p>
 
@@ -3846,7 +3876,7 @@ to ensure that no malicious code is included in that content.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l644"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:644</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l650"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:650</code></a>
         
         </p>
 
@@ -3861,8 +3891,8 @@ to ensure that no malicious code is included in that content.</p>
      <dt>color</dt><dd>The color of the stroke.</dd>
      <dt>weight</dt><dd>Number that indicates the width of the stroke.</dd>
      <dt>opacity</dt><dd>Number between 0 and 1 that indicates the opacity of the stroke. The default value is 1.</dd>
-     <dt>dashstyle</dt>Indicates whether to draw a dashed stroke. When set to "none", a solid stroke is drawn. When set to an array, the first index indicates the
- length of the dash. The second index indicates the length of gap.
+     <dt>dashstyle</dt>Indicates whether to draw a dashed stroke. When set to "none", a solid stroke is drawn. When set
+     to an array, the first index indicates the length of the dash. The second index indicates the length of gap.
      <dt>linecap</dt><dd>Specifies the linecap for the stroke. The following values can be specified:
          <dl>
              <dt>butt (default)</dt><dd>Specifies a butt linecap.</dd>
@@ -3874,8 +3904,8 @@ to ensure that no malicious code is included in that content.</p>
          <dl>
              <dt>round (default)</dt><dd>Specifies that the linejoin will be round.</dd>
              <dt>bevel</dt><dd>Specifies a bevel for the linejoin.</dd>
-             <dt>miter limit</dt><dd>An integer specifying the miter limit of a miter linejoin. If you want to specify a linejoin of miter, you simply specify the limit as opposed to having
- separate miter and miter limit values.</dd>
+             <dt>miter limit</dt><dd>An integer specifying the miter limit of a miter linejoin. If you want to specify a linejoin
+             of miter, you simply specify the limit as opposed to having separate miter and miter limit values.</dd>
          </dl>
      </dd>
  </dl></p>
@@ -3937,13 +3967,15 @@ to ensure that no malicious code is included in that content.</p>
        <dt>translateY</dt><dd>Translates the shape along the y-axis.</dd>
        <dt>skewX</dt><dd>Skews the shape around the x-axis.</dd>
        <dt>skewY</dt><dd>Skews the shape around the y-axis.</dd>
+       <dt>matrix</dt><dd>Specifies a 2D transformation matrix comprised of the specified six values.</dd>
    </dl>
 </p>
 
-<p>Applying transforms through the transform attribute will reset the transform matrix and apply a new transform. The shape class also contains corresponding methods for each transform
-that will apply the transform to the current matrix. The below code illustrates how you might use the <code>transform</code> attribute to instantiate a recangle with a rotation of 45 degrees.</p>
+<p>Applying transforms through the transform attribute will reset the transform matrix and apply a new transform. The shape class also contains
+corresponding methods for each transform that will apply the transform to the current matrix. The below code illustrates how you might use the
+<code>transform</code> attribute to instantiate a recangle with a rotation of 45 degrees.</p>
 
-<pre class="code"><code class="prettyprint">       var myRect = new Y.Rect({
+<pre class="code prettyprint"><code>       var myRect = new Y.Rect({
            type:"rect",
            width: 50,
            height: 40,
@@ -3953,7 +3985,7 @@ that will apply the transform to the current matrix. The below code illustrates 
 
 <p>The code below would apply <code>translate</code> and <code>rotate</code> to an existing shape.</p>
 
-<pre class="code"><code class="prettyprint">   myRect.set("transform", "translate(40, 50) rotate(45)");
+<pre class="code prettyprint"><code>   myRect.set("transform", "translate(40, 50) rotate(45)");
 </code></pre>
     </div>
 
@@ -4002,7 +4034,7 @@ that will apply the transform to the current matrix. The below code illustrates 
     </div>
 
     <div class="description">
-        <p>An array of x, y values which indicates the transformOrigin in which to rotate the shape. Valid values range between 0 and 1 representing a 
+        <p>An array of x, y values which indicates the transformOrigin in which to rotate the shape. Valid values range between 0 and 1 representing a
 fraction of the shape's corresponding bounding box dimension. The default value is [0.5, 0.5].</p>
     </div>
 
@@ -4041,7 +4073,7 @@ fraction of the shape's corresponding bounding box dimension. The default value 
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l597"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:597</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l599"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:599</code></a>
         
         </p>
 
@@ -4089,7 +4121,7 @@ fraction of the shape's corresponding bounding box dimension. The default value 
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l585"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:585</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l587"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:587</code></a>
         
         </p>
 
@@ -4137,7 +4169,7 @@ fraction of the shape's corresponding bounding box dimension. The default value 
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l573"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:573</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l575"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:575</code></a>
         
         </p>
 
@@ -4185,7 +4217,7 @@ fraction of the shape's corresponding bounding box dimension. The default value 
             
         
         
-        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l579"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:579</code></a>
+        <a href="..&#x2F;files&#x2F;src_graphics_js_GraphicBase.js.html#l581"><code>src&#x2F;graphics&#x2F;js&#x2F;GraphicBase.js:581</code></a>
         
         </p>
 

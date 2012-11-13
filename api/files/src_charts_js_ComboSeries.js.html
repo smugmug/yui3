@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1429,14 +1453,14 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;**
- * The ComboSeries class renders a combination of lines, plots and area fills in a single series. Each
- * series type has a corresponding boolean attribute indicating if it is rendered. By default, lines and plots 
- * are rendered and area is not. 
+ * The ComboSeries class renders a combination of lines, plots and area fills in a single series.
+ * Each series type has a corresponding boolean attribute indicating if it is rendered. By default,
+ * lines and plots are rendered and area is not.
  *
  * @module charts
  * @submodule charts-base
  * @class ComboSeries
- * @extends CartesianSeries 
+ * @extends CartesianSeries
  * @uses Fills
  * @uses Lines
  * @uses Plots
@@ -1445,7 +1469,7 @@
 Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fills, Y.Lines, Y.Plots], {
 	&#x2F;**
      * @protected
-     * 
+     *
      * Draws the series.
      *
      * @method drawSeries
@@ -1456,16 +1480,16 @@ Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fil
         {
             this.drawFill.apply(this, this._getClosingPoints());
         }
-        if(this.get(&quot;showLines&quot;)) 
+        if(this.get(&quot;showLines&quot;))
         {
             this.drawLines();
         }
         if(this.get(&quot;showMarkers&quot;))
         {
             this.drawPlots();
-        }   
+        }
     },
-    
+
     &#x2F;**
      * Toggles visibility
      *
@@ -1576,8 +1600,8 @@ Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fil
          *  &lt;dl&gt;
          *      &lt;dt&gt;fill&lt;&#x2F;dt&gt;&lt;dd&gt;A hash containing the following values:
          *          &lt;dl&gt;
-         *              &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;Color of the fill. The default value is determined by the order of the series on the graph. The color
-         *              will be retrieved from the below array:&lt;br&#x2F;&gt;
+         *              &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;Color of the fill. The default value is determined by the order of the series on the
+         *              graph. The color will be retrieved from the below array:&lt;br&#x2F;&gt;
          *              &#x60;[&quot;#6084d0&quot;, &quot;#eeb647&quot;, &quot;#6c6b5f&quot;, &quot;#d6484f&quot;, &quot;#ce9ed1&quot;, &quot;#ff9f3b&quot;, &quot;#93b7ff&quot;, &quot;#e0ddd0&quot;, &quot;#94ecba&quot;, &quot;#309687&quot;]&#x60;
          *              &lt;&#x2F;dd&gt;
          *              &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.&lt;&#x2F;dd&gt;
@@ -1585,8 +1609,8 @@ Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fil
          *      &lt;&#x2F;dd&gt;
          *      &lt;dt&gt;border&lt;&#x2F;dt&gt;&lt;dd&gt;A hash containing the following values:
          *          &lt;dl&gt;
-         *              &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;Color of the border. The default value is determined by the order of the series on the graph. The color
-         *              will be retrieved from the below array:&lt;br&#x2F;&gt;
+         *              &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;Color of the border. The default value is determined by the order of the series on the graph.
+         *              The color will be retrieved from the below array:&lt;br&#x2F;&gt;
          *              &#x60;[&quot;#205096&quot;, &quot;#b38206&quot;, &quot;#000000&quot;, &quot;#94001e&quot;, &quot;#9d6fa0&quot;, &quot;#e55b00&quot;, &quot;#5e85c9&quot;, &quot;#adab9e&quot;, &quot;#6ac291&quot;, &quot;#006457&quot;]&#x60;
          *              &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;weight&lt;&#x2F;dt&gt;&lt;dd&gt;Number indicating the width of the border. The default value is 1.&lt;&#x2F;dd&gt;
@@ -1594,7 +1618,7 @@ Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fil
          *      &lt;&#x2F;dd&gt;
          *      &lt;dt&gt;width&lt;&#x2F;dt&gt;&lt;dd&gt;indicates the width of the marker. The default value is 10.&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;height&lt;&#x2F;dt&gt;&lt;dd&gt;indicates the height of the marker The default value is 10.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;over&lt;&#x2F;dt&gt;&lt;dd&gt;hash containing styles for markers when highlighted by a &#x60;mouseover&#x60; event. The default 
+         *      &lt;dt&gt;over&lt;&#x2F;dt&gt;&lt;dd&gt;hash containing styles for markers when highlighted by a &#x60;mouseover&#x60; event. The default
          *      values for each style is null. When an over style is not set, the non-over value will be used. For example,
          *      the default value for &#x60;marker.over.fill.color&#x60; is equivalent to &#x60;marker.fill.color&#x60;.&lt;&#x2F;dd&gt;
          *  &lt;&#x2F;dl&gt;
@@ -1613,23 +1637,27 @@ Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fil
                 this.set(&quot;styles&quot;, {marker:val});
             }
         },
-        
+
         &#x2F;**
          * Reference to the styles of the lines. These styles can also be accessed through the &#x60;styles&#x60; attribute.
          * Below are the default values:
          *  &lt;dl&gt;
-         *      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the line. The default value is determined by the order of the series on the graph. The color will be
-         *      retrieved from the following array: 
+         *      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the line. The default value is determined by the order of the series on the graph. The color
+         *      will be retrieved from the following array:
          *      &#x60;[&quot;#426ab3&quot;, &quot;#d09b2c&quot;, &quot;#000000&quot;, &quot;#b82837&quot;, &quot;#b384b5&quot;, &quot;#ff7200&quot;, &quot;#779de3&quot;, &quot;#cbc8ba&quot;, &quot;#7ed7a6&quot;, &quot;#007a6c&quot;]&#x60;
          *      &lt;dt&gt;weight&lt;&#x2F;dt&gt;&lt;dd&gt;Number that indicates the width of the line. The default value is 6.&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 that indicates the opacity of the line. The default value is 1.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;lineType&lt;&#x2F;dt&gt;&lt;dd&gt;Indicates whether the line is solid or dashed. The default value is solid.&lt;&#x2F;dd&gt; 
+         *      &lt;dt&gt;lineType&lt;&#x2F;dt&gt;&lt;dd&gt;Indicates whether the line is solid or dashed. The default value is solid.&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;dashLength&lt;&#x2F;dt&gt;&lt;dd&gt;When the &#x60;lineType&#x60; is dashed, indicates the length of the dash. The default value is 10.&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;gapSpace&lt;&#x2F;dt&gt;&lt;dd&gt;When the &#x60;lineType&#x60; is dashed, indicates the distance between dashes. The default value is 10.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;connectDiscontinuousPoints&lt;&#x2F;dt&gt;&lt;dd&gt;Indicates whether or not to connect lines when there is a missing or null value between points. The default value is true.&lt;&#x2F;dd&gt; 
-         *      &lt;dt&gt;discontinuousType&lt;&#x2F;dt&gt;&lt;dd&gt;Indicates whether the line between discontinuous points is solid or dashed. The default value is solid.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;discontinuousDashLength&lt;&#x2F;dt&gt;&lt;dd&gt;When the &#x60;discontinuousType&#x60; is dashed, indicates the length of the dash. The default value is 10.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;discontinuousGapSpace&lt;&#x2F;dt&gt;&lt;dd&gt;When the &#x60;discontinuousType&#x60; is dashed, indicates the distance between dashes. The default value is 10.&lt;&#x2F;dd&gt;
+         *      &lt;dt&gt;connectDiscontinuousPoints&lt;&#x2F;dt&gt;&lt;dd&gt;Indicates whether or not to connect lines when there is a missing or null value
+         *      between points. The default value is true.&lt;&#x2F;dd&gt;
+         *      &lt;dt&gt;discontinuousType&lt;&#x2F;dt&gt;&lt;dd&gt;Indicates whether the line between discontinuous points is solid or dashed. The default
+         *      value is solid.&lt;&#x2F;dd&gt;
+         *      &lt;dt&gt;discontinuousDashLength&lt;&#x2F;dt&gt;&lt;dd&gt;When the &#x60;discontinuousType&#x60; is dashed, indicates the length of the dash. The default
+         *      value is 10.&lt;&#x2F;dd&gt;
+         *      &lt;dt&gt;discontinuousGapSpace&lt;&#x2F;dt&gt;&lt;dd&gt;When the &#x60;discontinuousType&#x60; is dashed, indicates the distance between dashes. The default
+         *      value is 10.&lt;&#x2F;dd&gt;
          *  &lt;&#x2F;dl&gt;
          *
          * @attribute line
@@ -1646,14 +1674,14 @@ Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fil
                 this.set(&quot;styles&quot;, {line:val});
             }
         },
-        
+
         &#x2F;**
          * Reference to the styles of the area fills. These styles can also be accessed through the &#x60;styles&#x60; attribute.
          * Below are the default values:
          *
          *  &lt;dl&gt;
-         *      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the fill. The default value is determined by the order of the series on the graph. The color will be 
-         *      retrieved from the following array:
+         *      &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the fill. The default value is determined by the order of the series on the
+         *      graph. The color will be retrieved from the following array:
          *      &#x60;[&quot;#66007f&quot;, &quot;#a86f41&quot;, &quot;#295454&quot;, &quot;#996ab2&quot;, &quot;#e8cdb7&quot;, &quot;#90bdbd&quot;,&quot;#000000&quot;,&quot;#c3b8ca&quot;, &quot;#968373&quot;, &quot;#678585&quot;]&#x60;
          *      &lt;&#x2F;dd&gt;
          *      &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 that indicates the opacity of the fill. The default value is 1&lt;&#x2F;dd&gt;
@@ -1693,9 +1721,9 @@ Y.ComboSeries = Y.Base.create(&quot;comboSeries&quot;, Y.CartesianSeries, [Y.Fil
 
 
 
-		
 
-		
+
+
 
     </pre>
 </div>

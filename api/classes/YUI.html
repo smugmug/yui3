@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1466,19 +1490,19 @@ has full custom event support, but only if the event system
 is available.  This is a self-instantiable factory function.  You
 can invoke it directly like this:</p>
 
-<pre class="code"><code class="prettyprint"> YUI().use('*', function(Y) {
+<pre class="code prettyprint"><code> YUI().use('*', function(Y) {
      // ready
  });
 </code></pre>
 
 <p>But it also works like this:</p>
 
-<pre class="code"><code class="prettyprint"> var Y = YUI();
+<pre class="code prettyprint"><code> var Y = YUI();
 </code></pre>
 
 <p>Configuring the YUI object:</p>
 
-<pre class="code"><code class="prettyprint">YUI({
+<pre class="code prettyprint"><code>YUI({
     debug: true,
     combine: false
 }).use('node', function(Y) {
@@ -2748,7 +2772,7 @@ properties.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l619"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:619</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l620"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:620</code></a>
         
         </p>
 
@@ -2860,7 +2884,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l619"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:619</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l620"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:620</code></a>
         
         </p>
 
@@ -3150,7 +3174,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l775"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:775</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l776"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:776</code></a>
         
         </p>
 
@@ -3260,7 +3284,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l775"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:775</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l776"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:776</code></a>
         
         </p>
 
@@ -3685,7 +3709,7 @@ it published) by setting the events 'monitor' config.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l907"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:907</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l908"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:908</code></a>
         
         </p>
 
@@ -3816,7 +3840,7 @@ it published) by setting the events 'monitor' config.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l907"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:907</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l908"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:908</code></a>
         
         </p>
 
@@ -3983,7 +4007,7 @@ Y.on('detachcategory| menu:click', fn)</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l488"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:488</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l489"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:489</code></a>
         
         </p>
 
@@ -4040,7 +4064,7 @@ when the yui modules was registered.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l488"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:488</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l489"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:489</code></a>
         
         </p>
 
@@ -4113,7 +4137,7 @@ when the yui modules was registered.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l935"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:935</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l936"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:936</code></a>
         
         </p>
 
@@ -4228,7 +4252,7 @@ must be the last parameter.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l935"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:935</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l936"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:936</code></a>
         
         </p>
 
@@ -4357,7 +4381,7 @@ must be the last parameter.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l548"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:548</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l549"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:549</code></a>
         
         </p>
 
@@ -4546,7 +4570,7 @@ with any configuration info required for the module.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI.add('davglass', function(Y, name) {
+                <pre class="code prettyprint"><code>YUI.add('davglass', function(Y, name) {
     Y.davglass = function() {
         alert('Dav was here!');
     };
@@ -4622,7 +4646,7 @@ with any configuration info required for the module.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l548"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:548</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l549"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:549</code></a>
         
         </p>
 
@@ -4811,7 +4835,7 @@ with any configuration info required for the module.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI.add('davglass', function(Y, name) {
+                <pre class="code prettyprint"><code>YUI.add('davglass', function(Y, name) {
     Y.davglass = function() {
         alert('Dav was here!');
     };
@@ -4982,7 +5006,7 @@ be specified.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11540"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11540</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11552"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11552</code></a>
         
         </p>
 
@@ -5346,7 +5370,7 @@ for that signature.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5919"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5919</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5931"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5931</code></a>
         
         </p>
 
@@ -5786,7 +5810,7 @@ augmented with the supplier's value.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12318"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12318</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12330"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12330</code></a>
         
         </p>
 
@@ -5980,7 +6004,7 @@ will not update the cache.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1353"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1353</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1354"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1354</code></a>
         
         </p>
 
@@ -6031,7 +6055,7 @@ overwriting other scripts configs.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI.applyConfig({
+                <pre class="code prettyprint"><code>YUI.applyConfig({
     modules: {
         davglass: {
             fullpath: './davglass.js'
@@ -6193,7 +6217,7 @@ will not update the cache.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1353"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1353</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1354"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1354</code></a>
         
         </p>
 
@@ -6244,7 +6268,7 @@ overwriting other scripts configs.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI.applyConfig({
+                <pre class="code prettyprint"><code>YUI.applyConfig({
     modules: {
         davglass: {
             fullpath: './davglass.js'
@@ -6328,7 +6352,7 @@ YUI().use('davglass', function(Y) {
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l516"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:516</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l517"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:517</code></a>
         
         </p>
 
@@ -6476,7 +6500,7 @@ Ex: 'Object.keys'.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l516"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:516</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l517"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:517</code></a>
         
         </p>
 
@@ -7081,7 +7105,7 @@ hit of calling the <em>supplier</em>'s constructor.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5813"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5813</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5825"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5825</code></a>
         
         </p>
 
@@ -7629,7 +7653,7 @@ function is executed with.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6131"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6131</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6143"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6143</code></a>
         
         </p>
 
@@ -7886,7 +7910,7 @@ function is executed with.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2688"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2688</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2698"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2698</code></a>
         
         </p>
 
@@ -8230,7 +8254,7 @@ string <code>[object Object]</code> when used as a cache key.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6015"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6015</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6027"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6027</code></a>
         
         </p>
 
@@ -8672,7 +8696,7 @@ multiple clones.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18355"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18355</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18353"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18353</code></a>
         
         </p>
 
@@ -8767,7 +8791,7 @@ multiple clones.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18317"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18317</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18315"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18315</code></a>
         
         </p>
 
@@ -9013,7 +9037,7 @@ provided <em>executor</em> callback.  The callback is executed asynchronously.</
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16811"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16811</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16826"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16826</code></a>
         
         </p>
 
@@ -9431,7 +9455,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1318"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1318</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1319"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1319</code></a>
         
         </p>
 
@@ -9487,7 +9511,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1318"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1318</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1319"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1319</code></a>
         
         </p>
 
@@ -9937,7 +9961,7 @@ are expected to be indexed.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20062"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20062</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20060"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20060</code></a>
         
         </p>
 
@@ -10251,7 +10275,7 @@ iterated on objects.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5979"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5979</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5991"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5991</code></a>
         
         </p>
 
@@ -10416,7 +10440,7 @@ iterated on objects.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1239"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1239</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1240"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1240</code></a>
         
         </p>
 
@@ -10567,7 +10591,7 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1239"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1239</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1240"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1240</code></a>
         
         </p>
 
@@ -10897,7 +10921,7 @@ Static members will not be inherited.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5938"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5938</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5950"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5950</code></a>
         
         </p>
 
@@ -11689,7 +11713,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2728"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2728</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2738"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2738</code></a>
         
         </p>
 
@@ -11850,7 +11874,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1270"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1270</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1271"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1271</code></a>
         
         </p>
 
@@ -11954,7 +11978,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1270"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1270</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1271"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1271</code></a>
         
         </p>
 
@@ -12064,7 +12088,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18279"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18279</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18277"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18277</code></a>
         
         </p>
 
@@ -12290,7 +12314,7 @@ request.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1333"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1333</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1334"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1334</code></a>
         
         </p>
 
@@ -12402,7 +12426,7 @@ window/document</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1333"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1333</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1334"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1334</code></a>
         
         </p>
 
@@ -12522,7 +12546,7 @@ window/document</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18167"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18167</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18165"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18165</code></a>
         
         </p>
 
@@ -13340,7 +13364,7 @@ object to stop the timer.
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5714"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5714</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5726"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5726</code></a>
         
         </p>
 
@@ -13714,7 +13738,7 @@ from the raw and minified versions of the files.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l19951"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:19951</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l19949"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:19949</code></a>
         
         </p>
 
@@ -13891,7 +13915,7 @@ from the raw and minified versions of the files.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5611"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5611</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5623"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5623</code></a>
         
         </p>
 
@@ -14159,7 +14183,7 @@ use <code>clone()</code>.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2757"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2757</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2767"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2767</code></a>
         
         </p>
 
@@ -14290,7 +14314,7 @@ use <code>clone()</code>.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20024"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20024</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20022"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20022</code></a>
         
         </p>
 
@@ -14462,7 +14486,7 @@ minified and raw versions of the YUI files, unlike log statements.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5684"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5684</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5696"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5696</code></a>
         
         </p>
 
@@ -14816,7 +14840,7 @@ minified and raw versions of the YUI files, unlike log statements.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2789"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2789</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2799"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2799</code></a>
         
         </p>
 
@@ -15260,7 +15284,7 @@ properties are not copied). The following copying modes are available:</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1180"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1180</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1181"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1181</code></a>
         
         </p>
 
@@ -15273,14 +15297,14 @@ properties are not copied). The following copying modes are available:</p>
     <div class="description">
         <p>Adds a namespace object onto the YUI global if called statically.</p>
 
-<pre class="code"><code class="prettyprint">// creates YUI.your.namespace.here as nested objects
+<pre class="code prettyprint"><code>// creates YUI.your.namespace.here as nested objects
 YUI.namespace("your.namespace.here");
 </code></pre>
 
 <p>If called as a method on a YUI <em>instance</em>, it creates the
 namespace on the instance.</p>
 
-<pre class="code"><code class="prettyprint"> // creates Y.property.package
+<pre class="code prettyprint"><code> // creates Y.property.package
  Y.namespace("property.package");
 </code></pre>
 
@@ -15296,7 +15320,7 @@ discarded.</p>
 and not others. For instance, the following will fail in some browsers
 because the supported version of JavaScript reserves the word "long":</p>
 
-<pre class="code"><code class="prettyprint"> Y.namespace("really.long.nested.namespace");
+<pre class="code prettyprint"><code> Y.namespace("really.long.nested.namespace");
 </code></pre>
 
 <p><em>Note: If you pass multiple arguments to create multiple namespaces, only
@@ -15395,7 +15419,7 @@ the last one created is returned from this function.</em></p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1180"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1180</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1181"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1181</code></a>
         
         </p>
 
@@ -15408,14 +15432,14 @@ the last one created is returned from this function.</em></p>
     <div class="description">
         <p>Adds a namespace object onto the YUI global if called statically.</p>
 
-<pre class="code"><code class="prettyprint">// creates YUI.your.namespace.here as nested objects
+<pre class="code prettyprint"><code>// creates YUI.your.namespace.here as nested objects
 YUI.namespace("your.namespace.here");
 </code></pre>
 
 <p>If called as a method on a YUI <em>instance</em>, it creates the
 namespace on the instance.</p>
 
-<pre class="code"><code class="prettyprint"> // creates Y.property.package
+<pre class="code prettyprint"><code> // creates Y.property.package
  Y.namespace("property.package");
 </code></pre>
 
@@ -15431,7 +15455,7 @@ discarded.</p>
 and not others. For instance, the following will fail in some browsers
 because the supported version of JavaScript reserves the word "long":</p>
 
-<pre class="code"><code class="prettyprint"> Y.namespace("really.long.nested.namespace");
+<pre class="code prettyprint"><code> Y.namespace("really.long.nested.namespace");
 </code></pre>
 
 <p><em>Note: If you pass multiple arguments to create multiple namespaces, only
@@ -15540,7 +15564,7 @@ the last one created is returned from this function.</em></p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18370"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18370</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18368"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18368</code></a>
         
         </p>
 
@@ -15704,7 +15728,7 @@ the event on the IO object.</p>
 
 <p>For custom event subscriptions, pass the custom event name as the first argument and callback as the second. The <code>this</code> object in the callback will be <code>Y</code> unless an override is passed as the third argument.</p>
 
-<pre class="code"><code class="prettyprint">Y.on('io:complete', function () {
+<pre class="code prettyprint"><code>Y.on('io:complete', function () {
     Y.MyApp.updateStatus('Transaction complete');
 });
 </code></pre>
@@ -15714,7 +15738,7 @@ and a CSS selector string as the third argument after the callback function.
 Alternately, the third argument can be a <code>Node</code>, <code>NodeList</code>, <code>HTMLElement</code>,
 array, or simply omitted (the default is the <code>window</code> object).</p>
 
-<pre class="code"><code class="prettyprint">Y.on('click', function (e) {
+<pre class="code prettyprint"><code>Y.on('click', function (e) {
     e.preventDefault();
 
     // proceed with ajax form submission
@@ -15895,7 +15919,7 @@ injection.  See <code>Y.Do.before</code> for that signature.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11444"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11444</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11456"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11456</code></a>
         
         </p>
 
@@ -15919,7 +15943,7 @@ injection.  See <code>Y.Do.before</code> for that signature.</p>
 
 <p>For custom event subscriptions, pass the custom event name as the first argument and callback as the second. The <code>this</code> object in the callback will be <code>Y</code> unless an override is passed as the third argument.</p>
 
-<pre class="code"><code class="prettyprint">Y.on('io:complete', function () {
+<pre class="code prettyprint"><code>Y.on('io:complete', function () {
     Y.MyApp.updateStatus('Transaction complete');
 });
 </code></pre>
@@ -15929,7 +15953,7 @@ and a CSS selector string as the third argument after the callback function.
 Alternately, the third argument can be a <code>Node</code>, <code>NodeList</code>, <code>HTMLElement</code>,
 array, or simply omitted (the default is the <code>window</code> object).</p>
 
-<pre class="code"><code class="prettyprint">Y.on('click', function (e) {
+<pre class="code prettyprint"><code>Y.on('click', function (e) {
     e.preventDefault();
 
     // proceed with ajax form submission
@@ -16110,7 +16134,7 @@ injection.  See <code>Y.Do.before</code> for that signature.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11499"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11499</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11511"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11511</code></a>
         
         </p>
 
@@ -16639,7 +16663,7 @@ options.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11517"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11517</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11529"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11529</code></a>
         
         </p>
 
@@ -16802,7 +16826,7 @@ options.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12327"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12327</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12339"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12339</code></a>
         
         </p>
 
@@ -17503,7 +17527,7 @@ arguments collection supplied to the function.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6156"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6156</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6168"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6168</code></a>
         
         </p>
 
@@ -17926,7 +17950,7 @@ false otherwise.
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5996"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5996</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6008"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6008</code></a>
         
         </p>
 
@@ -18087,7 +18111,7 @@ false otherwise.
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1281"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1281</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1282"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1282</code></a>
         
         </p>
 
@@ -18215,7 +18239,7 @@ be returned if the object has one assigned to it.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1281"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1281</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1282"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1282</code></a>
         
         </p>
 
@@ -18683,7 +18707,7 @@ be removed.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l808"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:808</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l809"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:809</code></a>
         
         </p>
 
@@ -18810,7 +18834,7 @@ must be the last parameter.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint"> // loads and attaches dd and its dependencies
+                <pre class="code prettyprint"><code> // loads and attaches dd and its dependencies
  YUI().use('dd', function(Y) {});
 
  // loads and attaches dd and node as well as all of their dependencies (since 3.4.0)
@@ -18883,7 +18907,7 @@ must be the last parameter.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l808"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:808</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l809"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:809</code></a>
         
         </p>
 
@@ -19010,7 +19034,7 @@ must be the last parameter.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint"> // loads and attaches dd and its dependencies
+                <pre class="code prettyprint"><code> // loads and attaches dd and its dependencies
  YUI().use('dd', function(Y) {});
 
  // loads and attaches dd and node as well as all of their dependencies (since 3.4.0)
@@ -19222,7 +19246,7 @@ are provided, the original promise is returned.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18310"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18310</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18308"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18308</code></a>
         
         </p>
 
@@ -19268,7 +19292,7 @@ are provided, the original promise is returned.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11432"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11432</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11444"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11444</code></a>
         
         </p>
 
@@ -19386,7 +19410,7 @@ first to all instances in all contexts.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI.GlobalConfig = {
+                <pre class="code prettyprint"><code>YUI.GlobalConfig = {
     filter: 'debug'
 };
 
@@ -19455,7 +19479,7 @@ first to all instances in all contexts.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI.GlobalConfig = {
+                <pre class="code prettyprint"><code>YUI.GlobalConfig = {
     filter: 'debug'
 };
 
@@ -19551,7 +19575,7 @@ Part of the loader module.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18337"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18337</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18335"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18335</code></a>
         
         </p>
 
@@ -19706,7 +19730,7 @@ objects.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">//Single global var to include before YUI seed file
+                <pre class="code prettyprint"><code>//Single global var to include before YUI seed file
 YUI_config = {
     filter: 'debug'
 };
@@ -19775,7 +19799,7 @@ objects.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">//Single global var to include before YUI seed file
+                <pre class="code prettyprint"><code>//Single global var to include before YUI seed file
 YUI_config = {
     filter: 'debug'
 };
@@ -19967,7 +19991,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16163"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16163</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16178"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16178</code></a>
         
         </p>
 
@@ -20101,7 +20125,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16185"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16185</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16200"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16200</code></a>
         
         </p>
 
@@ -20433,7 +20457,7 @@ submodule of 'event'.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l14851"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:14851</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l14866"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:14866</code></a>
         
         </p>
 
@@ -21044,7 +21068,7 @@ across browsers and provides support for browsers that don't natively support
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI().use('history-hash', function (Y) {
+                <pre class="code prettyprint"><code>YUI().use('history-hash', function (Y) {
   Y.on('hashchange', function (e) {
     // Handle hashchange events on the current window.
   }, Y.config.win);
@@ -21431,7 +21455,7 @@ programmatic value changes on nodes that don't have focus won't be detected.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">YUI().use('event-valuechange', function (Y) {
+                <pre class="code prettyprint"><code>YUI().use('event-valuechange', function (Y) {
     Y.one('#my-input').on('valuechange', function (e) {
         Y.log('previous value: ' + e.prevVal);
         Y.log('new value: ' + e.newVal);

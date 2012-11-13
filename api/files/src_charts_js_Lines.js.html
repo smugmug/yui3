@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1445,7 +1469,7 @@ Lines.prototype = {
      * @private
      *&#x2F;
     _lineDefaults: null,
-    
+
     &#x2F;**
      * Creates a graphic in which to draw a series.
      *
@@ -1463,7 +1487,7 @@ Lines.prototype = {
         this._lineGraphic.clear();
         return this._lineGraphic;
     },
-    
+
     &#x2F;**
      * Toggles visibility
      *
@@ -1487,7 +1511,7 @@ Lines.prototype = {
      *&#x2F;
     drawLines: function()
     {
-        if(this.get(&quot;xcoords&quot;).length &lt; 1) 
+        if(this.get(&quot;xcoords&quot;).length &lt; 1)
         {
             return;
         }
@@ -1527,15 +1551,15 @@ Lines.prototype = {
         }
         len = direction === &quot;vertical&quot; ? ycoords.length : xcoords.length;
         path.set(&quot;stroke&quot;, {
-            weight: styles.weight, 
-            color: lc, 
+            weight: styles.weight,
+            color: lc,
             opacity: lineAlpha
         });
         for(i = 0; i &lt; len; i = ++i)
         {
             nextX = xcoords[i];
             nextY = ycoords[i];
-            pointValid = isNumber(nextX) &amp;&amp; isNumber(nextY); 
+            pointValid = isNumber(nextX) &amp;&amp; isNumber(nextY);
             if(!pointValid)
             {
                 lastPointValid = pointValid;
@@ -1554,8 +1578,8 @@ Lines.prototype = {
                 }
                 else
                 {
-                    this.drawDashedLine(path, lastValidX, lastValidY, nextX, nextY, 
-                                                dashLength, 
+                    this.drawDashedLine(path, lastValidX, lastValidY, nextX, nextY,
+                                                dashLength,
                                                 gapSpace);
                 }
             }
@@ -1567,8 +1591,8 @@ Lines.prototype = {
             {
                 if(discontinuousType != &quot;solid&quot;)
                 {
-                    this.drawDashedLine(path, lastValidX, lastValidY, nextX, nextY, 
-                                                discontinuousDashLength, 
+                    this.drawDashedLine(path, lastValidX, lastValidY, nextX, nextY,
+                                                discontinuousDashLength,
                                                 discontinuousGapSpace);
                 }
                 else
@@ -1582,16 +1606,16 @@ Lines.prototype = {
         }
         path.end();
     },
-    
+
     &#x2F;**
      * Connects data points with a consistent curve for a series.
-     * 
+     *
      * @method drawSpline
      * @protected
      *&#x2F;
     drawSpline: function()
     {
-        if(this.get(&quot;xcoords&quot;).length &lt; 1) 
+        if(this.get(&quot;xcoords&quot;).length &lt; 1)
         {
             return;
         }
@@ -1610,9 +1634,9 @@ Lines.prototype = {
             path = this._getGraphic(),
             lineAlpha = styles.alpha,
             color = styles.color || this._getDefaultColor(this.get(&quot;graphOrder&quot;), &quot;line&quot;);
-        path.set(&quot;stroke&quot;, { 
-            weight: styles.weight, 
-            color: color, 
+        path.set(&quot;stroke&quot;, {
+            weight: styles.weight,
+            color: color,
             opacity: lineAlpha
         });
         path.moveTo(xcoords[0], ycoords[0]);
@@ -1631,7 +1655,7 @@ Lines.prototype = {
 
     &#x2F;**
      * Draws a dashed line between two points.
-     * 
+     *
      * @method drawDashedLine
      * @param {Number} xStart	The x position of the start of the line
      * @param {Number} yStart	The y position of the start of the line
@@ -1656,7 +1680,7 @@ Lines.prototype = {
             i;
         xDelta = Math.cos(radians) * segmentLength;
         yDelta = Math.sin(radians) * segmentLength;
-        
+
         for(i = 0; i &lt; segmentCount; ++i)
         {
             path.moveTo(xCurrent, yCurrent);
@@ -1664,10 +1688,10 @@ Lines.prototype = {
             xCurrent += xDelta;
             yCurrent += yDelta;
         }
-        
+
         path.moveTo(xCurrent, yCurrent);
         delta = Math.sqrt((xEnd - xCurrent) * (xEnd - xCurrent) + (yEnd - yCurrent) * (yEnd - yCurrent));
-        
+
         if(delta &gt; dashSize)
         {
             path.lineTo(xCurrent + Math.cos(radians) * dashSize, yCurrent + Math.sin(radians) * dashSize);
@@ -1676,7 +1700,7 @@ Lines.prototype = {
         {
             path.lineTo(xCurrent + Math.cos(radians) * delta, yCurrent + Math.sin(radians) * delta);
         }
-        
+
         path.moveTo(xEnd, yEnd);
     },
 
@@ -1692,12 +1716,12 @@ Lines.prototype = {
         return {
             alpha: 1,
             weight: 6,
-            lineType:&quot;solid&quot;, 
-            dashLength:10, 
-            gapSpace:10, 
-            connectDiscontinuousPoints:true, 
-            discontinuousType:&quot;solid&quot;, 
-            discontinuousDashLength:10, 
+            lineType:&quot;solid&quot;,
+            dashLength:10,
+            gapSpace:10,
+            connectDiscontinuousPoints:true,
+            discontinuousType:&quot;solid&quot;,
+            discontinuousDashLength:10,
             discontinuousGapSpace:10
         };
     }

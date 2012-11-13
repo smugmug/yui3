@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1442,7 +1466,7 @@
  *&#x2F;
 Y.ColumnSeries = Y.Base.create(&quot;columnSeries&quot;, Y.MarkerSeries, [Y.Histogram], {
     &#x2F;**
-     * Helper method for calculating the size of markers. 
+     * Helper method for calculating the size of markers.
      *
      * @method _getMarkerDimensions
      * @param {Number} xcoord The x-coordinate representing the data point for the marker.
@@ -1500,7 +1524,7 @@ Y.ColumnSeries = Y.Base.create(&quot;columnSeries&quot;, Y.MarkerSeries, [Y.Hist
                 xs = [],
                 order = this.get(&quot;order&quot;),
                 config;
-            markerStyles = state == &quot;off&quot; || !styles[state] ? Y.clone(styles) : Y.clone(styles[state]); 
+            markerStyles = state == &quot;off&quot; || !styles[state] ? Y.clone(styles) : Y.clone(styles[state]);
             markerStyles.fill.color = this._getItemColor(markerStyles.fill.color, i);
             markerStyles.border.color = this._getItemColor(markerStyles.border.color, i);
             config = this._getMarkerDimensions(xcoords[i], ycoords[i], styles.width, offset);
@@ -1545,7 +1569,7 @@ Y.ColumnSeries = Y.Base.create(&quot;columnSeries&quot;, Y.MarkerSeries, [Y.Hist
         type: {
             value: &quot;column&quot;
         }
-        
+
         &#x2F;**
          * Style properties used for drawing markers. This attribute is inherited from &#x60;MarkerSeries&#x60;. Below are the default values:
          *  &lt;dl&gt;
@@ -1568,7 +1592,7 @@ Y.ColumnSeries = Y.Base.create(&quot;columnSeries&quot;, Y.MarkerSeries, [Y.Hist
          *          &lt;&#x2F;dl&gt;
          *      &lt;&#x2F;dd&gt;
          *      &lt;dt&gt;width&lt;&#x2F;dt&gt;&lt;dd&gt;indicates the width of the marker. The default value is 12.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;over&lt;&#x2F;dt&gt;&lt;dd&gt;hash containing styles for markers when highlighted by a &#x60;mouseover&#x60; event. The default 
+         *      &lt;dt&gt;over&lt;&#x2F;dt&gt;&lt;dd&gt;hash containing styles for markers when highlighted by a &#x60;mouseover&#x60; event. The default
          *      values for each style is null. When an over style is not set, the non-over value will be used. For example,
          *      the default value for &#x60;marker.over.fill.color&#x60; is equivalent to &#x60;marker.fill.color&#x60;.&lt;&#x2F;dd&gt;
          *  &lt;&#x2F;dl&gt;

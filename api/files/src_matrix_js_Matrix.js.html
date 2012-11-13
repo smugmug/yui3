@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1450,10 +1474,10 @@ Matrix.prototype = {
     _rounder: 100000,
 
     &#x2F;**
-     * Updates the matrix. 
+     * Updates the matrix.
      *
      * @method multiple
-     * @param {Number} a 
+     * @param {Number} a
      * @param {Number} b
      * @param {Number} c
      * @param {Number} d
@@ -1497,11 +1521,11 @@ Matrix.prototype = {
             }
         }
     },
-    
+
     &#x2F;**
      * Parses a string and returns an array of transform arrays.
      *
-     * @method getTransformArray 
+     * @method getTransformArray
      * @param {String} val A css transform string
      * @return Array
      *&#x2F;
@@ -1510,7 +1534,7 @@ Matrix.prototype = {
             transforms = [],
             args,
             m;
-        
+
         val = val.replace(&#x2F;matrix&#x2F;g, &quot;multiply&quot;);
         while ((m = re.exec(val))) {
             if (typeof this[m[1]] === &#x27;function&#x27;) {
@@ -1581,7 +1605,7 @@ Matrix.prototype = {
         this.multiply(x, 0, 0, y, 0, 0);
         return this;
     },
-    
+
     &#x2F;**
      * Applies a skew transformation.
      *
@@ -1637,10 +1661,10 @@ Matrix.prototype = {
     toCSSText: function() {
         var matrix = this,
             text = &#x27;matrix(&#x27; +
-                    matrix.a + &#x27;,&#x27; + 
-                    matrix.b + &#x27;,&#x27; + 
-                    matrix.c + &#x27;,&#x27; + 
-                    matrix.d + &#x27;,&#x27; + 
+                    matrix.a + &#x27;,&#x27; +
+                    matrix.b + &#x27;,&#x27; +
+                    matrix.c + &#x27;,&#x27; +
+                    matrix.d + &#x27;,&#x27; +
                     matrix.dx + &#x27;,&#x27; +
                     matrix.dy + &#x27;)&#x27;;
         return text;
@@ -1655,9 +1679,9 @@ Matrix.prototype = {
     toFilterText: function() {
         var matrix = this,
             text = &#x27;progid:DXImageTransform.Microsoft.Matrix(&#x27;;
-        text +=     &#x27;M11=&#x27; + matrix.a + &#x27;,&#x27; + 
-                    &#x27;M21=&#x27; + matrix.b + &#x27;,&#x27; + 
-                    &#x27;M12=&#x27; + matrix.c + &#x27;,&#x27; + 
+        text +=     &#x27;M11=&#x27; + matrix.a + &#x27;,&#x27; +
+                    &#x27;M21=&#x27; + matrix.b + &#x27;,&#x27; +
+                    &#x27;M12=&#x27; + matrix.c + &#x27;,&#x27; +
                     &#x27;M22=&#x27; + matrix.d + &#x27;,&#x27; +
                     &#x27;sizingMethod=&quot;auto expand&quot;)&#x27;;
 
@@ -1727,7 +1751,7 @@ Matrix.prototype = {
         this.multiply(1, 0, 0, 1, x, y);
         return this;
     },
-    
+
     &#x2F;**
      * Applies a translate to the x-coordinate
      *
@@ -1817,7 +1841,7 @@ Matrix.prototype = {
             d = matrix.d,
             dx = matrix.dx,
             dy = matrix.dy,
-            x1 = (a * left + c * top + dx), 
+            x1 = (a * left + c * top + dx),
             y1 = (b * left + d * top + dy),
             &#x2F;&#x2F;[x2, y2]
             x2 = (a * right + c * top + dx),
@@ -1834,8 +1858,8 @@ Matrix.prototype = {
             top: Math.min(y2, Math.min(y4, Math.min(y3, y1))),
             bottom: Math.max(y2, Math.max(y4, Math.max(y3, y1)))
         };
-    },       
-    
+    },
+
     &#x2F;**
      * Returns the determinant of the matrix.
      *

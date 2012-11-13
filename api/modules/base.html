@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1436,7 +1460,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;src_base_js_BaseCore.js.html#l43"><code>src&#x2F;base&#x2F;js&#x2F;BaseCore.js:43</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;src_base_js_BaseObservable.js.html#l19"><code>src&#x2F;base&#x2F;js&#x2F;BaseObservable.js:19</code></a>
         </div>
     
 
@@ -1446,8 +1470,8 @@
 
 
 <div class="box intro">
-    <p>The base module provides the Base class, which objects requiring attribute and custom event support can extend. 
-The module also provides two ways to reuse code - It augments Base with the Plugin.Host interface which provides 
+    <p>The base module provides the Base class, which objects requiring attribute and custom event support can extend.
+The module also provides two ways to reuse code - It augments Base with the Plugin.Host interface which provides
 plugin support and also provides the BaseCore.build method which provides a way to build custom classes using extensions.</p>
 </div>
 
@@ -1472,6 +1496,12 @@ plugin support and also provides the BaseCore.build method which provides a way 
                     </a>
                 </li>
             
+                <li class="module-class">
+                    <a href="..&#x2F;classes/BaseObservable.html">
+                        BaseObservable
+                    </a>
+                </li>
+            
             </ul>
         
     </div>
@@ -1488,7 +1518,7 @@ plugin support and also provides the BaseCore.build method which provides a way 
                     </a>
 
                     <div class="module-submodule-description">
-                        The base-base submodule provides the Base class without the Plugin support, provided by Plugin.Host, 
+                        The base-base submodule provides the Base class without the Plugin support, provided by Plugin.Host,
 and without the extension support provided by BaseCore.build.
                     </div>
                 </li>
@@ -1500,7 +1530,7 @@ and without the extension support provided by BaseCore.build.
 
                     <div class="module-submodule-description">
                         The base-build submodule provides Base.build functionality, which
-can be used to create custom classes, by aggregating extensions onto 
+can be used to create custom classes, by aggregating extensions onto
 a main class.
                     </div>
                 </li>
@@ -1511,11 +1541,22 @@ a main class.
                     </a>
 
                     <div class="module-submodule-description">
-                        <p>The base-core module provides the BaseCore class, the lightest version of Base, 
-which provides Base's basic lifecycle management and ATTRS construction support, 
-but doesn't fire init/destroy or attribute change events.</p> 
+                        <p>The base-core module provides the BaseCore class, the lightest version of Base,
+which provides Base's basic lifecycle management and ATTRS construction support,
+but doesn't fire init/destroy or attribute change events.</p>
 
 <p>It mixes in AttributeCore, which is the lightest version of Attribute</p>
+                    </div>
+                </li>
+            
+                <li class="module-submodule">
+                    <a href="..&#x2F;modules/base-observable.html">
+                        base-observable
+                    </a>
+
+                    <div class="module-submodule-description">
+                        The <code>base-observable</code> submodule adds observability to Base's lifecycle and
+attributes, and also make it an <code>EventTarget</code>.
                     </div>
                 </li>
             
@@ -1525,7 +1566,7 @@ but doesn't fire init/destroy or attribute change events.</p>
                     </a>
 
                     <div class="module-submodule-description">
-                        The base-pluginhost submodule adds Plugin support to Base, by augmenting Base with 
+                        The base-pluginhost submodule adds Plugin support to Base, by augmenting Base with
 Plugin.Host and setting up static (class level) Base.plug and Base.unplug methods.
                     </div>
                 </li>

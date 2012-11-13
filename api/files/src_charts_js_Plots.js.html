@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1438,7 +1462,7 @@
  *&#x2F;
 function Plots(cfg)
 {
-    var attrs = { 
+    var attrs = {
         markers: {
             getter: function()
             {
@@ -1467,7 +1491,7 @@ Plots.prototype = {
      *&#x2F;
     drawPlots: function()
     {
-        if(!this.get(&quot;xcoords&quot;) || this.get(&quot;xcoords&quot;).length &lt; 1) 
+        if(!this.get(&quot;xcoords&quot;) || this.get(&quot;xcoords&quot;).length &lt; 1)
 		{
 			return;
 		}
@@ -1515,7 +1539,7 @@ Plots.prototype = {
         }
         if(Y_Lang.isArray(style.fill.color))
         {
-            fillColors = style.fill.color.concat(); 
+            fillColors = style.fill.color.concat();
         }
         if(Y_Lang.isArray(style.border.color))
         {
@@ -1525,7 +1549,7 @@ Plots.prototype = {
         for(; i &lt; len; ++i)
         {
             top = parseFloat(ycoords[i] - offsetHeight);
-            left = parseFloat(xcoords[i] - offsetWidth);            
+            left = parseFloat(xcoords[i] - offsetWidth);
             if(!isNumber(left) || !isNumber(top))
             {
                 this._markers.push(null);
@@ -1564,7 +1588,7 @@ Plots.prototype = {
      * Returns the correct group shape class.
      *
      * @method _getGroupShape
-     * @param {Shape | String} shape Indicates which shape class. 
+     * @param {Shape | String} shape Indicates which shape class.
      * @return Function
      * @protected
      *&#x2F;
@@ -1625,7 +1649,7 @@ Plots.prototype = {
      * @private
      *&#x2F;
     _markerCache: null,
-   
+
     &#x2F;**
      * Gets and styles a marker. If there is a marker in cache, it will use it. Otherwise
      * it will create one.
@@ -1667,7 +1691,7 @@ Plots.prototype = {
         this._markers.push(marker);
         return marker;
     },
-    
+
     &#x2F;**
      * Creates a shape to be used as a marker.
      *
@@ -1685,11 +1709,11 @@ Plots.prototype = {
             cfg = Y.clone(styles);
         graphic.set(&quot;autoDraw&quot;, false);
         cfg.type = cfg.shape;
-        marker = graphic.addShape(cfg); 
+        marker = graphic.addShape(cfg);
         marker.addClass(SERIES_MARKER);
         return marker;
     },
-    
+
     &#x2F;**
      * Creates a cache of markers for reuse.
      *
@@ -1713,7 +1737,7 @@ Plots.prototype = {
         }
         this._markers = [];
     },
-  
+
     &#x2F;**
      * Draws a series of markers in a single shape instance.
      *
@@ -1832,7 +1856,7 @@ Plots.prototype = {
                 xcoords = this.get(&quot;xcoords&quot;),
                 ycoords = this.get(&quot;ycoords&quot;),
                 marker = this._markers[i],
-                markerStyles = state == &quot;off&quot; || !styles[state] ? styles : styles[state]; 
+                markerStyles = state == &quot;off&quot; || !styles[state] ? styles : styles[state];
                 markerStyles.fill.color = this._getItemColor(markerStyles.fill.color, i);
                 markerStyles.border.color = this._getItemColor(markerStyles.border.color, i);
                 markerStyles.stroke = markerStyles.border;
@@ -1931,7 +1955,7 @@ Plots.prototype = {
         }
         return state;
     },
-    
+
     &#x2F;**
      * @property _statSyles
      * @type Object

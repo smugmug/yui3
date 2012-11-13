@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1430,23 +1454,62 @@
     <pre class="code prettyprint linenums">
     &#x2F;**
      * The base-build submodule provides Base.build functionality, which
-     * can be used to create custom classes, by aggregating extensions onto 
+     * can be used to create custom classes, by aggregating extensions onto
      * a main class.
      *
      * @module base
      * @submodule base-build
      * @for Base
      *&#x2F;
-    var Base = Y.Base,
-        L = Y.Lang,
+    var BaseCore = Y.BaseCore,
+        Base     = Y.Base,
+        L        = Y.Lang,
+
         INITIALIZER = &quot;initializer&quot;,
-        DESTRUCTOR = &quot;destructor&quot;,
-        build,
-        arrayAggregator = function (prop, r, s) {
-            if (s[prop]) {
-                r[prop] = (r[prop] || []).concat(s[prop]);
-            }    
-        };
+        DESTRUCTOR  = &quot;destructor&quot;,
+        AGGREGATES  = [&quot;_PLUG&quot;, &quot;_UNPLUG&quot;],
+
+        build;
+
+    &#x2F;&#x2F; Utility function used in &#x60;_buildCfg&#x60; to aggregate array values into a new
+    &#x2F;&#x2F; array from the sender constructor to the reciver constructor.
+    function arrayAggregator(prop, r, s) {
+        if (s[prop]) {
+            r[prop] = (r[prop] || []).concat(s[prop]);
+        }
+    }
+
+    &#x2F;&#x2F; Utility function used in &#x60;_buildCfg&#x60; to aggregate &#x60;_ATTR_CFG&#x60; array
+    &#x2F;&#x2F; values from the sender constructor into a new array on reciver&#x27;s
+    &#x2F;&#x2F; constructor, and clear the cached hash.
+    function attrCfgAggregator(prop, r, s) {
+        if (s._ATTR_CFG) {
+            arrayAggregator.apply(null, arguments);
+
+            &#x2F;&#x2F; Clear cached hash.
+            r._ATTR_CFG_HASH = null;
+        }
+    }
+
+    &#x2F;&#x2F; Utility function used in &#x60;_buildCfg&#x60; to aggregate ATTRS configs from one
+    &#x2F;&#x2F; the sender constructor to the reciver constructor.
+    function attrsAggregator(prop, r, s) {
+        var sAttrs, rAttrs, a;
+
+        r.ATTRS = r.ATTRS || {};
+
+        if (s.ATTRS) {
+            sAttrs = s.ATTRS;
+            rAttrs = r.ATTRS;
+
+            for (a in sAttrs) {
+                if (sAttrs.hasOwnProperty(a)) {
+                    rAttrs[a] = rAttrs[a] || {};
+                    Y.mix(rAttrs[a], sAttrs[a], true);
+                }
+            }
+        }
+    }
 
     Base._build = function(name, main, extensions, px, sx, cfg) {
 
@@ -1468,7 +1531,7 @@
             extClass = extensions[i];
 
             extProto = extClass.prototype;
-            
+
             initializer = extProto[INITIALIZER];
             destructor = extProto[DESTRUCTOR];
             delete extProto[INITIALIZER];
@@ -1480,7 +1543,7 @@
             &#x2F;&#x2F; Custom Statics
             _mixCust(builtClass, extClass, buildCfg);
 
-            if (initializer) { 
+            if (initializer) {
                 extProto[INITIALIZER] = initializer;
             }
 
@@ -1515,14 +1578,14 @@
     Y.mix(build, {
 
         _mixCust: function(r, s, cfg) {
-            
-            var aggregates, 
-                custom, 
+
+            var aggregates,
+                custom,
                 statics,
                 aggr,
                 l,
                 i;
-                
+
             if (cfg) {
                 aggregates = cfg.aggregates;
                 custom = cfg.custom;
@@ -1550,7 +1613,7 @@
                     }
                 }
             }
-            
+
         },
 
         _tmpl: function(main) {
@@ -1570,7 +1633,7 @@
                 if (cls._yuibuild) {
                     exts = cls._yuibuild.exts;
                     ll = exts.length;
-    
+
                     for (j = 0; j &lt; ll; j++) {
                         if (exts[j] === extClass) {
                             return true;
@@ -1599,7 +1662,7 @@
         },
 
         _cfg : function(main, cfg, exts) {
-            var aggr = [], 
+            var aggr = [],
                 cust = {},
                 statics = [],
                 buildCfg,
@@ -1607,7 +1670,7 @@
                 cfgCustBuild = (cfg &amp;&amp; cfg.custom),
                 cfgStatics = (cfg &amp;&amp; cfg.statics),
                 c = main,
-                i, 
+                i,
                 l;
 
             &#x2F;&#x2F; Prototype Chain
@@ -1642,7 +1705,7 @@
                         if (buildCfg.statics) {
                             statics = statics.concat(buildCfg.statics);
                         }
-                    }                    
+                    }
                 }
             }
 
@@ -1691,7 +1754,7 @@
      * &lt;p&gt;
      * Builds a custom constructor function (class) from the
      * main function, and array of extension functions (classes)
-     * provided. The NAME field for the constructor function is 
+     * provided. The NAME field for the constructor function is
      * defined by the first argument passed in.
      * &lt;&#x2F;p&gt;
      * &lt;p&gt;
@@ -1701,14 +1764,14 @@
      *    &lt;dt&gt;dynamic &amp;#60;boolean&amp;#62;&lt;&#x2F;dt&gt;
      *    &lt;dd&gt;
      *    &lt;p&gt;If true (default), a completely new class
-     *    is created which extends the main class, and acts as the 
+     *    is created which extends the main class, and acts as the
      *    host on which the extension classes are augmented.&lt;&#x2F;p&gt;
      *    &lt;p&gt;If false, the extensions classes are augmented directly to
      *    the main class, modifying the main class&#x27; prototype.&lt;&#x2F;p&gt;
      *    &lt;&#x2F;dd&gt;
      *    &lt;dt&gt;aggregates &amp;#60;String[]&amp;#62;&lt;&#x2F;dt&gt;
      *    &lt;dd&gt;An array of static property names, which will get aggregated
-     *    on to the built class, in addition to the default properties build 
+     *    on to the built class, in addition to the default properties build
      *    will always aggregate as defined by the main class&#x27; static _buildCfg
      *    property.
      *    &lt;&#x2F;dd&gt;
@@ -1729,41 +1792,41 @@
     };
 
     &#x2F;**
-     * Creates a new class (constructor function) which extends the base class passed in as the second argument, 
+     * Creates a new class (constructor function) which extends the base class passed in as the second argument,
      * and mixes in the array of extensions provided.
-     * 
+     *
      * Prototype properties or methods can be added to the new class, using the px argument (similar to Y.extend).
-     * 
+     *
      * Static properties or methods can be added to the new class, using the sx argument (similar to Y.extend).
-     * 
-     * **NOTE FOR COMPONENT DEVELOPERS**: Both the &#x60;base&#x60; class, and &#x60;extensions&#x60; can define static a &#x60;_buildCfg&#x60; 
-     * property, which acts as class creation meta-data, and drives how special static properties from the base 
+     *
+     * **NOTE FOR COMPONENT DEVELOPERS**: Both the &#x60;base&#x60; class, and &#x60;extensions&#x60; can define static a &#x60;_buildCfg&#x60;
+     * property, which acts as class creation meta-data, and drives how special static properties from the base
      * class, or extensions should be copied, aggregated or (custom) mixed into the newly created class.
-     * 
+     *
      * The &#x60;_buildCfg&#x60; property is a hash with 3 supported properties: &#x60;statics&#x60;, &#x60;aggregates&#x60; and &#x60;custom&#x60;, e.g:
-     * 
+     *
      *     &#x2F;&#x2F; If the Base&#x2F;Main class is the thing introducing the property:
-     * 
+     *
      *     MyBaseClass._buildCfg = {
-     *     
+     *
      *        &#x2F;&#x2F; Static properties&#x2F;methods to copy (Alias) to the built class.
      *        statics: [&quot;CopyThisMethod&quot;, &quot;CopyThisProperty&quot;],
-     * 
+     *
      *        &#x2F;&#x2F; Static props to aggregate onto the built class.
      *        aggregates: [&quot;AggregateThisProperty&quot;],
-     * 
+     *
      *        &#x2F;&#x2F; Static properties which need custom handling (e.g. deep merge etc.)
      *        custom: {
      *           &quot;CustomProperty&quot; : function(property, Receiver, Supplier) {
      *              ...
-     *              var triggers = Receiver.CustomProperty.triggers; 
+     *              var triggers = Receiver.CustomProperty.triggers;
                     Receiver.CustomProperty.triggers = triggers.concat(Supplier.CustomProperty.triggers);
      *              ...
      *           }
      *        }
      *     };
-     * 
-     *     MyBaseClass.CopyThisMethod = function() {...}; 
+     *
+     *     MyBaseClass.CopyThisMethod = function() {...};
      *     MyBaseClass.CopyThisProperty = &quot;foo&quot;;
      *     MyBaseClass.AggregateThisProperty = {...};
      *     MyBaseClass.CustomProperty = {
@@ -1771,16 +1834,16 @@
      *     }
      *
      *     &#x2F;&#x2F; Or, if the Extension is the thing introducing the property:
-     * 
+     *
      *     MyExtension._buildCfg = {
      *         statics : ...
      *         aggregates : ...
-     *         custom : ...  
-     *     }    
-     * 
+     *         custom : ...
+     *     }
+     *
      * This way, when users pass your base or extension class to &#x60;Y.Base.create&#x60; or &#x60;Y.Base.mix&#x60;, they don&#x27;t need to
      * know which properties need special handling. &#x60;Y.Base&#x60; has a buildCfg which defines &#x60;ATTRS&#x60; for custom mix handling
-     * (to protect the static config objects), and &#x60;Y.Widget&#x60; has a buildCfg which specifies &#x60;HTML_PARSER&#x60; for 
+     * (to protect the static config objects), and &#x60;Y.Widget&#x60; has a buildCfg which specifies &#x60;HTML_PARSER&#x60; for
      * straight up aggregation.
      *
      * @method create
@@ -1811,9 +1874,9 @@
     &#x2F;**
      * The build configuration for the Base class.
      *
-     * Defines the static fields which need to be aggregated
-     * when the Base class is used as the main class passed to
-     * the &lt;a href=&quot;#method_Base.build&quot;&gt;Base.build&lt;&#x2F;a&gt; method.
+     * Defines the static fields which need to be aggregated when the Base class
+     * is used as the main class passed to the
+     * &lt;a href=&quot;#method_Base.build&quot;&gt;Base.build&lt;&#x2F;a&gt; method.
      *
      * @property _buildCfg
      * @type Object
@@ -1821,29 +1884,25 @@
      * @final
      * @private
      *&#x2F;
-    Base._buildCfg = {
-        custom : {
-            ATTRS : function(prop, r, s) {
-
-                r.ATTRS = r.ATTRS || {};
-
-                if (s.ATTRS) {
-
-                    var sAttrs = s.ATTRS,
-                        rAttrs = r.ATTRS,
-                        a;
-
-                    for (a in sAttrs) {
-                        if (sAttrs.hasOwnProperty(a)) {
-                            rAttrs[a] = rAttrs[a] || {};
-                            Y.mix(rAttrs[a], sAttrs[a], true);
-                        }
-                    }
-                }
-            },
-            _NON_ATTRS_CFG : arrayAggregator
+    BaseCore._buildCfg = {
+        custom: {
+            ATTRS         : attrsAggregator,
+            _ATTR_CFG     : attrCfgAggregator,
+            _NON_ATTRS_CFG: arrayAggregator
         },
-        aggregates : [&quot;_PLUG&quot;, &quot;_UNPLUG&quot;]
+
+        aggregates: AGGREGATES.concat()
+    };
+
+    &#x2F;&#x2F; Makes sure Base and BaseCore use separate &#x60;_buildCfg&#x60; objects.
+    Base._buildCfg = {
+        custom: {
+            ATTRS         : attrsAggregator,
+            _ATTR_CFG     : attrCfgAggregator,
+            _NON_ATTRS_CFG: arrayAggregator
+        },
+
+        aggregates: AGGREGATES.concat()
     };
 
     </pre>

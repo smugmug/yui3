@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1460,7 +1484,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
 
     &#x2F;**
      * Handles change to the dataProvider
-     * 
+     *
      * @method _dataChangeHandler
      * @param {Object} e Event object
      * @private
@@ -1490,7 +1514,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      * Updates the the Graphic instance
      *
      * @method _updateGraphic
-     * @param {String} position Position of axis 
+     * @param {String} position Position of axis
      * @private
      *&#x2F;
     _updateGraphic: function(position)
@@ -1526,7 +1550,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             this._drawAxis();
         }
     },
-   
+
     &#x2F;**
      * @method renderUI
      * @private
@@ -1599,7 +1623,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         this.set(&quot;graphic&quot;, new Y.Graphic());
         this.get(&quot;graphic&quot;).render(cb);
     },
-	
+
     &#x2F;**
      * Gets the default value for the &#x60;styles&#x60; attribute. Overrides
      * base implementation.
@@ -1664,8 +1688,8 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             },
             hideOverlappingLabelTicks: false
         };
-        
-        return Y.merge(Y.Renderer.prototype._getDefaultStyles(), axisstyles); 
+
+        return Y.merge(Y.Renderer.prototype._getDefaultStyles(), axisstyles);
     },
 
     &#x2F;**
@@ -1689,7 +1713,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             this._drawAxis();
         }
     },
-   
+
     &#x2F;**
      * Maps key values to classes containing layout algorithms
      *
@@ -1697,14 +1721,14 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      * @type Object
      * @private
      *&#x2F;
-    _layoutClasses: 
+    _layoutClasses:
     {
         top : TopAxisLayout,
         bottom: BottomAxisLayout,
         left: LeftAxisLayout,
         right : RightAxisLayout
     },
-    
+
     &#x2F;**
      * Draws a line segment between 2 points
      *
@@ -1736,8 +1760,8 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             {
                 case &quot;left&quot; :
                     styles.rotation = -90;
-                break; 
-                case &quot;right&quot; : 
+                break;
+                case &quot;right&quot; :
                     styles.rotation = 90;
                 break;
                 default :
@@ -1761,7 +1785,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
     },
 
     &#x2F;**
-     * Draws an axis. 
+     * Draws an axis.
      *
      * @method _drawAxis
      * @private
@@ -1806,8 +1830,8 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             graphic.set(&quot;autoDraw&quot;, false);
             path.clear();
             path.set(&quot;stroke&quot;, {
-                weight: line.weight, 
-                color: line.color, 
+                weight: line.weight,
+                color: line.color,
                 opacity: line.alpha
             });
             this._labelRotationProps = this._getTextRotationProps(labelStyles);
@@ -1826,7 +1850,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             {
                 tickPoint = this.getFirstPoint(lineStart);
                 this.drawLine(path, lineStart, this.getLineEnd(tickPoint));
-                if(drawTicks) 
+                if(drawTicks)
                 {
                     tickPath = this.get(&quot;tickPath&quot;);
                     tickPath.clear();
@@ -1839,14 +1863,14 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
                 }
                 this._createLabelCache();
                 this._tickPoints = [];
-                this._maxLabelSize = 0; 
+                this._maxLabelSize = 0;
                 this._totalTitleSize = 0;
                 this._titleSize = 0;
                 this._setTitle();
                 explicitlySized = layout.getExplicitlySized.apply(this, [styles]);
                 for(; i &lt; len; ++i)
                 {
-                    if(drawTicks) 
+                    if(drawTicks)
                     {
                         layout.drawTick.apply(this, [tickPath, tickPoint, majorTickStyles]);
                     }
@@ -1892,7 +1916,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             this.fire(&quot;axisRendered&quot;);
         }
     },
-    
+
     &#x2F;**
      * Calculates and sets the total size of a title.
      *
@@ -2029,7 +2053,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      * @method getLabel
      * @param {Object} pt x and y coordinates for the label
      * @param {Object} styles styles applied to label
-     * @return HTMLElement 
+     * @return HTMLElement
      * @private
      *&#x2F;
     getLabel: function(pt, styles)
@@ -2093,7 +2117,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         }
         this._labels = [];
     },
-    
+
     &#x2F;**
      * Removes axis labels from the dom and clears the label cache.
      *
@@ -2123,7 +2147,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      *
      * @method getLineEnd
      * @return Object
-     * @private 
+     * @private
      *&#x2F;
     getLineEnd: function(pt)
     {
@@ -2205,7 +2229,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         var pos = this.get(&quot;position&quot;);
         if(pos === &quot;top&quot; || pos === &quot;bottom&quot;)
         {
-            point.x = point.x + majorUnitDistance;		
+            point.x = point.x + majorUnitDistance;
         }
         else
         {
@@ -2219,7 +2243,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      *
      * @method getLastPoint
      * @return Object
-     * @private 
+     * @private
      *&#x2F;
     getLastPoint: function()
     {
@@ -2242,7 +2266,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      *
      * @method getPosition
      * @param {Object} point contains x and y values
-     * @private 
+     * @private
      *&#x2F;
     getPosition: function(point)
     {
@@ -2252,7 +2276,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             padding = style.padding,
             pos = this.get(&quot;position&quot;),
             dataType = this.get(&quot;dataType&quot;);
-        if(pos === &quot;left&quot; || pos === &quot;right&quot;) 
+        if(pos === &quot;left&quot; || pos === &quot;right&quot;)
         {
             &#x2F;&#x2F;Numeric data on a vertical axis is displayed from bottom to top.
             &#x2F;&#x2F;Categorical and Timeline data is displayed from top to bottom.
@@ -2277,7 +2301,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      *
      * @method _rotate
      * @param {HTMLElement} label text field to rotate and position
-     * @param {Object} props properties to be applied to the text field. 
+     * @param {Object} props properties to be applied to the text field.
      * @private
      *&#x2F;
     _rotate: function(label, props)
@@ -2306,7 +2330,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             }
             if(rot !== 0)
             {
-                &#x2F;&#x2F;ms filters kind of, sort of uses a transformOrigin of 0, 0. 
+                &#x2F;&#x2F;ms filters kind of, sort of uses a transformOrigin of 0, 0.
                 &#x2F;&#x2F;we&#x27;ll translate the difference to create a true 0, 0 origin.
                 matrix.rotate(rot);
                 offsetRect = matrix.getContentRect(props.labelWidth, props.labelHeight);
@@ -2320,7 +2344,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
                 }
                 else
                 {
-                    filterString = &quot;&quot;; 
+                    filterString = &quot;&quot;;
                 }
                 filterString += matrix.toFilterText();
                 label.style.left = matrix.dx + &quot;px&quot;;
@@ -2337,14 +2361,14 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             }
         }
     },
-    
+
     &#x2F;**
-     * Simulates a rotation with a specified transformOrigin. 
+     * Simulates a rotation with a specified transformOrigin.
      *
      * @method _simulateTransformOrigin
      * @param {Matrix} matrix Reference to a &#x60;Matrix&#x60; instance.
      * @param {Number} rot The rotation (in degrees) that will be performed on a matrix.
-     * @param {Array} transformOrigin An array represeniting the origin in which to perform the transform. The first 
+     * @param {Array} transformOrigin An array represeniting the origin in which to perform the transform. The first
      * index represents the x origin and the second index represents the y origin.
      * @param {Number} w The width of the object that will be transformed.
      * @param {Number} h The height of the object that will be transformed.
@@ -2362,7 +2386,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
     },
 
     &#x2F;**
-     * Returns the coordinates (top, right, bottom, left) for the bounding box of the last label. 
+     * Returns the coordinates (top, right, bottom, left) for the bounding box of the last label.
      *
      * @method getMaxLabelBounds
      * @return Object
@@ -2373,7 +2397,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
     },
 
     &#x2F;**
-     * Returns the coordinates (top, right, bottom, left) for the bounding box of the first label. 
+     * Returns the coordinates (top, right, bottom, left) for the bounding box of the first label.
      *
      * @method getMinLabelBounds
      * @return Object
@@ -2382,9 +2406,9 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
     {
         return this._getLabelBounds(this.getMinimumValue());
     },
-    
+
     &#x2F;**
-     * Returns the coordinates (top, right, bottom, left) for the bounding box of a label. 
+     * Returns the coordinates (top, right, bottom, left) for the bounding box of a label.
      *
      * @method _getLabelBounds
      * @param {String} Value of the label
@@ -2434,7 +2458,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             }
         }
     },
-    
+
     &#x2F;**
      * Destructor implementation Axis class. Removes all labels and the Graphic instance from the widget.
      *
@@ -2472,10 +2496,10 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      * @protected
      *&#x2F;
     _maxLabelSize: 0,
-    
+
     &#x2F;**
-     * Updates the content of text field. This method writes a value into a text field using 
-     * &#x60;appendChild&#x60;. If the value is a &#x60;String&#x60;, it is converted to a &#x60;TextNode&#x60; first. 
+     * Updates the content of text field. This method writes a value into a text field using
+     * &#x60;appendChild&#x60;. If the value is a &#x60;String&#x60;, it is converted to a &#x60;TextNode&#x60; first.
      *
      * @method _setText
      * @param label {HTMLElement} label to be updated
@@ -2483,7 +2507,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
      * @private
      *&#x2F;
     _setText: function(textField, val)
-    { 
+    {
         textField.innerHTML = &quot;&quot;;
         if(Y_Lang.isNumber(val))
         {
@@ -2500,12 +2524,13 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         textField.appendChild(val);
     }
 }, {
-    ATTRS: 
+    ATTRS:
     {
         &#x2F;**
-         * When set, defines the width of a vertical axis instance. By default, vertical axes automatically size based on their contents. When the
-         * width attribute is set, the axis will not calculate its width. When the width attribute is explicitly set, axis labels will postion themselves off of the 
-         * the inner edge of the axis and the title, if present, will position itself off of the outer edge. If a specified width is less than the sum of 
+         * When set, defines the width of a vertical axis instance. By default, vertical axes automatically size based
+         * on their contents. When the width attribute is set, the axis will not calculate its width. When the width
+         * attribute is explicitly set, axis labels will postion themselves off of the the inner edge of the axis and the
+         * title, if present, will position itself off of the outer edge. If a specified width is less than the sum of
          * the axis&#x27; contents, excess content will overflow.
          *
          * @attribute width
@@ -2514,11 +2539,11 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         width: {
             lazyAdd: false,
 
-            getter: function() 
+            getter: function()
             {
                 if(this._explicitWidth)
                 {
-                    return this._explicitWidth;        
+                    return this._explicitWidth;
                 }
                 return this._calculatedWidth;
             },
@@ -2531,9 +2556,10 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         },
 
         &#x2F;**
-         * When set, defines the height of a horizontal axis instance. By default, horizontal axes automatically size based on their contents. When the
-         * height attribute is set, the axis will not calculate its height. When the height attribute is explicitly set, axis labels will postion themselves off of the 
-         * the inner edge of the axis and the title, if present, will position itself off of the outer edge. If a specified height is less than the sum of 
+         * When set, defines the height of a horizontal axis instance. By default, horizontal axes automatically size based
+         * on their contents. When the height attribute is set, the axis will not calculate its height. When the height
+         * attribute is explicitly set, axis labels will postion themselves off of the the inner edge of the axis and the
+         * title, if present, will position itself off of the outer edge. If a specified height is less than the sum of
          * the axis&#x27; contents, excess content will overflow.
          *
          * @attribute height
@@ -2542,11 +2568,11 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         height: {
             lazyAdd: false,
 
-            getter: function() 
+            getter: function()
             {
                 if(this._explicitHeight)
                 {
-                    return this._explicitHeight;        
+                    return this._explicitHeight;
                 }
                 return this._calculatedHeight;
             },
@@ -2559,7 +2585,8 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         },
 
         &#x2F;**
-         * Calculated value of an axis&#x27; width. By default, the value is used internally for vertical axes. If the &#x60;width&#x60; attribute is explicitly set, this value will be ignored.
+         * Calculated value of an axis&#x27; width. By default, the value is used internally for vertical axes. If the &#x60;width&#x60;
+         * attribute is explicitly set, this value will be ignored.
          *
          * @attribute calculatedWidth
          * @type Number
@@ -2579,7 +2606,8 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         },
 
         &#x2F;**
-         * Calculated value of an axis&#x27; height. By default, the value is used internally for horizontal axes. If the &#x60;height&#x60; attribute is explicitly set, this value will be ignored.
+         * Calculated value of an axis&#x27; height. By default, the value is used internally for horizontal axes. If the &#x60;height&#x60;
+         * attribute is explicitly set, this value will be ignored.
          *
          * @attribute calculatedHeight
          * @type Number
@@ -2605,7 +2633,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
          * @type Number
          * @protected
          *&#x2F;
-        edgeOffset: 
+        edgeOffset:
         {
             value: 0
         },
@@ -2617,7 +2645,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
          * @type Graphic
          *&#x2F;
         graphic: {},
-    
+
         &#x2F;**
          *  @attribute path
          *  @type Shape
@@ -2663,9 +2691,9 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
                 return this._tickPath;
             }
         },
-        
+
         &#x2F;**
-         * Contains the contents of the axis. 
+         * Contains the contents of the axis.
          *
          * @attribute node
          * @type HTMLElement
@@ -2733,7 +2761,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         rightTickOffset: {
             value: 0
         },
-        
+
         &#x2F;**
          * Collection of labels used to render the axis.
          *
@@ -2790,7 +2818,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
          * @type Object
          *&#x2F;
         labelFunctionScope: {},
-        
+
         &#x2F;**
          * Length in pixels of largest text bounding box. Used to calculate the height of the axis.
          *
@@ -2807,12 +2835,12 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
             setter: function(val)
             {
                 this._maxLabelSize = val;
-                return val; 
+                return val;
             }
         },
-        
+
         &#x2F;**
-         *  Title for the axis. When specified, the title will display. The position of the title is determined by the axis position. 
+         *  Title for the axis. When specified, the title will display. The position of the title is determined by the axis position.
          *  &lt;dl&gt;
          *      &lt;dt&gt;top&lt;&#x2F;dt&gt;&lt;dd&gt;Appears above the axis and it labels. The default rotation is 0.&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;right&lt;&#x2F;dt&gt;&lt;dd&gt;Appears to the right of the axis and its labels. The default rotation is 90.&lt;&#x2F;dd&gt;
@@ -2826,10 +2854,10 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
         title: {
             value: null
         },
-        
+
         &#x2F;**
-         * Method used for formatting a label. This attribute allows for the default label formatting method to overridden. The method use would need
-         * to implement the arguments below and return a &#x60;String&#x60; or &#x60;HTMLElement&#x60;. 
+         * Method used for formatting a label. This attribute allows for the default label formatting method to overridden.
+         * The method use would need to implement the arguments below and return a &#x60;String&#x60; or &#x60;HTMLElement&#x60;.
          * &lt;dl&gt;
          *      &lt;dt&gt;val&lt;&#x2F;dt&gt;&lt;dd&gt;Label to be formatted. (&#x60;String&#x60;)&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;format&lt;&#x2F;dt&gt;&lt;dd&gt;Template for formatting label. (optional)&lt;&#x2F;dd&gt;
@@ -2844,7 +2872,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
                 return val;
             }
         },
-        
+
         &#x2F;**
          * Function used to append an axis value to an axis label. This function has the following signature:
          *  &lt;dl&gt;
@@ -2852,9 +2880,9 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
          *      &lt;dt&gt;val&lt;&#x2F;dt&gt;&lt;dd&gt;The value to attach to the text field. This method will accept an &#x60;HTMLELement&#x60;
          *      or a &#x60;String&#x60;. This method does not use (&#x60;HTMLElement&#x60; | &#x60;String&#x60;)&lt;&#x2F;dd&gt;
          *  &lt;&#x2F;dl&gt;
-         * The default method appends a value to the &#x60;HTMLElement&#x60; using the &#x60;appendChild&#x60; method. If the given 
-         * value is a &#x60;String&#x60;, the method will convert the the value to a &#x60;textNode&#x60; before appending to the 
-         * &#x60;HTMLElement&#x60;. This method will not convert an &#x60;HTMLString&#x60; to an &#x60;HTMLElement&#x60;. 
+         * The default method appends a value to the &#x60;HTMLElement&#x60; using the &#x60;appendChild&#x60; method. If the given
+         * value is a &#x60;String&#x60;, the method will convert the the value to a &#x60;textNode&#x60; before appending to the
+         * &#x60;HTMLElement&#x60;. This method will not convert an &#x60;HTMLString&#x60; to an &#x60;HTMLElement&#x60;.
          *
          * @attribute appendLabelFunction
          * @type Function
@@ -2865,7 +2893,7 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
                 return this._setText;
             }
         },
-        
+
         &#x2F;**
          * Function used to append a title value to the title object. This function has the following signature:
          *  &lt;dl&gt;
@@ -2873,9 +2901,9 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
          *      &lt;dt&gt;val&lt;&#x2F;dt&gt;&lt;dd&gt;The value to attach to the text field. This method will accept an &#x60;HTMLELement&#x60;
          *      or a &#x60;String&#x60;. This method does not use (&#x60;HTMLElement&#x60; | &#x60;String&#x60;)&lt;&#x2F;dd&gt;
          *  &lt;&#x2F;dl&gt;
-         * The default method appends a value to the &#x60;HTMLElement&#x60; using the &#x60;appendChild&#x60; method. If the given 
-         * value is a &#x60;String&#x60;, the method will convert the the value to a &#x60;textNode&#x60; before appending to the 
-         * &#x60;HTMLElement&#x60; element. This method will not convert an &#x60;HTMLString&#x60; to an &#x60;HTMLElement&#x60;. 
+         * The default method appends a value to the &#x60;HTMLElement&#x60; using the &#x60;appendChild&#x60; method. If the given
+         * value is a &#x60;String&#x60;, the method will convert the the value to a &#x60;textNode&#x60; before appending to the
+         * &#x60;HTMLElement&#x60; element. This method will not convert an &#x60;HTMLString&#x60; to an &#x60;HTMLElement&#x60;.
          *
          * @attribute appendTitleFunction
          * @type Function
@@ -2886,34 +2914,36 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
                 return this._setText;
             }
         }
-            
+
         &#x2F;**
          * Style properties used for drawing an axis. This attribute is inherited from &#x60;Renderer&#x60;. Below are the default values:
          *  &lt;dl&gt;
          *      &lt;dt&gt;majorTicks&lt;&#x2F;dt&gt;&lt;dd&gt;Properties used for drawing ticks.
          *          &lt;dl&gt;
-         *              &lt;dt&gt;display&lt;&#x2F;dt&gt;&lt;dd&gt;Position of the tick. Possible values are &#x60;inside&#x60;, &#x60;outside&#x60;, &#x60;cross&#x60; and &#x60;none&#x60;. The
-         *              default value is &#x60;inside&#x60;.&lt;&#x2F;dd&gt;
+         *              &lt;dt&gt;display&lt;&#x2F;dt&gt;&lt;dd&gt;Position of the tick. Possible values are &#x60;inside&#x60;, &#x60;outside&#x60;, &#x60;cross&#x60; and &#x60;none&#x60;.
+         *              The default value is &#x60;inside&#x60;.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;length&lt;&#x2F;dt&gt;&lt;dd&gt;The length (in pixels) of the tick. The default value is 4.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the tick. The default value is &#x60;#dad8c9&#x60;&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;weight&lt;&#x2F;dt&gt;&lt;dd&gt;Number indicating the width of the tick. The default value is 1.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the tick. The default value is 1.&lt;&#x2F;dd&gt;
          *          &lt;&#x2F;dl&gt;
          *      &lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;line&lt;&#x2F;dt&gt;&lt;dd&gt;Properties used for drawing the axis line. 
+         *      &lt;dt&gt;line&lt;&#x2F;dt&gt;&lt;dd&gt;Properties used for drawing the axis line.
          *          &lt;dl&gt;
          *              &lt;dt&gt;weight&lt;&#x2F;dt&gt;&lt;dd&gt;Number indicating the width of the axis line. The default value is 1.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;color&lt;&#x2F;dt&gt;&lt;dd&gt;The color of the axis line. The default value is &#x60;#dad8c9&#x60;.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number from 0 to 1 indicating the opacity of the tick. The default value is 1.&lt;&#x2F;dd&gt;
          *          &lt;&#x2F;dl&gt;
          *      &lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;majorUnit&lt;&#x2F;dt&gt;&lt;dd&gt;Properties used to calculate the &#x60;majorUnit&#x60; for the axis. 
+         *      &lt;dt&gt;majorUnit&lt;&#x2F;dt&gt;&lt;dd&gt;Properties used to calculate the &#x60;majorUnit&#x60; for the axis.
          *          &lt;dl&gt;
-         *              &lt;dt&gt;determinant&lt;&#x2F;dt&gt;&lt;dd&gt;The algorithm used for calculating distance between ticks. The possible options are &#x60;count&#x60; and &#x60;distance&#x60;. If
-         *              the &#x60;determinant&#x60; is &#x60;count&#x60;, the axis ticks will spaced so that a specified number of ticks appear on the axis. If the &#x60;determinant&#x60;
-         *              is &#x60;distance&#x60;, the axis ticks will spaced out according to the specified distance. The default value is &#x60;count&#x60;.&lt;&#x2F;dd&gt;
+         *              &lt;dt&gt;determinant&lt;&#x2F;dt&gt;&lt;dd&gt;The algorithm used for calculating distance between ticks. The possible options are
+         *              &#x60;count&#x60; and &#x60;distance&#x60;. If the &#x60;determinant&#x60; is &#x60;count&#x60;, the axis ticks will spaced so that a specified number
+         *              of ticks appear on the axis. If the &#x60;determinant&#x60; is &#x60;distance&#x60;, the axis ticks will spaced out according to
+         *              the specified distance. The default value is &#x60;count&#x60;.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;count&lt;&#x2F;dt&gt;&lt;dd&gt;Number of ticks to appear on the axis when the &#x60;determinant&#x60; is &#x60;count&#x60;. The default value is 11.&lt;&#x2F;dd&gt;
-         *              &lt;dt&gt;distance&lt;&#x2F;dt&gt;&lt;dd&gt;The distance (in pixels) between ticks when the &#x60;determinant&#x60; is &#x60;distance&#x60;. The default value is 75.&lt;&#x2F;dd&gt;
+         *              &lt;dt&gt;distance&lt;&#x2F;dt&gt;&lt;dd&gt;The distance (in pixels) between ticks when the &#x60;determinant&#x60; is &#x60;distance&#x60;. The default
+         *              value is 75.&lt;&#x2F;dd&gt;
          *          &lt;&#x2F;dl&gt;
          *      &lt;&#x2F;dd&gt;
          *      &lt;dt&gt;label&lt;&#x2F;dt&gt;&lt;dd&gt;Properties and styles applied to the axis labels.
@@ -2922,7 +2952,8 @@ Y.Axis = Y.Base.create(&quot;axis&quot;, Y.Widget, [Y.Renderer], {
          *              &lt;dt&gt;alpha&lt;&#x2F;dt&gt;&lt;dd&gt;Number between 0 and 1 indicating the opacity of the labels. The default value is 1.&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;fontSize&lt;&#x2F;dt&gt;&lt;dd&gt;The font-size of the labels. The default value is 85%&lt;&#x2F;dd&gt;
          *              &lt;dt&gt;rotation&lt;&#x2F;dt&gt;&lt;dd&gt;The rotation, in degrees (between -90 and 90) of the labels. The default value is 0.&lt;&#x2F;dd&gt;
-         *              &lt;dt&gt;margin&lt;&#x2F;dt&gt;&lt;dd&gt;The distance between the label and the axis&#x2F;tick. Depending on the position of the &#x60;Axis&#x60;, only one of the properties used.
+         *              &lt;dt&gt;margin&lt;&#x2F;dt&gt;&lt;dd&gt;The distance between the label and the axis&#x2F;tick. Depending on the position of the &#x60;Axis&#x60;,
+         *              only one of the properties used.
          *                  &lt;dl&gt;
          *                      &lt;dt&gt;top&lt;&#x2F;dt&gt;&lt;dd&gt;Pixel value used for an axis with a &#x60;position&#x60; of &#x60;bottom&#x60;. The default value is 4.&lt;&#x2F;dd&gt;
          *                      &lt;dt&gt;right&lt;&#x2F;dt&gt;&lt;dd&gt;Pixel value used for an axis with a &#x60;position&#x60; of &#x60;left&#x60;. The default value is 4.&lt;&#x2F;dd&gt;

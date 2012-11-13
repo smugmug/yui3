@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1449,7 +1473,7 @@ Y.StackedBarSeries = Y.Base.create(&quot;stackedBarSeries&quot;, Y.BarSeries, [Y
      *&#x2F;
     drawSeries: function()
 	{
-        if(this.get(&quot;xcoords&quot;).length &lt; 1) 
+        if(this.get(&quot;xcoords&quot;).length &lt; 1)
         {
             return;
         }
@@ -1487,7 +1511,7 @@ Y.StackedBarSeries = Y.Base.create(&quot;stackedBarSeries&quot;, Y.BarSeries, [Y
             groupMarkers = this.get(&quot;groupMarkers&quot;);
         if(Y_Lang.isArray(style.fill.color))
         {
-            fillColors = style.fill.color.concat(); 
+            fillColors = style.fill.color.concat();
         }
         if(Y_Lang.isArray(style.border.color))
         {
@@ -1543,7 +1567,7 @@ Y.StackedBarSeries = Y.Base.create(&quot;stackedBarSeries&quot;, Y.BarSeries, [Y
                     left -= w;
                 }
                 else if(left &lt; this._leftOrigin)
-                {   
+                {
                     positiveBaseValues[i] = this._leftOrigin;
                     negativeBaseValues[i] = left;
                 }
@@ -1636,14 +1660,14 @@ Y.StackedBarSeries = Y.Base.create(&quot;stackedBarSeries&quot;, Y.BarSeries, [Y
                 marker = this._markers[i],
                 styles = this.get(&quot;styles&quot;).marker,
                 h = styles.height,
-                markerStyles = state == &quot;off&quot; || !styles[state] ? Y.clone(styles) : Y.clone(styles[state]), 
+                markerStyles = state == &quot;off&quot; || !styles[state] ? Y.clone(styles) : Y.clone(styles[state]),
                 fillColor,
-                borderColor;        
+                borderColor;
             markerStyles.y = (ycoords[i] - h&#x2F;2);
             markerStyles.x = marker.get(&quot;x&quot;);
             markerStyles.width = marker.get(&quot;width&quot;);
             markerStyles.id = marker.get(&quot;id&quot;);
-            fillColor = markerStyles.fill.color; 
+            fillColor = markerStyles.fill.color;
             borderColor = markerStyles.border.color;
             if(Y_Lang.isArray(fillColor))
             {
@@ -1664,12 +1688,12 @@ Y.StackedBarSeries = Y.Base.create(&quot;stackedBarSeries&quot;, Y.BarSeries, [Y
             marker.set(markerStyles);
         }
     },
-	
+
     &#x2F;**
      * @protected
      *
      * Returns default values for the &#x60;styles&#x60; attribute.
-     * 
+     *
      * @method _getPlotDefaults
      * @return Object
      *&#x2F;
@@ -1747,7 +1771,7 @@ Y.StackedBarSeries = Y.Base.create(&quot;stackedBarSeries&quot;, Y.BarSeries, [Y
         positiveBaseValues: {
             value: null
         }
-        
+
         &#x2F;**
          * Style properties used for drawing markers. This attribute is inherited from &#x60;BarSeries&#x60;. Below are the default values:
          *  &lt;dl&gt;
@@ -1770,7 +1794,7 @@ Y.StackedBarSeries = Y.Base.create(&quot;stackedBarSeries&quot;, Y.BarSeries, [Y
          *          &lt;&#x2F;dl&gt;
          *      &lt;&#x2F;dd&gt;
          *      &lt;dt&gt;height&lt;&#x2F;dt&gt;&lt;dd&gt;indicates the width of the marker. The default value is 24.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;over&lt;&#x2F;dt&gt;&lt;dd&gt;hash containing styles for markers when highlighted by a &#x60;mouseover&#x60; event. The default 
+         *      &lt;dt&gt;over&lt;&#x2F;dt&gt;&lt;dd&gt;hash containing styles for markers when highlighted by a &#x60;mouseover&#x60; event. The default
          *      values for each style is null. When an over style is not set, the non-over value will be used. For example,
          *      the default value for &#x60;marker.over.fill.color&#x60; is equivalent to &#x60;marker.fill.color&#x60;.&lt;&#x2F;dd&gt;
          *  &lt;&#x2F;dl&gt;

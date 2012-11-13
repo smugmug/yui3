@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1461,8 +1485,8 @@
 
     S.ATTRS = {
         &#x2F;**
+        * Internal config option to hold the node that we are scrolling. Should not be set by the developer.
         * @attribute parentScroll
-        * @description Internal config option to hold the node that we are scrolling. Should not be set by the developer.
         * @type Node
         *&#x2F;
         parentScroll: {
@@ -1475,8 +1499,8 @@
             }
         },
         &#x2F;**
+        * The number of pixels from the edge of the screen to turn on scrolling. Default: 30
         * @attribute buffer
-        * @description The number of pixels from the edge of the screen to turn on scrolling. Default: 30
         * @type Number
         *&#x2F;
         buffer: {
@@ -1484,8 +1508,8 @@
             validator: Y.Lang.isNumber
         },
         &#x2F;**
+        * The number of milliseconds delay to pass to the auto scroller. Default: 235
         * @attribute scrollDelay
-        * @description The number of milliseconds delay to pass to the auto scroller. Default: 235
         * @type Number
         *&#x2F;
         scrollDelay: {
@@ -1493,16 +1517,16 @@
             validator: Y.Lang.isNumber
         },
         &#x2F;**
+        * The host we are plugged into.
         * @attribute host
-        * @description The host we are plugged into.
         * @type Object
         *&#x2F;
         host: {
             value: null
         },
         &#x2F;**
+        * Turn on window scroll support, default: false
         * @attribute windowScroll
-        * @description Turn on window scroll support, default: false
         * @type Boolean
         *&#x2F;
         windowScroll: {
@@ -1510,8 +1534,8 @@
             validator: Y.Lang.isBoolean
         },
         &#x2F;**
+        * Allow vertical scrolling, default: true.
         * @attribute vertical
-        * @description Allow vertical scrolling, default: true.
         * @type Boolean
         *&#x2F;
         vertical: {
@@ -1519,8 +1543,8 @@
             validator: Y.Lang.isBoolean
         },
         &#x2F;**
+        * Allow horizontal scrolling, default: true.
         * @attribute horizontal
-        * @description Allow horizontal scrolling, default: true.
         * @type Boolean
         *&#x2F;
         horizontal: {
@@ -1531,37 +1555,37 @@
 
     Y.extend(S, Y.Base, {
         &#x2F;**
+        * Tells if we are actively scrolling or not.
         * @private
         * @property _scrolling
-        * @description Tells if we are actively scrolling or not.
         * @type Boolean
         *&#x2F;
         _scrolling: null,
         &#x2F;**
+        * Cache of the Viewport dims.
         * @private
         * @property _vpRegionCache
-        * @description Cache of the Viewport dims.
         * @type Object
         *&#x2F;
         _vpRegionCache: null,
         &#x2F;**
+        * Cache of the dragNode dims.
         * @private
         * @property _dimCache
-        * @description Cache of the dragNode dims.
         * @type Object
         *&#x2F;
         _dimCache: null,
         &#x2F;**
+        * Holder for the Timer object returned from Y.later.
         * @private
         * @property _scrollTimer
-        * @description Holder for the Timer object returned from Y.later.
         * @type {Y.later}
         *&#x2F;
         _scrollTimer: null,
         &#x2F;**
+        * Sets the _vpRegionCache property with an Object containing the dims from the viewport.
         * @private
         * @method _getVPRegion
-        * @description Sets the _vpRegionCache property with an Object containing the dims from the viewport.
         *&#x2F;
         _getVPRegion: function() {
             var r = {},
@@ -1595,9 +1619,9 @@
             }, this));
         },
         &#x2F;**
+        * Check to see if we need to fire the scroll timer. If scroll timer is running this will scroll the window.
         * @private
         * @method _checkWinScroll
-        * @description Check to see if we need to fire the scroll timer. If scroll timer is running this will scroll the window.
         * @param {Boolean} move Should we move the window. From Y.later
         *&#x2F;
         _checkWinScroll: function(move) {
@@ -1663,11 +1687,6 @@
             if (nl &lt; 0) {
                 nl = xy[0];
             }
-            if (ho.con) {
-                if (!ho.con.inRegion([nl + sl, nt + st])) {
-                    move = false;
-                }
-            }
             if (move) {
                 ho.actXY = [nl, nt];
                 ho._alignNode([nl, nt], true); &#x2F;&#x2F;We are srolling..
@@ -1686,9 +1705,9 @@
             }
         },
         &#x2F;**
+        * Cancel a previous scroll timer and init a new one.
         * @private
         * @method _initScroll
-        * @description Cancel a previous scroll timer and init a new one.
         *&#x2F;
         _initScroll: function() {
             this._cancelScroll();
@@ -1696,9 +1715,9 @@
 
         },
         &#x2F;**
+        * Cancel a currently running scroll timer.
         * @private
         * @method _cancelScroll
-        * @description Cancel a currently running scroll timer.
         *&#x2F;
         _cancelScroll: function() {
             this._scrolling = false;
@@ -1708,8 +1727,8 @@
             }
         },
         &#x2F;**
+        * Called from the drag:align event to determine if we need to scroll.
         * @method align
-        * @description Called from the drag:align event to determine if we need to scroll.
         *&#x2F;
         align: function(e) {
             if (this._scrolling) {
@@ -1721,9 +1740,9 @@
             }
         },
         &#x2F;**
+        * Set the cache of the dragNode dims.
         * @private
         * @method _setDimCache
-        * @description Set the cache of the dragNode dims.
         *&#x2F;
         _setDimCache: function() {
             var node = this.get(HOST).get(&#x27;dragNode&#x27;);
@@ -1733,15 +1752,15 @@
             };
         },
         &#x2F;**
+        * Called from the drag:start event
         * @method start
-        * @description Called from the drag:start event
         *&#x2F;
         start: function() {
             this._setDimCache();
         },
         &#x2F;**
+        * Called from the drag:end event
         * @method end
-        * @description Called from the drag:end event
         *&#x2F;
         end: function() {
             this._dimCache = null;
@@ -1764,8 +1783,8 @@
     };
     WS.ATTRS = Y.merge(S.ATTRS, {
         &#x2F;**
+        * Turn on window scroll support, default: true
         * @attribute windowScroll
-        * @description Turn on window scroll support, default: true
         * @type Boolean
         *&#x2F;
         windowScroll: {
@@ -1785,12 +1804,12 @@
         }
     });
     &#x2F;**
+    * The Scroll instance will be placed on the Drag instance under the winscroll namespace.
     * @property NS
     * @default winscroll
     * @readonly
     * @protected
     * @static
-    * @description The Scroll instance will be placed on the Drag instance under the winscroll namespace.
     * @type {String}
     *&#x2F;
     WS.NAME = WS.NS = &#x27;winscroll&#x27;;
@@ -1810,8 +1829,8 @@
     };
     NS.ATTRS = Y.merge(S.ATTRS, {
         &#x2F;**
+        * The node we want to scroll. Used to set the internal parentScroll attribute.
         * @attribute node
-        * @description The node we want to scroll. Used to set the internal parentScroll attribute.
         * @type Node
         *&#x2F;
         node: {
@@ -1836,12 +1855,12 @@
         }
     });
     &#x2F;**
+    * The NodeScroll instance will be placed on the Drag instance under the nodescroll namespace.
     * @property NS
     * @default nodescroll
     * @readonly
     * @protected
     * @static
-    * @description The NodeScroll instance will be placed on the Drag instance under the nodescroll namespace.
     * @type {String}
     *&#x2F;
     NS.NAME = NS.NS = &#x27;nodescroll&#x27;;

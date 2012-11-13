@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1515,7 +1539,7 @@
     };
 
     &#x2F;**
-     * Time in milliseconds passed to setInterval for frame processing 
+     * Time in milliseconds passed to setInterval for frame processing
      *
      * @property intervalTime
      * @default 20
@@ -1603,7 +1627,7 @@
         node: {
             setter: function(node) {
                 if (node) {
-                    if (typeof node == &#x27;string&#x27; || node.nodeType) {
+                    if (typeof node === &#x27;string&#x27; || node.nodeType) {
                         node = Y.one(node);
                     }
                 }
@@ -1626,7 +1650,7 @@
         },
 
         &#x2F;**
-         * The method that will provide values to the attribute(s) during the animation. 
+         * The method that will provide values to the attribute(s) during the animation.
          * Defaults to &quot;Easing.easeNone&quot;.
          * @attribute easing
          * @type Function
@@ -1679,7 +1703,7 @@
          * Date stamp for the first frame of the animation.
          * @attribute startTime
          * @type Int
-         * @default 0 
+         * @default 0
          * @readOnly
          *&#x2F;
         startTime: {
@@ -1691,7 +1715,7 @@
          * Current time the animation has been running.
          * @attribute elapsedTime
          * @type Int
-         * @default 0 
+         * @default 0
          * @readOnly
          *&#x2F;
         elapsedTime: {
@@ -1701,9 +1725,9 @@
 
         &#x2F;**
          * Whether or not the animation is currently running.
-         * @attribute running 
+         * @attribute running
          * @type Boolean
-         * @default false 
+         * @default false
          * @readOnly
          *&#x2F;
         running: {
@@ -1715,10 +1739,10 @@
         },
 
         &#x2F;**
-         * The number of times the animation should run 
+         * The number of times the animation should run
          * @attribute iterations
          * @type Int
-         * @default 1 
+         * @default 1
          *&#x2F;
         iterations: {
             value: 1
@@ -1726,7 +1750,7 @@
 
         &#x2F;**
          * The number of iterations that have occurred.
-         * Resets when an animation ends (reaches iteration count or stop() called). 
+         * Resets when an animation ends (reaches iteration count or stop() called).
          * @attribute iterationCount
          * @type Int
          * @default 0
@@ -1738,7 +1762,7 @@
         },
 
         &#x2F;**
-         * How iterations of the animation should behave. 
+         * How iterations of the animation should behave.
          * Possible values are &quot;normal&quot; and &quot;alternate&quot;.
          * Normal will repeat the animation, alternate will reverse on every other pass.
          *
@@ -1752,9 +1776,9 @@
 
         &#x2F;**
          * Whether or not the animation is currently paused.
-         * @attribute paused 
+         * @attribute paused
          * @type Boolean
-         * @default false 
+         * @default false
          * @readOnly
          *&#x2F;
         paused: {
@@ -1766,7 +1790,7 @@
          * If true, animation begins from last frame
          * @attribute reverse
          * @type Boolean
-         * @default false 
+         * @default false
          *&#x2F;
         reverse: {
             value: false
@@ -1779,10 +1803,11 @@
      * Runs all animation instances.
      * @method run
      * @static
-     *&#x2F;    
+     *&#x2F;
     Y.Anim.run = function() {
-        var instances = Y.Anim._instances;
-        for (var i in instances) {
+        var instances = Y.Anim._instances,
+            i;
+        for (i in instances) {
             if (instances[i].run) {
                 instances[i].run();
             }
@@ -1793,7 +1818,7 @@
      * Pauses all animation instances.
      * @method pause
      * @static
-     *&#x2F;    
+     *&#x2F;
     Y.Anim.pause = function() {
         for (var i in _running) { &#x2F;&#x2F; stop timer if nothing running
             if (_running[i].pause) {
@@ -1808,7 +1833,7 @@
      * Stops all animation instances.
      * @method stop
      * @static
-     *&#x2F;    
+     *&#x2F;
     Y.Anim.stop = function() {
         for (var i in _running) { &#x2F;&#x2F; stop timer if nothing running
             if (_running[i].stop) {
@@ -1817,7 +1842,7 @@
         }
         Y.Anim._stopTimer();
     };
-    
+
     Y.Anim._startTimer = function() {
         if (!_timer) {
             _timer = setInterval(Y.Anim._runFrame, Y.Anim._intervalTime);
@@ -1834,10 +1859,11 @@
      * @method _runFrame
      * @private
      * @static
-     *&#x2F;    
+     *&#x2F;
     Y.Anim._runFrame = function() {
-        var done = true;
-        for (var anim in _running) {
+        var done = true,
+            anim;
+        for (anim in _running) {
             if (_running[anim]._runFrame) {
                 done = false;
                 _running[anim]._runFrame();
@@ -1856,7 +1882,7 @@
          * Starts or resumes an animation.
          * @method run
          * @chainable
-         *&#x2F;    
+         *&#x2F;
         run: function() {
             if (this.get(PAUSED)) {
                 this._resume();
@@ -1872,7 +1898,7 @@
          * Calling run() will continue where it left off.
          * @method pause
          * @chainable
-         *&#x2F;    
+         *&#x2F;
         pause: function() {
             if (this.get(RUNNING)) {
                 this._pause();
@@ -1885,7 +1911,7 @@
          * @method stop
          * @param {Boolean} finish If true, the animation will move to the last frame
          * @chainable
-         *&#x2F;    
+         *&#x2F;
         stop: function(finish) {
             if (this.get(RUNNING) || this.get(PAUSED)) {
                 this._end(finish);
@@ -1954,10 +1980,8 @@
             var d = this._runtimeAttr.duration,
                 t = new Date() - this.get(START_TIME),
                 reverse = this.get(REVERSE),
-                done = (t &gt;= d),
-                attribute,
-                setter;
-                
+                done = (t &gt;= d);
+
             this._runAttrs(t, d, reverse);
             this._actualFrames += 1;
             this._set(ELAPSED_TIME, t);
@@ -1994,9 +2018,9 @@
                             customAttr[i].set : Y.Anim.DEFAULT_SETTER;
 
                     if (!done) {
-                        setter(this, i, attribute.from, attribute.to, t, d, easing, attribute.unit); 
+                        setter(this, i, attribute.from, attribute.to, t, d, easing, attribute.unit);
                     } else {
-                        setter(this, i, attribute.from, attribute.to, lastFrame, d, easing, attribute.unit); 
+                        setter(this, i, attribute.from, attribute.to, lastFrame, d, easing, attribute.unit);
                     }
                 }
             }
@@ -2053,8 +2077,8 @@
                     begin = begin.call(this, node);
                 }
 
-                var mFrom = Y.Anim.RE_UNITS.exec(begin);
-                var mTo = Y.Anim.RE_UNITS.exec(val);
+                var mFrom = Y.Anim.RE_UNITS.exec(begin),
+                    mTo = Y.Anim.RE_UNITS.exec(val);
 
                 begin = mFrom ? mFrom[1] : begin;
                 end = mTo ? mTo[1] : val;
@@ -2086,10 +2110,11 @@
             var node = this._node,
                 val = node.getComputedStyle(attr),
                 get = (attr === &#x27;left&#x27;) ? &#x27;getX&#x27;: &#x27;getY&#x27;,
-                set = (attr === &#x27;left&#x27;) ? &#x27;setX&#x27;: &#x27;setY&#x27;;
+                set = (attr === &#x27;left&#x27;) ? &#x27;setX&#x27;: &#x27;setY&#x27;,
+                position;
 
             if (val === &#x27;auto&#x27;) {
-                var position = node.getStyle(&#x27;position&#x27;);
+                position = node.getStyle(&#x27;position&#x27;);
                 if (position === &#x27;absolute&#x27; || position === &#x27;fixed&#x27;) {
                     val = node[get]();
                     node[set](val);

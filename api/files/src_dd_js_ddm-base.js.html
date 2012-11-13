@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1450,32 +1474,32 @@
 
     DDMBase.ATTRS = {
         &#x2F;**
+        * The cursor to apply when dragging, if shimmed the shim will get the cursor.
         * @attribute dragCursor
-        * @description The cursor to apply when dragging, if shimmed the shim will get the cursor.
         * @type String
         *&#x2F;
         dragCursor: {
             value: &#x27;move&#x27;
         },
         &#x2F;**
+        * The number of pixels to move to start a drag operation, default is 3.
         * @attribute clickPixelThresh
-        * @description The number of pixels to move to start a drag operation, default is 3.
         * @type Number
         *&#x2F;
         clickPixelThresh: {
             value: 3
         },
         &#x2F;**
+        * The number of milliseconds a mousedown has to pass to start a drag operation, default is 1000.
         * @attribute clickTimeThresh
-        * @description The number of milliseconds a mousedown has to pass to start a drag operation, default is 1000.
         * @type Number
         *&#x2F;
         clickTimeThresh: {
             value: 1000
         },
         &#x2F;**
+        * The number of milliseconds to throttle the mousemove event. Default: 150
         * @attribute throttleTime
-        * @description The number of milliseconds to throttle the mousemove event. Default: 150
         * @type Number
         *&#x2F;
         throttleTime: {
@@ -1500,15 +1524,15 @@
     Y.extend(DDMBase, Y.Base, {
         _createPG: function() {},
         &#x2F;**
+        * flag set when we activate our first drag, so DDM can start listening for events.
         * @property _active
-        * @description flag set when we activate our first drag, so DDM can start listening for events.
         * @type {Boolean}
         *&#x2F;
         _active: null,
         &#x2F;**
+        * Handler for dragMode attribute setter.
         * @private
         * @method _setDragMode
-        * @description Handler for dragMode attribute setter.
         * @param String&#x2F;Number The Number value or the String for the DragMode to default all future drag instances to.
         * @return Number The Mode to be set
         *&#x2F;
@@ -1530,29 +1554,29 @@
             return 0;
         },
         &#x2F;**
+        * The PREFIX to attach to all DD CSS class names
         * @property CSS_PREFIX
-        * @description The PREFIX to attach to all DD CSS class names
         * @type {String}
         *&#x2F;
         CSS_PREFIX: Y.ClassNameManager.getClassName(&#x27;dd&#x27;),
         _activateTargets: function() {},
         &#x2F;**
+        * Holder for all registered drag elements.
         * @private
         * @property _drags
-        * @description Holder for all registered drag elements.
         * @type {Array}
         *&#x2F;
         _drags: [],
         &#x2F;**
+        * A reference to the currently active draggable object.
         * @property activeDrag
-        * @description A reference to the currently active draggable object.
         * @type {Drag}
         *&#x2F;
         activeDrag: false,
         &#x2F;**
+        * Adds a reference to the drag object to the DDM._drags array, called in the constructor of Drag.
         * @private
         * @method _regDrag
-        * @description Adds a reference to the drag object to the DDM._drags array, called in the constructor of Drag.
         * @param {Drag} d The Drag object
         *&#x2F;
         _regDrag: function(d) {
@@ -1567,14 +1591,14 @@
             return true;
         },
         &#x2F;**
+        * Remove this drag object from the DDM._drags array.
         * @private
         * @method _unregDrag
-        * @description Remove this drag object from the DDM._drags array.
         * @param {Drag} d The drag object.
         *&#x2F;
         _unregDrag: function(d) {
             var tmp = [];
-            Y.each(this._drags, function(n) {
+            Y.Array.each(this._drags, function(n) {
                 if (n !== d) {
                     tmp[tmp.length] = n;
                 }
@@ -1582,9 +1606,9 @@
             this._drags = tmp;
         },
         &#x2F;**
+        * Add the document listeners.
         * @private
         * @method _setupListeners
-        * @description Add the document listeners.
         *&#x2F;
         _setupListeners: function() {
             this._createPG();
@@ -1595,18 +1619,18 @@
             doc.on(&#x27;mouseup&#x27;, Y.bind(this._end, this));
         },
         &#x2F;**
+        * Internal method used by Drag to signal the start of a drag operation
         * @private
         * @method _start
-        * @description Internal method used by Drag to signal the start of a drag operation
         *&#x2F;
         _start: function() {
             this.fire(&#x27;ddm:start&#x27;);
             this._startDrag();
         },
         &#x2F;**
+        * Factory method to be overwritten by other DDM&#x27;s
         * @private
         * @method _startDrag
-        * @description Factory method to be overwritten by other DDM&#x27;s
         * @param {Number} x The x position of the drag element
         * @param {Number} y The y position of the drag element
         * @param {Number} w The width of the drag element
@@ -1614,16 +1638,16 @@
         *&#x2F;
         _startDrag: function() {},
         &#x2F;**
+        * Factory method to be overwritten by other DDM&#x27;s
         * @private
         * @method _endDrag
-        * @description Factory method to be overwritten by other DDM&#x27;s
         *&#x2F;
         _endDrag: function() {},
         _dropMove: function() {},
         &#x2F;**
+        * Internal method used by Drag to signal the end of a drag operation
         * @private
         * @method _end
-        * @description Internal method used by Drag to signal the end of a drag operation
         *&#x2F;
         _end: function() {
             if (this.activeDrag) {
@@ -1635,8 +1659,8 @@
             }
         },
         &#x2F;**
+        * Method will forcefully stop a drag operation. For example calling this from inside an ESC keypress handler will stop this drag.
         * @method stopDrag
-        * @description Method will forcefully stop a drag operation. For example calling this from inside an ESC keypress handler will stop this drag.
         * @return {Self}
         * @chainable
         *&#x2F;
@@ -1647,17 +1671,17 @@
             return this;
         },
         &#x2F;**
+        * Set to true when drag starts and useShim is true. Used in pairing with _docMove
         * @private
         * @property _shimming
-        * @description Set to true when drag starts and useShim is true. Used in pairing with _docMove
         * @see _docMove
         * @type {Boolean}
         *&#x2F;
         _shimming: false,
         &#x2F;**
+        * Internal listener for the mousemove on Document. Checks if the shim is in place to only call _move once per mouse move
         * @private
         * @method _docMove
-        * @description Internal listener for the mousemove on Document. Checks if the shim is in place to only call _move once per mouse move
         * @param {Event.Facade} ev The Dom mousemove Event
         *&#x2F;
         _docMove: function(ev) {
@@ -1666,9 +1690,9 @@
             }
         },
         &#x2F;**
+        * Internal listener for the mousemove DOM event to pass to the Drag&#x27;s move method.
         * @private
         * @method _move
-        * @description Internal listener for the mousemove DOM event to pass to the Drag&#x27;s move method.
         * @param {Event.Facade} ev The Dom mousemove Event
         *&#x2F;
         _move: function(ev) {
@@ -1703,8 +1727,8 @@
             };
         },
         &#x2F;**
+        * Get a valid Drag instance back from a Node or a selector string, false otherwise
         * @method getDrag
-        * @description Get a valid Drag instance back from a Node or a selector string, false otherwise
         * @param {String&#x2F;Object} node The Node instance or Selector string to check for a valid Drag Object
         * @return {Object}
         *&#x2F;
@@ -1712,7 +1736,7 @@
             var drag = false,
                 n = Y.one(node);
             if (n instanceof Y.Node) {
-                Y.each(this._drags, function(v) {
+                Y.Array.each(this._drags, function(v) {
                     if (n.compareTo(v.get(&#x27;node&#x27;))) {
                         drag = v;
                     }
@@ -1721,8 +1745,8 @@
             return drag;
         },
         &#x2F;**
+        * Swap the position of 2 nodes based on their CSS positioning.
         * @method swapPosition
-        * @description Swap the position of 2 nodes based on their CSS positioning.
         * @param {Node} n1 The first node to swap
         * @param {Node} n2 The first node to swap
         * @return {Node}
@@ -1738,8 +1762,8 @@
             return n1;
         },
         &#x2F;**
+        * Return a node instance from the given node, selector string or Y.Base extended object.
         * @method getNode
-        * @description Return a node instance from the given node, selector string or Y.Base extended object.
         * @param {Node&#x2F;Object&#x2F;String} n The node to resolve.
         * @return {Node}
         *&#x2F;
@@ -1759,8 +1783,8 @@
             return n;
         },
         &#x2F;**
+        * Swap the position of 2 nodes based on their DOM location.
         * @method swapNode
-        * @description Swap the position of 2 nodes based on their DOM location.
         * @param {Node} n1 The first node to swap
         * @param {Node} n2 The first node to swap
         * @return {Node}
@@ -1787,13 +1811,13 @@
     Y.DD.DDM = new DDMBase();
 
     &#x2F;**
+    * Fires from the DDM before all drag events fire.
     * @event ddm:start
-    * @description Fires from the DDM before all drag events fire.
     * @type {CustomEvent}
     *&#x2F;
     &#x2F;**
+    * Fires from the DDM after the DDM finishes, before the drag end events.
     * @event ddm:end
-    * @description Fires from the DDM after the DDM finishes, before the drag end events.
     * @type {CustomEvent}
     *&#x2F;
 

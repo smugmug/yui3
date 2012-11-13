@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1450,70 +1474,70 @@ CurveUtil.prototype = {
      * @return Object
      * @protected
      *&#x2F;
-    getCurveControlPoints: function(xcoords, ycoords) 
+    getCurveControlPoints: function(xcoords, ycoords)
     {
 		var outpoints = [],
             i = 1,
             l = xcoords.length - 1,
 		    xvals = [],
 		    yvals = [];
-		
-		
+
+
 		&#x2F;&#x2F; Too few points, need at least two
-		if (l &lt; 1) 
+		if (l &lt; 1)
         {
 			return null;
-		} 
-        
+		}
+
         outpoints[0] = {
-            startx: xcoords[0], 
+            startx: xcoords[0],
             starty: ycoords[0],
             endx: xcoords[1],
             endy: ycoords[1]
         };
-        
+
 		&#x2F;&#x2F; Special case, the Bezier should be a straight line
-        if (l === 1) 
+        if (l === 1)
         {
-			outpoints[0].ctrlx1 = (2.0*xcoords[0] + xcoords[1])&#x2F;3.0;  
+			outpoints[0].ctrlx1 = (2.0*xcoords[0] + xcoords[1])&#x2F;3.0;
 			outpoints[0].ctrly2 = (2.0*ycoords[0] + ycoords[1])&#x2F;3.0;
 			outpoints[0].ctrlx2 = 2.0*outpoints[0].ctrlx1 - xcoords[0];
             outpoints[0].ctrly2 = 2.0*outpoints[0].ctrly1 - ycoords[0];
             return outpoints;
 		}
 
-		for (; i &lt; l; ++i) 
+		for (; i &lt; l; ++i)
         {
 			outpoints.push({startx: Math.round(xcoords[i]), starty: Math.round(ycoords[i]), endx: Math.round(xcoords[i+1]), endy: Math.round(ycoords[i+1])});
 			xvals[i] = 4.0 * xcoords[i] + 2*xcoords[i+1];
 			yvals[i] = 4.0*ycoords[i] + 2*ycoords[i+1];
 		}
-		
+
 		xvals[0] = xcoords[0] + (2.0 * xcoords[1]);
 		xvals[l-1] = (8.0 * xcoords[l-1] + xcoords[l]) &#x2F; 2.0;
 		xvals = this.getControlPoints(xvals.concat());
         yvals[0] = ycoords[0] + (2.0 * ycoords[1]);
-		yvals[l-1] = (8.0 * ycoords[l-1] + ycoords[l]) &#x2F; 2.0;	
+		yvals[l-1] = (8.0 * ycoords[l-1] + ycoords[l]) &#x2F; 2.0;
 		yvals = this.getControlPoints(yvals.concat());
-		
-        for (i = 0; i &lt; l; ++i) 
+
+        for (i = 0; i &lt; l; ++i)
         {
 			outpoints[i].ctrlx1 = Math.round(xvals[i]);
             outpoints[i].ctrly1 = Math.round(yvals[i]);
-			
-			if (i &lt; l-1) 
+
+			if (i &lt; l-1)
             {
 				outpoints[i].ctrlx2 = Math.round(2*xcoords[i+1] - xvals[i+1]);
                 outpoints[i].ctrly2 = Math.round(2*ycoords[i+1] - yvals[i+1]);
 			}
-			else 
+			else
             {
 				outpoints[i].ctrlx2 = Math.round((xcoords[l] + xvals[l-1])&#x2F;2);
                 outpoints[i].ctrly2 = Math.round((ycoords[l] + yvals[l-1])&#x2F;2);
 			}
 		}
-		
-		return outpoints;	
+
+		return outpoints;
 	},
 
     &#x2F;**
@@ -1524,7 +1548,7 @@ CurveUtil.prototype = {
      * @return Array
      * @private
      *&#x2F;
-	getControlPoints: function(vals) 
+	getControlPoints: function(vals)
     {
 		var l = vals.length,
             x = [],
@@ -1532,18 +1556,18 @@ CurveUtil.prototype = {
             b = 2.0,
             i = 1;
 		x[0] = vals[0] &#x2F; b;
-		for (; i &lt; l; ++i) 
+		for (; i &lt; l; ++i)
         {
 			tmp[i] = 1&#x2F;b;
 			b = (i &lt; l-1 ? 4.0 : 3.5) - tmp[i];
 			x[i] = (vals[i] - x[i-1]) &#x2F; b;
 		}
-		
-		for (i = 1; i &lt; l; ++i) 
+
+		for (i = 1; i &lt; l; ++i)
         {
 			x[l-i-1] -= tmp[l-i] * x[l-i];
 		}
-		
+
 		return x;
 	}
 };

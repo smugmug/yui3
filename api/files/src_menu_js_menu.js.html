@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1715,12 +1739,63 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     },
 
     &#x2F;**
+    Repositions this menu so that it is anchored to a specified node, region, or
+    set of pixel coordinates.
+
+    The menu will be displayed at the most advantageous position relative to the
+    anchor point to ensure that as much of the menu as possible is visible
+    within the viewport.
+
+    @method reposition
+    @param {Node|Number[]|Object} anchorPoint Anchor point at which this menu
+        should be positioned. The point may be specified as a &#x60;Y.Node&#x60;
+        reference, a region object, or an array of X and Y pixel coordinates.
+    @chainable
+    **&#x2F;
+    reposition: function (anchorPoint) {
+        var container = this.get(&#x27;container&#x27;),
+            anchorRegion, menuRegion;
+
+        if (Y.Lang.isArray(anchorPoint)) {
+            anchorRegion = {
+                bottom: anchorPoint[1],
+                left  : anchorPoint[0],
+                right : anchorPoint[0],
+                top   : anchorPoint[1]
+            };
+        } else if (anchorPoint._node) {
+            anchorRegion = anchorPoint.get(&#x27;region&#x27;);
+        } else {
+            anchorRegion = anchorPoint;
+        }
+
+        menuRegion = this._getSortedAnchorRegions(
+            [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;],
+            container.get(&#x27;region&#x27;),
+            anchorRegion
+        )[0].region;
+
+        container.setXY([menuRegion.left, menuRegion.top]);
+
+        return this;
+    },
+
+    &#x2F;**
     Shows this menu.
 
     @method show
+    @param {Object} [options] Options.
+        @param {Node|Number[]|Object} [options.anchorPoint] Anchor point at
+            which this menu should be positioned when shown. The point may be
+            specified as a &#x60;Y.Node&#x60; reference, a region object, or an array of X
+            and Y pixel coordinates.
     @chainable
     **&#x2F;
-    show: function () {
+    show: function (options) {
+        if (options &amp;&amp; options.anchorPoint) {
+            this.reposition(options.anchorPoint);
+        }
+
         this.set(&#x27;visible&#x27;, true);
         return this;
     },
@@ -1730,10 +1805,15 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     hiding it if it&#x27;s currently visible.
 
     @method toggle
+    @param {Object} [options] Options.
+        @param {Node|Number[]|Object} [options.anchorPoint] Anchor point at
+            which this menu should be positioned when shown. The point may be
+            specified as a &#x60;Y.Node&#x60; reference, a region object, or an array of X
+            and Y pixel coordinates.
     @chainable
     **&#x2F;
-    toggle: function () {
-        return this[this.get(&#x27;visible&#x27;) ? &#x27;hide&#x27; : &#x27;show&#x27;]();
+    toggle: function (options) {
+        return this[this.get(&#x27;visible&#x27;) ? &#x27;hide&#x27; : &#x27;show&#x27;](options);
     },
 
     &#x2F;&#x2F; -- Protected Methods ----------------------------------------------------
@@ -2216,7 +2296,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
         &#x2F;&#x2F; Avoid navigating to &#x27;#&#x27; if this item is disabled or doesn&#x27;t have a
         &#x2F;&#x2F; custom URL.
         if (isDisabled || item.url === &#x27;#&#x27;) {
-            e._event.preventDefault();
+            e.preventDefault();
         }
 
         if (isDisabled) {

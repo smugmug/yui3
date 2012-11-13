@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1972,7 +1996,7 @@ pass <code>true</code> as the value of the <em>force</em> parameter.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2363"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2363</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2373"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2373</code></a>
         
         </p>
 
@@ -2404,7 +2428,7 @@ the native ES5 <code>Array.forEach()</code> method if available.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2394"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2394</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2404"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2404</code></a>
         
         </p>
 
@@ -3199,7 +3223,7 @@ array.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2422"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2422</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2432"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2432</code></a>
         
         </p>
 
@@ -3484,7 +3508,7 @@ values.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">Y.Array.hash(['a', 'b', 'c'], ['foo', 'bar']);
+                <pre class="code prettyprint"><code>Y.Array.hash(['a', 'b', 'c'], ['foo', 'bar']);
 // =&gt; {a: 'foo', b: 'bar', c: true}
 </code></pre>
             </div>
@@ -3547,7 +3571,7 @@ values.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2429"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2429</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2439"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2439</code></a>
         
         </p>
 
@@ -3625,7 +3649,7 @@ values.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">Y.Array.hash(['a', 'b', 'c'], ['foo', 'bar']);
+                <pre class="code prettyprint"><code>Y.Array.hash(['a', 'b', 'c'], ['foo', 'bar']);
 // =&gt; {a: 'foo', b: 'bar', c: true}
 </code></pre>
             </div>
@@ -3847,7 +3871,7 @@ equality check) to the specified <em>value</em>, or <code>-1</code> if the value
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2460"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2460</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2470"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2470</code></a>
         
         </p>
 
@@ -4094,7 +4118,7 @@ that do not have a function by that name will be skipped.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">Y.Array.invoke(arrayOfDrags, 'plug', Y.Plugin.DDProxy);
+                <pre class="code prettyprint"><code>Y.Array.invoke(arrayOfDrags, 'plug', Y.Plugin.DDProxy);
 </code></pre>
             </div>
         </div>
@@ -4412,7 +4436,7 @@ containing all the values returned by the supplied function.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">// Convert an array of numbers into an array of strings.
+                <pre class="code prettyprint"><code>// Convert an array of numbers into an array of strings.
 Y.Array.map([1, 2, 3, 4], function (item) {
   return '' + item;
 });
@@ -4478,7 +4502,7 @@ Y.Array.map([1, 2, 3, 4], function (item) {
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2500"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2500</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2510"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2510</code></a>
         
         </p>
 
@@ -4557,7 +4581,7 @@ to sort values in numeric order.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">[42, 23, 8, 16, 4, 15].sort(Y.Array.numericSort);
+                <pre class="code prettyprint"><code>[42, 23, 8, 16, 4, 15].sort(Y.Array.numericSort);
 // =&gt; [4, 8, 15, 16, 23, 42]
 </code></pre>
             </div>
@@ -4699,7 +4723,7 @@ to sort values in numeric order.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">[42, 23, 8, 16, 4, 15].sort(Y.Array.numericSort);
+                <pre class="code prettyprint"><code>[42, 23, 8, 16, 4, 15].sort(Y.Array.numericSort);
 // =&gt; [4, 8, 15, 16, 23, 42]
 </code></pre>
             </div>
@@ -5353,7 +5377,7 @@ returned <code>false</code>.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2523"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2523</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2533"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2533</code></a>
         
         </p>
 
@@ -5848,7 +5872,7 @@ collections, such as <code>&lt;form&gt;</code> and <code>&lt;select&gt;</code>, 
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2551"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2551</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2561"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2561</code></a>
         
         </p>
 

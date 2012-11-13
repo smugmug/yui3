@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1452,7 +1476,7 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
             return this._seriesCollection;
         }
         var axes = this.get(&quot;axes&quot;),
-            sc = [], 
+            sc = [],
             seriesKeys,
             i = 0,
             l,
@@ -1542,8 +1566,8 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
     _addAxes: function()
     {
         var axes = this.get(&quot;axes&quot;),
-            i, 
-            axis, 
+            i,
+            axis,
             p;
         if(!axes)
         {
@@ -1551,7 +1575,7 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
             axes = this.get(&quot;axes&quot;);
         }
         if(!this._axesCollection)
-        {   
+        {
             this._axesCollection = [];
         }
         for(i in axes)
@@ -1601,8 +1625,8 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
      *&#x2F;
     _parseSeriesAxes: function(c)
     {
-        var i = 0, 
-            len = c.length, 
+        var i = 0,
+            len = c.length,
             s,
             axes = this.get(&quot;axes&quot;),
             axis;
@@ -1611,7 +1635,7 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
             s = c[i];
             if(s)
             {
-                &#x2F;&#x2F;If series is an actual series instance, 
+                &#x2F;&#x2F;If series is an actual series instance,
                 &#x2F;&#x2F;replace axes attribute string ids with axes
                 if(s instanceof Y.PieSeries)
                 {
@@ -1647,7 +1671,7 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
     _getDefaultAxes: function()
     {
         var catKey = this.get(&quot;categoryKey&quot;),
-            seriesKeys = this.get(&quot;seriesKeys&quot;).concat(), 
+            seriesKeys = this.get(&quot;seriesKeys&quot;).concat(),
             seriesAxis = &quot;numeric&quot;;
         return {
             values:{
@@ -1660,7 +1684,7 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
             }
         };
     },
-        
+
     &#x2F;**
      * Returns an object literal containing a categoryItem and a valueItem for a given series index.
      *
@@ -1717,7 +1741,7 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
             graph.set(&quot;height&quot;, dimension);
         }
     },
-    
+
     &#x2F;**
      * Formats tooltip text for a pie chart.
      *
@@ -1734,7 +1758,7 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
      *      &lt;dt&gt;axis&lt;&#x2F;dt&gt;&lt;dd&gt;The axis to which the item&#x27;s series is bound.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;displayName&lt;&#x2F;dt&gt;&lt;dd&gt;The display name of the series. (defaults to key if not provided)&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;key&lt;&#x2F;dt&gt;&lt;dd&gt;The key for the series.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;value&lt;&#x2F;dt&gt;&lt;dd&gt;The value for the series item.&lt;&#x2F;dd&gt; 
+     *      &lt;dt&gt;value&lt;&#x2F;dt&gt;&lt;dd&gt;The value for the series item.&lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
      * @param {Number} itemIndex The index of the item within the series.
      * @param {CartesianSeries} series The &#x60;PieSeries&#x60; instance of the item.
@@ -1748,13 +1772,13 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
             total = series.getTotalValues(),
             pct = Math.round((valueItem.value &#x2F; total) * 10000)&#x2F;100;
         msg.appendChild(DOCUMENT.createTextNode(categoryItem.displayName +
-        &quot;: &quot; + categoryItem.axis.get(&quot;labelFunction&quot;).apply(this, [categoryItem.value, categoryItem.axis.get(&quot;labelFormat&quot;)]))); 
+        &quot;: &quot; + categoryItem.axis.get(&quot;labelFunction&quot;).apply(this, [categoryItem.value, categoryItem.axis.get(&quot;labelFormat&quot;)])));
         msg.appendChild(DOCUMENT.createElement(&quot;br&quot;));
-        msg.appendChild(DOCUMENT.createTextNode(valueItem.displayName + 
+        msg.appendChild(DOCUMENT.createTextNode(valueItem.displayName +
         &quot;: &quot; + valueItem.axis.get(&quot;labelFunction&quot;).apply(this, [valueItem.value, valueItem.axis.get(&quot;labelFormat&quot;)])));
         msg.appendChild(DOCUMENT.createElement(&quot;br&quot;));
-        msg.appendChild(DOCUMENT.createTextNode(pct + &quot;%&quot;)); 
-        return msg; 
+        msg.appendChild(DOCUMENT.createTextNode(pct + &quot;%&quot;));
+        return msg;
     },
 
     &#x2F;**
@@ -1798,8 +1822,8 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
         if(categoryItem &amp;&amp; valueItem)
         {
             msg += categoryItem.displayName + &quot;: &quot; + categoryItem.axis.formatLabel.apply(this, [categoryItem.value, categoryItem.axis.get(&quot;labelFormat&quot;)]) + &quot;, &quot;;
-            msg += valueItem.displayName + &quot;: &quot; + valueItem.axis.formatLabel.apply(this, [valueItem.value, valueItem.axis.get(&quot;labelFormat&quot;)]) + &quot;, &quot;; 
-            msg += &quot;Percent of total &quot; + valueItem.displayName + &quot;: &quot; + pct + &quot;%,&quot;; 
+            msg += valueItem.displayName + &quot;: &quot; + valueItem.axis.formatLabel.apply(this, [valueItem.value, valueItem.axis.get(&quot;labelFormat&quot;)]) + &quot;, &quot;;
+            msg += &quot;Percent of total &quot; + valueItem.displayName + &quot;: &quot; + pct + &quot;%,&quot;;
         }
         else
         {
@@ -1829,9 +1853,9 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
                 return val;
             }
         },
-        
+
         &#x2F;**
-         * Axes to appear in the chart. 
+         * Axes to appear in the chart.
          *
          * @attribute axes
          * @type Object
@@ -1860,18 +1884,18 @@ Y.PieChart = Y.Base.create(&quot;pieChart&quot;, Y.Widget, [Y.ChartBase], {
             {
                 return this._getSeriesCollection();
             },
-            
+
             setter: function(val)
             {
                 return this._setSeriesCollection(val);
             }
         },
-        
+
         &#x2F;**
          * Type of chart when there is no series collection specified.
          *
          * @attribute type
-         * @type String 
+         * @type String
          *&#x2F;
         type: {
             value: &quot;pie&quot;

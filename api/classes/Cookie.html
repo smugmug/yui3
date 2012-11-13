@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -2021,6 +2045,12 @@
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code>options</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -2108,6 +2138,21 @@
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">options</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>(Optional) Contains settings for loading the cookie.</p>
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -2179,7 +2224,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l197"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:197</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l204"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:204</code></a>
         
         </p>
 
@@ -2193,7 +2238,7 @@
         <p>Sets the document object that the cookie utility uses for setting
 cookies. This method is necessary to ensure that the cookie utility
 unit tests can pass even when run on a domain instead of locally.
-This method should not be used otherwise; you should use 
+This method should not be used otherwise; you should use
 <code>Y.config.doc</code> to change the document that the cookie
 utility uses for everyday purposes.</p>
     </div>
@@ -2289,7 +2334,7 @@ utility uses for everyday purposes.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l217"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:217</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l224"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:224</code></a>
         
         </p>
 
@@ -2402,7 +2447,7 @@ Boolean cookies (those that do not follow the name=value convention).</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l234"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:234</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l241"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:241</code></a>
         
         </p>
 
@@ -2447,7 +2492,8 @@ Boolean cookies (those that do not follow the name=value convention).</p>
 
                     <div class="param-description">
                         <p>(Optional) An object containing one or more
-     cookie options: raw (true/false) and converter (a function).
+     cookie options: raw (true/false), reverseCookieLoading (true/false)
+     and converter (a function).
      The converter function is run on the value before returning it. The
      function is not used if the cookie doesn't exist. The function can be
      passed instead of the options object for backwards compatibility. When
@@ -2507,6 +2553,12 @@ Boolean cookies (those that do not follow the name=value convention).</p>
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code>options</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -2542,7 +2594,7 @@ Boolean cookies (those that do not follow the name=value convention).</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l282"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:282</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l290"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:290</code></a>
         
         </p>
 
@@ -2608,6 +2660,21 @@ Boolean cookies (those that do not follow the name=value convention).</p>
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">options</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>(Optional) Containing one or more settings for cookie parsing.</p>
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -2647,6 +2714,12 @@ Boolean cookies (those that do not follow the name=value convention).</p>
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code>options</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -2682,7 +2755,7 @@ Boolean cookies (those that do not follow the name=value convention).</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l318"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:318</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l327"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:327</code></a>
         
         </p>
 
@@ -2712,6 +2785,21 @@ Boolean cookies (those that do not follow the name=value convention).</p>
 
                     <div class="param-description">
                         <p>The name of the cookie to retrieve.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">options</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>(Optional) Containing one or more settings for cookie parsing.</p>
                     </div>
 
                     
@@ -2795,7 +2883,7 @@ Boolean cookies (those that do not follow the name=value convention).</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l337"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:337</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l347"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:347</code></a>
         
         </p>
 
@@ -2841,7 +2929,7 @@ sometime in the past.</p>
 
                     <div class="param-description">
                         <p>(Optional) An object containing one or more
-     cookie options: path (a string), domain (a string), 
+     cookie options: path (a string), domain (a string),
      and secure (true/false). The expires option will be overwritten
      by the method.</p>
                     </div>
@@ -2932,7 +3020,7 @@ sometime in the past.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l362"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:362</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l372"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:372</code></a>
         
         </p>
 
@@ -3083,7 +3171,7 @@ sometime in the past.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l409"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:409</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l419"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:419</code></a>
         
         </p>
 
@@ -3240,7 +3328,7 @@ sometime in the past.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l436"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:436</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l446"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:446</code></a>
         
         </p>
 
@@ -3405,7 +3493,7 @@ sometime in the past.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l470"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:470</code></a>
+        <a href="..&#x2F;files&#x2F;src_cookie_js_Cookie.js.html#l480"><code>src&#x2F;cookie&#x2F;js&#x2F;Cookie.js:480</code></a>
         
         </p>
 

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1458,7 +1482,7 @@ into a Model or ModelList subclass.</p>
 transmit their data via RESTful XHRs. In most cases you'll only need to provide
 a value for <code>root</code> when sub-classing <code>Y.Model</code>.</p>
 
-<pre class="code"><code class="prettyprint">Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
+<pre class="code prettyprint"><code>Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
     root: '/users'
 });
 
@@ -1793,7 +1817,7 @@ users.load(function () {
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">model.root = '/foo'
+                <pre class="code prettyprint"><code>model.root = '/foo'
 model._joinURL('bar');  // =&gt; '/foo/bar'
 model._joinURL('/bar'); // =&gt; '/foo/bar'
 
@@ -2949,7 +2973,7 @@ Also, only expect it to work with String and Number values.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">var url = this._substituteURL('/users/{name}', {id: 'Eric F'});
+                <pre class="code prettyprint"><code>var url = this._substituteURL('/users/{name}', {id: 'Eric F'});
 // =&gt; "/users/Eric%20F"
 </code></pre>
             </div>
@@ -3668,7 +3692,7 @@ allows you to protect your server from Cross-Site Request Forgery attacks.</p>
 <p>A CSRF token provided by the server can be embedded in the HTML document and
 assigned to <code>YUI.Env.CSRF_TOKEN</code> like this:</p>
 
-<pre class="code"><code class="prettyprint">&lt;script&gt;
+<pre class="code prettyprint"><code>&lt;script&gt;
     YUI.Env.CSRF_TOKEN = {{session.authenticityToken}};
 &lt;/script&gt;
 </code></pre>
@@ -3971,7 +3995,7 @@ the <code>root</code> string ends with a trailing-slash, XHR URLs will also end 
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
+                <pre class="code prettyprint"><code>Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
     root: '/users'
 });
 
@@ -4053,7 +4077,7 @@ specific model will also end with a trailing-slash.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
+                <pre class="code prettyprint"><code>Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
     root: '/users/'
 });
 
@@ -4068,7 +4092,7 @@ newUser = new Y.User({name: 'Eric Ferraiuolo'}).save();
 
 <p>If a <code>url</code> is specified, it will be processed by <code>Y.Lang.sub()</code>, which is
 useful when the URLs for a Model/ModelList subclass match a specific pattern
-and can use simple replacement tokens; e.g.:</p><pre class="code"><code class="prettyprint">Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
+and can use simple replacement tokens; e.g.:</p><pre class="code prettyprint"><code>Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
     root: '/users',
     url : '/users/{username}'
 });
@@ -4082,7 +4106,7 @@ Array, or Boolean values, they will simply be ignored.</p>
 <p>If your URLs have plural roots or collection URLs, while the specific item
 resources are under a singular name, e.g. "/users" (plural) and "/user/123"
 (singular), you'll probably want to configure the <code>root</code> and <code>url</code>
-properties like this:</p><pre class="code"><code class="prettyprint">Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
+properties like this:</p><pre class="code prettyprint"><code>Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
     root: '/users',
     url : '/user/{id}'
 });
@@ -4099,7 +4123,7 @@ newUser = new Y.User({name: 'Eric Ferraiuolo'}).save();
 <p>When sub-classing <code>Y.ModelList</code>, usually you'll be able to rely on the
 associated <code>model</code> to supply its <code>root</code> to be used as the model list's URL.
 If this needs to be customized, you can provide a simple string for the
-<code>url</code> property.</p><pre class="code"><code class="prettyprint">Y.Users = Y.Base.create('users', Y.ModelList, [Y.ModelSync.REST], {
+<code>url</code> property.</p><pre class="code prettyprint"><code>Y.Users = Y.Base.create('users', Y.ModelList, [Y.ModelSync.REST], {
     // Leverages <code>Y.User</code>'s <code>root</code>, which is "/users".
     model: Y.User
 });

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1454,7 +1478,7 @@ StackingUtil.prototype = {
      *
      * @method _stackCoordinates
      *&#x2F;
-    _stackCoordinates: function() 
+    _stackCoordinates: function()
     {
         if(this.get(&quot;direction&quot;) == &quot;vertical&quot;)
         {
@@ -1558,7 +1582,7 @@ StackingUtil.prototype = {
         var order = this.get(&quot;order&quot;),
             type = this.get(&quot;type&quot;),
             graph = this.get(&quot;graph&quot;),
-            h = graph.get(&quot;height&quot;), 
+            h = graph.get(&quot;height&quot;),
             seriesCollection = graph.seriesTypes[type],
             i = 0,
             xcoords = this.get(&quot;xcoords&quot;),
@@ -1630,9 +1654,10 @@ StackingUtil.prototype = {
     },
 
     &#x2F;**
-     * Cleans invalid x-coordinates by calculating their value based on the corresponding y-coordinate, the previous valid x-coordinate with its 
-     * corresponding y-coordinate and the next valid x-coordinate with its corresponding y-coordinate. If there is no previous or next valid x-coordinate,
-     * the value will not be altered.
+     * Cleans invalid x-coordinates by calculating their value based on the corresponding y-coordinate, the
+     * previous valid x-coordinate with its corresponding y-coordinate and the next valid x-coordinate with
+     * its corresponding y-coordinate. If there is no previous or next valid x-coordinate, the value will not
+     * be altered.
      *
      * @method _cleanXNaN
      * @param {Array} xcoords An array of x-coordinate values
@@ -1723,9 +1748,10 @@ StackingUtil.prototype = {
     },
 
     &#x2F;**
-     * Cleans invalid y-coordinates by calculating their value based on the corresponding x-coordinate, the previous valid y-coordinate with its 
-     * corresponding x-coordinate and the next valid y-coordinate with its corresponding x-coordinate. If there is no previous or next valid y-coordinate,
-     * the value will not be altered.
+     * Cleans invalid y-coordinates by calculating their value based on the corresponding x-coordinate, the
+     * previous valid y-coordinate with its corresponding x-coordinate and the next valid y-coordinate with
+     * its corresponding x-coordinate. If there is no previous or next valid y-coordinate, the value will not
+     * be altered.
      *
      * @method _cleanYNaN
      * @param {Array} xcoords An array of x-coordinate values

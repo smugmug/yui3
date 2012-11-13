@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1429,18 +1453,18 @@
 <div class="file">
     <pre class="code prettyprint linenums">
     &#x2F;**
-     * The base module provides the Base class, which objects requiring attribute and custom event support can extend. 
-     * The module also provides two ways to reuse code - It augments Base with the Plugin.Host interface which provides 
+     * The base module provides the Base class, which objects requiring attribute and custom event support can extend.
+     * The module also provides two ways to reuse code - It augments Base with the Plugin.Host interface which provides
      * plugin support and also provides the BaseCore.build method which provides a way to build custom classes using extensions.
      *
      * @module base
      *&#x2F;
 
     &#x2F;**
-     * &lt;p&gt;The base-core module provides the BaseCore class, the lightest version of Base, 
-     * which provides Base&#x27;s basic lifecycle management and ATTRS construction support, 
-     * but doesn&#x27;t fire init&#x2F;destroy or attribute change events.&lt;&#x2F;p&gt; 
-     * 
+     * &lt;p&gt;The base-core module provides the BaseCore class, the lightest version of Base,
+     * which provides Base&#x27;s basic lifecycle management and ATTRS construction support,
+     * but doesn&#x27;t fire init&#x2F;destroy or attribute change events.&lt;&#x2F;p&gt;
+     *
      * &lt;p&gt;It mixes in AttributeCore, which is the lightest version of Attribute&lt;&#x2F;p&gt;
      *
      * @module base
@@ -1463,7 +1487,7 @@
         _wlmix = function(r, s, wlhash) {
             var p;
             for (p in s) {
-                if(wlhash[p]) { 
+                if(wlhash[p]) {
                     r[p] = s[p];
                 }
             }
@@ -1471,24 +1495,24 @@
         };
 
     &#x2F;**
-     * The BaseCore class, is the lightest version of Base, and provides Base&#x27;s 
-     * basic lifecycle management and ATTRS construction support, but doesn&#x27;t 
+     * The BaseCore class, is the lightest version of Base, and provides Base&#x27;s
+     * basic lifecycle management and ATTRS construction support, but doesn&#x27;t
      * fire init&#x2F;destroy or attribute change events.
      *
-     * BaseCore also handles the chaining of initializer and destructor methods across 
-     * the hierarchy as part of object construction and destruction. Additionally, attributes 
-     * configured through the static &lt;a href=&quot;#property_BaseCore.ATTRS&quot;&gt;ATTRS&lt;&#x2F;a&gt; 
+     * BaseCore also handles the chaining of initializer and destructor methods across
+     * the hierarchy as part of object construction and destruction. Additionally, attributes
+     * configured through the static &lt;a href=&quot;#property_BaseCore.ATTRS&quot;&gt;ATTRS&lt;&#x2F;a&gt;
      * property for each class in the hierarchy will be initialized by BaseCore.
      *
-     * Classes which require attribute support, but don&#x27;t intend to use&#x2F;expose attribute 
-     * change events can extend BaseCore instead of Base for optimal kweight and 
+     * Classes which require attribute support, but don&#x27;t intend to use&#x2F;expose attribute
+     * change events can extend BaseCore instead of Base for optimal kweight and
      * runtime performance.
-     * 
+     *
      * @class BaseCore
      * @constructor
      * @uses AttributeCore
-     * @param {Object} cfg Object with configuration property name&#x2F;value pairs. 
-     * The object can be used to provide initial values for the objects published 
+     * @param {Object} cfg Object with configuration property name&#x2F;value pairs.
+     * The object can be used to provide initial values for the objects published
      * attributes.
      *&#x2F;
     function BaseCore(cfg) {
@@ -1502,7 +1526,7 @@
     }
 
     &#x2F;**
-     * The list of properties which can be configured for each attribute 
+     * The list of properties which can be configured for each attribute
      * (e.g. setter, getter, writeOnce, readOnly etc.)
      *
      * @property _ATTR_CFG
@@ -1511,15 +1535,14 @@
      * @private
      *&#x2F;
     BaseCore._ATTR_CFG = AttributeCore._ATTR_CFG.concat(&quot;cloneDefaultValue&quot;);
-    BaseCore._ATTR_CFG_HASH = Y.Array.hash(BaseCore._ATTR_CFG);
 
     &#x2F;**
-     * The array of non-attribute configuration properties supported by this class. 
-     * 
-     * For example &#x60;BaseCore&#x60; defines a &quot;plugins&quot; configuration property which 
-     * should not be set up as an attribute. This property is primarily required so 
-     * that when &lt;a href=&quot;#property__allowAdHocAttrs&quot;&gt;&#x60;_allowAdHocAttrs&#x60;&lt;&#x2F;a&gt; is enabled by a class, 
-     * non-attribute configuration properties don&#x27;t get added as ad-hoc attributes.  
+     * The array of non-attribute configuration properties supported by this class.
+     *
+     * For example &#x60;BaseCore&#x60; defines a &quot;plugins&quot; configuration property which
+     * should not be set up as an attribute. This property is primarily required so
+     * that when &lt;a href=&quot;#property__allowAdHocAttrs&quot;&gt;&#x60;_allowAdHocAttrs&#x60;&lt;&#x2F;a&gt; is enabled by a class,
+     * non-attribute configuration properties don&#x27;t get added as ad-hoc attributes.
      *
      * @property _NON_ATTRS_CFG
      * @type Array
@@ -1530,12 +1553,12 @@
 
     &#x2F;**
      * This property controls whether or not instances of this class should
-     * allow users to add ad-hoc attributes through the constructor configuration 
+     * allow users to add ad-hoc attributes through the constructor configuration
      * hash.
      *
-     * AdHoc attributes are attributes which are not defined by the class, and are 
-     * not handled by the MyClass._NON_ATTRS_CFG  
-     * 
+     * AdHoc attributes are attributes which are not defined by the class, and are
+     * not handled by the MyClass._NON_ATTRS_CFG
+     *
      * @property _allowAdHocAttrs
      * @type boolean
      * @default undefined (false)
@@ -1544,7 +1567,7 @@
 
     &#x2F;**
      * The string to be used to identify instances of this class.
-     * 
+     *
      * Classes extending BaseCore, should define their own
      * static NAME property, which should be camelCase by
      * convention (e.g. MyClass.NAME = &quot;myClass&quot;;).
@@ -1556,14 +1579,14 @@
     BaseCore.NAME = &quot;baseCore&quot;;
 
     &#x2F;**
-     * The default set of attributes which will be available for instances of this class, and 
-     * their configuration. In addition to the configuration properties listed by 
-     * AttributeCore&#x27;s &lt;a href=&quot;AttributeCore.html#method_addAttr&quot;&gt;addAttr&lt;&#x2F;a&gt; method, 
-     * the attribute can also be configured with a &quot;cloneDefaultValue&quot; property, which 
-     * defines how the statically defined value field should be protected 
-     * (&quot;shallow&quot;, &quot;deep&quot; and false are supported values). 
+     * The default set of attributes which will be available for instances of this class, and
+     * their configuration. In addition to the configuration properties listed by
+     * AttributeCore&#x27;s &lt;a href=&quot;AttributeCore.html#method_addAttr&quot;&gt;addAttr&lt;&#x2F;a&gt; method,
+     * the attribute can also be configured with a &quot;cloneDefaultValue&quot; property, which
+     * defines how the statically defined value field should be protected
+     * (&quot;shallow&quot;, &quot;deep&quot; and false are supported values).
      *
-     * By default if the value is an object literal or an array it will be &quot;shallow&quot; 
+     * By default if the value is an object literal or an array it will be &quot;shallow&quot;
      * cloned, to protect the default value.
      *
      * @property ATTRS
@@ -1610,6 +1633,7 @@
          * @private
          *&#x2F;
         _initBase : function(config) {
+            Y.log(&#x27;init called&#x27;, &#x27;life&#x27;, &#x27;base&#x27;);
 
             Y.stamp(this);
 
@@ -1632,22 +1656,22 @@
              * @type String
              *&#x2F;
             this.name = this.constructor.NAME;
-    
+
             this.init.apply(this, arguments);
         },
 
         &#x2F;**
-         * Initializes AttributeCore 
-         * 
+         * Initializes AttributeCore
+         *
          * @method _initAttribute
          * @private
          *&#x2F;
         _initAttribute: function() {
-            AttributeCore.apply(this);
+            AttributeCore.call(this);
         },
 
         &#x2F;**
-         * Init lifecycle method, invoked during construction. Sets up attributes 
+         * Init lifecycle method, invoked during construction. Sets up attributes
          * and invokes initializers for the class hierarchy.
          *
          * @method init
@@ -1711,7 +1735,7 @@
          * @method _getClasses
          * @protected
          * @return {Function[]} An array of classes (constructor functions), making up the class hierarchy for this object.
-         * This value is cached the first time the method, or _getAttrCfgs, is invoked. Subsequent invocations return the 
+         * This value is cached the first time the method, or _getAttrCfgs, is invoked. Subsequent invocations return the
          * cached value.
          *&#x2F;
         _getClasses : function() {
@@ -1722,7 +1746,7 @@
         },
 
         &#x2F;**
-         * Returns an aggregated set of attribute configurations, by traversing 
+         * Returns an aggregated set of attribute configurations, by traversing
          * the class hierarchy.
          *
          * @method _getAttrCfgs
@@ -1739,18 +1763,18 @@
         },
 
         &#x2F;**
-         * A helper method used when processing ATTRS across the class hierarchy during 
-         * initialization. Returns a disposable object with the attributes defined for 
+         * A helper method used when processing ATTRS across the class hierarchy during
+         * initialization. Returns a disposable object with the attributes defined for
          * the provided class, extracted from the set of all attributes passed in.
          *
          * @method _filterAttrCfs
          * @private
          *
          * @param {Function} clazz The class for which the desired attributes are required.
-         * @param {Object} allCfgs The set of all attribute configurations for this instance. 
+         * @param {Object} allCfgs The set of all attribute configurations for this instance.
          * Attributes will be removed from this set, if they belong to the filtered class, so
          * that by the time all classes are processed, allCfgs will be empty.
-         * 
+         *
          * @return {Object} The set of attributes belonging to the class passed in, in the form
          * of an object with attribute name&#x2F;configuration pairs.
          *&#x2F;
@@ -1774,7 +1798,7 @@
          * @method _filterAdHocAttrs
          * @private
          *
-         * @param {Object} allAttrs The set of all attribute configurations for this instance. 
+         * @param {Object} allAttrs The set of all attribute configurations for this instance.
          * Attributes will be removed from this set, if they belong to the filtered class, so
          * that by the time all classes are processed, allCfgs will be empty.
          * @param {Object} userVals The config object passed in by the user, from which adhoc attrs are to be filtered.
@@ -1809,13 +1833,20 @@
          * @private
          *&#x2F;
         _initHierarchyData : function() {
-            var c = this.constructor,
+            var ctor = this.constructor,
+                c,
                 i,
                 l,
+                attrCfg,
+                attrCfgHash,
+                needsAttrCfgHash = !ctor._ATTR_CFG_HASH,
                 nonAttrsCfg,
                 nonAttrs = (this._allowAdHocAttrs) ? {} : null,
                 classes = [],
                 attrs = [];
+
+            &#x2F;&#x2F; Start with &#x60;this&#x60; instance&#x27;s constructor.
+            c = ctor;
 
             while (c) {
                 &#x2F;&#x2F; Add to classes
@@ -1826,8 +1857,20 @@
                     attrs[attrs.length] = c.ATTRS;
                 }
 
+                &#x2F;&#x2F; Aggregate ATTR cfg whitelist.
+                if (needsAttrCfgHash) {
+                    attrCfg     = c._ATTR_CFG;
+                    attrCfgHash = attrCfgHash || {};
+
+                    if (attrCfg) {
+                        for (i = 0, l = attrCfg.length; i &lt; l; i += 1) {
+                            attrCfgHash[attrCfg[i]] = true;
+                        }
+                    }
+                }
+
                 if (this._allowAdHocAttrs) {
-                    nonAttrsCfg = c._NON_ATTRS_CFG; 
+                    nonAttrsCfg = c._NON_ATTRS_CFG;
                     if (nonAttrsCfg) {
                         for (i = 0, l = nonAttrsCfg.length; i &lt; l; i++) {
                             nonAttrs[nonAttrsCfg[i]] = true;
@@ -1838,33 +1881,38 @@
                 c = c.superclass ? c.superclass.constructor : null;
             }
 
+            &#x2F;&#x2F; Cache computed &#x60;_ATTR_CFG_HASH&#x60; on the constructor.
+            if (needsAttrCfgHash) {
+                ctor._ATTR_CFG_HASH = attrCfgHash;
+            }
+
             this._classes = classes;
             this._nonAttrs = nonAttrs;
             this._attrs = this._aggregateAttrs(attrs);
         },
 
         &#x2F;**
-         * Utility method to define the attribute hash used to filter&#x2F;whitelist property mixes for 
-         * this class. 
-         * 
+         * Utility method to define the attribute hash used to filter&#x2F;whitelist property mixes for
+         * this class.
+         *
          * @method _attrCfgHash
          * @private
          *&#x2F;
         _attrCfgHash: function() {
-            return BaseCore._ATTR_CFG_HASH;
+            return this.constructor._ATTR_CFG_HASH;
         },
 
         &#x2F;**
-         * A helper method, used by _initHierarchyData to aggregate 
+         * A helper method, used by _initHierarchyData to aggregate
          * attribute configuration across the instances class hierarchy.
          *
-         * The method will protect the attribute configuration value to protect the statically defined 
-         * default value in ATTRS if required (if the value is an object literal, array or the 
+         * The method will protect the attribute configuration value to protect the statically defined
+         * default value in ATTRS if required (if the value is an object literal, array or the
          * attribute configuration has cloneDefaultValue set to shallow or deep).
          *
          * @method _aggregateAttrs
          * @private
-         * @param {Array} allAttrs An array of ATTRS definitions across classes in the hierarchy 
+         * @param {Array} allAttrs An array of ATTRS definitions across classes in the hierarchy
          * (subclass first, Base last)
          * @return {Object} The aggregate set of ATTRS definitions for the instance
          *&#x2F;
@@ -1901,7 +1949,7 @@
                                     Y.log(&#x27;Merging default value for attribute:&#x27; + attr, &#x27;info&#x27;, &#x27;base&#x27;);
                                     cfg.value = Y.merge(val);
                                 }
-                                &#x2F;&#x2F; else if (clone === false), don&#x27;t clone the static default value. 
+                                &#x2F;&#x2F; else if (clone === false), don&#x27;t clone the static default value.
                                 &#x2F;&#x2F; It&#x27;s intended to be used by reference.
                             }
 
@@ -1919,7 +1967,7 @@
                                     aggAttrs[attr] = cfg;
                                 } else {
                                     if (aggAttr.valueFn &amp;&amp; VALUE in cfg) {
-                                        aggAttr.valueFn = null;    
+                                        aggAttr.valueFn = null;
                                     }
                                     _wlmix(aggAttr, cfg, cfgPropsHash);
                                 }
@@ -1933,9 +1981,9 @@
         },
 
         &#x2F;**
-         * Initializes the class hierarchy for the instance, which includes 
-         * initializing attributes for each class defined in the class&#x27;s 
-         * static &lt;a href=&quot;#property_BaseCore.ATTRS&quot;&gt;ATTRS&lt;&#x2F;a&gt; property and 
+         * Initializes the class hierarchy for the instance, which includes
+         * initializing attributes for each class defined in the class&#x27;s
+         * static &lt;a href=&quot;#property_BaseCore.ATTRS&quot;&gt;ATTRS&lt;&#x2F;a&gt; property and
          * invoking the initializer method on the prototype of each class in the hierarchy.
          *
          * @method _initHierarchy
@@ -1959,7 +2007,7 @@
 
                 constr = classes[ci];
                 constrProto = constr.prototype;
-                exts = constr._yuibuild &amp;&amp; constr._yuibuild.exts; 
+                exts = constr._yuibuild &amp;&amp; constr._yuibuild.exts;
 
                 if (exts) {
                     for (ei = 0, el = exts.length; ei &lt; el; ei++) {
@@ -1969,12 +2017,12 @@
 
                 this.addAttrs(this._filterAttrCfgs(constr, attrCfgs), userVals, lazy);
 
-                if (this._allowAdHocAttrs &amp;&amp; ci === cl) {                
+                if (this._allowAdHocAttrs &amp;&amp; ci === cl) {
                     this.addAttrs(this._filterAdHocAttrs(attrCfgs, userVals), userVals, lazy);
                 }
 
                 &#x2F;&#x2F; Using INITIALIZER in hasOwnProperty check, for performance reasons (helps IE6 avoid GC thresholds when
-                &#x2F;&#x2F; referencing string literals). Not using it in apply, again, for performance &quot;.&quot; is faster. 
+                &#x2F;&#x2F; referencing string literals). Not using it in apply, again, for performance &quot;.&quot; is faster.
                 if (constrProto.hasOwnProperty(INITIALIZER)) {
                     constrProto.initializer.apply(this, arguments);
                 }
@@ -2006,7 +2054,7 @@
             for (ci = 0, cl = classes.length; ci &lt; cl; ci++) {
                 constr = classes[ci];
                 constrProto = constr.prototype;
-                exts = constr._yuibuild &amp;&amp; constr._yuibuild.exts; 
+                exts = constr._yuibuild &amp;&amp; constr._yuibuild.exts;
 
                 if (exts) {
                     for (ei = 0, el = exts.length; ei &lt; el; ei++) {

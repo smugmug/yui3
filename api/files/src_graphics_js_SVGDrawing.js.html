@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1447,9 +1471,9 @@ var IMPLEMENTATION = &quot;svg&quot;,
 function SVGDrawing(){}
 
 &#x2F;**
- * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class. 
- * &#x60;SVGDrawing&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class. 
- * If the browser has &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; capabilities, the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; 
+ * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class.
+ * &#x60;SVGDrawing&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt; class.
+ * If the browser has &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; capabilities, the &lt;a href=&quot;Drawing.html&quot;&gt;&#x60;Drawing&#x60;&lt;&#x2F;a&gt;
  * class will point to the &#x60;SVGDrawing&#x60; class.
  *
  * @module graphics
@@ -1494,7 +1518,7 @@ SVGDrawing.prototype = {
      * @private
      *&#x2F;
     _currentY: 0,
-    
+
     &#x2F;**
      * Indicates the type of shape
      *
@@ -1504,7 +1528,7 @@ SVGDrawing.prototype = {
      * @type String
      *&#x2F;
     _type: &quot;path&quot;,
-   
+
     &#x2F;**
      * Draws a bezier curve.
      *
@@ -1597,7 +1621,7 @@ SVGDrawing.prototype = {
             top = Math.min(y, Math.min(cp1y, cp2y));
             w = Math.abs(right - left);
             h = Math.abs(bottom - top);
-            pts = [[this._currentX, this._currentY] , [cp1x, cp1y], [cp2x, cp2y], [x, y]]; 
+            pts = [[this._currentX, this._currentY] , [cp1x, cp1y], [cp2x, cp2y], [x, y]];
             this._setCurveBoundingBox(pts, w, h);
             this._currentX = x;
             this._currentY = y;
@@ -1629,7 +1653,7 @@ SVGDrawing.prototype = {
     relativeQuadraticCurveTo: function() {
         this._quadraticCurveTo.apply(this, [Y.Array(arguments), true]);
     },
-   
+
     &#x2F;**
      * Implements quadraticCurveTo methods.
      *
@@ -1639,9 +1663,9 @@ SVGDrawing.prototype = {
      * @private
      *&#x2F;
     _quadraticCurveTo: function(args, relative) {
-        var cpx, 
-            cpy, 
-            x, 
+        var cpx,
+            cpy,
+            x,
             y,
             pathArrayLen,
             currentArray,
@@ -1687,7 +1711,7 @@ SVGDrawing.prototype = {
             top = Math.min(y, cpy);
             w = Math.abs(right - left);
             h = Math.abs(bottom - top);
-            pts = [[this._currentX, this._currentY] , [cpx, cpy], [x, y]]; 
+            pts = [[this._currentX, this._currentY] , [cpx, cpy], [x, y]];
             this._setCurveBoundingBox(pts, w, h);
             this._currentX = x;
             this._currentY = y;
@@ -1713,7 +1737,7 @@ SVGDrawing.prototype = {
 
     &#x2F;**
      * Draws a rectangle with rounded corners.
-     * 
+     *
      * @method drawRect
      * @param {Number} x x-coordinate
      * @param {Number} y y-coordinate
@@ -1735,8 +1759,8 @@ SVGDrawing.prototype = {
 	},
 
     &#x2F;**
-     * Draws a circle.     
-     * 
+     * Draws a circle.
+     *
      * @method drawCircle
      * @param {Number} x y-coordinate
      * @param {Number} y x-coordinate
@@ -1756,7 +1780,7 @@ SVGDrawing.prototype = {
         this._currentY = y;
         return this;
     },
-   
+
     &#x2F;**
      * Draws an ellipse.
      *
@@ -1783,8 +1807,8 @@ SVGDrawing.prototype = {
     },
 
     &#x2F;**
-     * Draws a diamond.     
-     * 
+     * Draws a diamond.
+     *
      * @method drawDiamond
      * @param {Number} x y-coordinate
      * @param {Number} y x-coordinate
@@ -1842,29 +1866,29 @@ SVGDrawing.prototype = {
         }
         else
         {
-            currentArray = this._getCurrentArray(); 
+            currentArray = this._getCurrentArray();
         }
         pathArrayLen = this._pathArray.length - 1;
-        this._pathArray[pathArrayLen].push(x); 
-        this._pathArray[pathArrayLen].push(x); 
-        
+        this._pathArray[pathArrayLen].push(x);
+        this._pathArray[pathArrayLen].push(x);
+
         &#x2F;&#x2F; limit sweep to reasonable numbers
         if(Math.abs(arc) &gt; 360)
         {
             arc = 360;
         }
-        
+
         &#x2F;&#x2F; First we calculate how many segments are needed
         &#x2F;&#x2F; for a smooth arc.
         segs = Math.ceil(Math.abs(arc) &#x2F; 45);
-        
+
         &#x2F;&#x2F; Now calculate the sweep of each segment.
         segAngle = arc &#x2F; segs;
-        
+
         &#x2F;&#x2F; The math requires radians rather than degrees. To convert from degrees
         &#x2F;&#x2F; use the formula (degrees&#x2F;180)*Math.PI to get radians.
         theta = -(segAngle &#x2F; 180) * Math.PI;
-        
+
         &#x2F;&#x2F; convert angle startAngle to radians
         angle = (startAngle &#x2F; 180) * Math.PI;
         if(segs &gt; 0)
@@ -1877,7 +1901,7 @@ SVGDrawing.prototype = {
             this._pathArray[pathArrayLen] = [&quot;L&quot;];
             this._pathArray[pathArrayLen].push(Math.round(ax));
             this._pathArray[pathArrayLen].push(Math.round(ay));
-            pathArrayLen++; 
+            pathArrayLen++;
             this._pathType = &quot;Q&quot;;
             this._pathArray[pathArrayLen] = [&quot;Q&quot;];
             for(i = 0; i &lt; segs; ++i)
@@ -1896,13 +1920,13 @@ SVGDrawing.prototype = {
         }
         this._currentX = x;
         this._currentY = y;
-        this._trackSize(diameter, diameter); 
+        this._trackSize(diameter, diameter);
         return this;
     },
 
     &#x2F;**
      * Draws a line segment using the current line style from the current drawing position to the specified x and y coordinates.
-     * 
+     *
      * @method lineTo
      * @param {Number} point1 x-coordinate for the end point.
      * @param {Number} point2 y-coordinate for the end point.
@@ -1914,7 +1938,7 @@ SVGDrawing.prototype = {
 
     &#x2F;**
      * Draws a line segment using the current line style from the current drawing position to the relative x and y coordinates.
-     * 
+     *
      * @method relativeLineTo
      * @param {Number} point1 x-coordinate for the end point.
      * @param {Number} point2 y-coordinate for the end point.
@@ -2038,9 +2062,9 @@ SVGDrawing.prototype = {
         this._currentY = y;
         this._trackSize(x, y);
     },
- 
+
     &#x2F;**
-     * Completes a drawing operation. 
+     * Completes a drawing operation.
      *
      * @method end
      *&#x2F;
@@ -2153,7 +2177,7 @@ SVGDrawing.prototype = {
             {
                 node.setAttribute(&quot;d&quot;, path);
             }
-            
+
             this._path = path;
             this._fillChangeHandler();
             this._strokeChangeHandler();
@@ -2188,7 +2212,7 @@ SVGDrawing.prototype = {
         }
         return currentArray;
     },
-    
+
     &#x2F;**
      * Returns the points on a curve
      *
@@ -2198,7 +2222,7 @@ SVGDrawing.prototype = {
      * @return Array
      * @private
      *&#x2F;
-    getBezierData: function(points, t) {  
+    getBezierData: function(points, t) {
         var n = points.length,
             tmp = [],
             i,
@@ -2207,16 +2231,16 @@ SVGDrawing.prototype = {
         for (i = 0; i &lt; n; ++i){
             tmp[i] = [points[i][0], points[i][1]]; &#x2F;&#x2F; save input
         }
-        
+
         for (j = 1; j &lt; n; ++j) {
             for (i = 0; i &lt; n - j; ++i) {
                 tmp[i][0] = (1 - t) * tmp[i][0] + t * tmp[parseInt(i + 1, 10)][0];
-                tmp[i][1] = (1 - t) * tmp[i][1] + t * tmp[parseInt(i + 1, 10)][1]; 
+                tmp[i][1] = (1 - t) * tmp[i][1] + t * tmp[parseInt(i + 1, 10)][1];
             }
         }
-        return [ tmp[0][0], tmp[0][1] ]; 
+        return [ tmp[0][0], tmp[0][1] ];
     },
-  
+
     &#x2F;**
      * Calculates the bounding box for a curve
      *
@@ -2251,7 +2275,7 @@ SVGDrawing.prototype = {
         this._trackSize(right, bottom);
         this._trackSize(left, top);
     },
-    
+
     &#x2F;**
      * Updates the size of the graphics object
      *
@@ -2266,13 +2290,13 @@ SVGDrawing.prototype = {
         }
         if(w &lt; this._left)
         {
-            this._left = w;    
+            this._left = w;
         }
         if (h &lt; this._top)
         {
             this._top = h;
         }
-        if (h &gt; this._bottom) 
+        if (h &gt; this._bottom)
         {
             this._bottom = h;
         }

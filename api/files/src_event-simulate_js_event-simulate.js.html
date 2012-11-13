@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1456,6 +1480,14 @@ var L   = Y.Lang,
         contextmenu:1
     },
 
+    msPointerEvents = {
+        MSPointerOver:  1,
+        MSPointerOut:   1,
+        MSPointerDown:  1,
+        MSPointerUp:    1,
+        MSPointerMove:  1
+    },
+
     &#x2F;&#x2F;key events supported
     keyEvents   = {
         keydown:    1,
@@ -1752,21 +1784,20 @@ function simulateMouseEvent(target &#x2F;*:HTMLElement*&#x2F;, type &#x2F;*:Stri
                                shiftKey &#x2F;*:Boolean*&#x2F;,   metaKey &#x2F;*:Boolean*&#x2F;,
                                button &#x2F;*:int*&#x2F;,         relatedTarget &#x2F;*:HTMLElement*&#x2F;) &#x2F;*:Void*&#x2F;
 {
-
     &#x2F;&#x2F;check target
     if (!target){
         Y.error(&quot;simulateMouseEvent(): Invalid target.&quot;);
     }
 
-    &#x2F;&#x2F;check event type
+    
     if (isString(type)){
-        type = type.toLowerCase();
 
-        &#x2F;&#x2F;make sure it&#x27;s a supported mouse event
-        if (!mouseEvents[type]){
+        &#x2F;&#x2F;make sure it&#x27;s a supported mouse event or an msPointerEvent. 
+        if (!mouseEvents[type.toLowerCase()] &amp;&amp; !msPointerEvents[type]){
             Y.error(&quot;simulateMouseEvent(): Event type &#x27;&quot; + type + &quot;&#x27; not supported.&quot;);
         }
-    } else {
+    } 
+    else {
         Y.error(&quot;simulateMouseEvent(): Event type must be a string.&quot;);
     }
 
@@ -1775,7 +1806,7 @@ function simulateMouseEvent(target &#x2F;*:HTMLElement*&#x2F;, type &#x2F;*:Stri
         bubbles = true; &#x2F;&#x2F;all mouse events bubble
     }
     if (!isBoolean(cancelable)){
-        cancelable = (type != &quot;mousemove&quot;); &#x2F;&#x2F;mousemove is the only one that can&#x27;t be cancelled
+        cancelable = (type !== &quot;mousemove&quot;); &#x2F;&#x2F;mousemove is the only one that can&#x27;t be cancelled
     }
     if (!isObject(view)){
         view = Y.config.win; &#x2F;&#x2F;view is typically window
@@ -1856,9 +1887,9 @@ function simulateMouseEvent(target &#x2F;*:HTMLElement*&#x2F;, type &#x2F;*:Stri
          * event.
          *&#x2F;
         if (relatedTarget &amp;&amp; !customEvent.relatedTarget){
-            if (type == &quot;mouseout&quot;){
+            if (type === &quot;mouseout&quot;){
                 customEvent.toElement = relatedTarget;
-            } else if (type == &quot;mouseover&quot;){
+            } else if (type === &quot;mouseover&quot;){
                 customEvent.fromElement = relatedTarget;
             }
         }
@@ -1972,7 +2003,7 @@ function simulateUIEvent(target &#x2F;*:HTMLElement*&#x2F;, type &#x2F;*:String*
         bubbles = (type in bubbleEvents);  &#x2F;&#x2F;not all events bubble
     }
     if (!isBoolean(cancelable)){
-        cancelable = (type == &quot;submit&quot;); &#x2F;&#x2F;submit is the only one that can be cancelled
+        cancelable = (type === &quot;submit&quot;); &#x2F;&#x2F;submit is the only one that can be cancelled
     }
     if (!isObject(view)){
         view = Y.config.win; &#x2F;&#x2F;view is typically window
@@ -2231,7 +2262,7 @@ function simulateTouchEvent(target, type,
     &#x2F;&#x2F; setup default values
     if (!Y.Lang.isBoolean(bubbles)) { bubbles = true; } &#x2F;&#x2F; bubble by default.
     if (!Y.Lang.isBoolean(cancelable)) { 
-        cancelable = (type != &quot;touchcancel&quot;); &#x2F;&#x2F; touchcancel is not cancelled 
+        cancelable = (type !== &quot;touchcancel&quot;); &#x2F;&#x2F; touchcancel is not cancelled 
     } 
     if (!Y.Lang.isObject(view))     { view = Y.config.win; }
     if (!Y.Lang.isNumber(detail))   { detail = 1; } &#x2F;&#x2F; usually not used. defaulted to # of touch objects.
@@ -2324,7 +2355,7 @@ Y.Event.simulate = function(target, type, options){
 
     options = options || {};
 
-    if (mouseEvents[type]){
+    if (mouseEvents[type] || msPointerEvents[type]){
         simulateMouseEvent(target, type, options.bubbles,
             options.cancelable, options.view, options.detail, options.screenX,
             options.screenY, options.clientX, options.clientY, options.ctrlKey,

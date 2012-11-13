@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1463,16 +1487,16 @@
         proto = null,
 
         &#x2F;**
+        * Fires when this node is aligned with the tickX value.
         * @event drag:tickAlignX
-        * @description Fires when this node is aligned with the tickX value.
         * @param {EventFacade} event An Event Facade object
         * @type {CustomEvent}
         *&#x2F;
         EV_TICK_ALIGN_X = &#x27;drag:tickAlignX&#x27;,
 
         &#x2F;**
+        * Fires when this node is aligned with the tickY value.
         * @event drag:tickAlignY
-        * @description Fires when this node is aligned with the tickY value.
         * @param {EventFacade} event An Event Facade object
         * @type {CustomEvent}
         *&#x2F;
@@ -1485,63 +1509,63 @@
 
     C.NAME = &#x27;ddConstrained&#x27;;
     &#x2F;**
+    * The Constrained instance will be placed on the Drag instance under the con namespace.
     * @property NS
     * @default con
     * @readonly
     * @protected
     * @static
-    * @description The Constrained instance will be placed on the Drag instance under the con namespace.
     * @type {String}
-*&#x2F;
+    *&#x2F;
     C.NS = &#x27;con&#x27;;
 
     C.ATTRS = {
         host: {
         },
         &#x2F;**
+        * Stick the drag movement to the X-Axis. Default: false
         * @attribute stickX
-        * @description Stick the drag movement to the X-Axis. Default: false
         * @type Boolean
         *&#x2F;
         stickX: {
             value: false
         },
         &#x2F;**
-        * @attribute stickY
-        * @description Stick the drag movement to the Y-Axis
+        * Stick the drag movement to the Y-Axis
         * @type Boolean
+        * @attribute stickY
         *&#x2F;
         stickY: {
             value: false
         },
         &#x2F;**
-        * @attribute tickX
-        * @description The X tick offset the drag node should snap to on each drag move. False for no ticks. Default: false
+        * The X tick offset the drag node should snap to on each drag move. False for no ticks. Default: false
         * @type Number&#x2F;false
+        * @attribute tickX
         *&#x2F;
         tickX: {
             value: false
         },
         &#x2F;**
-        * @attribute tickY
-        * @description The Y tick offset the drag node should snap to on each drag move. False for no ticks. Default: false
+        * The Y tick offset the drag node should snap to on each drag move. False for no ticks. Default: false
         * @type Number&#x2F;false
+        * @attribute tickY
         *&#x2F;
         tickY: {
             value: false
         },
         &#x2F;**
-        * @attribute tickXArray
-        * @description An array of page coordinates to use as X ticks for drag movement.
+        * An array of page coordinates to use as X ticks for drag movement.
         * @type Array
+        * @attribute tickXArray
         *&#x2F;
         tickXArray: {
             value: false
         },
         &#x2F;**
-        * @attribute tickYArray
-        * @description An array of page coordinates to use as Y ticks for drag movement.
+        * An array of page coordinates to use as Y ticks for drag movement.
         * @type Array
+        * @attribute tickYArray
         *&#x2F;
         tickYArray: {
             value: false
@@ -1559,11 +1583,11 @@
             }
         },
         &#x2F;**
-        * @attribute constrain
-        * @description Will attempt to constrain the drag node to the boundaries. Arguments:&lt;br&gt;
+        * Will attempt to constrain the drag node to the boundaries. Arguments:&lt;br&gt;
         * &#x27;view&#x27;: Contrain to Viewport&lt;br&gt;
         * &#x27;#selector_string&#x27;: Constrain to this node&lt;br&gt;
         * &#x27;{Region Object}&#x27;: An Object Literal containing a valid region (top, right, bottom, left) of page positions
+        * @attribute constrain
         * @type {String&#x2F;Object&#x2F;Node}
         *&#x2F;
         constrain: {
@@ -1577,9 +1601,9 @@
             }
         },
         &#x2F;**
+        * An Object Literal containing a valid region (top, right, bottom, left) of page positions to constrain the drag node to.
         * @deprecated
         * @attribute constrain2region
-        * @description An Object Literal containing a valid region (top, right, bottom, left) of page positions to constrain the drag node to.
         * @type Object
         *&#x2F;
         constrain2region: {
@@ -1588,9 +1612,9 @@
             }
         },
         &#x2F;**
+        * Will attempt to constrain the drag node to the boundaries of this node.
         * @deprecated
         * @attribute constrain2node
-        * @description Will attempt to constrain the drag node to the boundaries of this node.
         * @type Object
         *&#x2F;
         constrain2node: {
@@ -1599,9 +1623,9 @@
             }
         },
         &#x2F;**
+        * Will attempt to constrain the drag node to the boundaries of the viewport region.
         * @deprecated
         * @attribute constrain2view
-        * @description Will attempt to constrain the drag node to the boundaries of the viewport region.
         * @type Object
         *&#x2F;
         constrain2view: {
@@ -1610,8 +1634,8 @@
             }
         },
         &#x2F;**
+        * Should the region be cached for performace. Default: true
         * @attribute cacheRegion
-        * @description Should the region be cached for performace. Default: true
         * @type Boolean
         *&#x2F;
         cacheRegion: {
@@ -1634,7 +1658,7 @@
             ];
         },
         destructor: function() {
-            Y.each(
+            Y.Array.each(
                 this._eventHandles,
                 function(handle) {
                     handle.detach();
@@ -1644,9 +1668,9 @@
             this._eventHandles.length = 0;
         },
         &#x2F;**
+        * This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         * @private
         * @method _createEvents
-        * @description This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         *&#x2F;
         _createEvents: function() {
             var ev = [
@@ -1654,7 +1678,7 @@
                 EV_TICK_ALIGN_Y
             ];
 
-            Y.each(ev, function(v) {
+            Y.Array.each(ev, function(v) {
                 this.publish(v, {
                     type: v,
                     emitFacade: true,
@@ -1665,48 +1689,48 @@
             }, this);
         },
         &#x2F;**
+        * Fires on drag:end
         * @private
         * @method _handleEnd
-        * @description Fires on drag:end
         *&#x2F;
         _handleEnd: function() {
             this._lastTickYFired = null;
             this._lastTickXFired = null;
         },
         &#x2F;**
+        * Fires on drag:start and clears the _regionCache
         * @private
         * @method _handleStart
-        * @description Fires on drag:start and clears the _regionCache
         *&#x2F;
         _handleStart: function() {
             this.resetCache();
         },
         &#x2F;**
+        * Store a cache of the region that we are constraining to
         * @private
         * @property _regionCache
-        * @description Store a cache of the region that we are constraining to
         * @type Object
         *&#x2F;
         _regionCache: null,
         &#x2F;**
+        * Get&#x27;s the region and caches it, called from window.resize and when the cache is null
         * @private
         * @method _cacheRegion
-        * @description Get&#x27;s the region and caches it, called from window.resize and when the cache is null
         *&#x2F;
         _cacheRegion: function() {
             this._regionCache = this.get(&#x27;constrain&#x27;).get(&#x27;region&#x27;);
         },
         &#x2F;**
+        * Reset the internal region cache.
         * @method resetCache
-        * @description Reset the internal region cache.
         *&#x2F;
         resetCache: function() {
             this._regionCache = null;
         },
         &#x2F;**
+        * Standardizes the &#x27;constraint&#x27; attribute
         * @private
         * @method _getConstraint
-        * @description Standardizes the &#x27;constraint&#x27; attribute
         *&#x2F;
         _getConstraint: function() {
             var con = this.get(&#x27;constrain&#x27;),
@@ -1734,7 +1758,7 @@
                 region = this.get(HOST).get(DRAG_NODE).get(&#x27;viewportRegion&#x27;);
             }
 
-            Y.each(g, function(i, n) {
+            Y.Object.each(g, function(i, n) {
                 if ((n === RIGHT) || (n === BOTTOM)) {
                     region[n] -= i;
                 } else {
@@ -1745,8 +1769,8 @@
         },
 
         &#x2F;**
+        * Get the active region: viewport, node, custom region
         * @method getRegion
-        * @description Get the active region: viewport, node, custom region
         * @param {Boolean} inc Include the node&#x27;s height and width
         * @return {Object} The active region.
         *&#x2F;
@@ -1765,9 +1789,9 @@
             return r;
         },
         &#x2F;**
+        * Check if xy is inside a given region, if not change to it be inside.
         * @private
         * @method _checkRegion
-        * @description Check if xy is inside a given region, if not change to it be inside.
         * @param {Array} _xy The XY to check if it&#x27;s in the current region, if it isn&#x27;t
         * inside the region, it will reset the xy array to be inside the region.
         * @return {Array} The new XY that is inside the region
@@ -1796,8 +1820,8 @@
             return _xy;
         },
         &#x2F;**
+        * Checks if the XY passed or the dragNode is inside the active region.
         * @method inRegion
-        * @description Checks if the XY passed or the dragNode is inside the active region.
         * @param {Array} xy Optional XY to check, if not supplied this.get(&#x27;dragNode&#x27;).getXY() is used.
         * @return {Boolean} True if the XY is inside the region, false otherwise.
         *&#x2F;
@@ -1812,8 +1836,8 @@
             return inside;
         },
         &#x2F;**
+        * Modifies the Drag.actXY method from the after drag:align event. This is where the constraining happens.
         * @method align
-        * @description Modifies the Drag.actXY method from the after drag:align event. This is where the constraining happens.
         *&#x2F;
         align: function() {
             var host = this.get(HOST),
@@ -1836,8 +1860,8 @@
             host.actXY = _xy;
         },
         &#x2F;**
+        * Fires after drag:drag. Handle the tickX and tickX align events.
         * @method drag
-        * @description Fires after drag:drag. Handle the tickX and tickX align events.
         *&#x2F;
         drag: function() {
             var host = this.get(HOST),
@@ -1856,9 +1880,9 @@
             }
         },
         &#x2F;**
+        * This method delegates the proper helper method for tick calculations
         * @private
         * @method _checkTicks
-        * @description This method delegates the proper helper method for tick calculations
         * @param {Array} xy The XY coords for the Drag
         * @param {Object} r The optional region that we are bound to.
         * @return {Array} The calced XY coords
@@ -1885,17 +1909,17 @@
             return xy;
         },
         &#x2F;**
+        * Fires when the actXY[0] reach a new value respecting the tickX gap.
         * @private
         * @method _tickAlignX
-        * @description Fires when the actXY[0] reach a new value respecting the tickX gap.
         *&#x2F;
         _tickAlignX: function() {
             this.fire(EV_TICK_ALIGN_X);
         },
         &#x2F;**
+        * Fires when the actXY[1] reach a new value respecting the tickY gap.
         * @private
         * @method _tickAlignY
-        * @description Fires when the actXY[1] reach a new value respecting the tickY gap.
         *&#x2F;
         _tickAlignY: function() {
             this.fire(EV_TICK_ALIGN_Y);
@@ -1908,11 +1932,11 @@
 
     Y.mix(DDM, {
         &#x2F;**
+        * Helper method to calculate the tick offsets for a given position
         * @for DDM
         * @namespace DD
         * @private
         * @method _calcTicks
-        * @description Helper method to calculate the tick offsets for a given position
         * @param {Number} pos The current X or Y position
         * @param {Number} start The start X or Y position
         * @param {Number} tick The X or Y tick increment
@@ -1940,11 +1964,11 @@
                 return pos;
         },
         &#x2F;**
+        * This method is used with the tickXArray and tickYArray config options
         * @for DDM
         * @namespace DD
         * @private
         * @method _calcTickArray
-        * @description This method is used with the tickXArray and tickYArray config options
         * @param {Number} pos The current X or Y position
         * @param {Number} ticks The array containing our custom tick positions.
         * @param {Number} off1 The min offset that we can&#x27;t pass (region)

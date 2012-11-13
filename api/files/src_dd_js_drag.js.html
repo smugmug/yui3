@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1449,14 +1473,14 @@
         OFFSET_HEIGHT = &#x27;offsetHeight&#x27;,
         OFFSET_WIDTH = &#x27;offsetWidth&#x27;,
         &#x2F;**
+        * Handles the mouseup DOM event, does nothing internally just fires.
         * @event drag:mouseup
-        * @description Handles the mouseup DOM event, does nothing internally just fires.
         * @bubbles DDM
         * @type {CustomEvent}
         *&#x2F;
         &#x2F;**
+        * Handles the mousedown DOM event, checks to see if you have a valid handle then starts the drag timers.
         * @event drag:mouseDown
-        * @description Handles the mousedown DOM event, checks to see if you have a valid handle then starts the drag timers.
         * @preventable _defMouseDownFn
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;&lt;dt&gt;ev&lt;&#x2F;dt&gt;&lt;dd&gt;The original mousedown event.&lt;&#x2F;dd&gt;&lt;&#x2F;dl&gt;
@@ -1465,8 +1489,8 @@
         *&#x2F;
         EV_MOUSE_DOWN = &#x27;drag:mouseDown&#x27;,
         &#x2F;**
+        * Fires after the mousedown event has been cleared.
         * @event drag:afterMouseDown
-        * @description Fires after the mousedown event has been cleared.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;&lt;dt&gt;ev&lt;&#x2F;dt&gt;&lt;dd&gt;The original mousedown event.&lt;&#x2F;dd&gt;&lt;&#x2F;dl&gt;
         * @bubbles DDM
@@ -1474,8 +1498,8 @@
         *&#x2F;
         EV_AFTER_MOUSE_DOWN = &#x27;drag:afterMouseDown&#x27;,
         &#x2F;**
+        * Fires after a handle is removed.
         * @event drag:removeHandle
-        * @description Fires after a handle is removed.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;&lt;dt&gt;handle&lt;&#x2F;dt&gt;&lt;dd&gt;The handle that was removed.&lt;&#x2F;dd&gt;&lt;&#x2F;dl&gt;
         * @bubbles DDM
@@ -1483,8 +1507,8 @@
         *&#x2F;
         EV_REMOVE_HANDLE = &#x27;drag:removeHandle&#x27;,
         &#x2F;**
+        * Fires after a handle is added.
         * @event drag:addHandle
-        * @description Fires after a handle is added.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;&lt;dt&gt;handle&lt;&#x2F;dt&gt;&lt;dd&gt;The handle that was added.&lt;&#x2F;dd&gt;&lt;&#x2F;dl&gt;
         * @bubbles DDM
@@ -1492,8 +1516,8 @@
         *&#x2F;
         EV_ADD_HANDLE = &#x27;drag:addHandle&#x27;,
         &#x2F;**
+        * Fires after an invalid selector is removed.
         * @event drag:removeInvalid
-        * @description Fires after an invalid selector is removed.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;&lt;dt&gt;handle&lt;&#x2F;dt&gt;&lt;dd&gt;The handle that was removed.&lt;&#x2F;dd&gt;&lt;&#x2F;dl&gt;
         * @bubbles DDM
@@ -1501,8 +1525,8 @@
         *&#x2F;
         EV_REMOVE_INVALID = &#x27;drag:removeInvalid&#x27;,
         &#x2F;**
+        * Fires after an invalid selector is added.
         * @event drag:addInvalid
-        * @description Fires after an invalid selector is added.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;&lt;dt&gt;handle&lt;&#x2F;dt&gt;&lt;dd&gt;The handle that was added.&lt;&#x2F;dd&gt;&lt;&#x2F;dl&gt;
         * @bubbles DDM
@@ -1510,8 +1534,8 @@
         *&#x2F;
         EV_ADD_INVALID = &#x27;drag:addInvalid&#x27;,
         &#x2F;**
+        * Fires at the start of a drag operation.
         * @event drag:start
-        * @description Fires at the start of a drag operation.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;pageX&lt;&#x2F;dt&gt;&lt;dd&gt;The original node position X.&lt;&#x2F;dd&gt;
@@ -1523,8 +1547,8 @@
         *&#x2F;
         EV_START = &#x27;drag:start&#x27;,
         &#x2F;**
+        * Fires at the end of a drag operation.
         * @event drag:end
-        * @description Fires at the end of a drag operation.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;pageX&lt;&#x2F;dt&gt;&lt;dd&gt;The current node position X.&lt;&#x2F;dd&gt;
@@ -1537,8 +1561,8 @@
         *&#x2F;
         EV_END = &#x27;drag:end&#x27;,
         &#x2F;**
+        * Fires every mousemove during a drag operation.
         * @event drag:drag
-        * @description Fires every mousemove during a drag operation.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;pageX&lt;&#x2F;dt&gt;&lt;dd&gt;The current node position X.&lt;&#x2F;dd&gt;
@@ -1551,9 +1575,9 @@
         *&#x2F;
         EV_DRAG = &#x27;drag:drag&#x27;,
         &#x2F;**
+        * Fires when this node is aligned.
         * @event drag:align
         * @preventable _defAlignFn
-        * @description Fires when this node is aligned.
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;pageX&lt;&#x2F;dt&gt;&lt;dd&gt;The current node position X.&lt;&#x2F;dd&gt;
@@ -1564,8 +1588,8 @@
         *&#x2F;
         EV_ALIGN = &#x27;drag:align&#x27;,
         &#x2F;**
+        * Fires when this node is over a Drop Target. (Fired from dd-drop)
         * @event drag:over
-        * @description Fires when this node is over a Drop Target. (Fired from dd-drop)
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The drop object at the time of the event.&lt;&#x2F;dd&gt;
@@ -1575,8 +1599,8 @@
         * @type {CustomEvent}
         *&#x2F;
         &#x2F;**
+        * Fires when this node enters a Drop Target. (Fired from dd-drop)
         * @event drag:enter
-        * @description Fires when this node enters a Drop Target. (Fired from dd-drop)
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The drop object at the time of the event.&lt;&#x2F;dd&gt;
@@ -1586,8 +1610,8 @@
         * @type {CustomEvent}
         *&#x2F;
         &#x2F;**
+        * Fires when this node exits a Drop Target. (Fired from dd-drop)
         * @event drag:exit
-        * @description Fires when this node exits a Drop Target. (Fired from dd-drop)
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The drop object at the time of the event.&lt;&#x2F;dd&gt;
@@ -1596,8 +1620,8 @@
         * @type {CustomEvent}
         *&#x2F;
         &#x2F;**
+        * Fires when this node is dropped on a valid Drop Target. (Fired from dd-ddm-drop)
         * @event drag:drophit
-        * @description Fires when this node is dropped on a valid Drop Target. (Fired from dd-ddm-drop)
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;drop&lt;&#x2F;dt&gt;&lt;dd&gt;The best guess on what was dropped on.&lt;&#x2F;dd&gt;
@@ -1608,8 +1632,8 @@
         * @type {CustomEvent}
         *&#x2F;
         &#x2F;**
+        * Fires when this node is dropped on an invalid Drop Target. (Fired from dd-ddm-drop)
         * @event drag:dropmiss
-        * @description Fires when this node is dropped on an invalid Drop Target. (Fired from dd-ddm-drop)
         * @param {EventFacade} event An Event Facade object with the following specific property added:
         * &lt;dl&gt;
         * &lt;dt&gt;pageX&lt;&#x2F;dt&gt;&lt;dd&gt;The current node position X.&lt;&#x2F;dd&gt;
@@ -1640,8 +1664,8 @@
 
     Drag.ATTRS = {
         &#x2F;**
+        * Y.Node instance to use as the element to initiate a drag operation
         * @attribute node
-        * @description Y.Node instance to use as the element to initiate a drag operation
         * @type Node
         *&#x2F;
         node: {
@@ -1657,8 +1681,8 @@
             }
         },
         &#x2F;**
+        * Y.Node instance to use as the draggable element, defaults to node
         * @attribute dragNode
-        * @description Y.Node instance to use as the draggable element, defaults to node
         * @type Node
         *&#x2F;
         dragNode: {
@@ -1674,40 +1698,40 @@
             }
         },
         &#x2F;**
+        * Offset the drag element by the difference in cursor position: default true
         * @attribute offsetNode
-        * @description Offset the drag element by the difference in cursor position: default true
         * @type Boolean
         *&#x2F;
         offsetNode: {
             value: true
         },
         &#x2F;**
+        * Center the dragNode to the mouse position on drag:start: default false
         * @attribute startCentered
-        * @description Center the dragNode to the mouse position on drag:start: default false
         * @type Boolean
         *&#x2F;
         startCentered: {
             value: false
         },
         &#x2F;**
+        * The number of pixels to move to start a drag operation, default is 3.
         * @attribute clickPixelThresh
-        * @description The number of pixels to move to start a drag operation, default is 3.
         * @type Number
         *&#x2F;
         clickPixelThresh: {
             value: DDM.get(&#x27;clickPixelThresh&#x27;)
         },
         &#x2F;**
+        * The number of milliseconds a mousedown has to pass to start a drag operation, default is 1000.
         * @attribute clickTimeThresh
-        * @description The number of milliseconds a mousedown has to pass to start a drag operation, default is 1000.
         * @type Number
         *&#x2F;
         clickTimeThresh: {
             value: DDM.get(&#x27;clickTimeThresh&#x27;)
         },
         &#x2F;**
+        * Set to lock this drag element so that it can&#x27;t be dragged: default false.
         * @attribute lock
-        * @description Set to lock this drag element so that it can&#x27;t be dragged: default false.
         * @type Boolean
         *&#x2F;
         lock: {
@@ -1722,24 +1746,24 @@
             }
         },
         &#x2F;**
+        * A payload holder to store arbitrary data about this drag object, can be used to store any value.
         * @attribute data
-        * @description A payload holder to store arbitrary data about this drag object, can be used to store any value.
         * @type Mixed
         *&#x2F;
         data: {
             value: false
         },
         &#x2F;**
+        * If this is false, the drag element will not move with the cursor: default true. Can be used to &quot;resize&quot; the element.
         * @attribute move
-        * @description If this is false, the drag element will not move with the cursor: default true. Can be used to &quot;resize&quot; the element.
         * @type Boolean
         *&#x2F;
         move: {
             value: true
         },
         &#x2F;**
+        * Use the protective shim on all drag operations: default true. Only works with dd-ddm, not dd-ddm-base.
         * @attribute useShim
-        * @description Use the protective shim on all drag operations: default true. Only works with dd-ddm, not dd-ddm-base.
         * @type Boolean
         *&#x2F;
         useShim: {
@@ -1774,8 +1798,8 @@
             value: false
         },
         &#x2F;**
+        * This attribute only works if the dd-drop module has been loaded. It will make this node a drop target as well as draggable.
         * @attribute target
-        * @description This attribute only works if the dd-drop module has been loaded. It will make this node a drop target as well as draggable.
         * @type Boolean
         *&#x2F;
         target: {
@@ -1797,8 +1821,8 @@
             }
         },
         &#x2F;**
+        * Array of groups to add this drag into.
         * @attribute groups
-        * @description Array of groups to add this drag into.
         * @type Array
         *&#x2F;
         groups: {
@@ -1806,24 +1830,19 @@
             getter: function() {
                 if (!this._groups) {
                     this._groups = {};
+                    return [];
                 }
-                var ret = [];
-                Y.each(this._groups, function(v, k) {
-                    ret[ret.length] = k;
-                });
-                return ret;
+
+                return Y.Object.keys(this._groups);
             },
             setter: function(g) {
-                this._groups = {};
-                Y.each(g, function(v) {
-                    this._groups[v] = true;
-                }, this);
+                this._groups = Y.Array.hash(g);
                 return g;
             }
         },
         &#x2F;**
+        * Array of valid handles to add. Adding something here will set all handles, even if previously added with addHandle
         * @attribute handles
-        * @description Array of valid handles to add. Adding something here will set all handles, even if previously added with addHandle
         * @type Array
         *&#x2F;
         handles: {
@@ -1831,7 +1850,7 @@
             setter: function(g) {
                 if (g) {
                     this._handles = {};
-                    Y.each(g, function(v) {
+                    Y.Array.each(g, function(v) {
                         var key = v;
                         if (v instanceof Y.Node || v instanceof Y.NodeList) {
                             key = v._yuid;
@@ -1858,8 +1877,8 @@
             }
         },
         &#x2F;**
+        * Should the mousedown event be halted. Default: true
         * @attribute haltDown
-        * @description Should the mousedown event be halted. Default: true
         * @type Boolean
         *&#x2F;
         haltDown: {
@@ -1884,14 +1903,14 @@
             return false;
         },
         &#x2F;**
+        * The default bubbleTarget for this object. Default: Y.DD.DDM
         * @private
         * @property _bubbleTargets
-        * @description The default bubbleTarget for this object. Default: Y.DD.DDM
         *&#x2F;
         _bubbleTargets: Y.DD.DDM,
         &#x2F;**
+        * Add this Drag instance to a group, this should be used for on-the-fly group additions.
         * @method addToGroup
-        * @description Add this Drag instance to a group, this should be used for on-the-fly group additions.
         * @param {String} g The group to add this Drag Instance to.
         * @return {Self}
         * @chainable
@@ -1902,8 +1921,8 @@
             return this;
         },
         &#x2F;**
+        * Remove this Drag instance from a group, this should be used for on-the-fly group removals.
         * @method removeFromGroup
-        * @description Remove this Drag instance from a group, this should be used for on-the-fly group removals.
         * @param {String} g The group to remove this Drag Instance from.
         * @return {Self}
         * @chainable
@@ -1914,15 +1933,15 @@
             return this;
         },
         &#x2F;**
+        * This will be a reference to the Drop instance associated with this drag if the target: true config attribute is set..
         * @property target
-        * @description This will be a reference to the Drop instance associated with this drag if the target: true config attribute is set..
         * @type {Object}
         *&#x2F;
         target: null,
         &#x2F;**
+        * Attribute handler for the target config attribute.
         * @private
         * @method _handleTarget
-        * @description Attribute handler for the target config attribute.
         * @param {Boolean&#x2F;Object} config The Config
         *&#x2F;
         _handleTarget: function(config) {
@@ -1944,16 +1963,16 @@
             }
         },
         &#x2F;**
+        * Storage Array for the groups this drag belongs to.
         * @private
         * @property _groups
-        * @description Storage Array for the groups this drag belongs to.
         * @type {Array}
         *&#x2F;
         _groups: null,
         &#x2F;**
+        * This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         * @private
         * @method _createEvents
-        * @description This method creates all the events for this Event Target and publishes them so we get Event Bubbling.
         *&#x2F;
         _createEvents: function() {
 
@@ -2004,7 +2023,7 @@
                 &#x27;drag:exit&#x27;
             ];
 
-            Y.each(ev, function(v) {
+            Y.Array.each(ev, function(v) {
                 this.publish(v, {
                     type: v,
                     emitFacade: true,
@@ -2016,37 +2035,37 @@
             }, this);
         },
         &#x2F;**
+        * A private reference to the mousedown DOM event
         * @private
         * @property _ev_md
-        * @description A private reference to the mousedown DOM event
         * @type {EventFacade}
         *&#x2F;
         _ev_md: null,
         &#x2F;**
+        * The getTime of the mousedown event. Not used, just here in case someone wants&#x2F;needs to use it.
         * @private
         * @property _startTime
-        * @description The getTime of the mousedown event. Not used, just here in case someone wants&#x2F;needs to use it.
         * @type Date
         *&#x2F;
         _startTime: null,
         &#x2F;**
+        * The getTime of the mouseup event. Not used, just here in case someone wants&#x2F;needs to use it.
         * @private
         * @property _endTime
-        * @description The getTime of the mouseup event. Not used, just here in case someone wants&#x2F;needs to use it.
         * @type Date
         *&#x2F;
         _endTime: null,
         &#x2F;**
+        * A private hash of the valid drag handles
         * @private
         * @property _handles
-        * @description A private hash of the valid drag handles
         * @type {Object}
         *&#x2F;
         _handles: null,
         &#x2F;**
+        * A private hash of the invalid selector strings
         * @private
         * @property _invalids
-        * @description A private hash of the invalid selector strings
         * @type {Object}
         *&#x2F;
         _invalids: null,
@@ -2058,78 +2077,78 @@
         *&#x2F;
         _invalidsDefault: {&#x27;textarea&#x27;: true, &#x27;input&#x27;: true, &#x27;a&#x27;: true, &#x27;button&#x27;: true, &#x27;select&#x27;: true },
         &#x2F;**
+        * Private flag to see if the drag threshhold was met
         * @private
         * @property _dragThreshMet
-        * @description Private flag to see if the drag threshhold was met
         * @type {Boolean}
         *&#x2F;
         _dragThreshMet: null,
         &#x2F;**
+        * Flag to determine if the drag operation came from a timeout
         * @private
         * @property _fromTimeout
-        * @description Flag to determine if the drag operation came from a timeout
         * @type {Boolean}
         *&#x2F;
         _fromTimeout: null,
         &#x2F;**
+        * Holder for the setTimeout call
         * @private
         * @property _clickTimeout
-        * @description Holder for the setTimeout call
         * @type {Boolean}
         *&#x2F;
         _clickTimeout: null,
         &#x2F;**
+        * The offset of the mouse position to the element&#x27;s position
         * @property deltaXY
-        * @description The offset of the mouse position to the element&#x27;s position
         * @type {Array}
         *&#x2F;
         deltaXY: null,
         &#x2F;**
+        * The initial mouse position
         * @property startXY
-        * @description The initial mouse position
         * @type {Array}
         *&#x2F;
         startXY: null,
         &#x2F;**
+        * The initial element position
         * @property nodeXY
-        * @description The initial element position
         * @type {Array}
         *&#x2F;
         nodeXY: null,
         &#x2F;**
+        * The position of the element as it&#x27;s moving (for offset calculations)
         * @property lastXY
-        * @description The position of the element as it&#x27;s moving (for offset calculations)
         * @type {Array}
         *&#x2F;
         lastXY: null,
         &#x2F;**
+        * The xy that the node will be set to. Changing this will alter the position as it&#x27;s dragged.
         * @property actXY
-        * @description The xy that the node will be set to. Changing this will alter the position as it&#x27;s dragged.
         * @type {Array}
         *&#x2F;
         actXY: null,
         &#x2F;**
+        * The real xy position of the node.
         * @property realXY
-        * @description The real xy position of the node.
         * @type {Array}
         *&#x2F;
         realXY: null,
         &#x2F;**
+        * The XY coords of the mousemove
         * @property mouseXY
-        * @description The XY coords of the mousemove
         * @type {Array}
         *&#x2F;
         mouseXY: null,
         &#x2F;**
+        * A region object associated with this drag, used for checking regions while dragging.
         * @property region
-        * @description A region object associated with this drag, used for checking regions while dragging.
         * @type Object
         *&#x2F;
         region: null,
         &#x2F;**
+        * Handler for the mouseup DOM event
         * @private
         * @method _handleMouseUp
-        * @description Handler for the mouseup DOM event
         * @param {EventFacade} ev The Event
         *&#x2F;
         _handleMouseUp: function() {
@@ -2152,23 +2171,23 @@
             }
         },
         &#x2F;**
+        * The function we use as the onselectstart handler when we start a drag in Internet Explorer
         * @private
         * @method _ieSelectFix
-        * @description The function we use as the onselectstart handler when we start a drag in Internet Explorer
         *&#x2F;
         _ieSelectFix: function() {
             return false;
         },
         &#x2F;**
+        * We will hold a copy of the current &quot;onselectstart&quot; method on this property, and reset it after we are done using it.
         * @private
         * @property _ieSelectBack
-        * @description We will hold a copy of the current &quot;onselectstart&quot; method on this property, and reset it after we are done using it.
         *&#x2F;
         _ieSelectBack: null,
         &#x2F;**
+        * This method copies the onselectstart listner on the document to the _ieSelectFix property
         * @private
         * @method _fixIEMouseDown
-        * @description This method copies the onselectstart listner on the document to the _ieSelectFix property
         *&#x2F;
         _fixIEMouseDown: function() {
             if (Y.UA.ie) {
@@ -2177,9 +2196,9 @@
             }
         },
         &#x2F;**
+        * This method copies the _ieSelectFix property back to the onselectstart listner on the document.
         * @private
         * @method _fixIEMouseUp
-        * @description This method copies the _ieSelectFix property back to the onselectstart listner on the document.
         *&#x2F;
         _fixIEMouseUp: function() {
             if (Y.UA.ie) {
@@ -2187,18 +2206,18 @@
             }
         },
         &#x2F;**
+        * Handler for the mousedown DOM event
         * @private
         * @method _handleMouseDownEvent
-        * @description Handler for the mousedown DOM event
         * @param {EventFacade} ev  The Event
         *&#x2F;
         _handleMouseDownEvent: function(ev) {
             this.fire(EV_MOUSE_DOWN, { ev: ev });
         },
         &#x2F;**
+        * Handler for the mousedown DOM event
         * @private
         * @method _defMouseDownFn
-        * @description Handler for the mousedown DOM event
         * @param {EventFacade} e  The Event
         *&#x2F;
         _defMouseDownFn: function(e) {
@@ -2247,7 +2266,7 @@
             nlist = null,
             set = false;
             if (this._handles) {
-                Y.each(this._handles, function(i, n) {
+                Y.Object.each(this._handles, function(i, n) {
                     if (i instanceof Y.Node || i instanceof Y.NodeList) {
                         if (!r) {
                             nlist = i;
@@ -2276,7 +2295,7 @@
             }
             if (r) {
                 if (this._invalids) {
-                    Y.each(this._invalids, function(i, n) {
+                    Y.Object.each(this._invalids, function(i, n) {
                         if (Y.Lang.isString(n)) {
                             &#x2F;&#x2F;Am I this or am I inside this
                             if (tar.test(n + &#x27;, &#x27; + n + &#x27; *&#x27;)) {
@@ -2303,9 +2322,9 @@
             return r;
         },
         &#x2F;**
+        * Sets the current position of the Element and calculates the offset
         * @private
         * @method _setStartPosition
-        * @description Sets the current position of the Element and calculates the offset
         * @param {Array} xy The XY coords to set the position to.
         *&#x2F;
         _setStartPosition: function(xy) {
@@ -2320,9 +2339,9 @@
             }
         },
         &#x2F;**
+        * The method passed to setTimeout to determine if the clickTimeThreshold was met.
         * @private
         * @method _timeoutCheck
-        * @description The method passed to setTimeout to determine if the clickTimeThreshold was met.
         *&#x2F;
         _timeoutCheck: function() {
             if (!this.get(&#x27;lock&#x27;) &amp;&amp; !this._dragThreshMet &amp;&amp; this._ev_md) {
@@ -2332,8 +2351,8 @@
             }
         },
         &#x2F;**
+        * Remove a Selector added by addHandle
         * @method removeHandle
-        * @description Remove a Selector added by addHandle
         * @param {String} str The selector for the handle to be removed.
         * @return {Self}
         * @chainable
@@ -2350,8 +2369,8 @@
             return this;
         },
         &#x2F;**
+        * Add a handle to a drag element. Drag only initiates when a mousedown happens on this element.
         * @method addHandle
-        * @description Add a handle to a drag element. Drag only initiates when a mousedown happens on this element.
         * @param {String} str The selector to test for a valid handle. Must be a child of the element.
         * @return {Self}
         * @chainable
@@ -2369,8 +2388,8 @@
             return this;
         },
         &#x2F;**
+        * Remove an invalid handle added by addInvalid
         * @method removeInvalid
-        * @description Remove an invalid handle added by addInvalid
         * @param {String} str The invalid handle to remove from the internal list.
         * @return {Self}
         * @chainable
@@ -2384,8 +2403,8 @@
             return this;
         },
         &#x2F;**
+        * Add a selector string to test the handle against. If the test passes the drag operation will not continue.
         * @method addInvalid
-        * @description Add a selector string to test the handle against. If the test passes the drag operation will not continue.
         * @param {String} str The selector to test against to determine if this is an invalid drag handle.
         * @return {Self}
         * @chainable
@@ -2398,9 +2417,9 @@
             return this;
         },
         &#x2F;**
+        * Internal init handler
         * @private
         * @method initializer
-        * @description Internal init handler
         *&#x2F;
         initializer: function() {
 
@@ -2429,9 +2448,9 @@
             this.set(&#x27;groups&#x27;, this.get(&#x27;groups&#x27;));
         },
         &#x2F;**
+        * Attach event listners and add classname
         * @private
         * @method _prep
-        * @description Attach event listners and add classname
         *&#x2F;
         _prep: function() {
             this._dragThreshMet = false;
@@ -2442,9 +2461,9 @@
             node.on(&#x27;dragstart&#x27;, Y.bind(this._fixDragStart, this));
         },
         &#x2F;**
+        * Detach event listeners and remove classname
         * @private
         * @method _unprep
-        * @description Detach event listeners and remove classname
         *&#x2F;
         _unprep: function() {
             var node = this.get(NODE);
@@ -2461,8 +2480,8 @@
             this.realXY = [];
         },
         &#x2F;**
+        * Starts the drag operation
         * @method start
-        * @description Starts the drag operation
         * @return {Self}
         * @chainable
         *&#x2F;
@@ -2503,8 +2522,8 @@
             return this;
         },
         &#x2F;**
+        * Ends the drag operation
         * @method end
-        * @description Ends the drag operation
         * @return {Self}
         * @chainable
         *&#x2F;
@@ -2530,18 +2549,18 @@
             return this;
         },
         &#x2F;**
+        * Handler for fixing the selection in IE
         * @private
         * @method _defEndFn
-        * @description Handler for fixing the selection in IE
         *&#x2F;
         _defEndFn: function() {
             this._fixIEMouseUp();
             this._ev_md = null;
         },
         &#x2F;**
+        * Handler for preventing the drag:end event. It will reset the node back to it&#x27;s start position
         * @private
         * @method _prevEndFn
-        * @description Handler for preventing the drag:end event. It will reset the node back to it&#x27;s start position
         *&#x2F;
         _prevEndFn: function() {
             this._fixIEMouseUp();
@@ -2551,27 +2570,27 @@
             this.region = null;
         },
         &#x2F;**
+        * Calculates the offsets and set&#x27;s the XY that the element will move to.
         * @private
         * @method _align
-        * @description Calculates the offsets and set&#x27;s the XY that the element will move to.
         * @param {Array} xy The xy coords to align with.
         *&#x2F;
         _align: function(xy) {
             this.fire(EV_ALIGN, {pageX: xy[0], pageY: xy[1] });
         },
         &#x2F;**
+        * Calculates the offsets and set&#x27;s the XY that the element will move to.
         * @private
         * @method _defAlignFn
-        * @description Calculates the offsets and set&#x27;s the XY that the element will move to.
         * @param {EventFacade} e The drag:align event.
         *&#x2F;
         _defAlignFn: function(e) {
             this.actXY = [e.pageX - this.deltaXY[0], e.pageY - this.deltaXY[1]];
         },
         &#x2F;**
+        * This method performs the alignment before the element move.
         * @private
         * @method _alignNode
-        * @description This method performs the alignment before the element move.
         * @param {Array} eXY The XY to move the element to, usually comes from the mousemove DOM event.
         *&#x2F;
         _alignNode: function(eXY, scroll) {
@@ -2581,9 +2600,9 @@
             }
         },
         &#x2F;**
+        * This method performs the actual element move.
         * @private
         * @method _moveNode
-        * @description This method performs the actual element move.
         *&#x2F;
         _moveNode: function(scroll) {
             &#x2F;&#x2F;if (!this.get(DRAGGING)) {
@@ -2623,25 +2642,31 @@
             this.lastXY = xy;
         },
         &#x2F;**
+        * Default function for drag:drag. Fired from _moveNode.
         * @private
         * @method _defDragFn
-        * @description Default function for drag:drag. Fired from _moveNode.
         * @param {EventFacade} ev The drag:drag event
         *&#x2F;
         _defDragFn: function(e) {
             if (this.get(&#x27;move&#x27;)) {
                 if (e.scroll &amp;&amp; e.scroll.node) {
-                    e.scroll.node.set(&#x27;scrollTop&#x27;, e.scroll.top);
-                    e.scroll.node.set(&#x27;scrollLeft&#x27;, e.scroll.left);
+                    var domNode = e.scroll.node.getDOMNode();
+                    &#x2F;&#x2F;If it&#x27;s the window
+                    if (domNode === Y.config.win) {
+                        domNode.scrollTo(e.scroll.left, e.scroll.top);
+                    } else {
+                        e.scroll.node.set(&#x27;scrollTop&#x27;, e.scroll.top);
+                        e.scroll.node.set(&#x27;scrollLeft&#x27;, e.scroll.left);
+                    }
                 }
                 this.get(DRAG_NODE).setXY([e.pageX, e.pageY]);
                 this.realXY = [e.pageX, e.pageY];
             }
         },
         &#x2F;**
+        * Fired from DragDropMgr (DDM) on mousemove.
         * @private
         * @method _move
-        * @description Fired from DragDropMgr (DDM) on mousemove.
         * @param {EventFacade} ev The mousemove DOM event
         *&#x2F;
         _move: function(ev) {
@@ -2670,8 +2695,8 @@
             }
         },
         &#x2F;**
+        * Method will forcefully stop a drag operation. For example calling this from inside an ESC keypress handler will stop this drag.
         * @method stopDrag
-        * @description Method will forcefully stop a drag operation. For example calling this from inside an ESC keypress handler will stop this drag.
         * @return {Self}
         * @chainable
         *&#x2F;
@@ -2682,9 +2707,9 @@
             return this;
         },
         &#x2F;**
+        * Lifecycle destructor, unreg the drag from the DDM and remove listeners
         * @private
         * @method destructor
-        * @description Lifecycle destructor, unreg the drag from the DDM and remove listeners
         *&#x2F;
         destructor: function() {
             this._unprep();

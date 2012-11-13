@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1466,7 +1490,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
         bb.setStyle(&quot;position&quot;, &quot;absolute&quot;);
         this.set(&quot;background&quot;, background);
     },
-    
+
     &#x2F;**
      * @method bindUI
      * @private
@@ -1479,7 +1503,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
         this.after(&quot;widthChange&quot;, this._handleSizeChange);
         this.after(&quot;heightChange&quot;, this._handleSizeChange);
     },
-    
+
     &#x2F;**
      * @method syncUI
      * @private
@@ -1509,7 +1533,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
         }
     },
 
-    &#x2F;** 
+    &#x2F;**
      * Handles position changes.
      *
      * @method _positionChangeHandler
@@ -1584,7 +1608,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
             labelStyles = itemStyles.label,
             displayName,
             layout = this._layout[this.get(&quot;direction&quot;)],
-            i, 
+            i,
             len,
             isArray,
             shape,
@@ -1612,7 +1636,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
         if(chart instanceof Y.PieChart)
         {
             series = seriesCollection[0];
-            displayName = series.get(&quot;categoryAxis&quot;).getDataByKey(series.get(&quot;categoryKey&quot;)); 
+            displayName = series.get(&quot;categoryAxis&quot;).getDataByKey(series.get(&quot;categoryKey&quot;));
             seriesStyles = series.get(&quot;styles&quot;).marker;
             fillColors = seriesStyles.fill.colors;
             borderColors = seriesStyles.border.colors;
@@ -1710,7 +1734,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
 
     &#x2F;**
      * Retrieves the marker styles based on the type of series. For series that contain a marker, the marker styles are returned.
-     * 
+     *
      * @method _getStylesBySeriesType
      * @param {CartesianSeries | PieSeries} The series in which the style properties will be received.
      * @return Object An object containing fill, border and shape information.
@@ -1748,7 +1772,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
                 }
             };
         }
-        else 
+        else
         {
             styles = series.get(&quot;styles&quot;).marker;
             return {
@@ -1787,7 +1811,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
      * @return Object
      * @private
      *&#x2F;
-    _getLegendItem: function(node, shapeClass, fill, border, labelStyles, w, h, text) 
+    _getLegendItem: function(node, shapeClass, fill, border, labelStyles, w, h, text)
     {
         var containerNode = Y.one(DOCUMENT.createElement(&quot;div&quot;)),
             textField = Y.one(DOCUMENT.createElement(&quot;span&quot;)),
@@ -1840,11 +1864,11 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
      * @private
      *&#x2F;
     _getShapeClass: function()
-    {   
+    {
         var graphic = this.get(&quot;background&quot;).get(&quot;graphic&quot;);
         return graphic._getShapeClass.apply(graphic, arguments);
     },
-    
+
     &#x2F;**
      * Returns the default hash for the &#x60;styles&#x60; attribute.
      *
@@ -1854,7 +1878,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
      *&#x2F;
     _getDefaultStyles: function()
     {
-        var styles = { 
+        var styles = {
             padding: {
                 top: 8,
                 right: 8,
@@ -2002,7 +2026,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
         direction: {
             value: &quot;vertical&quot;
         },
-       
+
         &#x2F;**
          * Indicates the position and direction of the legend. Possible values are &#x60;left&#x60;, &#x60;top&#x60;, &#x60;right&#x60; and &#x60;bottom&#x60;. Values of &#x60;left&#x60; and
          * &#x60;right&#x60; values have a &#x60;direction&#x60; of &#x60;vertical&#x60;. Values of &#x60;top&#x60; and &#x60;bottom&#x60; values have a &#x60;direction&#x60; of &#x60;horizontal&#x60;.
@@ -2028,12 +2052,15 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
                 return val;
             }
         },
- 
+
         &#x2F;**
-         * The width of the legend. Depending on the implementation of the ChartLegend, this value is &#x60;readOnly&#x60;. By default, the legend is included in the layout of the &#x60;Chart&#x60; that 
-         * it references. Under this circumstance, &#x60;width&#x60; is always &#x60;readOnly&#x60;. When the legend is rendered in its own dom element, the &#x60;readOnly&#x60; status is determined by the 
-         * direction of the legend. If the &#x60;position&#x60; is &#x60;left&#x60; or &#x60;right&#x60; or the &#x60;direction&#x60; is &#x60;vertical&#x60;, width is &#x60;readOnly&#x60;. If the position is &#x60;top&#x60; or &#x60;bottom&#x60; or the &#x60;direction&#x60;
-         * is &#x60;horizontal&#x60;, width can be explicitly set. If width is not explicitly set, the width will be determined by the width of the legend&#x27;s parent element.
+         * The width of the legend. Depending on the implementation of the ChartLegend, this value is &#x60;readOnly&#x60;.
+         * By default, the legend is included in the layout of the &#x60;Chart&#x60; that it references. Under this circumstance,
+         * &#x60;width&#x60; is always &#x60;readOnly&#x60;. When the legend is rendered in its own dom element, the &#x60;readOnly&#x60; status is
+         * determined by the direction of the legend. If the &#x60;position&#x60; is &#x60;left&#x60; or &#x60;right&#x60; or the &#x60;direction&#x60; is
+         * &#x60;vertical&#x60;, width is &#x60;readOnly&#x60;. If the position is &#x60;top&#x60; or &#x60;bottom&#x60; or the &#x60;direction&#x60; is &#x60;horizontal&#x60;,
+         * width can be explicitly set. If width is not explicitly set, the width will be determined by the width of the
+         * legend&#x27;s parent element.
          *
          * @attribute width
          * @type Number
@@ -2069,12 +2096,15 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
         },
 
         &#x2F;**
-         * The height of the legend. Depending on the implementation of the ChartLegend, this value is &#x60;readOnly&#x60;. By default, the legend is included in the layout of the &#x60;Chart&#x60; that 
-         * it references. Under this circumstance, &#x60;height&#x60; is always &#x60;readOnly&#x60;. When the legend is rendered in its own dom element, the &#x60;readOnly&#x60; status is determined by the 
-         * direction of the legend. If the &#x60;position&#x60; is &#x60;top&#x60; or &#x60;bottom&#x60; or the &#x60;direction&#x60; is &#x60;horizontal&#x60;, height is &#x60;readOnly&#x60;. If the position is &#x60;left&#x60; or &#x60;right&#x60; or the &#x60;direction&#x60;
-         * is &#x60;vertical&#x60;, height can be explicitly set. If height is not explicitly set, the height will be determined by the width of the legend&#x27;s parent element.
+         * The height of the legend. Depending on the implementation of the ChartLegend, this value is &#x60;readOnly&#x60;.
+         * By default, the legend is included in the layout of the &#x60;Chart&#x60; that it references. Under this circumstance,
+         * &#x60;height&#x60; is always &#x60;readOnly&#x60;. When the legend is rendered in its own dom element, the &#x60;readOnly&#x60; status is
+         * determined by the direction of the legend. If the &#x60;position&#x60; is &#x60;top&#x60; or &#x60;bottom&#x60; or the &#x60;direction&#x60; is
+         * &#x60;horizontal&#x60;, height is &#x60;readOnly&#x60;. If the position is &#x60;left&#x60; or &#x60;right&#x60; or the &#x60;direction&#x60; is &#x60;vertical&#x60;,
+         * height can be explicitly set. If height is not explicitly set, the height will be determined by the width of the
+         * legend&#x27;s parent element.
          *
-         * @attribute height 
+         * @attribute height
          * @type Number
          *&#x2F;
         height: {
@@ -2084,7 +2114,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
             {
                 var chart = this.get(&quot;chart&quot;),
                     parentNode = this._parentNode;
-                if(parentNode) 
+                if(parentNode)
                 {
                     if((chart &amp;&amp; this.get(&quot;includeInChartLayout&quot;)) || this._height)
                     {
@@ -2120,7 +2150,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
             lazyAdd: false,
 
             value: 0,
-            
+
             setter: function(val)
             {
                 var node = this.get(&quot;boundingBox&quot;);
@@ -2143,7 +2173,7 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
             lazyAdd: false,
 
             value: 0,
-            
+
             setter: function(val)
             {
                 var node = this.get(&quot;boundingBox&quot;);
@@ -2183,12 +2213,18 @@ Y.ChartLegend = Y.Base.create(&quot;chartlegend&quot;, Y.Widget, [Y.Renderer], {
         background: {}
 
         &#x2F;**
-         * Properties used to display and style the ChartLegend.  This attribute is inherited from &#x60;Renderer&#x60;. Below are the default values:
+         * Properties used to display and style the ChartLegend.  This attribute is inherited from &#x60;Renderer&#x60;.
+         * Below are the default values:
          *
          *  &lt;dl&gt;
-         *      &lt;dt&gt;gap&lt;&#x2F;dt&gt;&lt;dd&gt;Distance, in pixels, between the &#x60;ChartLegend&#x60; instance and the chart&#x27;s content. When &#x60;ChartLegend&#x60; is rendered within a &#x60;Chart&#x60; instance this value is applied.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;hAlign&lt;&#x2F;dt&gt;&lt;dd&gt;Defines the horizontal alignment of the &#x60;items&#x60; in a &#x60;ChartLegend&#x60; rendered in a horizontal direction. This value is applied when the instance&#x27;s &#x60;position&#x60; is set to top or bottom. This attribute can be set to left, center or right. The default value is center.&lt;&#x2F;dd&gt;
-         *      &lt;dt&gt;vAlign&lt;&#x2F;dt&gt;&lt;dd&gt;Defines the vertical alignment of the &#x60;items&#x60; in a &#x60;ChartLegend&#x60; rendered in vertical direction. This value is applied when the instance&#x27;s &#x60;position&#x60; is set to left or right. The attribute can be set to top, middle or bottom. The default value is middle.&lt;&#x2F;dd&gt;
+         *      &lt;dt&gt;gap&lt;&#x2F;dt&gt;&lt;dd&gt;Distance, in pixels, between the &#x60;ChartLegend&#x60; instance and the chart&#x27;s content. When &#x60;ChartLegend&#x60;
+         *      is rendered within a &#x60;Chart&#x60; instance this value is applied.&lt;&#x2F;dd&gt;
+         *      &lt;dt&gt;hAlign&lt;&#x2F;dt&gt;&lt;dd&gt;Defines the horizontal alignment of the &#x60;items&#x60; in a &#x60;ChartLegend&#x60; rendered in a horizontal direction.
+         *      This value is applied when the instance&#x27;s &#x60;position&#x60; is set to top or bottom. This attribute can be set to left, center
+         *      or right. The default value is center.&lt;&#x2F;dd&gt;
+         *      &lt;dt&gt;vAlign&lt;&#x2F;dt&gt;&lt;dd&gt;Defines the vertical alignment of the &#x60;items&#x60; in a &#x60;ChartLegend&#x60; rendered in vertical direction. This
+         *      value is applied when the instance&#x27;s &#x60;position&#x60; is set to left or right. The attribute can be set to top, middle or
+         *      bottom. The default value is middle.&lt;&#x2F;dd&gt;
          *      &lt;dt&gt;item&lt;&#x2F;dt&gt;&lt;dd&gt;Set of style properties applied to the &#x60;items&#x60; of the &#x60;ChartLegend&#x60;.
          *          &lt;dl&gt;
          *              &lt;dt&gt;hSpacing&lt;&#x2F;dt&gt;&lt;dd&gt;Horizontal distance, in pixels, between legend &#x60;items&#x60;.&lt;&#x2F;dd&gt;

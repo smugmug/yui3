@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1675,7 +1699,7 @@ if (docEl &amp;&amp; docClass.indexOf(DOC_LABEL) == -1) {
 }
 
 if (VERSION.indexOf(&#x27;@&#x27;) &gt; -1) {
-    VERSION = &#x27;3.5.0&#x27;; &#x2F;&#x2F; dev time hack for cdn test
+    VERSION = &#x27;3.8.0&#x27;; &#x2F;&#x2F; dev time hack for cdn test
 }
 
 proto = {
@@ -1855,7 +1879,7 @@ proto = {
             if (G_ENV &amp;&amp; Y !== YUI) {
                 Env._yidx = ++G_ENV._yidx;
                 Env._guidp = (&#x27;yui_&#x27; + VERSION + &#x27;_&#x27; +
-                             Env._yidx + &#x27;_&#x27; + time).replace(&#x2F;\.&#x2F;g, &#x27;_&#x27;).replace(&#x2F;-&#x2F;g, &#x27;_&#x27;);
+                             Env._yidx + &#x27;_&#x27; + time).replace(&#x2F;[^a-z0-9_]+&#x2F;g, &#x27;_&#x27;);
             } else if (YUI._YUI) {
 
                 G_ENV = YUI._YUI.Env;
@@ -1888,7 +1912,8 @@ proto = {
             throwFail: true,
             useBrowserConsole: true,
             useNativeES5: true,
-            win: win
+            win: win,
+            global: Function(&#x27;return this&#x27;)()
         };
 
         &#x2F;&#x2F;Register the CSS stamp element
@@ -2567,7 +2592,7 @@ Y.log(&#x27;Modules missing: &#x27; + missing + &#x27;, &#x27; + missing.length,
             loader.context = Y;
             loader.data = args;
             loader.ignoreRegistered = false;
-            loader.require(args);
+            loader.require(missing);
             loader.insert(null, (fetchCSS) ? null : &#x27;js&#x27;);
 
         } else if (boot &amp;&amp; len &amp;&amp; Y.Get &amp;&amp; !Env.bootstrapped) {
@@ -2922,6 +2947,15 @@ overwriting other scripts configs.
  * @property throwFail
  * @type boolean
  * @default true
+ *&#x2F;
+
+&#x2F;**
+ * The global object. In Node.js it&#x27;s an object called &quot;global&quot;. In the
+ * browser is the current window object.
+ *
+ * @property global
+ * @type Object
+ * @default the global object
  *&#x2F;
 
 &#x2F;**
@@ -4979,7 +5013,7 @@ YUI.Env.parseUA = function(subUA) {
          * @static
          *&#x2F;
         nodejs: 0,
-        &#x2F;*
+        &#x2F;**
         * Window8&#x2F;IE10 Application host environment
         * @property winjs
         * @type Boolean
@@ -5245,10 +5279,12 @@ YUI.Env.aliases = {
     &quot;anim-shape-transform&quot;: [&quot;anim-shape&quot;],
     &quot;app&quot;: [&quot;app-base&quot;,&quot;app-content&quot;,&quot;app-transitions&quot;,&quot;lazy-model-list&quot;,&quot;model&quot;,&quot;model-list&quot;,&quot;model-sync-rest&quot;,&quot;router&quot;,&quot;view&quot;,&quot;view-node-map&quot;],
     &quot;attribute&quot;: [&quot;attribute-base&quot;,&quot;attribute-complex&quot;],
+    &quot;attribute-events&quot;: [&quot;attribute-observable&quot;],
     &quot;autocomplete&quot;: [&quot;autocomplete-base&quot;,&quot;autocomplete-sources&quot;,&quot;autocomplete-list&quot;,&quot;autocomplete-plugin&quot;],
     &quot;base&quot;: [&quot;base-base&quot;,&quot;base-pluginhost&quot;,&quot;base-build&quot;],
     &quot;cache&quot;: [&quot;cache-base&quot;,&quot;cache-offline&quot;,&quot;cache-plugin&quot;],
     &quot;collection&quot;: [&quot;array-extras&quot;,&quot;arraylist&quot;,&quot;arraylist-add&quot;,&quot;arraylist-filter&quot;,&quot;array-invoke&quot;],
+    &quot;color&quot;: [&quot;color-base&quot;,&quot;color-hsl&quot;,&quot;color-harmony&quot;],
     &quot;controller&quot;: [&quot;router&quot;],
     &quot;dataschema&quot;: [&quot;dataschema-base&quot;,&quot;dataschema-json&quot;,&quot;dataschema-xml&quot;,&quot;dataschema-array&quot;,&quot;dataschema-text&quot;],
     &quot;datasource&quot;: [&quot;datasource-local&quot;,&quot;datasource-io&quot;,&quot;datasource-get&quot;,&quot;datasource-function&quot;,&quot;datasource-cache&quot;,&quot;datasource-jsonschema&quot;,&quot;datasource-xmlschema&quot;,&quot;datasource-arrayschema&quot;,&quot;datasource-textschema&quot;,&quot;datasource-polling&quot;],
@@ -14118,11 +14154,14 @@ Y.mix(Y_Node.prototype, {
     },
 
     &#x2F;**
-     * Retrieves a Node instance of nodes based on the given CSS selector.
+     * Retrieves a single Node instance, the first element matching the given 
+     * CSS selector.
+     * Returns null if no match found.
      * @method one
      *
      * @param {string} selector The CSS selector to test against.
-     * @return {Node} A Node instance for the matching HTMLElement.
+     * @return {Node | null} A Node instance for the matching HTMLElement or null 
+     * if no match found.
      *&#x2F;
     one: function(selector) {
         return Y.one(Y.Selector.query(selector, this._node, true));
@@ -18774,29 +18813,12 @@ YUI.add(&#x27;querystring-stringify-simple&#x27;, function (Y, NAME) {
  *
  * @module querystring
  * @submodule querystring-stringify-simple
- * @for QueryString
- * @static
  *&#x2F;
 
 var QueryString = Y.namespace(&quot;QueryString&quot;),
     EUC = encodeURIComponent;
 
-&#x2F;**
- * &lt;p&gt;Converts a simple object to a Query String representation.&lt;&#x2F;p&gt;
- * &lt;p&gt;Nested objects, Arrays, and so on, are not supported.&lt;&#x2F;p&gt;
- *
- * @method stringify
- * @for QueryString
- * @public
- * @submodule querystring-stringify-simple
- * @param obj {Object} A single-level object to convert to a querystring.
- * @param cfg {Object} (optional) Configuration object.  In the simple
- *                                module, only the arrayKey setting is
- *                                supported.  When set to true, the key of an
- *                                array will have the &#x27;[]&#x27; notation appended
- *                                to the key;.
- * @static
- *&#x2F;
+
 QueryString.stringify = function (obj, c) {
     var qs = [],
         &#x2F;&#x2F; Default behavior is false; standard key notation.

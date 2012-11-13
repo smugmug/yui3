@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1429,9 +1453,9 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;**
- * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. 
- * &#x60;SVGGraphic&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class. 
- * If the browser has &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; capabilities, the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; 
+ * &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; implementation of the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class.
+ * &#x60;SVGGraphic&#x60; is not intended to be used directly. Instead, use the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt; class.
+ * If the browser has &lt;a href=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;SVG&#x2F;&quot;&gt;SVG&lt;&#x2F;a&gt; capabilities, the &lt;a href=&quot;Graphic.html&quot;&gt;&#x60;Graphic&#x60;&lt;&#x2F;a&gt;
  * class will point to the &#x60;SVGGraphic&#x60; class.
  *
  * @module graphics
@@ -1446,13 +1470,14 @@ SVGGraphic.NAME = &quot;svgGraphic&quot;;
 
 SVGGraphic.ATTRS = {
     &#x2F;**
-     * Whether or not to render the &#x60;Graphic&#x60; automatically after to a specified parent node after init. This can be a Node instance or a CSS selector string.
-     * 
+     * Whether or not to render the &#x60;Graphic&#x60; automatically after to a specified parent node after init. This can be a Node
+     * instance or a CSS selector string.
+     *
      * @config render
-     * @type Node | String 
+     * @type Node | String
      *&#x2F;
     render: {},
-	
+
     &#x2F;**
 	 * Unique id for class instance.
 	 *
@@ -1496,7 +1521,7 @@ SVGGraphic.ATTRS = {
      *  Object containing size and coordinate data for the content of a Graphic in relation to the coordSpace node.
      *
      *  @config contentBounds
-     *  @type Object 
+     *  @type Object
      *  @readOnly
      *&#x2F;
     contentBounds: {
@@ -1523,9 +1548,9 @@ SVGGraphic.ATTRS = {
             return this._node;
         }
     },
-    
+
 	&#x2F;**
-	 * Indicates the width of the &#x60;Graphic&#x60;. 
+	 * Indicates the width of the &#x60;Graphic&#x60;.
 	 *
 	 * @config width
 	 * @type Number
@@ -1537,14 +1562,14 @@ SVGGraphic.ATTRS = {
             {
                 this._node.style.width = val + &quot;px&quot;;
             }
-            return val; 
+            return val;
         }
     },
 
 	&#x2F;**
-	 * Indicates the height of the &#x60;Graphic&#x60;. 
+	 * Indicates the height of the &#x60;Graphic&#x60;.
 	 *
-	 * @config height 
+	 * @config height
 	 * @type Number
 	 *&#x2F;
     height: {
@@ -1559,15 +1584,18 @@ SVGGraphic.ATTRS = {
     },
 
     &#x2F;**
-     *  Determines the sizing of the Graphic. 
+     *  Determines the sizing of the Graphic.
      *
      *  &lt;dl&gt;
-     *      &lt;dt&gt;sizeContentToGraphic&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt;
-     *      attributes or are determined by the dimensions of the parent element. The content contained in the Graphic will be sized to fit with in the Graphic instance&#x27;s 
-     *      dimensions. When using this setting, the &lt;code&gt;preserveAspectRatio&lt;&#x2F;code&gt; attribute will determine how the contents are sized.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;sizeGraphicToContent&lt;&#x2F;dt&gt;&lt;dd&gt;(Also accepts a value of true) The Graphic&#x27;s width and height are determined by the size and positioning of the content.&lt;&#x2F;dd&gt;
-     *      &lt;dt&gt;false&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt;
-     *      attributes or are determined by the dimensions of the parent element. The contents of the Graphic instance are not affected by this setting.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;sizeContentToGraphic&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the
+     *      &lt;code&gt;width&lt;&#x2F;code&gt; and &lt;code&gt;height&lt;&#x2F;code&gt; attributes or are determined by the dimensions of the parent element. The
+     *      content contained in the Graphic will be sized to fit with in the Graphic instance&#x27;s dimensions. When using this
+     *      setting, the &lt;code&gt;preserveAspectRatio&lt;&#x2F;code&gt; attribute will determine how the contents are sized.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;sizeGraphicToContent&lt;&#x2F;dt&gt;&lt;dd&gt;(Also accepts a value of true) The Graphic&#x27;s width and height are determined by the
+     *      size and positioning of the content.&lt;&#x2F;dd&gt;
+     *      &lt;dt&gt;false&lt;&#x2F;dt&gt;&lt;dd&gt;The Graphic&#x27;s width and height attributes are, either explicitly set through the &lt;code&gt;width&lt;&#x2F;code&gt;
+     *      and &lt;code&gt;height&lt;&#x2F;code&gt; attributes or are determined by the dimensions of the parent element. The contents of the
+     *      Graphic instance are not affected by this setting.&lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
      *
      *
@@ -1578,12 +1606,12 @@ SVGGraphic.ATTRS = {
     autoSize: {
         value: false
     },
-    
+
     &#x2F;**
      * Determines how content is sized when &lt;code&gt;autoSize&lt;&#x2F;code&gt; is set to &lt;code&gt;sizeContentToGraphic&lt;&#x2F;code&gt;.
      *
      *  &lt;dl&gt;
-     *      &lt;dt&gt;none&lt;dt&gt;&lt;dd&gt;Do not force uniform scaling. Scale the graphic content of the given element non-uniformly if necessary 
+     *      &lt;dt&gt;none&lt;dt&gt;&lt;dd&gt;Do not force uniform scaling. Scale the graphic content of the given element non-uniformly if necessary
      *      such that the element&#x27;s bounding box exactly matches the viewport rectangle.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMinYMin&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling position along the top left of the Graphic&#x27;s node.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMidYMin&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling horizontally centered and positioned at the top of the Graphic&#x27;s node.&lt;dd&gt;
@@ -1595,7 +1623,7 @@ SVGGraphic.ATTRS = {
      *      &lt;dt&gt;xMidYMax&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling horizontally centered and position vertically from the bottom.&lt;&#x2F;dd&gt;
      *      &lt;dt&gt;xMaxYMax&lt;&#x2F;dt&gt;&lt;dd&gt;Force uniform scaling positioned horizontally from the right and vertically from the bottom.&lt;&#x2F;dd&gt;
      *  &lt;&#x2F;dl&gt;
-     * 
+     *
      * @config preserveAspectRatio
      * @type String
      * @default xMidYMid
@@ -1603,12 +1631,12 @@ SVGGraphic.ATTRS = {
     preserveAspectRatio: {
         value: &quot;xMidYMid&quot;
     },
-    
+
     &#x2F;**
      * The contentBounds will resize to greater values but not to smaller values. (for performance)
      * When resizing the contentBounds down is desirable, set the resizeDown value to true.
      *
-     * @config resizeDown 
+     * @config resizeDown
      * @type Boolean
      *&#x2F;
     resizeDown: {
@@ -1673,7 +1701,7 @@ SVGGraphic.ATTRS = {
     autoDraw: {
         value: true
     },
-    
+
     visible: {
         value: true,
 
@@ -1700,12 +1728,12 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
      * Sets the value of an attribute.
      *
      * @method set
-     * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can 
+     * @param {String|Object} name The name of the attribute. Alternatively, an object of key value pairs can
      * be passed in to set multiple attributes at once.
-     * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as 
+     * @param {Any} value The value to set the attribute to. This value is ignored if an object is received as
      * the name param.
      *&#x2F;
-	set: function(attr, value) 
+	set: function(attr, value)
 	{
 		var host = this,
             redrawAttrs = {
@@ -1716,7 +1744,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
             },
             key,
             forceRedraw = false;
-		AttributeLite.prototype.set.apply(host, arguments);	
+		AttributeLite.prototype.set.apply(host, arguments);
         if(host._state.autoDraw === true &amp;&amp; Y.Object.size(this._shapes) &gt; 0)
         {
             if(Y_LANG.isString &amp;&amp; redrawAttrs[attr])
@@ -1810,7 +1838,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
 
     &#x2F;**
      * Adds the graphics node to the dom.
-     * 
+     *
      * @method render
      * @param {HTMLElement} parentNode node in which to render the graphics node into.
      *&#x2F;
@@ -1882,7 +1910,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
     {
         var node = shape.node,
             parentNode = this._frag || this._contentNode;
-        if(this.get(&quot;autoDraw&quot;)) 
+        if(this.get(&quot;autoDraw&quot;))
         {
             parentNode.appendChild(node);
         }
@@ -1912,7 +1940,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
             shape._destroy();
             delete this._shapes[shape.get(&quot;id&quot;)];
         }
-        if(this.get(&quot;autoDraw&quot;)) 
+        if(this.get(&quot;autoDraw&quot;))
         {
             this._redraw();
         }
@@ -1937,7 +1965,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
         }
         this._shapes = {};
     },
-    
+
     &#x2F;**
      * Removes all child nodes.
      *
@@ -2001,11 +2029,11 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
     },
 
     &#x2F;**
-     * Returns a shape class. Used by &#x60;addShape&#x60;. 
+     * Returns a shape class. Used by &#x60;addShape&#x60;.
      *
      * @method _getShapeClass
-     * @param {Shape | String} val Indicates which shape class. 
-     * @return Function 
+     * @param {Shape | String} val Indicates which shape class.
+     * @return Function
      * @private
      *&#x2F;
     _getShapeClass: function(val)
@@ -2032,7 +2060,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
         ellipse: Y.SVGEllipse,
         pieslice: Y.SVGPieSlice
     },
-    
+
     &#x2F;**
      * Returns a shape based on the id of its dom node.
      *
@@ -2059,7 +2087,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
         method();
         this.set(&quot;autoDraw&quot;, autoDraw);
     },
-    
+
     &#x2F;**
      * Returns a document fragment to for attaching shapes.
      *
@@ -2108,7 +2136,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
                 computedLeft = computedTop = 0;
                 this._contentNode.setAttribute(&quot;preserveAspectRatio&quot;, preserveAspectRatio);
             }
-            else 
+            else
             {
                 computedWidth = width;
                 computedHeight = height;
@@ -2147,11 +2175,11 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
                 this._contentNode.appendChild(this._frag);
             }
             this._frag = null;
-        } 
+        }
     },
- 
+
     &#x2F;**
-     * Adds a shape to the redraw queue and calculates the contentBounds. Used internally 
+     * Adds a shape to the redraw queue and calculates the contentBounds. Used internally
      * by &#x60;Shape&#x60; instances.
      *
      * @method addToRedrawQueue
@@ -2175,7 +2203,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
             box.height = box.bottom - box.top;
             this._contentBounds = box;
         }
-        if(this.get(&quot;autoDraw&quot;)) 
+        if(this.get(&quot;autoDraw&quot;))
         {
             this._redraw();
         }
@@ -2185,7 +2213,7 @@ Y.extend(SVGGraphic, Y.GraphicBase, {
      * Recalculates and returns the &#x60;contentBounds&#x60; for the &#x60;Graphic&#x60; instance.
      *
      * @method _getUpdatedContentBounds
-     * @return {Object} 
+     * @return {Object}
      * @private
      *&#x2F;
     _getUpdatedContentBounds: function()

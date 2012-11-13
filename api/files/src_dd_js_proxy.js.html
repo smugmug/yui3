@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1452,12 +1476,12 @@
 
     P.NAME = &#x27;DDProxy&#x27;;
     &#x2F;**
+    * The Proxy instance will be placed on the Drag instance under the proxy namespace.
     * @property NS
     * @default con
     * @readonly
     * @protected
     * @static
-    * @description The Proxy instance will be placed on the Drag instance under the proxy namespace.
     * @type {String}
     *&#x2F;
     P.NS = &#x27;proxy&#x27;;
@@ -1466,48 +1490,48 @@
         host: {
         },
         &#x2F;**
+        * Move the original node at the end of the drag. Default: true
         * @attribute moveOnEnd
-        * @description Move the original node at the end of the drag. Default: true
         * @type Boolean
         *&#x2F;
         moveOnEnd: {
             value: TRUE
         },
         &#x2F;**
+        * Hide the drag node at the end of the drag. Default: true
         * @attribute hideOnEnd
-        * @description Hide the drag node at the end of the drag. Default: true
         * @type Boolean
         *&#x2F;
         hideOnEnd: {
             value: TRUE
         },
         &#x2F;**
+        * Make the Proxy node assume the size of the original node. Default: true
         * @attribute resizeFrame
-        * @description Make the Proxy node assume the size of the original node. Default: true
         * @type Boolean
         *&#x2F;
         resizeFrame: {
             value: TRUE
         },
         &#x2F;**
+        * Make the Proxy node appear in the same place as the original node. Default: true
         * @attribute positionProxy
-        * @description Make the Proxy node appear in the same place as the original node. Default: true
         * @type Boolean
         *&#x2F;
         positionProxy: {
             value: TRUE
         },
         &#x2F;**
+        * The default border style for the border of the proxy. Default: 1px solid #808080
         * @attribute borderStyle
-        * @description The default border style for the border of the proxy. Default: 1px solid #808080
         * @type Boolean
         *&#x2F;
         borderStyle: {
             value: &#x27;1px solid #808080&#x27;
         },
         &#x2F;**
+        * Should the node be cloned into the proxy for you. Default: false
         * @attribute cloneNode
-        * @description Should the node be cloned into the proxy for you. Default: false
         * @type Boolean
         *&#x2F;
         cloneNode: {
@@ -1517,15 +1541,15 @@
 
     proto = {
         &#x2F;**
+        * Holds the event handles for setting the proxy
         * @private
         * @property _hands
-        * @description Holds the event handles for setting the proxy
         *&#x2F;
         _hands: null,
         &#x2F;**
+        * Handler for the proxy config attribute
         * @private
         * @method _init
-        * @description Handler for the proxy config attribute
         *&#x2F;
         _init: function() {
             if (!DDM._proxy) {
@@ -1542,7 +1566,7 @@
                     host.set(DRAG_NODE, DDM._proxy);
                 }
             }
-            Y.each(this._hands, function(v) {
+            Y.Array.each(this._hands, function(v) {
                 v.detach();
             });
             h = DDM.on(&#x27;ddm:start&#x27;, Y.bind(function() {
@@ -1571,7 +1595,7 @@
         },
         destructor: function() {
             var host = this.get(HOST);
-            Y.each(this._hands, function(v) {
+            Y.Array.each(this._hands, function(v) {
                 v.detach();
             });
             host.set(DRAG_NODE, host.get(NODE));
@@ -1597,11 +1621,11 @@
     &#x2F;&#x2F;Add a couple of methods to the DDM
     Y.mix(DDM, {
         &#x2F;**
+        * Create the proxy element if it doesn&#x27;t already exist and set the DD.DDM._proxy value
         * @private
         * @for DDM
         * @namespace DD
         * @method _createFrame
-        * @description Create the proxy element if it doesn&#x27;t already exist and set the DD.DDM._proxy value
         *&#x2F;
         _createFrame: function() {
             if (!DDM._proxy) {
@@ -1625,12 +1649,12 @@
             }
         },
         &#x2F;**
+        * If resizeProxy is set to true (default) it will resize the proxy element to match the size of the Drag Element.
+        * If positionProxy is set to true (default) it will position the proxy element in the same location as the Drag Element.
         * @private
         * @for DDM
         * @namespace DD
         * @method _setFrame
-        * @description If resizeProxy is set to true (default) it will resize the proxy element to match the size of the Drag Element.
-        * If positionProxy is set to true (default) it will position the proxy element in the same location as the Drag Element.
         *&#x2F;
         _setFrame: function(drag) {
             var n = drag.get(NODE), d = drag.get(DRAG_NODE), ah, cur = &#x27;auto&#x27;;

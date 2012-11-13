@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.7.3-smugmug</em>
+            <em>API Docs for: 3.8.0-git-smugmug</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -75,6 +75,8 @@
             
                 <li><a href="..&#x2F;classes/AttributeLite.html">AttributeLite</a></li>
             
+                <li><a href="..&#x2F;classes/AttributeObservable.html">AttributeObservable</a></li>
+            
                 <li><a href="..&#x2F;classes/AutoComplete.html">AutoComplete</a></li>
             
                 <li><a href="..&#x2F;classes/AutoCompleteBase.html">AutoCompleteBase</a></li>
@@ -94,6 +96,8 @@
                 <li><a href="..&#x2F;classes/Base.html">Base</a></li>
             
                 <li><a href="..&#x2F;classes/BaseCore.html">BaseCore</a></li>
+            
+                <li><a href="..&#x2F;classes/BaseObservable.html">BaseObservable</a></li>
             
                 <li><a href="..&#x2F;classes/BottomAxisLayout.html">BottomAxisLayout</a></li>
             
@@ -148,6 +152,14 @@
                 <li><a href="..&#x2F;classes/ClassNameManager.html">ClassNameManager</a></li>
             
                 <li><a href="..&#x2F;classes/ClickableRail.html">ClickableRail</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Base.html">Color.Base</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.Harmony.html">Color.Harmony</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSL.html">Color.HSL</a></li>
+            
+                <li><a href="..&#x2F;classes/Color.HSV.html">Color.HSV</a></li>
             
                 <li><a href="..&#x2F;classes/ColumnSeries.html">ColumnSeries</a></li>
             
@@ -781,9 +793,9 @@
             
                 <li><a href="..&#x2F;modules/attribute-core.html">attribute-core</a></li>
             
-                <li><a href="..&#x2F;modules/attribute-events.html">attribute-events</a></li>
-            
                 <li><a href="..&#x2F;modules/attribute-extras.html">attribute-extras</a></li>
+            
+                <li><a href="..&#x2F;modules/attribute-observable.html">attribute-observable</a></li>
             
                 <li><a href="..&#x2F;modules/autocomplete.html">autocomplete</a></li>
             
@@ -812,6 +824,8 @@
                 <li><a href="..&#x2F;modules/base-build.html">base-build</a></li>
             
                 <li><a href="..&#x2F;modules/base-core.html">base-core</a></li>
+            
+                <li><a href="..&#x2F;modules/base-observable.html">base-observable</a></li>
             
                 <li><a href="..&#x2F;modules/base-pluginhost.html">base-pluginhost</a></li>
             
@@ -848,6 +862,16 @@
                 <li><a href="..&#x2F;modules/clickable-rail.html">clickable-rail</a></li>
             
                 <li><a href="..&#x2F;modules/collection.html">collection</a></li>
+            
+                <li><a href="..&#x2F;modules/color.html">color</a></li>
+            
+                <li><a href="..&#x2F;modules/color-base.html">color-base</a></li>
+            
+                <li><a href="..&#x2F;modules/color-harmony.html">color-harmony</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsl.html">color-hsl</a></li>
+            
+                <li><a href="..&#x2F;modules/color-hsv.html">color-hsv</a></li>
             
                 <li><a href="..&#x2F;modules/console.html">console</a></li>
             
@@ -1457,7 +1481,7 @@ this network to reduce the number of http connections required to download
 YUI files. You can also specify an external, custom combo service to host
 your modules as well.</p>
 
-<pre class="code"><code class="prettyprint">   var Y = YUI();
+<pre class="code prettyprint"><code>   var Y = YUI();
    var loader = new Y.Loader({
        filter: 'debug',
        base: '../../',
@@ -4356,7 +4380,7 @@ option is encountered.  Called by calculate()</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">  var loader = new Y.Loader({});
+                <pre class="code prettyprint"><code>  var loader = new Y.Loader({});
   loader.addAlias([ 'node', 'yql' ], 'davglass');
   loader.require(['davglass']);
   var out = loader.resolve(true);
@@ -4560,7 +4584,7 @@ option is encountered.  Called by calculate()</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint"> var loader = new Y.Loader({});
+                <pre class="code prettyprint"><code> var loader = new Y.Loader({});
  loader.addGroup({
      name: 'davglass',
      combine: true,
@@ -6043,7 +6067,7 @@ css are inserted if type is not provided.</p>
     <div class="description">
         <p>Shortcut to calculate, resolve and load all modules.</p>
 
-<pre class="code"><code class="prettyprint">var loader = new Y.Loader({
+<pre class="code prettyprint"><code>var loader = new Y.Loader({
     ignoreRegistered: true,
     modules: {
         mod: {
@@ -6674,7 +6698,7 @@ with an insert</p>
             <div class="example-content">
                 <p>This method can be used as an off-line dep calculator</p>
 
-<pre class="code"><code class="prettyprint">   var Y = YUI();
+<pre class="code prettyprint"><code>   var Y = YUI();
    var loader = new Y.Loader({
        filter: 'debug',
        base: '../../',
@@ -7300,7 +7324,7 @@ filters are:</p>
 <p>You can also define a custom filter, which must be an object literal
 containing a search expression and a replace string:</p>
 
-<pre class="code"><code class="prettyprint"> myFilter: {
+<pre class="code prettyprint"><code> myFilter: {
      'searchExp': "-min\\.js",
      'replaceStr': "-debug.js"
  }
@@ -8136,7 +8160,7 @@ The following skin definition would result in 'skin1' and 'skin2'
 being loaded for calendar (if calendar was requested), and
 'sam' for all other skinnable components:</p>
 
-<pre class="code"><code class="prettyprint"> skin: {
+<pre class="code prettyprint"><code> skin: {
      // The default skin, which is automatically applied if not
      // overriden by a component-specific skin definition.
      // Change this in to apply a different skin globally
