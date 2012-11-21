@@ -1844,16 +1844,12 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
                 visibleChange: this._afterVisibleChange
             }),
 
-            container.on(&#x27;hover&#x27;, this._onMenuMouseEnter,
-                    this._onMenuMouseLeave, this),
+            container.on(&#x27;hover&#x27;, this._onMenuMouseEnter, this._onMenuMouseLeave, this),
 
-            container.delegate(&#x27;click&#x27;, this._onItemClick,
-                    &#x27;.&#x27; + classNames.item + &#x27;&gt;.&#x27; + classNames.label, this),
+            container.delegate(&#x27;click&#x27;, this._onItemClick, &#x27;.&#x27; + classNames.item + &#x27;&gt;.&#x27; + classNames.label, this),
+            container.delegate(&#x27;hover&#x27;, this._onItemMouseEnter, this._onItemMouseLeave, &#x27;.&#x27; + classNames.canHaveChildren, this),
 
-            container.delegate(&#x27;hover&#x27;, this._onItemMouseEnter, this._onItemMouseLeave,
-                    &#x27;.&#x27; + classNames.canHaveChildren, this),
-
-            container.after(&#x27;clickoutside&#x27;, this._afterClickOutside, this)
+            Y.one(&#x27;doc&#x27;).after(&#x27;mousedown&#x27;, this._afterDocMouseDown, this)
         );
     },
 
@@ -1865,6 +1861,24 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     **&#x2F;
     _detachMenuEvents: function () {
         (new Y.EventHandle(this._menuEvents)).detach();
+    },
+
+    &#x2F;**
+    Returns an efficient test function that can be passed to &#x60;Y.Node#ancestor()&#x60;
+    to test whether a node is this menu&#x27;s container.
+
+    This is broken out to make overriding easier in subclasses.
+
+    @method _getAncestorTestFn
+    @return {Function} Test function.
+    @protected
+    **&#x2F;
+    _getAncestorTestFn: function () {
+        var container = this.get(&#x27;container&#x27;);
+
+        return (function (node) {
+            return node === container;
+        });
     },
 
     &#x2F;**
@@ -2113,13 +2127,24 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     },
 
     &#x2F;**
-    Handles &#x60;clickoutside&#x60; events for this menu.
+    Handles &#x60;mousedown&#x60; events on the document.
 
-    @method _afterClickOutside
+    @method _afterDocMouseDown
+    @param {EventFacade} e
     @protected
     **&#x2F;
-    _afterClickOutside: function () {
-        this.closeSubMenus();
+    _afterDocMouseDown: function (e) {
+        if (!this.get(&#x27;visible&#x27;)) {
+            return;
+        }
+
+        if (!e.target.ancestor(this._getAncestorTestFn(), true)) {
+            this.closeSubMenus();
+
+            if (this.get(&#x27;hideOnOutsideClick&#x27;)) {
+                this.hide();
+            }
+        }
     },
 
     &#x2F;**
@@ -2388,6 +2413,10 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
 
         this._timeouts.menu = setTimeout(function () {
             self.closeSubMenus();
+
+            if (self.get(&#x27;hideOnMouseLeave&#x27;)) {
+                self.hide();
+            }
         }, 500);
     },
 
@@ -2429,6 +2458,28 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
     }
 }, {
     ATTRS: {
+        &#x2F;**
+        If &#x60;true&#x60;, this menu will be hidden when the user moves the mouse
+        outside the menu.
+
+        @attribute {Boolean} hideOnMouseLeave
+        @default false
+        **&#x2F;
+        hideOnMouseLeave: {
+            value: false
+        },
+
+        &#x2F;**
+        If &#x60;true&#x60;, this menu will be hidden when the user clicks somewhere
+        outside the menu.
+
+        @attribute {Boolean} hideOnOutsideClick
+        @default true
+        **&#x2F;
+        hideOnOutsideClick: {
+            value: true
+        },
+
         &#x2F;**
         Whether or not this menu is visible. Changing this attribute&#x27;s value
         will also change the visibility of this menu.
