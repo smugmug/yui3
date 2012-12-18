@@ -1452,38 +1452,36 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-
-    &#x2F;**
-     * This module provides a UI for file selection and multiple file upload capability using
-     * HTML5 XMLHTTPRequest Level 2 as a transport engine.
-     * The supported features include: automatic upload queue management, upload progress
-     * tracking, drag-and-drop support, server response retrieval and error reporting.
-     *
-     * @module uploader-html5
-     *&#x2F;     
+&#x2F;**
+* This module provides a UI for file selection and multiple file upload capability using
+* HTML5 XMLHTTPRequest Level 2 as a transport engine.
+* The supported features include: automatic upload queue management, upload progress
+* tracking, drag-and-drop support, server response retrieval and error reporting.
+*
+* @module uploader-html5
+*&#x2F;
 
 &#x2F;&#x2F; Shorthands for the external modules
-var  substitute  = Y.substitute,
+var  substitute  = Y.Lang.sub,
      UploaderQueue = Y.Uploader.Queue;
 
-    &#x2F;**
-     * This module provides a UI for file selection and multiple file upload capability using
-     * HTML5 XMLHTTPRequest Level 2 as a transport engine.
-     * @class UploaderHTML5
-     * @extends Widget
-     * @constructor
-     *&#x2F;
-
-function UploaderHTML5(config) {
-  UploaderHTML5.superclass.constructor.apply ( this, arguments );
+&#x2F;**
+* This module provides a UI for file selection and multiple file upload capability using
+* HTML5 XMLHTTPRequest Level 2 as a transport engine.
+* @class UploaderHTML5
+* @extends Widget
+* @constructor
+*&#x2F;
+function UploaderHTML5() {
+    UploaderHTML5.superclass.constructor.apply ( this, arguments );
 }
 
 
 
 Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
 
-   &#x2F;**
-    * Stored reference to the instance of the file input field used to 
+    &#x2F;**
+    * Stored reference to the instance of the file input field used to
     * initiate the file selection dialog.
     *
     * @property _fileInputField
@@ -1492,7 +1490,7 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     *&#x2F;
     _fileInputField: null,
 
-   &#x2F;**
+    &#x2F;**
     * Stored reference to the click event binding of the &#x60;Select Files&#x60;
     * button.
     *
@@ -1502,7 +1500,7 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     *&#x2F;
     _buttonBinding: null,
 
-   &#x2F;**
+    &#x2F;**
     * Stored reference to the instance of Uploader.Queue used to manage
     * the upload process. This is a read-only property that only exists
     * during an active upload process. Only one queue can be active at
@@ -1517,199 +1515,198 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     &#x2F;&#x2F; Y.UploaderHTML5 prototype
 
     &#x2F;**
-     * Construction logic executed during UploaderHTML5 instantiation.
-     *
-     * @method initializer
-     * @protected
-     *&#x2F;
+    * Construction logic executed during UploaderHTML5 instantiation.
+    *
+    * @method initializer
+    * @protected
+    *&#x2F;
     initializer : function () {
 
-    this._fileInputField = null;
-    this.queue = null;
-    this._buttonBinding = null;
-    this._fileList = [];
+        this._fileInputField = null;
+        this.queue = null;
+        this._buttonBinding = null;
+        this._fileList = [];
 
-  &#x2F;&#x2F; Publish available events
+        &#x2F;&#x2F; Publish available events
 
-   &#x2F;**
-    * Signals that files have been selected. 
-    *
-    * @event fileselect
-    * @param event {Event} The event object for the &#x60;fileselect&#x60; with the
-    *                      following payload:
-    *  &lt;dl&gt;
-    *      &lt;dt&gt;fileList&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;An &#x60;Array&#x60; of files selected by the user, encapsulated
-    *              in Y.FileHTML5 objects.&lt;&#x2F;dd&gt;
-    *  &lt;&#x2F;dl&gt;
-    *&#x2F;
-    this.publish(&quot;fileselect&quot;);
+        &#x2F;**
+        * Signals that files have been selected.
+        *
+        * @event fileselect
+        * @param event {Event} The event object for the &#x60;fileselect&#x60; with the
+        *                      following payload:
+        *  &lt;dl&gt;
+        *      &lt;dt&gt;fileList&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;An &#x60;Array&#x60; of files selected by the user, encapsulated
+        *              in Y.FileHTML5 objects.&lt;&#x2F;dd&gt;
+        *  &lt;&#x2F;dl&gt;
+        *&#x2F;
+        this.publish(&quot;fileselect&quot;);
 
-   &#x2F;**
-    * Signals that an upload of multiple files has been started. 
-    *
-    * @event uploadstart
-    * @param event {Event} The event object for the &#x60;uploadstart&#x60;.
-    *&#x2F;
-    this.publish(&quot;uploadstart&quot;);
+        &#x2F;**
+        * Signals that an upload of multiple files has been started.
+        *
+        * @event uploadstart
+        * @param event {Event} The event object for the &#x60;uploadstart&#x60;.
+        *&#x2F;
+        this.publish(&quot;uploadstart&quot;);
 
-   &#x2F;**
-    * Signals that an upload of a specific file has started. 
-    *
-    * @event fileuploadstart
-    * @param event {Event} The event object for the &#x60;fileuploadstart&#x60; with the
-    *                      following payload:
-    *  &lt;dl&gt;
-    *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;A reference to the Y.File that dispatched the event.&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The original event dispatched by Y.File.&lt;&#x2F;dd&gt;
-    *  &lt;&#x2F;dl&gt;
-    *&#x2F;
-    this.publish(&quot;fileuploadstart&quot;);
+        &#x2F;**
+        * Signals that an upload of a specific file has started.
+        *
+        * @event fileuploadstart
+        * @param event {Event} The event object for the &#x60;fileuploadstart&#x60; with the
+        *                      following payload:
+        *  &lt;dl&gt;
+        *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;A reference to the Y.File that dispatched the event.&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The original event dispatched by Y.File.&lt;&#x2F;dd&gt;
+        *  &lt;&#x2F;dl&gt;
+        *&#x2F;
+        this.publish(&quot;fileuploadstart&quot;);
 
-   &#x2F;**
-    * Reports on upload progress of a specific file. 
-    *
-    * @event uploadprogress
-    * @param event {Event} The event object for the &#x60;uploadprogress&#x60; with the
-    *                      following payload:
-    *  &lt;dl&gt;
-    *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The pointer to the instance of &#x60;Y.File&#x60; that dispatched the event.&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;bytesLoaded&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The number of bytes of the file that has been uploaded&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;bytesTotal&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The total number of bytes in the file&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;percentLoaded&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The fraction of the file that has been uploaded, out of 100&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The original event dispatched by the HTML5 uploader&lt;&#x2F;dd&gt;
-    *  &lt;&#x2F;dl&gt;
-    *&#x2F;
-    this.publish(&quot;uploadprogress&quot;);
+        &#x2F;**
+        * Reports on upload progress of a specific file.
+        *
+        * @event uploadprogress
+        * @param event {Event} The event object for the &#x60;uploadprogress&#x60; with the
+        *                      following payload:
+        *  &lt;dl&gt;
+        *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The pointer to the instance of &#x60;Y.File&#x60; that dispatched the event.&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;bytesLoaded&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The number of bytes of the file that has been uploaded&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;bytesTotal&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The total number of bytes in the file&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;percentLoaded&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The fraction of the file that has been uploaded, out of 100&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The original event dispatched by the HTML5 uploader&lt;&#x2F;dd&gt;
+        *  &lt;&#x2F;dl&gt;
+        *&#x2F;
+        this.publish(&quot;uploadprogress&quot;);
 
-   &#x2F;**
-    * Reports on the total upload progress of the file list. 
-    *
-    * @event totaluploadprogress
-    * @param event {Event} The event object for the &#x60;totaluploadprogress&#x60; with the
-    *                      following payload:
-    *  &lt;dl&gt;
-    *      &lt;dt&gt;bytesLoaded&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The number of bytes of the file list that has been uploaded&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;bytesTotal&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The total number of bytes in the file list&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;percentLoaded&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The fraction of the file list that has been uploaded, out of 100&lt;&#x2F;dd&gt;
-    *  &lt;&#x2F;dl&gt;
-    *&#x2F;
-    this.publish(&quot;totaluploadprogress&quot;);
+        &#x2F;**
+        * Reports on the total upload progress of the file list.
+        *
+        * @event totaluploadprogress
+        * @param event {Event} The event object for the &#x60;totaluploadprogress&#x60; with the
+        *                      following payload:
+        *  &lt;dl&gt;
+        *      &lt;dt&gt;bytesLoaded&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The number of bytes of the file list that has been uploaded&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;bytesTotal&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The total number of bytes in the file list&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;percentLoaded&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The fraction of the file list that has been uploaded, out of 100&lt;&#x2F;dd&gt;
+        *  &lt;&#x2F;dl&gt;
+        *&#x2F;
+        this.publish(&quot;totaluploadprogress&quot;);
 
-   &#x2F;**
-    * Signals that a single file upload has been completed. 
-    *
-    * @event uploadcomplete
-    * @param event {Event} The event object for the &#x60;uploadcomplete&#x60; with the
-    *                      following payload:
-    *  &lt;dl&gt;
-    *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The pointer to the instance of &#x60;Y.File&#x60; whose upload has been completed.&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The original event fired by the SWF Uploader&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;data&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;Data returned by the server.&lt;&#x2F;dd&gt;
-    *  &lt;&#x2F;dl&gt;
-    *&#x2F;
-    this.publish(&quot;uploadcomplete&quot;);
+        &#x2F;**
+        * Signals that a single file upload has been completed.
+        *
+        * @event uploadcomplete
+        * @param event {Event} The event object for the &#x60;uploadcomplete&#x60; with the
+        *                      following payload:
+        *  &lt;dl&gt;
+        *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The pointer to the instance of &#x60;Y.File&#x60; whose upload has been completed.&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The original event fired by the SWF Uploader&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;data&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;Data returned by the server.&lt;&#x2F;dd&gt;
+        *  &lt;&#x2F;dl&gt;
+        *&#x2F;
+        this.publish(&quot;uploadcomplete&quot;);
 
-   &#x2F;**
-    * Signals that the upload process of the entire file list has been completed. 
-    *
-    * @event alluploadscomplete
-    * @param event {Event} The event object for the &#x60;alluploadscomplete&#x60;.
-    *&#x2F;
-    this.publish(&quot;alluploadscomplete&quot;);
+        &#x2F;**
+        * Signals that the upload process of the entire file list has been completed.
+        *
+        * @event alluploadscomplete
+        * @param event {Event} The event object for the &#x60;alluploadscomplete&#x60;.
+        *&#x2F;
+        this.publish(&quot;alluploadscomplete&quot;);
 
-   &#x2F;**
-    * Signals that a error has occurred in a specific file&#x27;s upload process. 
-    *
-    * @event uploaderror
-    * @param event {Event} The event object for the &#x60;uploaderror&#x60; with the
-    *                      following payload:
-    *  &lt;dl&gt;
-    *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The original error event fired by the HTML5 Uploader. &lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The pointer at the instance of Y.File that returned the error.&lt;&#x2F;dd&gt;    
-    *      &lt;dt&gt;status&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The status reported by the XMLHttpRequest object.&lt;&#x2F;dd&gt;
-    *      &lt;dt&gt;statusText&lt;&#x2F;dt&gt;
-    *          &lt;dd&gt;The statusText reported by the XMLHttpRequest object.&lt;&#x2F;dd&gt;       
-    *  &lt;&#x2F;dl&gt;
-    *&#x2F;
-    this.publish(&quot;uploaderror&quot;);
+        &#x2F;**
+        * Signals that a error has occurred in a specific file&#x27;s upload process.
+        *
+        * @event uploaderror
+        * @param event {Event} The event object for the &#x60;uploaderror&#x60; with the
+        *                      following payload:
+        *  &lt;dl&gt;
+        *      &lt;dt&gt;originEvent&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The original error event fired by the HTML5 Uploader. &lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;file&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The pointer at the instance of Y.File that returned the error.&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;status&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The status reported by the XMLHttpRequest object.&lt;&#x2F;dd&gt;
+        *      &lt;dt&gt;statusText&lt;&#x2F;dt&gt;
+        *          &lt;dd&gt;The statusText reported by the XMLHttpRequest object.&lt;&#x2F;dd&gt;
+        *  &lt;&#x2F;dl&gt;
+        *&#x2F;
+        this.publish(&quot;uploaderror&quot;);
 
-   &#x2F;**
-    * Signals that a dragged object has entered into the uploader&#x27;s associated drag-and-drop area. 
-    *
-    * @event dragenter
-    * @param event {Event} The event object for the &#x60;dragenter&#x60;.
-    *&#x2F;
-    this.publish(&quot;dragenter&quot;);
+        &#x2F;**
+        * Signals that a dragged object has entered into the uploader&#x27;s associated drag-and-drop area.
+        *
+        * @event dragenter
+        * @param event {Event} The event object for the &#x60;dragenter&#x60;.
+        *&#x2F;
+        this.publish(&quot;dragenter&quot;);
 
-   &#x2F;**
-    * Signals that an object has been dragged over the uploader&#x27;s associated drag-and-drop area. 
-    *
-    * @event dragover
-    * @param event {Event} The event object for the &#x60;dragover&#x60;.
-    *&#x2F;
-    this.publish(&quot;dragover&quot;);
+        &#x2F;**
+        * Signals that an object has been dragged over the uploader&#x27;s associated drag-and-drop area.
+        *
+        * @event dragover
+        * @param event {Event} The event object for the &#x60;dragover&#x60;.
+        *&#x2F;
+        this.publish(&quot;dragover&quot;);
 
-   &#x2F;**
-    * Signals that an object has been dragged off of the uploader&#x27;s associated drag-and-drop area. 
-    *
-    * @event dragleave
-    * @param event {Event} The event object for the &#x60;dragleave&#x60;.
-    *&#x2F;
-    this.publish(&quot;dragleave&quot;);
+        &#x2F;**
+        * Signals that an object has been dragged off of the uploader&#x27;s associated drag-and-drop area.
+        *
+        * @event dragleave
+        * @param event {Event} The event object for the &#x60;dragleave&#x60;.
+        *&#x2F;
+        this.publish(&quot;dragleave&quot;);
 
-   &#x2F;**
-    * Signals that an object has been dropped over the uploader&#x27;s associated drag-and-drop area. 
-    *
-    * @event drop
-    * @param event {Event} The event object for the &#x60;drop&#x60;.
-    *&#x2F;
-    this.publish(&quot;drop&quot;);
-                
+        &#x2F;**
+        * Signals that an object has been dropped over the uploader&#x27;s associated drag-and-drop area.
+        *
+        * @event drop
+        * @param event {Event} The event object for the &#x60;drop&#x60;.
+        *&#x2F;
+        this.publish(&quot;drop&quot;);
+
     },
 
     &#x2F;**
-     * Create the DOM structure for the UploaderHTML5.
-     * UploaderHTML5&#x27;s DOM structure consists of a &quot;Select Files&quot; button that can 
-     * be replaced by the developer&#x27;s widget of choice; and a hidden file input field
-     * that is used to instantiate the File Select dialog.
-     *
-     * @method renderUI
-     * @protected
-     *&#x2F;
+    * Create the DOM structure for the UploaderHTML5.
+    * UploaderHTML5&#x27;s DOM structure consists of a &quot;Select Files&quot; button that can
+    * be replaced by the developer&#x27;s widget of choice; and a hidden file input field
+    * that is used to instantiate the File Select dialog.
+    *
+    * @method renderUI
+    * @protected
+    *&#x2F;
     renderUI : function () {
-       var boundingBox = this.get(&quot;boundingBox&quot;),
-           contentBox = this.get(&#x27;contentBox&#x27;),
-           selButton = this.get(&quot;selectFilesButton&quot;);
+        var contentBox = this.get(&#x27;contentBox&#x27;),
+            selButton = this.get(&quot;selectFilesButton&quot;);
 
-       selButton.setStyles({width:&quot;100%&quot;, height:&quot;100%&quot;});
-       contentBox.append(selButton);
-       this._fileInputField = Y.Node.create(UploaderHTML5.HTML5FILEFIELD_TEMPLATE);
-       contentBox.append(this._fileInputField);
+        selButton.setStyles({width:&quot;100%&quot;, height:&quot;100%&quot;});
+        contentBox.append(selButton);
+        this._fileInputField = Y.Node.create(UploaderHTML5.HTML5FILEFIELD_TEMPLATE);
+        contentBox.append(this._fileInputField);
     },
 
     &#x2F;**
-     * Binds to the UploaderHTML5 UI and subscribes to the necessary events.
-     *
-     * @method bindUI
-     * @protected
-     *&#x2F;
+    * Binds to the UploaderHTML5 UI and subscribes to the necessary events.
+    *
+    * @method bindUI
+    * @protected
+    *&#x2F;
     bindUI : function () {
 
         this._bindSelectButton();
@@ -1723,7 +1720,9 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
         this.after(&quot;enabledChange&quot;, this._triggerEnabled, this);
         this.after(&quot;selectFilesButtonChange&quot;, this._bindSelectButton, this);
         this.after(&quot;dragAndDropAreaChange&quot;, this._bindDropArea, this);
-        this.after(&quot;tabIndexChange&quot;, function (ev) {this.get(&quot;selectFilesButton&quot;).set(&quot;tabIndex&quot;, this.get(&quot;tabIndex&quot;));}, this);
+        this.after(&quot;tabIndexChange&quot;, function () {
+            this.get(&quot;selectFilesButton&quot;).set(&quot;tabIndex&quot;, this.get(&quot;tabIndex&quot;));
+        }, this);
         this._fileInputField.on(&quot;change&quot;, this._updateFileList, this);
 
         this.get(&quot;selectFilesButton&quot;).set(&quot;tabIndex&quot;, this.get(&quot;tabIndex&quot;));
@@ -1731,12 +1730,12 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
 
 
     &#x2F;**
-     * Recreates the file field to null out the previous list of files and
-     * thus allow for an identical file list selection.
-     * 
-     * @method _rebindFileField
-     * @protected
-     *&#x2F;
+    * Recreates the file field to null out the previous list of files and
+    * thus allow for an identical file list selection.
+    *
+    * @method _rebindFileField
+    * @protected
+    *&#x2F;
     _rebindFileField : function () {
         this._fileInputField.remove(true);
         this._fileInputField = Y.Node.create(UploaderHTML5.HTML5FILEFIELD_TEMPLATE);
@@ -1748,14 +1747,15 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
 
 
     &#x2F;**
-     * Binds the specified drop area&#x27;s drag and drop events to the
-     * uploader&#x27;s custom handler.
-     * 
-     * @method _bindDropArea
-     * @protected
-     *&#x2F;
+    * Binds the specified drop area&#x27;s drag and drop events to the
+    * uploader&#x27;s custom handler.
+    *
+    * @method _bindDropArea
+    * @protected
+    *&#x2F;
     _bindDropArea : function (event) {
-        var ev = event || {prevVal: null};
+        var ev = event || {prevVal: null},
+            ddArea = this.get(&quot;dragAndDropArea&quot;);
 
         if (ev.prevVal !== null) {
             ev.prevVal.detach(&#x27;drop&#x27;, this._ddEventHandler);
@@ -1763,8 +1763,6 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
             ev.prevVal.detach(&#x27;dragover&#x27;, this._ddEventHandler);
             ev.prevVal.detach(&#x27;dragleave&#x27;, this._ddEventHandler);
         }
-
-        var ddArea = this.get(&quot;dragAndDropArea&quot;);
 
         if (ddArea !== null) {
             ddArea.on(&#x27;drop&#x27;, this._ddEventHandler, this);
@@ -1775,79 +1773,83 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     },
 
     &#x2F;**
-     * Binds the instantiation of the file select dialog to the current file select
-     * control.
-     * 
-     * @method _bindSelectButton
-     * @protected
-     *&#x2F;
+    * Binds the instantiation of the file select dialog to the current file select
+    * control.
+    *
+    * @method _bindSelectButton
+    * @protected
+    *&#x2F;
     _bindSelectButton : function () {
        this._buttonBinding = this.get(&quot;selectFilesButton&quot;).on(&quot;click&quot;, this.openFileSelectDialog, this);
     },
 
     &#x2F;**
-     * Handles the drag and drop events from the uploader&#x27;s specified drop
-     * area.
-     * 
-     * @method _ddEventHandler
-     * @protected
-     *&#x2F;
+    * Handles the drag and drop events from the uploader&#x27;s specified drop
+    * area.
+    *
+    * @method _ddEventHandler
+    * @protected
+    *&#x2F;
     _ddEventHandler : function (event) {
 
-       event.stopPropagation();
-       event.preventDefault();  
-                          
-       switch (event.type) {
+
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (Y.Array.indexOf(event._event.dataTransfer.types, &#x27;Files&#x27;) &gt; -1) {
+            switch (event.type) {
                 case &quot;dragenter&quot;:
-                  this.fire(&quot;dragenter&quot;); 
-                break;
+                    this.fire(&quot;dragenter&quot;);
+                    break;
                 case &quot;dragover&quot;:
-                  this.fire(&quot;dragover&quot;);
-                break;
-                case &quot;dragleave&quot;: 
-                  this.fire(&quot;dragleave&quot;);
-                break;
+                    this.fire(&quot;dragover&quot;);
+                    break;
+                case &quot;dragleave&quot;:
+                    this.fire(&quot;dragleave&quot;);
+                    break;
                 case &quot;drop&quot;:
 
-                   var newfiles = event._event.dataTransfer.files,
-                       parsedFiles = [],
-                       filterFunc = this.get(&quot;fileFilterFunction&quot;);
-              
-                   if (filterFunc) {
-                        Y.each(newfiles, function (value) {
-                          var newfile = new Y.FileHTML5(value);
-                          if (filterFunc(newfile)) {
-                              parsedFiles.push(newfile);
-                          }
-                        });
-                   }
-                   else {
-                        Y.each(newfiles, function (value) {
-                              parsedFiles.push(new Y.FileHTML5(value));
-                        });
-                   }
+                    var newfiles = event._event.dataTransfer.files,
+                        parsedFiles = [],
+                        filterFunc = this.get(&quot;fileFilterFunction&quot;),
+                        oldfiles;
 
-                   if (parsedFiles.length &gt; 0) {
-                   var oldfiles = this.get(&quot;fileList&quot;);
-                   this.set(&quot;fileList&quot;, 
-                            this.get(&quot;appendNewFiles&quot;) ? oldfiles.concat(parsedFiles) : parsedFiles);
-                   this.fire(&quot;fileselect&quot;, {fileList: parsedFiles});
-                   }
+                    if (filterFunc) {
+                        Y.each(newfiles, function (value) {
+                            var newfile = new Y.FileHTML5(value);
+                            if (filterFunc(newfile)) {
+                                parsedFiles.push(newfile);
+                            }
+                        });
+                    }
+                    else {
+                        Y.each(newfiles, function (value) {
+                            parsedFiles.push(new Y.FileHTML5(value));
+                        });
+                    }
 
-                   this.fire(&quot;drop&quot;);
-                break;
-       }
+                    if (parsedFiles.length &gt; 0) {
+                        oldfiles = this.get(&quot;fileList&quot;);
+                        this.set(&quot;fileList&quot;,
+                        this.get(&quot;appendNewFiles&quot;) ? oldfiles.concat(parsedFiles) : parsedFiles);
+                        this.fire(&quot;fileselect&quot;, {fileList: parsedFiles});
+                    }
+
+                    this.fire(&quot;drop&quot;);
+                    break;
+            }
+        }
     },
 
     &#x2F;**
-     * Adds or removes a specified state CSS class to the underlying uploader button. 
-     *
-     * @method _setButtonClass
-     * @protected
-     * @param state {String} The name of the state enumerated in &#x60;buttonClassNames&#x60; attribute
-     * from which to derive the needed class name.
-     * @param add {Boolean} A Boolean indicating whether to add or remove the class.
-     *&#x2F;
+    * Adds or removes a specified state CSS class to the underlying uploader button.
+    *
+    * @method _setButtonClass
+    * @protected
+    * @param state {String} The name of the state enumerated in &#x60;buttonClassNames&#x60; attribute
+    * from which to derive the needed class name.
+    * @param add {Boolean} A Boolean indicating whether to add or remove the class.
+    *&#x2F;
     _setButtonClass : function (state, add) {
         if (add) {
             this.get(&quot;selectFilesButton&quot;).addClass(this.get(&quot;buttonClassNames&quot;)[state]);
@@ -1858,191 +1860,192 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     },
 
     &#x2F;**
-     * Syncs the state of the &#x60;multipleFiles&#x60; attribute between this class
-     * and the file input field.
-     * 
-     * @method _setMultipleFiles
-     * @protected
-     *&#x2F;
+    * Syncs the state of the &#x60;multipleFiles&#x60; attribute between this class
+    * and the file input field.
+    *
+    * @method _setMultipleFiles
+    * @protected
+    *&#x2F;
     _setMultipleFiles : function () {
-            if (this.get(&quot;multipleFiles&quot;) === true) {
-                this._fileInputField.set(&quot;multiple&quot;, &quot;multiple&quot;);
-            }
-            else {
-                this._fileInputField.set(&quot;multiple&quot;, &quot;&quot;);
-            }
+        if (this.get(&quot;multipleFiles&quot;) === true) {
+            this._fileInputField.set(&quot;multiple&quot;, &quot;multiple&quot;);
+        }
+        else {
+            this._fileInputField.set(&quot;multiple&quot;, &quot;&quot;);
+        }
     },
 
     &#x2F;**
-     * Syncs the state of the &#x60;fileFilters&#x60; attribute between this class
-     * and the file input field.
-     * 
-     * @method _setFileFilters
-     * @protected
-     *&#x2F;
+    * Syncs the state of the &#x60;fileFilters&#x60; attribute between this class
+    * and the file input field.
+    *
+    * @method _setFileFilters
+    * @protected
+    *&#x2F;
     _setFileFilters : function () {
-            if (this.get(&quot;fileFilters&quot;).length &gt; 0) {
-                this._fileInputField.set(&quot;accept&quot;, this.get(&quot;fileFilters&quot;).join(&quot;,&quot;));
-            }
-            else {
-                this._fileInputField.set(&quot;accept&quot;, &quot;&quot;);
-            }
+        if (this.get(&quot;fileFilters&quot;).length &gt; 0) {
+            this._fileInputField.set(&quot;accept&quot;, this.get(&quot;fileFilters&quot;).join(&quot;,&quot;));
+        }
+        else {
+            this._fileInputField.set(&quot;accept&quot;, &quot;&quot;);
+        }
     },
 
 
     &#x2F;**
-     * Syncs the state of the &#x60;enabled&#x60; attribute between this class
-     * and the underlying button.
-     * 
-     * @method _triggerEnabled
-     * @private
-     *&#x2F;
+    * Syncs the state of the &#x60;enabled&#x60; attribute between this class
+    * and the underlying button.
+    *
+    * @method _triggerEnabled
+    * @private
+    *&#x2F;
     _triggerEnabled : function () {
         if (this.get(&quot;enabled&quot;) &amp;&amp; this._buttonBinding === null) {
-          this._bindSelectButton();
-          this._setButtonClass(&quot;disabled&quot;, false);
-          this.get(&quot;selectFilesButton&quot;).setAttribute(&quot;aria-disabled&quot;, &quot;false&quot;);
+            this._bindSelectButton();
+            this._setButtonClass(&quot;disabled&quot;, false);
+            this.get(&quot;selectFilesButton&quot;).setAttribute(&quot;aria-disabled&quot;, &quot;false&quot;);
         }
         else if (!this.get(&quot;enabled&quot;) &amp;&amp; this._buttonBinding) {
-          this._buttonBinding.detach();
-          this._buttonBinding = null;
-          this._setButtonClass(&quot;disabled&quot;, true);
-          this.get(&quot;selectFilesButton&quot;).setAttribute(&quot;aria-disabled&quot;, &quot;true&quot;);
+            this._buttonBinding.detach();
+            this._buttonBinding = null;
+            this._setButtonClass(&quot;disabled&quot;, true);
+            this.get(&quot;selectFilesButton&quot;).setAttribute(&quot;aria-disabled&quot;, &quot;true&quot;);
         }
     },
 
-  &#x2F;**
-   * Getter for the &#x60;fileList&#x60; attribute
-   * 
-   * @method _getFileList
-   * @private
-   *&#x2F;
-    _getFileList : function (arr) {
+    &#x2F;**
+    * Getter for the &#x60;fileList&#x60; attribute
+    *
+    * @method _getFileList
+    * @private
+    *&#x2F;
+    _getFileList : function () {
         return this._fileList.concat();
     },
 
-  &#x2F;**
-   * Setter for the &#x60;fileList&#x60; attribute
-   * 
-   * @method _setFileList
-   * @private
-   *&#x2F;
+    &#x2F;**
+    * Setter for the &#x60;fileList&#x60; attribute
+    *
+    * @method _setFileList
+    * @private
+    *&#x2F;
     _setFileList : function (val) {
         this._fileList = val.concat();
         return this._fileList.concat();
     },
 
     &#x2F;**
-     * Adjusts the content of the &#x60;fileList&#x60; based on the results of file selection
-     * and the &#x60;appendNewFiles&#x60; attribute. If the &#x60;appendNewFiles&#x60; attribute is true,
-     * then selected files are appended to the existing list; otherwise, the list is
-     * cleared and populated with the newly selected files.
-     * 
-     * @method _updateFileList
-     * @param ev {Event} The file selection event received from the uploader.
-     * @protected
-     *&#x2F;
+    * Adjusts the content of the &#x60;fileList&#x60; based on the results of file selection
+    * and the &#x60;appendNewFiles&#x60; attribute. If the &#x60;appendNewFiles&#x60; attribute is true,
+    * then selected files are appended to the existing list; otherwise, the list is
+    * cleared and populated with the newly selected files.
+    *
+    * @method _updateFileList
+    * @param ev {Event} The file selection event received from the uploader.
+    * @protected
+    *&#x2F;
     _updateFileList : function (ev) {
-       var newfiles = ev.target.getDOMNode().files,
-           parsedFiles = [],
-           filterFunc = this.get(&quot;fileFilterFunction&quot;);
+        var newfiles = ev.target.getDOMNode().files,
+            parsedFiles = [],
+            filterFunc = this.get(&quot;fileFilterFunction&quot;),
+            oldfiles;
 
-       if (filterFunc) {
-          Y.each(newfiles, function (value) {
-            var newfile = new Y.FileHTML5(value);
-            if (filterFunc(newfile)) {
-                parsedFiles.push(newfile);
-            }
-          });
-       }
-       else {
-          Y.each(newfiles, function (value) {
+        if (filterFunc) {
+            Y.each(newfiles, function (value) {
+                var newfile = new Y.FileHTML5(value);
+                if (filterFunc(newfile)) {
+                    parsedFiles.push(newfile);
+                }
+            });
+        }
+        else {
+            Y.each(newfiles, function (value) {
                 parsedFiles.push(new Y.FileHTML5(value));
-          });
-       }
+            });
+        }
 
-       if (parsedFiles.length &gt; 0) {
-           var oldfiles = this.get(&quot;fileList&quot;);
+        if (parsedFiles.length &gt; 0) {
+            oldfiles = this.get(&quot;fileList&quot;);
 
-           this.set(&quot;fileList&quot;, 
+            this.set(&quot;fileList&quot;,
                     this.get(&quot;appendNewFiles&quot;) ? oldfiles.concat(parsedFiles) : parsedFiles );
 
-           this.fire(&quot;fileselect&quot;, {fileList: parsedFiles});
-       }
+            this.fire(&quot;fileselect&quot;, {fileList: parsedFiles});
+        }
 
-       this._rebindFileField();
+        this._rebindFileField();
     },
 
 
     &#x2F;**
-     * Handles and retransmits events fired by &#x60;Y.File&#x60; and &#x60;Y.Uploader.Queue&#x60;.
-     * 
-     * @method _uploadEventHandler
-     * @param event The event dispatched during the upload process.
-     * @protected
-     *&#x2F;
+    * Handles and retransmits events fired by &#x60;Y.File&#x60; and &#x60;Y.Uploader.Queue&#x60;.
+    *
+    * @method _uploadEventHandler
+    * @param event The event dispatched during the upload process.
+    * @protected
+    *&#x2F;
     _uploadEventHandler : function (event) {
-    
-    switch (event.type) {
-                case &quot;file:uploadstart&quot;:
-                   this.fire(&quot;fileuploadstart&quot;, event);
+
+        switch (event.type) {
+            case &quot;file:uploadstart&quot;:
+                this.fire(&quot;fileuploadstart&quot;, event);
                 break;
-                case &quot;file:uploadprogress&quot;:
-                   this.fire(&quot;uploadprogress&quot;, event);
+            case &quot;file:uploadprogress&quot;:
+                this.fire(&quot;uploadprogress&quot;, event);
                 break;
-                case &quot;uploaderqueue:totaluploadprogress&quot;:
-                   this.fire(&quot;totaluploadprogress&quot;, event);
+            case &quot;uploaderqueue:totaluploadprogress&quot;:
+                this.fire(&quot;totaluploadprogress&quot;, event);
                 break;
-                case &quot;file:uploadcomplete&quot;:
-                   this.fire(&quot;uploadcomplete&quot;, event);
+            case &quot;file:uploadcomplete&quot;:
+                this.fire(&quot;uploadcomplete&quot;, event);
                 break;
-                case &quot;uploaderqueue:alluploadscomplete&quot;:
-                   this.queue = null;
-                   this.fire(&quot;alluploadscomplete&quot;, event);
+            case &quot;uploaderqueue:alluploadscomplete&quot;:
+                this.queue = null;
+                this.fire(&quot;alluploadscomplete&quot;, event);
                 break;
-                case &quot;file:uploaderror&quot;:
-                case &quot;uploaderqueue:uploaderror&quot;:
-                   this.fire(&quot;uploaderror&quot;, event);
+            case &quot;file:uploaderror&quot;: &#x2F;&#x2F; overflow intentional
+            case &quot;uploaderqueue:uploaderror&quot;:
+                this.fire(&quot;uploaderror&quot;, event);
                 break;
-                case &quot;file:uploadcancel&quot;:
-                case &quot;uploaderqueue:uploadcancel&quot;:
-                   this.fire(&quot;uploadcancel&quot;, event);
+            case &quot;file:uploadcancel&quot;: &#x2F;&#x2F; overflow intentional
+            case &quot;uploaderqueue:uploadcancel&quot;:
+                this.fire(&quot;uploadcancel&quot;, event);
                 break;
-    }   
+        }
 
     },
 
     &#x2F;**
-     * Opens the File Selection dialog by simulating a click on the file input field.
-     * 
-     * @method openFileSelectDialog
-     *&#x2F;
+    * Opens the File Selection dialog by simulating a click on the file input field.
+    *
+    * @method openFileSelectDialog
+    *&#x2F;
     openFileSelectDialog : function () {
-      var fileDomNode = this._fileInputField.getDOMNode();
-            if (fileDomNode.click) {
-                fileDomNode.click();
-            }   
+        var fileDomNode = this._fileInputField.getDOMNode();
+        if (fileDomNode.click) {
+            fileDomNode.click();
+        }
     },
 
-   &#x2F;**
+    &#x2F;**
     * Starts the upload of a specific file.
     *
     * @method upload
     * @param file {Y.File} Reference to the instance of the file to be uploaded.
     * @param url {String} The URL to upload the file to.
     * @param postVars {Object} (optional) A set of key-value pairs to send as variables along with the file upload HTTP request.
-    *                          If not specified, the values from the attribute &#x60;postVarsPerFile&#x60; are used instead. 
+    *                          If not specified, the values from the attribute &#x60;postVarsPerFile&#x60; are used instead.
     *&#x2F;
     upload : function (file, url, postvars) {
-        
+
         var uploadURL = url || this.get(&quot;uploadURL&quot;),
             postVars = postvars || this.get(&quot;postVarsPerFile&quot;),
             fileId = file.get(&quot;id&quot;);
 
-            postVars = postVars.hasOwnProperty(fileId) ? postVars[fileId] : postVars;
+        postVars = postVars.hasOwnProperty(fileId) ? postVars[fileId] : postVars;
 
         if (file instanceof Y.FileHTML5) {
-           
+
             file.on(&quot;uploadstart&quot;, this._uploadEventHandler, this);
             file.on(&quot;uploadprogress&quot;, this._uploadEventHandler, this);
             file.on(&quot;uploadcomplete&quot;, this._uploadEventHandler, this);
@@ -2058,59 +2061,60 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     *
     * @method uploadAll
     * @param url {String} The URL to upload the files to.
-    * @param postVars {Object} (optional) A set of key-value pairs to send as variables along with the file upload HTTP request.
-    *                          If not specified, the values from the attribute &#x60;postVarsPerFile&#x60; are used instead. 
+    * @param [postVars] {Object} A set of key-value pairs to send as variables along with the file upload HTTP request.
+    *                          If not specified, the values from the attribute &#x60;postVarsPerFile&#x60; are used instead.
     *&#x2F;
     uploadAll : function (url, postvars) {
         this.uploadThese(this.get(&quot;fileList&quot;), url, postvars);
     },
 
-   &#x2F;**
+    &#x2F;**
     * Starts the upload of the files specified in the first argument, using an automated queue.
     *
     * @method uploadThese
     * @param files {Array} The list of files to upload.
     * @param url {String} The URL to upload the files to.
-    * @param postVars {Object} (optional) A set of key-value pairs to send as variables along with the file upload HTTP request.
-    *                          If not specified, the values from the attribute &#x60;postVarsPerFile&#x60; are used instead. 
+    * @param [postVars] {Object} A set of key-value pairs to send as variables along with the file upload HTTP request.
+    *                          If not specified, the values from the attribute &#x60;postVarsPerFile&#x60; are used instead.
     *&#x2F;
     uploadThese : function (files, url, postvars) {
-       if (!this.queue) {
-        var uploadURL = url || this.get(&quot;uploadURL&quot;),
-            postVars = postvars || this.get(&quot;postVarsPerFile&quot;);
+        if (!this.queue) {
+            var uploadURL = url || this.get(&quot;uploadURL&quot;),
+                postVars = postvars || this.get(&quot;postVarsPerFile&quot;);
 
-           this.queue = new UploaderQueue({simUploads: this.get(&quot;simLimit&quot;), 
-                                           errorAction: this.get(&quot;errorAction&quot;),
-                                           fileFieldName: this.get(&quot;fileFieldName&quot;),
-                                           fileList: files,
-                                           uploadURL: uploadURL,
-                                           perFileParameters: postVars,
-                                           retryCount: this.get(&quot;retryCount&quot;),
-                                           uploadHeaders: this.get(&quot;uploadHeaders&quot;),
-                                           withCredentials: this.get(&quot;withCredentials&quot;)
-                                               });
-           this.queue.on(&quot;uploadstart&quot;, this._uploadEventHandler, this);
-           this.queue.on(&quot;uploadprogress&quot;, this._uploadEventHandler, this);
-           this.queue.on(&quot;totaluploadprogress&quot;, this._uploadEventHandler, this);
-           this.queue.on(&quot;uploadcomplete&quot;, this._uploadEventHandler, this);
-           this.queue.on(&quot;alluploadscomplete&quot;, this._uploadEventHandler, this);
-           this.queue.on(&quot;uploadcancel&quot;, this._uploadEventHandler, this);
-           this.queue.on(&quot;uploaderror&quot;, this._uploadEventHandler, this);
-           this.queue.startUpload();  
-           
-           this.fire(&quot;uploadstart&quot;); 
+            this.queue = new UploaderQueue({
+                simUploads: this.get(&quot;simLimit&quot;),
+                errorAction: this.get(&quot;errorAction&quot;),
+                fileFieldName: this.get(&quot;fileFieldName&quot;),
+                fileList: files,
+                uploadURL: uploadURL,
+                perFileParameters: postVars,
+                retryCount: this.get(&quot;retryCount&quot;),
+                uploadHeaders: this.get(&quot;uploadHeaders&quot;),
+                withCredentials: this.get(&quot;withCredentials&quot;)
+            });
+
+            this.queue.on(&quot;uploadstart&quot;, this._uploadEventHandler, this);
+            this.queue.on(&quot;uploadprogress&quot;, this._uploadEventHandler, this);
+            this.queue.on(&quot;totaluploadprogress&quot;, this._uploadEventHandler, this);
+            this.queue.on(&quot;uploadcomplete&quot;, this._uploadEventHandler, this);
+            this.queue.on(&quot;alluploadscomplete&quot;, this._uploadEventHandler, this);
+            this.queue.on(&quot;uploadcancel&quot;, this._uploadEventHandler, this);
+            this.queue.on(&quot;uploaderror&quot;, this._uploadEventHandler, this);
+            this.queue.startUpload();
+
+            this.fire(&quot;uploadstart&quot;);
        }
        else if (this.queue._currentState === UploaderQueue.UPLOADING) {
-           this.queue.set(&quot;perFileParameters&quot;, this.get(&quot;postVarsPerFile&quot;));
-           Y.each(files, function (file) {
-             this.queue.addToQueueBottom(file);
-           }, this);
+            this.queue.set(&quot;perFileParameters&quot;, this.get(&quot;postVarsPerFile&quot;));
+            Y.each(files, function (file) {
+                this.queue.addToQueueBottom(file);
+            }, this);
        }
     }
-},
+}, {
 
-{
-   &#x2F;**
+    &#x2F;**
     * The template for the hidden file input field container. The file input field will only
     * accept clicks if its visibility is set to hidden (and will not if it&#x27;s &#x60;display&#x60; value
     * is set to &#x60;none&#x60;)
@@ -2120,21 +2124,23 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     * @static
     *&#x2F;
     HTML5FILEFIELD_TEMPLATE: &quot;&lt;input type=&#x27;file&#x27; style=&#x27;visibility:hidden; width:0px; height: 0px;&#x27;&gt;&quot;,
-  
-  &#x2F;**
-   * The template for the &quot;Select Files&quot; button.
-   *
-   * @property SELECT_FILES_BUTTON
-   * @type {String}
-   * @static
-   * @default &quot;&lt;button type=&#x27;button&#x27; class=&#x27;yui3-button&#x27; role=&#x27;button&#x27; aria-label=&#x27;{selectButtonLabel}&#x27; tabindex=&#x27;{tabIndex}&#x27;&gt;{selectButtonLabel}&lt;&#x2F;button&gt;&quot;
-   *&#x2F;  
-    SELECT_FILES_BUTTON: &quot;&lt;button type=&#x27;button&#x27; class=&#x27;yui3-button&#x27; role=&#x27;button&#x27; aria-label=&#x27;{selectButtonLabel}&#x27; tabindex=&#x27;{tabIndex}&#x27;&gt;{selectButtonLabel}&lt;&#x2F;button&gt;&quot;,
+
+    &#x2F;**
+    * The template for the &quot;Select Files&quot; button.
+    *
+    * @property SELECT_FILES_BUTTON
+    * @type {HTML}
+    * @static
+    * @default &#x27;&lt;button type=&quot;button&quot; class=&quot;yui3-button&quot; role=&quot;button&quot; aria-label=&quot;{selectButtonLabel}&quot;
+    *           tabindex=&quot;{tabIndex}&quot;&gt;{selectButtonLabel}&lt;&#x2F;button&gt;&#x27;
+    *&#x2F;
+    SELECT_FILES_BUTTON: &#x27;&lt;button type=&quot;button&quot; class=&quot;yui3-button&quot; role=&quot;button&quot; aria-label=&quot;{selectButtonLabel}&quot; &#x27; +
+                         &#x27;tabindex=&quot;{tabIndex}&quot;&gt;{selectButtonLabel}&lt;&#x2F;button&gt;&#x27;,
 
     &#x2F;**
     * The static property reflecting the type of uploader that &#x60;Y.Uploader&#x60;
     * aliases. The UploaderHTML5 value is &#x60;&quot;html5&quot;&#x60;.
-    * 
+    *
     * @property TYPE
     * @type {String}
     * @static
@@ -2142,57 +2148,57 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
     TYPE: &quot;html5&quot;,
 
     &#x2F;**
-     * The identity of the widget.
-     *
-     * @property NAME
-     * @type String
-     * @default &#x27;uploader&#x27;
-     * @readOnly
-     * @protected
-     * @static
-     *&#x2F;
+    * The identity of the widget.
+    *
+    * @property NAME
+    * @type String
+    * @default &#x27;uploader&#x27;
+    * @readOnly
+    * @protected
+    * @static
+    *&#x2F;
     NAME: &quot;uploader&quot;,
 
     &#x2F;**
-     * Static property used to define the default attribute configuration of
-     * the Widget.
-     *
-     * @property ATTRS
-     * @type {Object}
-     * @protected
-     * @static
-     *&#x2F;
+    * Static property used to define the default attribute configuration of
+    * the Widget.
+    *
+    * @property ATTRS
+    * @type {Object}
+    * @protected
+    * @static
+    *&#x2F;
     ATTRS: {
 
         &#x2F;**
-         * A Boolean indicating whether newly selected files should be appended 
-         * to the existing file list, or whether they should replace it.
-         *
-         * @attribute appendNewFiles
-         * @type {Boolean}
-         * @default true
-         *&#x2F;
+        * A Boolean indicating whether newly selected files should be appended
+        * to the existing file list, or whether they should replace it.
+        *
+        * @attribute appendNewFiles
+        * @type {Boolean}
+        * @default true
+        *&#x2F;
         appendNewFiles : {
             value: true
         },
 
         &#x2F;**
-         * The names of CSS classes that correspond to different button states
-         * of the &quot;Select Files&quot; control. These classes are assigned to the 
-         * &quot;Select Files&quot; control based on the configuration of the uploader.
-         * Currently, the only class name used is that corresponding to the 
-         * &#x60;disabled&#x60; state of the uploader. Other button states should be managed
-         * directly via CSS selectors.
-         * &lt;ul&gt;
-         *   &lt;li&gt; &lt;strong&gt;&#x60;disabled&#x60;&lt;&#x2F;strong&gt;: the class corresponding to the disabled state
-         *      of the &quot;Select Files&quot; button.&lt;&#x2F;li&gt;
-         * &lt;&#x2F;ul&gt;
-         * @attribute buttonClassNames
-         * @type {Object}
-         * @default {
-         *            disabled: &quot;yui3-button-disabled&quot;
-         *          }
-         *&#x2F;
+        * The names of CSS classes that correspond to different button states
+        * of the &quot;Select Files&quot; control. These classes are assigned to the
+        * &quot;Select Files&quot; control based on the configuration of the uploader.
+        * Currently, the only class name used is that corresponding to the
+        * &#x60;disabled&#x60; state of the uploader. Other button states should be managed
+        * directly via CSS selectors.
+        * &lt;ul&gt;
+        *   &lt;li&gt; &lt;strong&gt;&#x60;disabled&#x60;&lt;&#x2F;strong&gt;: the class corresponding to the disabled state
+        *      of the &quot;Select Files&quot; button.&lt;&#x2F;li&gt;
+        * &lt;&#x2F;ul&gt;
+        * @attribute buttonClassNames
+        * @type {Object}
+        * @default {
+        *            disabled: &quot;yui3-button-disabled&quot;
+        *          }
+        *&#x2F;
         buttonClassNames: {
             value: {
                 &quot;hover&quot;: &quot;yui3-button-hover&quot;,
@@ -2203,12 +2209,12 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
         },
 
         &#x2F;**
-         * The node that serves as the drop target for files.
-         *
-         * @attribute dragAndDropArea
-         * @type {Node}
-         * @default null
-         *&#x2F;
+        * The node that serves as the drop target for files.
+        *
+        * @attribute dragAndDropArea
+        * @type {Node}
+        * @default null
+        *&#x2F;
         dragAndDropArea: {
             value: null,
             setter: function (val) {
@@ -2217,91 +2223,97 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
         },
 
         &#x2F;**
-         * A Boolean indicating whether the uploader is enabled or disabled for user input.
-         *
-         * @attribute enabled
-         * @type {Boolean}
-         * @default true
-         *&#x2F;
+        * A Boolean indicating whether the uploader is enabled or disabled for user input.
+        *
+        * @attribute enabled
+        * @type {Boolean}
+        * @default true
+        *&#x2F;
         enabled : {
             value: true
         },
 
         &#x2F;**
-         * The action  performed when an upload error occurs for a specific file being uploaded.
-         * The possible values are: 
-         * &lt;ul&gt;
-         *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.CONTINUE&#x60;&lt;&#x2F;strong&gt;: the error is ignored and the upload process is continued.&lt;&#x2F;li&gt;
-         *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.STOP&#x60;&lt;&#x2F;strong&gt;: the upload process is stopped as soon as any other parallel file
-         *     uploads are finished.&lt;&#x2F;li&gt;
-         *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.RESTART_ASAP&#x60;&lt;&#x2F;strong&gt;: the file is added back to the front of the queue.&lt;&#x2F;li&gt;
-         *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.RESTART_AFTER&#x60;&lt;&#x2F;strong&gt;: the file is added to the back of the queue.&lt;&#x2F;li&gt;
-         * &lt;&#x2F;ul&gt;
-         * @attribute errorAction
-         * @type {String}
-         * @default UploaderQueue.CONTINUE
-         *&#x2F;
+        * The action  performed when an upload error occurs for a specific file being uploaded.
+        * The possible values are:
+        * &lt;ul&gt;
+        *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.CONTINUE&#x60;&lt;&#x2F;strong&gt;: the error is ignored and the upload process is continued.&lt;&#x2F;li&gt;
+        *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.STOP&#x60;&lt;&#x2F;strong&gt;: the upload process is stopped as soon as any other parallel file
+        *     uploads are finished.&lt;&#x2F;li&gt;
+        *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.RESTART_ASAP&#x60;&lt;&#x2F;strong&gt;: the file is added back to the front of the queue.&lt;&#x2F;li&gt;
+        *   &lt;li&gt; &lt;strong&gt;&#x60;UploaderQueue.RESTART_AFTER&#x60;&lt;&#x2F;strong&gt;: the file is added to the back of the queue.&lt;&#x2F;li&gt;
+        * &lt;&#x2F;ul&gt;
+        * @attribute errorAction
+        * @type {String}
+        * @default UploaderQueue.CONTINUE
+        *&#x2F;
         errorAction: {
             value: &quot;continue&quot;,
-            validator: function (val, name) {
-                 return (val === UploaderQueue.CONTINUE || val === UploaderQueue.STOP || val === UploaderQueue.RESTART_ASAP || val === UploaderQueue.RESTART_AFTER);           }
+            validator: function (val) {
+                return (
+                    val === UploaderQueue.CONTINUE ||
+                    val === UploaderQueue.STOP ||
+                    val === UploaderQueue.RESTART_ASAP ||
+                    val === UploaderQueue.RESTART_AFTER
+                );
+            }
         },
 
         &#x2F;**
-         * An array indicating what fileFilters should be applied to the file
-         * selection dialog. Each element in the array should be a string
-         * indicating the Media (MIME) type for the files that should be supported
-         * for selection. The Media type strings should be properly formatted
-         * or this parameter will be ignored. Examples of valid strings include: 
-         * &quot;audio&#x2F;*&quot;, &quot;video&#x2F;*&quot;, &quot;application&#x2F;pdf&quot;, etc. More information
-         * on valid Media type strings is available here: 
-         * http:&#x2F;&#x2F;www.iana.org&#x2F;assignments&#x2F;media-types&#x2F;index.html
-         * @attribute fileFilters
-         * @type {Array}
-         * @default []
-         *&#x2F;
+        * An array indicating what fileFilters should be applied to the file
+        * selection dialog. Each element in the array should be a string
+        * indicating the Media (MIME) type for the files that should be supported
+        * for selection. The Media type strings should be properly formatted
+        * or this parameter will be ignored. Examples of valid strings include:
+        * &quot;audio&#x2F;*&quot;, &quot;video&#x2F;*&quot;, &quot;application&#x2F;pdf&quot;, etc. More information
+        * on valid Media type strings is available here:
+        * http:&#x2F;&#x2F;www.iana.org&#x2F;assignments&#x2F;media-types&#x2F;index.html
+        * @attribute fileFilters
+        * @type {Array}
+        * @default []
+        *&#x2F;
         fileFilters: {
-          value: []
+            value: []
         },
 
         &#x2F;**
-         * A filtering function that is applied to every file selected by the user.
-         * The function receives the &#x60;Y.File&#x60; object and must return a Boolean value.
-         * If a &#x60;false&#x60; value is returned, the file in question is not added to the
-         * list of files to be uploaded.
-         * Use this function to put limits on file sizes or check the file names for
-         * correct extension, but make sure that a server-side check is also performed,
-         * since any client-side restrictions are only advisory and can be circumvented.
-         *
-         * @attribute fileFilterFunction
-         * @type {Function}
-         * @default null
-         *&#x2F;
+        * A filtering function that is applied to every file selected by the user.
+        * The function receives the &#x60;Y.File&#x60; object and must return a Boolean value.
+        * If a &#x60;false&#x60; value is returned, the file in question is not added to the
+        * list of files to be uploaded.
+        * Use this function to put limits on file sizes or check the file names for
+        * correct extension, but make sure that a server-side check is also performed,
+        * since any client-side restrictions are only advisory and can be circumvented.
+        *
+        * @attribute fileFilterFunction
+        * @type {Function}
+        * @default null
+        *&#x2F;
         fileFilterFunction: {
-          value: null
+            value: null
         },
 
         &#x2F;**
-         * A String specifying what should be the POST field name for the file
-         * content in the upload request.
-         *
-         * @attribute fileFieldName
-         * @type {String}
-         * @default Filedata
-         *&#x2F;
+        * A String specifying what should be the POST field name for the file
+        * content in the upload request.
+        *
+        * @attribute fileFieldName
+        * @type {String}
+        * @default Filedata
+        *&#x2F;
         fileFieldName: {
-            value: &quot;Filedata&quot;   
+            value: &quot;Filedata&quot;
         },
 
         &#x2F;**
-         * The array of files to be uploaded. All elements in the array
-         * must be instances of &#x60;Y.File&#x60; and be instantiated with an instance
-         * of native JavaScript File() class.
-         *
-         * @attribute fileList
-         * @type {Array}
-         * @default []
-         *&#x2F;
+        * The array of files to be uploaded. All elements in the array
+        * must be instances of &#x60;Y.File&#x60; and be instantiated with an instance
+        * of native JavaScript File() class.
+        *
+        * @attribute fileList
+        * @type {Array}
+        * @default []
+        *&#x2F;
         fileList: {
             value: [],
             getter: &quot;_getFileList&quot;,
@@ -2309,122 +2321,124 @@ Y.UploaderHTML5 = Y.extend( UploaderHTML5, Y.Widget, {
         },
 
         &#x2F;**
-         * A Boolean indicating whether multiple file selection is enabled.
-         *
-         * @attribute multipleFiles
-         * @type {Boolean}
-         * @default false
-         *&#x2F;
+        * A Boolean indicating whether multiple file selection is enabled.
+        *
+        * @attribute multipleFiles
+        * @type {Boolean}
+        * @default false
+        *&#x2F;
         multipleFiles: {
             value: false
         },
 
         &#x2F;**
-         * An object, keyed by &#x60;fileId&#x60;, containing sets of key-value pairs
-         * that should be passed as POST variables along with each corresponding
-         * file. This attribute is only used if no POST variables are specifed
-         * in the upload method call.
-         *
-         * @attribute postVarsPerFile
-         * @type {Object}
-         * @default {}
-         *&#x2F;
+        * An object, keyed by &#x60;fileId&#x60;, containing sets of key-value pairs
+        * that should be passed as POST variables along with each corresponding
+        * file. This attribute is only used if no POST variables are specifed
+        * in the upload method call.
+        *
+        * @attribute postVarsPerFile
+        * @type {Object}
+        * @default {}
+        *&#x2F;
         postVarsPerFile: {
             value: {}
         },
 
         &#x2F;**
-         * The label for the &quot;Select Files&quot; widget. This is the value that replaces the
-         * &#x60;{selectButtonLabel}&#x60; token in the &#x60;SELECT_FILES_BUTTON&#x60; template.
-         * 
-         * @attribute selectButtonLabel
-         * @type {String}
-         * @default &quot;Select Files&quot;
-         *&#x2F;
+        * The label for the &quot;Select Files&quot; widget. This is the value that replaces the
+        * &#x60;{selectButtonLabel}&#x60; token in the &#x60;SELECT_FILES_BUTTON&#x60; template.
+        *
+        * @attribute selectButtonLabel
+        * @type {String}
+        * @default &quot;Select Files&quot;
+        *&#x2F;
         selectButtonLabel: {
             value: &quot;Select Files&quot;
         },
 
         &#x2F;**
-         * The widget that serves as the &quot;Select Files control for the file uploader
-         * 
-         *
-         * @attribute selectFilesButton
-         * @type {Node | Widget}
-         * @default A standard HTML button with YUI CSS Button skin.
-         *&#x2F;
+        * The widget that serves as the &quot;Select Files control for the file uploader
+        *
+        *
+        * @attribute selectFilesButton
+        * @type {Node | Widget}
+        * @default A standard HTML button with YUI CSS Button skin.
+        *&#x2F;
         selectFilesButton : {
             valueFn: function () {
-                return Y.Node.create(substitute(Y.UploaderHTML5.SELECT_FILES_BUTTON, {selectButtonLabel: this.get(&quot;selectButtonLabel&quot;),
-                                                                                      tabIndex: this.get(&quot;tabIndex&quot;)}));
+                return Y.Node.create(substitute(Y.UploaderHTML5.SELECT_FILES_BUTTON, {
+                    selectButtonLabel: this.get(&quot;selectButtonLabel&quot;),
+                    tabIndex: this.get(&quot;tabIndex&quot;)
+                }));
             }
         },
 
         &#x2F;**
-         * The number of files that can be uploaded
-         * simultaneously if the automatic queue management
-         * is used. This value can be in the range between 2
-         * and 5.
-         *
-         * @attribute simLimit
-         * @type {Number}
-         * @default 2
-         *&#x2F;
+        * The number of files that can be uploaded
+        * simultaneously if the automatic queue management
+        * is used. This value can be in the range between 2
+        * and 5.
+        *
+        * @attribute simLimit
+        * @type {Number}
+        * @default 2
+        *&#x2F;
         simLimit: {
             value: 2,
-            validator: function (val, name) {
+            validator: function (val) {
                 return (val &gt;= 1 &amp;&amp; val &lt;= 5);
             }
         },
 
         &#x2F;**
-         * The URL to which file upload requested are POSTed. Only used if a different url is not passed to the upload method call.
-         *
-         * @attribute uploadURL
-         * @type {String}
-         * @default &quot;&quot;
-         *&#x2F;
+        * The URL to which file upload requested are POSTed. Only used if a different url is not passed to the upload method call.
+        *
+        * @attribute uploadURL
+        * @type {String}
+        * @default &quot;&quot;
+        *&#x2F;
         uploadURL: {
             value: &quot;&quot;
         },
 
         &#x2F;**
-         * Additional HTTP headers that should be included
-         * in the upload request.
-         *
-         *
-         * @attribute uploadHeaders
-         * @type {Object}
-         * @default {}
-         *&#x2F;  
+        * Additional HTTP headers that should be included
+        * in the upload request.
+        *
+        *
+        * @attribute uploadHeaders
+        * @type {Object}
+        * @default {}
+        *&#x2F;
         uploadHeaders: {
-           value: {}
+            value: {}
         },
 
         &#x2F;**
-         * A Boolean that specifies whether the file should be
-         * uploaded with the appropriate user credentials for the
-         * domain. 
-         *
-         * @attribute withCredentials
-         * @type {Boolean}
-         * @default true
-         *&#x2F;  
+        * A Boolean that specifies whether the file should be
+        * uploaded with the appropriate user credentials for the
+        * domain.
+        *
+        * @attribute withCredentials
+        * @type {Boolean}
+        * @default true
+        *&#x2F;
         withCredentials: {
-           value: true
+            value: true
         },
 
         &#x2F;**
-         * The number of times to try re-uploading a file that failed to upload before
-         * cancelling its upload.
-         *
-         * @attribute retryCount
-         * @type {Number}
-         * @default 3
-         *&#x2F; 
-         retryCount: {
-           value: 3
-         }
+        * The number of times to try re-uploading a file that failed to upload before
+        * cancelling its upload.
+        *
+        * @attribute retryCount
+        * @type {Number}
+        * @default 3
+        *&#x2F;
+        retryCount: {
+            value: 3
+        }
     }
 });
 

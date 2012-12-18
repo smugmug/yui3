@@ -1765,8 +1765,8 @@ var HSL = &#x27;hsl&#x27;,
         },
 
         &#x2F;**
-        Returns 0 - 1 percentage of brightness from &#x60;0&#x60; (black) being the
-          darkest to &#x60;1&#x60; (white) being the brightest.
+        Returns 0 - 100 percentage of brightness from &#x60;0&#x60; (black) being the
+          darkest to &#x60;100&#x60; (white) being the brightest.
         @public
         @method getBrightness
         @param {String} str
@@ -1781,11 +1781,11 @@ var HSL = &#x27;hsl&#x27;,
                 weights = Y.Color._brightnessWeights;
 
 
-            return (Math.sqrt(
+            return Math.round(Math.sqrt(
                 (r * r * weights.r) +
                 (g * g * weights.g) +
                 (b * b * weights.b)
-            ) &#x2F; 255);
+            ) &#x2F; 255 * 100);
         },
 
         &#x2F;**
@@ -1956,7 +1956,7 @@ var HSL = &#x27;hsl&#x27;,
             color[2] = luminance;
             b = Harmony.getBrightness(Color.fromArray(color, Y.Color.TYPES.HSL));
 
-            if (b + 0.01 &gt; brightness &amp;&amp; b - 0.01 &lt; brightness) {
+            if (b + 2 &gt; brightness &amp;&amp; b - 2 &lt; brightness) {
                 return luminance;
             } else if (b &gt; brightness) {
                 return Harmony._searchLuminanceForBrightness(color, brightness, min, luminance);

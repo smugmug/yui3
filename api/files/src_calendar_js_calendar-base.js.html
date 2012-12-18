@@ -1456,11 +1456,11 @@
  * The CalendarBase submodule is a basic UI calendar view that displays
  * a range of dates in a two-dimensional month grid, with one or more
  * months visible at a single time. CalendarBase supports custom date
- * rendering, multiple calendar panes, and selection. 
+ * rendering, multiple calendar panes, and selection.
  * @module calendar
  * @submodule calendar-base
  *&#x2F;
-    
+
 var getCN                 = Y.ClassNameManager.getClassName,
     CALENDAR              = &#x27;calendar&#x27;,
     CAL_GRID              = getCN(CALENDAR, &#x27;grid&#x27;),
@@ -1482,171 +1482,171 @@ var getCN                 = Y.ClassNameManager.getClassName,
     CAL_PANE              = getCN(CALENDAR, &#x27;pane&#x27;),
     CAL_STATUS            = getCN(CALENDAR, &#x27;status&#x27;),
     L           = Y.Lang,
-    node        = Y.Node,
-    create      = node.create,
-    substitute  = Y.substitute,
-    each        = Y.each,
-    hasVal      = Y.Array.hasValue,
+    substitute  = L.sub,
+    arrayEach   = Y.Array.each,
+    objEach     = Y.Object.each,
     iOf         = Y.Array.indexOf,
     hasKey      = Y.Object.hasKey,
     setVal      = Y.Object.setValue,
-    owns        = Y.Object.owns,
     isEmpty     = Y.Object.isEmpty,
     ydate       = Y.DataType.Date;
 
 &#x2F;** Create a calendar view to represent a single or multiple
-  * month range of dates, rendered as a grid with date and
-  * weekday labels.
-  * 
-  * @class CalendarBase
-  * @extends Widget
-  * @param config {Object} Configuration object (see Configuration 
-  * attributes)
-  * @constructor
-  *&#x2F;
-function CalendarBase(config) {
-  CalendarBase.superclass.constructor.apply ( this, arguments );
+    * month range of dates, rendered as a grid with date and
+    * weekday labels.
+    *
+    * @class CalendarBase
+    * @extends Widget
+    * @param config {Object} Configuration object (see Configuration
+    * attributes)
+    * @constructor
+    *&#x2F;
+function CalendarBase() {
+    CalendarBase.superclass.constructor.apply ( this, arguments );
 }
 
 
 
 Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
 
-  &#x2F;**
-   * A storage for various properties of individual month
-   * panes.
-   *
-   * @property _paneProperties
-   * @type Object
-   * @private
-   *&#x2F;
-  _paneProperties : {},
+    &#x2F;**
+     * A storage for various properties of individual month
+     * panes.
+     *
+     * @property _paneProperties
+     * @type Object
+     * @private
+     *&#x2F;
+    _paneProperties : {},
 
-  &#x2F;**
-   * The number of month panes in the calendar, deduced
-   * from the CONTENT_TEMPLATE&#x27;s number of {calendar_grid}
-   * tokens.
-   *
-   * @property _paneNumber
-   * @type Number
-   * @private
-   *&#x2F;
-  _paneNumber : 1,
+    &#x2F;**
+     * The number of month panes in the calendar, deduced
+     * from the CONTENT_TEMPLATE&#x27;s number of {calendar_grid}
+     * tokens.
+     *
+     * @property _paneNumber
+     * @type Number
+     * @private
+     *&#x2F;
+    _paneNumber : 1,
 
-  &#x2F;**
-   * The unique id used to prefix various elements of this
-   * calendar instance.
-   *
-   * @property _calendarId
-   * @type String
-   * @private
-   *&#x2F;
-  _calendarId : null,
+    &#x2F;**
+     * The unique id used to prefix various elements of this
+     * calendar instance.
+     *
+     * @property _calendarId
+     * @type String
+     * @private
+     *&#x2F;
+    _calendarId : null,
 
-  &#x2F;**
-   * The hash map of selected dates, populated with
-   * selectDates() and deselectDates() methods 
-   *
-   * @property _selectedDates
-   * @type Object
-   * @private
-   *&#x2F;
-  _selectedDates : {},
+    &#x2F;**
+     * The hash map of selected dates, populated with
+     * selectDates() and deselectDates() methods
+     *
+     * @property _selectedDates
+     * @type Object
+     * @private
+     *&#x2F;
+    _selectedDates : {},
 
-  &#x2F;**
-   * A private copy of the rules object, populated
-   * by setting the customRenderer attribute.
-   *
-   * @property _rules
-   * @type Object
-   * @private
-   *&#x2F;
-  _rules : {},
+    &#x2F;**
+     * A private copy of the rules object, populated
+     * by setting the customRenderer attribute.
+     *
+     * @property _rules
+     * @type Object
+     * @private
+     *&#x2F;
+    _rules : {},
 
-  &#x2F;**
-   * A private copy of the filterFunction, populated
-   * by setting the customRenderer attribute.
-   *
-   * @property _filterFunction
-   * @type Function
-   * @private
-   *&#x2F;
-  _filterFunction : null,
+    &#x2F;**
+     * A private copy of the filterFunction, populated
+     * by setting the customRenderer attribute.
+     *
+     * @property _filterFunction
+     * @type Function
+     * @private
+     *&#x2F;
+    _filterFunction : null,
 
-  &#x2F;**
-   * Storage for calendar cells modified by any custom
-   * formatting. The storage is cleared, used to restore
-   * cells to the original state, and repopulated accordingly
-   * when the calendar is rerendered. 
-   *
-   * @property _storedDateCells
-   * @type Object
-   * @private
-   *&#x2F;
-  _storedDateCells : {},
+    &#x2F;**
+     * Storage for calendar cells modified by any custom
+     * formatting. The storage is cleared, used to restore
+     * cells to the original state, and repopulated accordingly
+     * when the calendar is rerendered.
+     *
+     * @property _storedDateCells
+     * @type Object
+     * @private
+     *&#x2F;
+    _storedDateCells : {},
 
-  &#x2F;**
-   * Designated initializer
-   * Initializes instance-level properties of
-   * calendar.
-   *
-   * @method initializer
-   *&#x2F;  
-  initializer : function () {
-    this._paneProperties = {};
-    this._calendarId = Y.guid(&#x27;calendar&#x27;);
-    this._selectedDates = {};
-    if (isEmpty(this._rules)) {
-       this._rules = {};      
-    }
-    this._storedDateCells = {};
-  },
+    &#x2F;**
+     * Designated initializer
+     * Initializes instance-level properties of
+     * calendar.
+     *
+     * @method initializer
+     *&#x2F;
+    initializer : function () {
+        this._paneProperties = {};
+        this._calendarId = Y.guid(&#x27;calendar&#x27;);
+        this._selectedDates = {};
+        if (isEmpty(this._rules)) {
+             this._rules = {};
+        }
+        this._storedDateCells = {};
+    },
 
-  &#x2F;**
-   * renderUI implementation
-   *
-   * Creates a visual representation of the calendar based on existing parameters. 
-   * @method renderUI
-   *&#x2F;  
-  renderUI : function () {
+    &#x2F;**
+     * renderUI implementation
+     *
+     * Creates a visual representation of the calendar based on existing parameters.
+     * @method renderUI
+     *&#x2F;
+    renderUI : function () {
 
-      var contentBox = this.get(&#x27;contentBox&#x27;);
-      contentBox.appendChild(this._initCalendarHTML(this.get(&#x27;date&#x27;)));
+        var contentBox = this.get(&#x27;contentBox&#x27;);
+        contentBox.appendChild(this._initCalendarHTML(this.get(&#x27;date&#x27;)));
+
         if (this.get(&#x27;showPrevMonth&#x27;)) {
-            this._afterShowPrevMonthChange();
+                this._afterShowPrevMonthChange();
         }
         if (this.get(&#x27;showNextMonth&#x27;)) {
-            this._afterShowNextMonthChange();
+                this._afterShowNextMonthChange();
         }
-      this._renderCustomRules();
-      this._renderSelectedDates();
 
-    this.get(&quot;boundingBox&quot;).setAttribute(&quot;aria-labelledby&quot;, this._calendarId + &quot;_header&quot;);
+        this._renderCustomRules();
+        this._renderSelectedDates();
 
-  },
-  &#x2F;**
-   * bindUI implementation
-   *
-   * Assigns listeners to relevant events that change the state
-   * of the calendar.
-   * @method bindUI
-   *&#x2F; 
-  bindUI : function () {
-    this.after(&#x27;dateChange&#x27;, this._afterDateChange);
-    this.after(&#x27;showPrevMonthChange&#x27;, this._afterShowPrevMonthChange);
-    this.after(&#x27;showNextMonthChange&#x27;, this._afterShowNextMonthChange);
-    this.after(&#x27;headerRendererChange&#x27;, this._afterHeaderRendererChange);
-    this.after(&#x27;customRendererChange&#x27;, this._afterCustomRendererChange);
-    this.after(&#x27;enabledDatesRuleChange&#x27;, this._afterCustomRendererChange);
-    this.after(&#x27;disabledDatesRuleChange&#x27;, this._afterCustomRendererChange);
-    this.after(&#x27;focusedChange&#x27;, this._afterFocusedChange);
-    this.after(&#x27;selectionChange&#x27;, this._renderSelectedDates);
-    this._bindCalendarEvents();
-  },
+        this.get(&quot;boundingBox&quot;).setAttribute(&quot;aria-labelledby&quot;, this._calendarId + &quot;_header&quot;);
+
+    },
+
+    &#x2F;**
+     * bindUI implementation
+     *
+     * Assigns listeners to relevant events that change the state
+     * of the calendar.
+     * @method bindUI
+     *&#x2F;
+    bindUI : function () {
+        this.after(&#x27;dateChange&#x27;, this._afterDateChange);
+        this.after(&#x27;showPrevMonthChange&#x27;, this._afterShowPrevMonthChange);
+        this.after(&#x27;showNextMonthChange&#x27;, this._afterShowNextMonthChange);
+        this.after(&#x27;headerRendererChange&#x27;, this._afterHeaderRendererChange);
+        this.after(&#x27;customRendererChange&#x27;, this._afterCustomRendererChange);
+        this.after(&#x27;enabledDatesRuleChange&#x27;, this._afterCustomRendererChange);
+        this.after(&#x27;disabledDatesRuleChange&#x27;, this._afterCustomRendererChange);
+        this.after(&#x27;focusedChange&#x27;, this._afterFocusedChange);
+        this.after(&#x27;selectionChange&#x27;, this._renderSelectedDates);
+        this._bindCalendarEvents();
+    },
 
 
     &#x2F;**
-     * An internal utility method that generates a list of selected dates 
+     * An internal utility method that generates a list of selected dates
      * from the hash storage.
      *
      * @method _getSelectedDatesList
@@ -1654,15 +1654,17 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @return {Array} The array of &#x60;Date&#x60;s that are currently selected.
      *&#x2F;
     _getSelectedDatesList : function () {
-      var output = [];
-      each (this._selectedDates, function (year) {
-        each (year, function (month) {
-          each (month, function (day) {
-           output.push (day);
-           }, this);
+        var output = [];
+
+        objEach (this._selectedDates, function (year) {
+            objEach (year, function (month) {
+                objEach (month, function (day) {
+                    output.push (day);
+                }, this);
+            }, this);
         }, this);
-      }, this);
-      return output;
+
+        return output;
     },
 
     &#x2F;**
@@ -1675,16 +1677,15 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @return {Array} The array of &#x60;Date&#x60;s in a given month that are currently selected.
      *&#x2F;
     _getSelectedDatesInMonth : function (oDate) {
-      var year = oDate.getFullYear(),
-          month = oDate.getMonth();
-      
+        var year = oDate.getFullYear(),
+            month = oDate.getMonth();
+
         if (hasKey(this._selectedDates, year) &amp;&amp; hasKey(this._selectedDates[year], month)) {
-           return Y.Object.values(this._selectedDates[year][month]); 
+            return Y.Object.values(this._selectedDates[year][month]);
+        } else {
+            return [];
         }
-        else {
-           return [];
-        }
-      },
+    },
 
 
     &#x2F;**
@@ -1700,23 +1701,23 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @return {boolean} Returns true if the given number is in the given list.
      *&#x2F;
     _isNumInList : function (num, strList) {
-        if (strList == &quot;all&quot;) {
+        if (strList === &quot;all&quot;) {
             return true;
-        }
-        else {
+        } else {
             var elements = strList.split(&quot;,&quot;),
-                i = elements.length;
+                i = elements.length,
+                range;
 
             while (i--) {
-                var range = elements[i].split(&quot;-&quot;);
-                if (range.length == 2 &amp;&amp; num &gt;= parseInt(range[0], 10) &amp;&amp; num &lt;= parseInt(range[1], 10)) {
+                range = elements[i].split(&quot;-&quot;);
+                if (range.length === 2 &amp;&amp; num &gt;= parseInt(range[0], 10) &amp;&amp; num &lt;= parseInt(range[1], 10)) {
                     return true;
                 }
-                else if (range.length == 1 &amp;&amp; (parseInt(elements[i], 10) == num)) {
+                else if (range.length === 1 &amp;&amp; (parseInt(elements[i], 10) === num)) {
                     return true;
                 }
             }
-            return false;   
+            return false;
         }
     },
 
@@ -1731,49 +1732,49 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * a rule that the given date matches.
      *&#x2F;
     _getRulesForDate : function (oDate) {
-      var year = oDate.getFullYear(),
-          month = oDate.getMonth(),
-          date = oDate.getDate(),
-          wday = oDate.getDay(),
-          rules = this._rules, 
-          outputRules = [],
-          years, months, dates, days;
+        var year = oDate.getFullYear(),
+                month = oDate.getMonth(),
+                date = oDate.getDate(),
+                wday = oDate.getDay(),
+                rules = this._rules,
+                outputRules = [],
+                years, months, dates, days;
 
-      for (years in rules) {
-          if (this._isNumInList(year, years)) {
-              if (L.isString(rules[years])) {
-                  outputRules.push(rules[years]);
-              }
-              else {
-                  for (months in rules[years]) {
-                      if (this._isNumInList(month, months)) {
-                          if (L.isString(rules[years][months])) {
-                              outputRules.push(rules[years][months]);
-                          }
-                          else {
-                              for (dates in rules[years][months]) {
-                                  if (this._isNumInList(date, dates)) {
-                                      if (L.isString(rules[years][months][dates])) {
-                                          outputRules.push(rules[years][months][dates]);
-                                      }
-                                      else {
-                                          for (days in rules[years][months][dates]) {
-                                              if (this._isNumInList(wday, days)) {
-                                                  if (L.isString(rules[years][months][dates][days])) {
-                                                     outputRules.push(rules[years][months][dates][days]);
-                                                  }
-                                              }
-                                          }
-                                      }
-                                  }
-                              }
-                          }
-                      }
-                  } 
-              }
-          }
-      }
-      return outputRules;
+        for (years in rules) {
+            if (this._isNumInList(year, years)) {
+                if (L.isString(rules[years])) {
+                        outputRules.push(rules[years]);
+                }
+                else {
+                    for (months in rules[years]) {
+                        if (this._isNumInList(month, months)) {
+                            if (L.isString(rules[years][months])) {
+                                    outputRules.push(rules[years][months]);
+                            }
+                            else {
+                                for (dates in rules[years][months]) {
+                                    if (this._isNumInList(date, dates)) {
+                                        if (L.isString(rules[years][months][dates])) {
+                                                outputRules.push(rules[years][months][dates]);
+                                        }
+                                        else {
+                                            for (days in rules[years][months][dates]) {
+                                                if (this._isNumInList(wday, days)) {
+                                                    if (L.isString(rules[years][months][dates][days])) {
+                                                        outputRules.push(rules[years][months][dates][days]);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return outputRules;
     },
 
     &#x2F;**
@@ -1800,19 +1801,17 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @return {boolean} Returns true if the date can be selected; false otherwise.
      *&#x2F;
     _canBeSelected : function (oDate) {
-       
-       var enabledDatesRule = this.get(&quot;enabledDatesRule&quot;),
-           disabledDatesRule = this.get(&quot;disabledDatesRule&quot;);
 
-       if (enabledDatesRule) {
-           return this._matchesRule(oDate, enabledDatesRule);
-       }
-       else if (disabledDatesRule) {
-           return !this._matchesRule(oDate, disabledDatesRule);
-       }
-       else {
-           return true;
-       }
+        var enabledDatesRule = this.get(&quot;enabledDatesRule&quot;),
+            disabledDatesRule = this.get(&quot;disabledDatesRule&quot;);
+
+        if (enabledDatesRule) {
+            return this._matchesRule(oDate, enabledDatesRule);
+        } else if (disabledDatesRule) {
+            return !this._matchesRule(oDate, disabledDatesRule);
+        } else {
+            return true;
+        }
     },
 
     &#x2F;**
@@ -1823,13 +1822,13 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @chainable
      *&#x2F;
     selectDates : function (dates) {
-      if (ydate.isValidDate(dates)) {
-         this._addDateToSelection(dates);
-      }
-      else if (L.isArray(dates)) {
-         this._addDatesToSelection(dates);
-      }
-      return this;
+        if (ydate.isValidDate(dates)) {
+            this._addDateToSelection(dates);
+        }
+        else if (L.isArray(dates)) {
+            this._addDatesToSelection(dates);
+        }
+        return this;
     },
 
     &#x2F;**
@@ -1842,16 +1841,16 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @chainable
      *&#x2F;
     deselectDates : function (dates) {
-      if (!dates) {
-         this._clearSelection();
-      }
-      else if (ydate.isValidDate(dates)) {
-         this._removeDateFromSelection(dates);
-      }
-      else if (L.isArray(dates)) {
-         this._removeDatesFromSelection(dates);
-      }
-      return this;
+        if (!dates) {
+            this._clearSelection();
+        }
+        else if (ydate.isValidDate(dates)) {
+            this._removeDateFromSelection(dates);
+        }
+        else if (L.isArray(dates)) {
+            this._removeDatesFromSelection(dates);
+        }
+        return this;
     },
 
     &#x2F;**
@@ -1865,33 +1864,31 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      *&#x2F;
     _addDateToSelection : function (oDate, index) {
 
-      if (this._canBeSelected(oDate)) {
+        if (this._canBeSelected(oDate)) {
 
-        var year = oDate.getFullYear(),
-            month = oDate.getMonth(),
-            day = oDate.getDate();
-        
-        if (hasKey(this._selectedDates, year)) {
-            if (hasKey(this._selectedDates[year], month)) {
-                this._selectedDates[year][month][day] = oDate;
-            }
-            else {
+            var year = oDate.getFullYear(),
+                month = oDate.getMonth(),
+                day = oDate.getDate();
+
+            if (hasKey(this._selectedDates, year)) {
+                if (hasKey(this._selectedDates[year], month)) {
+                    this._selectedDates[year][month][day] = oDate;
+                } else {
+                    this._selectedDates[year][month] = {};
+                    this._selectedDates[year][month][day] = oDate;
+                }
+            } else {
+                this._selectedDates[year] = {};
                 this._selectedDates[year][month] = {};
                 this._selectedDates[year][month][day] = oDate;
             }
-        }
-        else {
-            this._selectedDates[year] = {};
-            this._selectedDates[year][month] = {};
-            this._selectedDates[year][month][day] = oDate;
-        }
 
-        this._selectedDates = setVal(this._selectedDates, [year, month, day], oDate);
+            this._selectedDates = setVal(this._selectedDates, [year, month, day], oDate);
 
-        if (!index) {
-        this._fireSelectionChange();
+            if (!index) {
+                this._fireSelectionChange();
+            }
         }
-      }
     },
 
     &#x2F;**
@@ -1901,7 +1898,7 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @private
      *&#x2F;
     _addDatesToSelection : function (datesArray) {
-        each(datesArray, this._addDateToSelection, this);
+        arrayEach(datesArray, this._addDateToSelection, this);
         this._fireSelectionChange();
     },
 
@@ -1916,21 +1913,23 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
 
         var timezoneDifference = (endDate.getTimezoneOffset() - startDate.getTimezoneOffset())*60000,
             startTime = startDate.getTime(),
-            endTime   = endDate.getTime();
-            
-            if (startTime &gt; endTime) {
-                var tempTime = startTime;
-                startTime = endTime;
-                endTime = tempTime + timezoneDifference;
-            }
-            else {
-                endTime = endTime - timezoneDifference;
-            }
+            endTime   = endDate.getTime(),
+            tempTime,
+            time,
+            addedDate;
+
+        if (startTime &gt; endTime) {
+            tempTime = startTime;
+            startTime = endTime;
+            endTime = tempTime + timezoneDifference;
+        } else {
+            endTime = endTime - timezoneDifference;
+        }
 
 
-        for (var time = startTime; time &lt;= endTime; time += 86400000) {
-            var addedDate = new Date(time);
-                addedDate.setHours(12);
+        for (time = startTime; time &lt;= endTime; time += 86400000) {
+            addedDate = new Date(time);
+            addedDate.setHours(12);
             this._addDateToSelection(addedDate, time);
         }
         this._fireSelectionChange();
@@ -1949,13 +1948,15 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
         var year = oDate.getFullYear(),
             month = oDate.getMonth(),
             day = oDate.getDate();
-        if (hasKey(this._selectedDates, year) &amp;&amp; 
-            hasKey(this._selectedDates[year], month) &amp;&amp; 
-            hasKey(this._selectedDates[year][month], day)) {
-               delete this._selectedDates[year][month][day];
-               if (!index) {
-                 this._fireSelectionChange();
-               }
+
+        if (hasKey(this._selectedDates, year) &amp;&amp;
+            hasKey(this._selectedDates[year], month) &amp;&amp;
+            hasKey(this._selectedDates[year][month], day)
+        ) {
+            delete this._selectedDates[year][month][day];
+            if (!index) {
+                this._fireSelectionChange();
+            }
         }
     },
 
@@ -1966,7 +1967,7 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @private
      *&#x2F;
     _removeDatesFromSelection : function (datesArray) {
-        each(datesArray, this._removeDateFromSelection, this);
+        arrayEach(datesArray, this._removeDateFromSelection, this);
         this._fireSelectionChange();
     },
 
@@ -1979,13 +1980,14 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      *&#x2F;
     _removeDateRangeFromSelection : function (startDate, endDate) {
         var startTime = startDate.getTime(),
-            endTime   = endDate.getTime();
-        
-        for (var time = startTime; time &lt;= endTime; time += 86400000) {
+            endTime   = endDate.getTime(),
+            time;
+
+        for (time = startTime; time &lt;= endTime; time += 86400000) {
             this._removeDateFromSelection(new Date(time), time);
         }
 
-        this._fireSelectionChange();    
+        this._fireSelectionChange();
     },
 
     &#x2F;**
@@ -1999,7 +2001,7 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
         this._selectedDates = {};
         this.get(&quot;contentBox&quot;).all(&quot;.&quot; + CAL_DAY_SELECTED).removeClass(CAL_DAY_SELECTED).setAttribute(&quot;aria-selected&quot;, false);
         if (!noevent) {
-          this._fireSelectionChange();
+            this._fireSelectionChange();
         }
     },
 
@@ -2010,13 +2012,13 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      *&#x2F;
     _fireSelectionChange : function () {
 
-   &#x2F;**
-     * Fired when the set of selected dates changes. Contains a payload with
-     * a &#x60;newSelection&#x60; property with an array of selected dates.
-     *
-     * @event selectionChange
-     *&#x2F;
-      this.fire(&quot;selectionChange&quot;, {newSelection: this._getSelectedDatesList()});
+        &#x2F;**
+        * Fired when the set of selected dates changes. Contains a payload with
+        * a &#x60;newSelection&#x60; property with an array of selected dates.
+        *
+        * @event selectionChange
+        *&#x2F;
+        this.fire(&quot;selectionChange&quot;, {newSelection: this._getSelectedDatesList()});
     },
 
     &#x2F;**
@@ -2025,12 +2027,12 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @private
      *&#x2F;
     _restoreModifiedCells : function () {
-      var contentbox = this.get(&quot;contentBox&quot;),
-          id;
-      for (id in this._storedDateCells) {
-          contentbox.one(&quot;#&quot; + id).replace(this._storedDateCells[id]);
-          delete this._storedDateCells[id];
-      }
+        var contentbox = this.get(&quot;contentBox&quot;),
+            id;
+        for (id in this._storedDateCells) {
+            contentbox.one(&quot;#&quot; + id).replace(this._storedDateCells[id]);
+            delete this._storedDateCells[id];
+        }
     },
 
     &#x2F;**
@@ -2044,33 +2046,48 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
         this.get(&quot;contentBox&quot;).all(&quot;.&quot; + CAL_DAY + &quot;,.&quot; + CAL_NEXTMONTH_DAY).removeClass(SELECTION_DISABLED).setAttribute(&quot;aria-disabled&quot;, false);
 
         if (!isEmpty(this._rules)) {
-        var enRule = this.get(&quot;enabledDatesRule&quot;),
-            disRule = this.get(&quot;disabledDatesRule&quot;);
+            var paneNum,
+                paneDate,
+                dateArray;
 
-           for (var paneNum = 0; paneNum &lt; this._paneNumber; paneNum++) {
-             var paneDate = ydate.addMonths(this.get(&quot;date&quot;), paneNum);
-             var dateArray = ydate.listOfDatesInMonth(paneDate);
-             each(dateArray, function (date) {
-                var matchingRules = this._getRulesForDate(date);
-                if (matchingRules.length &gt; 0) {
-                    var dateNode = this._dateToNode(date);
-                    if ((enRule &amp;&amp; iOf(matchingRules, enRule) &lt; 0) || (!enRule &amp;&amp; disRule &amp;&amp; iOf(matchingRules, disRule) &gt;= 0)) {
-                            dateNode.addClass(SELECTION_DISABLED).setAttribute(&quot;aria-disabled&quot;, true);
-                        }
-                        
-                    if (L.isFunction(this._filterFunction)) {
-                        this._storedDateCells[dateNode.get(&quot;id&quot;)] = dateNode.cloneNode(true);
-                        this._filterFunction (date, dateNode, matchingRules);
-                    }
-                }
-                else if (enRule) {
-                   var dateNode = this._dateToNode(date);
-                   dateNode.addClass(SELECTION_DISABLED).setAttribute(&quot;aria-disabled&quot;, true);
-                }
-                },
-             this);
-          }
-       }         
+            for (paneNum = 0; paneNum &lt; this._paneNumber; paneNum++) {
+                paneDate = ydate.addMonths(this.get(&quot;date&quot;), paneNum);
+                dateArray = ydate.listOfDatesInMonth(paneDate);
+                arrayEach(dateArray, Y.bind(this._renderCustomRulesHelper, this));
+            }
+        }
+    },
+
+    &#x2F;**
+    * A handler for a date selection event (either a click or a keyboard
+    *   selection) that adds the appropriate CSS class to a specific DOM
+    *   node corresponding to the date and sets its aria-selected
+    *   attribute to true.
+    *
+    * @method _renderCustomRulesHelper
+    * @private
+    *&#x2F;
+    _renderCustomRulesHelper: function (date) {
+        var enRule = this.get(&quot;enabledDatesRule&quot;),
+            disRule = this.get(&quot;disabledDatesRule&quot;),
+            matchingRules,
+            dateNode;
+
+        matchingRules = this._getRulesForDate(date);
+        if (matchingRules.length &gt; 0) {
+            dateNode = this._dateToNode(date);
+            if ((enRule &amp;&amp; iOf(matchingRules, enRule) &lt; 0) || (!enRule &amp;&amp; disRule &amp;&amp; iOf(matchingRules, disRule) &gt;= 0)) {
+                dateNode.addClass(SELECTION_DISABLED).setAttribute(&quot;aria-disabled&quot;, true);
+            }
+
+            if (L.isFunction(this._filterFunction)) {
+                this._storedDateCells[dateNode.get(&quot;id&quot;)] = dateNode.cloneNode(true);
+                this._filterFunction (date, dateNode, matchingRules);
+            }
+        } else if (enRule) {
+             dateNode = this._dateToNode(date);
+             dateNode.addClass(SELECTION_DISABLED).setAttribute(&quot;aria-disabled&quot;, true);
+        }
     },
 
     &#x2F;**
@@ -2079,17 +2096,32 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @private
      *&#x2F;
     _renderSelectedDates : function () {
-    this.get(&quot;contentBox&quot;).all(&quot;.&quot; + CAL_DAY_SELECTED).removeClass(CAL_DAY_SELECTED).setAttribute(&quot;aria-selected&quot;, false);
-    
-        for (var paneNum = 0; paneNum &lt; this._paneNumber; paneNum++) {
-        var paneDate = ydate.addMonths(this.get(&quot;date&quot;), paneNum);
-        var dateArray = this._getSelectedDatesInMonth(paneDate);
-        each(dateArray, function (date) {
-            this._dateToNode(date).addClass(CAL_DAY_SELECTED).setAttribute(&quot;aria-selected&quot;, true);
-                        },
-             this);
-      }
-  },
+        this.get(&quot;contentBox&quot;).all(&quot;.&quot; + CAL_DAY_SELECTED).removeClass(CAL_DAY_SELECTED).setAttribute(&quot;aria-selected&quot;, false);
+
+        var paneNum,
+            paneDate,
+            dateArray;
+
+        for (paneNum = 0; paneNum &lt; this._paneNumber; paneNum++) {
+            paneDate = ydate.addMonths(this.get(&quot;date&quot;), paneNum);
+            dateArray = this._getSelectedDatesInMonth(paneDate);
+
+            arrayEach(dateArray, Y.bind(this._renderSelectedDatesHelper, this));
+        }
+    },
+
+    &#x2F;**
+    * Takes in a date and determines whether that date has any rules
+    *   matching it in the customRenderer; then calls the specified
+    *   filterFunction if that&#x27;s the case and&#x2F;or disables the date
+    *   if the rule is specified as a disabledDatesRule.
+    *
+    * @method _renderSelectedDatesHelper
+    * @private
+    *&#x2F;
+    _renderSelectedDatesHelper: function (date) {
+        this._dateToNode(date).addClass(CAL_DAY_SELECTED).setAttribute(&quot;aria-selected&quot;, true);
+    },
 
     &#x2F;**
      * A utility method that converts a date to the node wrapping the calendar cell
@@ -2097,11 +2129,11 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @method _dateToNode
      * @param {Date} oDate The date to convert to Node
      * @protected
-     * @return {Node} The node wrapping the DOM element of the cell the date 
+     * @return {Node} The node wrapping the DOM element of the cell the date
      * corresponds to.
      *&#x2F;
     _dateToNode : function (oDate) {
-    var day = oDate.getDate(),
+        var day = oDate.getDate(),
             col = 0,
             daymod = day%7,
             paneNum = (12 + oDate.getMonth() - this.get(&quot;date&quot;).getMonth()) % 12,
@@ -2109,61 +2141,55 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
             cutoffCol = this._paneProperties[paneId].cutoffCol;
 
         switch (daymod) {
-          case (0):
-             if (cutoffCol &gt;= 6) {
-               col = 12;
-             }
-             else {
-               col = 5;
-             }
-             break;
-          case (1):
-               col = 6;
-             break;
-          case (2):
-             if (cutoffCol &gt; 0) {
-               col = 7;
-             }
-             else {
-               col = 0;
-             }
-             break;
-          case (3):
-             if (cutoffCol &gt; 1) {
-               col = 8;
-             }
-             else {
-               col = 1;
-             }
-             break;
-          case (4):
-             if (cutoffCol &gt; 2) {
-               col = 9;
-             }
-             else {
-               col = 2;
-             }
-             break;
-          case (5):
-             if (cutoffCol &gt; 3) {
-               col = 10;
-             }
-             else {
-               col = 3;
-             }
-             break;
-          case (6):
-             if (cutoffCol &gt; 4) {
-               col = 11;
-             }
-             else {
-               col = 4;
-             }
-             break;
+            case (0):
+                if (cutoffCol &gt;= 6) {
+                    col = 12;
+                } else {
+                    col = 5;
+                }
+                break;
+            case (1):
+                    col = 6;
+                break;
+            case (2):
+                if (cutoffCol &gt; 0) {
+                    col = 7;
+                } else {
+                    col = 0;
+                }
+                break;
+            case (3):
+                if (cutoffCol &gt; 1) {
+                    col = 8;
+                } else {
+                    col = 1;
+                }
+                break;
+            case (4):
+                if (cutoffCol &gt; 2) {
+                    col = 9;
+                } else {
+                    col = 2;
+                }
+                break;
+            case (5):
+                if (cutoffCol &gt; 3) {
+                    col = 10;
+                } else {
+                    col = 3;
+                }
+                break;
+            case (6):
+                if (cutoffCol &gt; 4) {
+                    col = 11;
+                } else {
+                    col = 4;
+                }
+                break;
         }
-        return(this.get(&quot;contentBox&quot;).one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + paneNum + &quot;_&quot; + col + &quot;_&quot; + day));  
+        return(this.get(&quot;contentBox&quot;).one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + paneNum + &quot;_&quot; + col + &quot;_&quot; + day));
 
-  },
+    },
 
     &#x2F;**
      * A utility method that converts a node corresponding to the DOM element of
@@ -2174,26 +2200,23 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @return {Date} The date corresponding to the DOM element that the given node wraps.
      *&#x2F;
     _nodeToDate : function (oNode) {
-    
+
         var idParts = oNode.get(&quot;id&quot;).split(&quot;_&quot;).reverse(),
             paneNum = parseInt(idParts[2], 10),
-            day  = parseInt(idParts[0], 10);
-
-        var shiftedDate = ydate.addMonths(this.get(&quot;date&quot;), paneNum),
+            day  = parseInt(idParts[0], 10),
+            shiftedDate = ydate.addMonths(this.get(&quot;date&quot;), paneNum),
             year = shiftedDate.getFullYear(),
             month = shiftedDate.getMonth();
 
-    return new Date(year, month, day, 12, 0, 0, 0);
-  },
+        return new Date(year, month, day, 12, 0, 0, 0);
+    },
 
     &#x2F;**
      * A placeholder method, called from bindUI, to bind the Calendar events.
      * @method _bindCalendarEvents
      * @protected
      *&#x2F;
-    _bindCalendarEvents : function () {
-    
-  },
+    _bindCalendarEvents : function () {},
 
     &#x2F;**
      * A utility method that normalizes a given date by converting it to the 1st
@@ -2205,17 +2228,16 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * set to noon.
      *&#x2F;
     _normalizeDate : function (date) {
-      if (date) {
-       return new Date(date.getFullYear(), date.getMonth(), 1, 12, 0, 0, 0);
-      }
-      else {
-       return null;
-      }  
+        if (date) {
+            return new Date(date.getFullYear(), date.getMonth(), 1, 12, 0, 0, 0);
+        } else {
+            return null;
+        }
     },
 
 
     &#x2F;**
-     * A render assist utility method that computes the cutoff column for the calendar 
+     * A render assist utility method that computes the cutoff column for the calendar
      * rendering mask.
      * @method _getCutoffColumn
      * @param {Date} date The date of the month grid to compute the cutoff column for.
@@ -2224,15 +2246,13 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @return {Number} The number of the cutoff column.
      *&#x2F;
     _getCutoffColumn : function (date, firstday) {
-
-   var distance = this._normalizeDate(date).getDay() - firstday;
-   var cutOffColumn = 6 - (distance + 7)%7;
-   return cutOffColumn;
-
+        var distance = this._normalizeDate(date).getDay() - firstday,
+            cutOffColumn = 6 - (distance + 7) % 7;
+        return cutOffColumn;
     },
 
     &#x2F;**
-     * A render assist method that turns on the view of the previous month&#x27;s dates 
+     * A render assist method that turns on the view of the previous month&#x27;s dates
      * in a given calendar pane.
      * @method _turnPrevMonthOn
      * @param {Node} pane The calendar pane that needs its previous month&#x27;s dates view
@@ -2240,31 +2260,27 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @protected
      *&#x2F;
     _turnPrevMonthOn : function (pane) {
-        
         var pane_id = pane.get(&quot;id&quot;),
             pane_date = this._paneProperties[pane_id].paneDate,
-            daysInPrevMonth = ydate.daysInMonth(ydate.addMonths(pane_date, -1));
+            daysInPrevMonth = ydate.daysInMonth(ydate.addMonths(pane_date, -1)),
+            cell;
 
         if (!this._paneProperties[pane_id].hasOwnProperty(&quot;daysInPrevMonth&quot;)) {
-          this._paneProperties[pane_id].daysInPrevMonth = 0;
+            this._paneProperties[pane_id].daysInPrevMonth = 0;
         }
 
-        if (daysInPrevMonth != this._paneProperties[pane_id].daysInPrevMonth) {
-        
-        this._paneProperties[pane_id].daysInPrevMonth = daysInPrevMonth;
+        if (daysInPrevMonth !== this._paneProperties[pane_id].daysInPrevMonth) {
 
-        for (var cell = 5; cell &gt;= 0; cell--) 
-           {
-            pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell-5)).set(&#x27;text&#x27;, daysInPrevMonth--);
-           }
+            this._paneProperties[pane_id].daysInPrevMonth = daysInPrevMonth;
 
+            for (cell = 5; cell &gt;= 0; cell--) {
+                pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell-5)).set(&#x27;text&#x27;, daysInPrevMonth--);
+            }
         }
-
-
     },
 
     &#x2F;**
-     * A render assist method that turns off the view of the previous month&#x27;s dates 
+     * A render assist method that turns off the view of the previous month&#x27;s dates
      * in a given calendar pane.
      * @method _turnPrevMonthOff
      * @param {Node} pane The calendar pane that needs its previous month&#x27;s dates view
@@ -2272,13 +2288,14 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @protected
      *&#x2F;
     _turnPrevMonthOff : function (pane) {
-          var pane_id = pane.get(&quot;id&quot;);
+        var pane_id = pane.get(&quot;id&quot;),
+            cell;
+
         this._paneProperties[pane_id].daysInPrevMonth = 0;
 
-        for (var cell = 5; cell &gt;= 0; cell--) 
-           {
+        for (cell = 5; cell &gt;= 0; cell--) {
             pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell-5)).setContent(&quot;&amp;nbsp;&quot;);
-           }      
+        }
     },
 
     &#x2F;**
@@ -2289,48 +2306,49 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @private
      *&#x2F;
     _cleanUpNextMonthCells : function (pane) {
-      var pane_id = pane.get(&quot;id&quot;);
-        pane.one(&quot;#&quot; + pane_id + &quot;_6_29&quot;).removeClass(CAL_NEXTMONTH_DAY);
-        pane.one(&quot;#&quot; + pane_id + &quot;_7_30&quot;).removeClass(CAL_NEXTMONTH_DAY);
-        pane.one(&quot;#&quot; + pane_id + &quot;_8_31&quot;).removeClass(CAL_NEXTMONTH_DAY);
-        pane.one(&quot;#&quot; + pane_id + &quot;_0_30&quot;).removeClass(CAL_NEXTMONTH_DAY);
-        pane.one(&quot;#&quot; + pane_id + &quot;_1_31&quot;).removeClass(CAL_NEXTMONTH_DAY);     
+        var pane_id = pane.get(&quot;id&quot;);
+            pane.one(&quot;#&quot; + pane_id + &quot;_6_29&quot;).removeClass(CAL_NEXTMONTH_DAY);
+            pane.one(&quot;#&quot; + pane_id + &quot;_7_30&quot;).removeClass(CAL_NEXTMONTH_DAY);
+            pane.one(&quot;#&quot; + pane_id + &quot;_8_31&quot;).removeClass(CAL_NEXTMONTH_DAY);
+            pane.one(&quot;#&quot; + pane_id + &quot;_0_30&quot;).removeClass(CAL_NEXTMONTH_DAY);
+            pane.one(&quot;#&quot; + pane_id + &quot;_1_31&quot;).removeClass(CAL_NEXTMONTH_DAY);
     },
 
     &#x2F;**
-     * A render assist method that turns on the view of the next month&#x27;s dates 
+     * A render assist method that turns on the view of the next month&#x27;s dates
      * in a given calendar pane.
      * @method _turnNextMonthOn
      * @param {Node} pane The calendar pane that needs its next month&#x27;s dates view
      * modified.
      * @protected
      *&#x2F;
-    _turnNextMonthOn : function (pane) {       
-          var dayCounter = 1,
-              pane_id = pane.get(&quot;id&quot;),
-              daysInMonth = this._paneProperties[pane_id].daysInMonth,
-              cutoffCol = this._paneProperties[pane_id].cutoffCol;
+    _turnNextMonthOn : function (pane) {
+        var dayCounter = 1,
+            pane_id = pane.get(&quot;id&quot;),
+            daysInMonth = this._paneProperties[pane_id].daysInMonth,
+            cutoffCol = this._paneProperties[pane_id].cutoffCol,
+            cell,
+            startingCell;
 
-        for (var cell = daysInMonth - 22; cell &lt; cutoffCol + 7; cell++) 
-           {
+        for (cell = daysInMonth - 22; cell &lt; cutoffCol + 7; cell++) {
             pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell+23)).set(&quot;text&quot;, dayCounter++).addClass(CAL_NEXTMONTH_DAY);
-           }
+        }
 
-        var startingCell = cutoffCol;
-        if (daysInMonth == 31 &amp;&amp; (cutoffCol &lt;= 1)) {
-          startingCell = 2;
+        startingCell = cutoffCol;
+
+        if (daysInMonth === 31 &amp;&amp; (cutoffCol &lt;= 1)) {
+            startingCell = 2;
+        } else if (daysInMonth === 30 &amp;&amp; cutoffCol === 0) {
+            startingCell = 1;
         }
-        else if (daysInMonth == 30 &amp;&amp; cutoffCol === 0) {
-          startingCell = 1;
-        }
-  
-        for (var cell = startingCell ; cell &lt; cutoffCol + 7; cell++) {
-            pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell+30)).set(&quot;text&quot;, dayCounter++).addClass(CAL_NEXTMONTH_DAY);    
+
+        for (cell = startingCell ; cell &lt; cutoffCol + 7; cell++) {
+            pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell+30)).set(&quot;text&quot;, dayCounter++).addClass(CAL_NEXTMONTH_DAY);
         }
     },
 
     &#x2F;**
-     * A render assist method that turns off the view of the next month&#x27;s dates 
+     * A render assist method that turns off the view of the next month&#x27;s dates
      * in a given calendar pane.
      * @method _turnNextMonthOff
      * @param {Node} pane The calendar pane that needs its next month&#x27;s dates view
@@ -2338,26 +2356,27 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @protected
      *&#x2F;
     _turnNextMonthOff : function (pane) {
-          var pane_id = pane.get(&quot;id&quot;),
-              daysInMonth = this._paneProperties[pane_id].daysInMonth,
-              cutoffCol = this._paneProperties[pane_id].cutoffCol;
+            var pane_id = pane.get(&quot;id&quot;),
+                daysInMonth = this._paneProperties[pane_id].daysInMonth,
+                cutoffCol = this._paneProperties[pane_id].cutoffCol,
+                cell,
+                startingCell;
 
-        for (var cell = daysInMonth - 22; cell &lt;= 12; cell++) 
-           {
-            pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell+23)).setContent(&quot;&amp;nbsp;&quot;).addClass(CAL_NEXTMONTH_DAY);
-           }
+            for (cell = daysInMonth - 22; cell &lt;= 12; cell++) {
+                pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell+23)).setContent(&quot;&amp;nbsp;&quot;).addClass(CAL_NEXTMONTH_DAY);
+            }
 
-        var startingCell = 0;
-        if (daysInMonth == 31 &amp;&amp; (cutoffCol &lt;= 1)) {
-          startingCell = 2;
-        }
-        else if (daysInMonth == 30 &amp;&amp; cutoffCol === 0) {
-          startingCell = 1;
-        }
-  
-        for (var cell = startingCell ; cell &lt;= 12; cell++) {
-            pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell+30)).setContent(&quot;&amp;nbsp;&quot;).addClass(CAL_NEXTMONTH_DAY);   
-        }   
+            startingCell = 0;
+
+            if (daysInMonth === 31 &amp;&amp; (cutoffCol &lt;= 1)) {
+                startingCell = 2;
+            } else if (daysInMonth === 30 &amp;&amp; cutoffCol === 0) {
+                startingCell = 1;
+            }
+
+            for (cell = startingCell ; cell &lt;= 12; cell++) {
+                pane.one(&quot;#&quot; + pane_id + &quot;_&quot; + cell + &quot;_&quot; + (cell+30)).setContent(&quot;&amp;nbsp;&quot;).addClass(CAL_NEXTMONTH_DAY);
+            }
     },
 
     &#x2F;**
@@ -2366,18 +2385,16 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @private
      *&#x2F;
     _afterShowNextMonthChange : function () {
-      
-      var contentBox = this.get(&#x27;contentBox&#x27;),
-          lastPane = contentBox.one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + (this._paneNumber - 1));
-          this._cleanUpNextMonthCells(lastPane);  
 
+        var contentBox = this.get(&#x27;contentBox&#x27;),
+            lastPane = contentBox.one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + (this._paneNumber - 1));
 
-      if (this.get(&#x27;showNextMonth&#x27;)) {
-          this._turnNextMonthOn(lastPane);
-        }
+        this._cleanUpNextMonthCells(lastPane);
 
-        else {
-          this._turnNextMonthOff(lastPane);
+        if (this.get(&#x27;showNextMonth&#x27;)) {
+            this._turnNextMonthOn(lastPane);
+        } else {
+            this._turnNextMonthOff(lastPane);
         }
 
     },
@@ -2388,34 +2405,32 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @private
      *&#x2F;
     _afterShowPrevMonthChange : function () {
-      var contentBox = this.get(&#x27;contentBox&#x27;),
-          firstPane = contentBox.one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + 0);
+        var contentBox = this.get(&#x27;contentBox&#x27;),
+            firstPane = contentBox.one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + 0);
 
-      if (this.get(&#x27;showPrevMonth&#x27;)) {
-         this._turnPrevMonthOn(firstPane);
-      }
+        if (this.get(&#x27;showPrevMonth&#x27;)) {
+            this._turnPrevMonthOn(firstPane);
+        } else {
+            this._turnPrevMonthOff(firstPane);
+        }
 
-      else {
-         this._turnPrevMonthOff(firstPane);
-      }
-      
     },
- 
+
      &#x2F;**
      * The handler for the change in the headerRenderer attribute.
      * @method _afterHeaderRendererChange
      * @private
-     *&#x2F; 
+     *&#x2F;
     _afterHeaderRendererChange : function () {
-    var headerCell = this.get(&quot;contentBox&quot;).one(&quot;.&quot; + CAL_HD_LABEL);
-    headerCell.setContent(this._updateCalendarHeader(this.get(&#x27;date&#x27;)));
-  },
+        var headerCell = this.get(&quot;contentBox&quot;).one(&quot;.&quot; + CAL_HD_LABEL);
+        headerCell.setContent(this._updateCalendarHeader(this.get(&#x27;date&#x27;)));
+    },
 
      &#x2F;**
      * The handler for the change in the customRenderer attribute.
      * @method _afterCustomRendererChange
      * @private
-     *&#x2F; 
+     *&#x2F;
     _afterCustomRendererChange : function () {
         this._restoreModifiedCells();
         this._renderCustomRules();
@@ -2427,33 +2442,32 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * selection rendering as necessary.
      * @method _afterDateChange
      * @private
-     *&#x2F; 
+     *&#x2F;
     _afterDateChange : function () {
-    
-    var contentBox = this.get(&#x27;contentBox&#x27;),
-        headerCell = contentBox.one(&quot;.&quot; + CAL_HD).one(&quot;.&quot; + CAL_HD_LABEL),
-        calendarPanes = contentBox.all(&quot;.&quot; + CAL_GRID),
-        currentDate = this.get(&quot;date&quot;),
-        counter = 0;
 
-  contentBox.setStyle(&quot;visibility&quot;, &quot;hidden&quot;);
-  headerCell.setContent(this._updateCalendarHeader(currentDate));
-  
-    this._restoreModifiedCells();
+        var contentBox = this.get(&#x27;contentBox&#x27;),
+            headerCell = contentBox.one(&quot;.&quot; + CAL_HD).one(&quot;.&quot; + CAL_HD_LABEL),
+            calendarPanes = contentBox.all(&quot;.&quot; + CAL_GRID),
+            currentDate = this.get(&quot;date&quot;),
+            counter = 0;
 
-    calendarPanes.each(function (curNode) {
-                      this._rerenderCalendarPane(ydate.addMonths(currentDate, counter++), 
-                                            curNode);
-                                        }, this);
+        contentBox.setStyle(&quot;visibility&quot;, &quot;hidden&quot;);
+        headerCell.setContent(this._updateCalendarHeader(currentDate));
 
-     this._afterShowPrevMonthChange();
-     this._afterShowNextMonthChange();
+        this._restoreModifiedCells();
 
-    this._renderCustomRules();
-    this._renderSelectedDates();
-      
-  contentBox.setStyle(&quot;visibility&quot;, &quot;visible&quot;);
-  },
+        calendarPanes.each(function (curNode) {
+            this._rerenderCalendarPane(ydate.addMonths(currentDate, counter++), curNode);
+        }, this);
+
+        this._afterShowPrevMonthChange();
+        this._afterShowNextMonthChange();
+
+        this._renderCustomRules();
+        this._renderSelectedDates();
+
+        contentBox.setStyle(&quot;visibility&quot;, &quot;visible&quot;);
+    },
 
 
      &#x2F;**
@@ -2465,208 +2479,211 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @param {String} pane_id The id of the pane, to be used as a prefix for
      * element ids in the given pane.
      * @private
-     *&#x2F; 
+     *&#x2F;
     _initCalendarPane : function (baseDate, pane_id) {
-        &#x2F;&#x2F; Initialize final output HTML string
-    var calString = &#x27;&#x27;,
         &#x2F;&#x2F; Get a list of short weekdays from the internationalization package, or else use default English ones.
-        weekdays = this.get(&#x27;strings.very_short_weekdays&#x27;) || [&quot;Su&quot;, &quot;Mo&quot;, &quot;Tu&quot;, &quot;We&quot;, &quot;Th&quot;, &quot;Fr&quot;, &quot;Sa&quot;],
-        fullweekdays = this.get(&#x27;strings.weekdays&#x27;) || [&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;],
-        &#x2F;&#x2F; Get the first day of the week from the internationalization package, or else use Sunday as default.
-        firstday = this.get(&#x27;strings.first_weekday&#x27;) || 0,
-        &#x2F;&#x2F; Compute the cutoff column of the masked calendar table, based on the start date and the first day of week.
-        cutoffCol = this._getCutoffColumn(baseDate, firstday),
-        &#x2F;&#x2F; Compute the number of days in the month based on starting date
-        daysInMonth = ydate.daysInMonth(baseDate),
-        &#x2F;&#x2F; Initialize the array of individual row HTML strings
-        row_array = [&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],
-        &#x2F;&#x2F; Initialize the partial templates object
-        partials = {};
-        
+        var weekdays = this.get(&#x27;strings.very_short_weekdays&#x27;) || [&quot;Su&quot;, &quot;Mo&quot;, &quot;Tu&quot;, &quot;We&quot;, &quot;Th&quot;, &quot;Fr&quot;, &quot;Sa&quot;],
+            fullweekdays = this.get(&#x27;strings.weekdays&#x27;) || [&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;],
+            &#x2F;&#x2F; Get the first day of the week from the internationalization package, or else use Sunday as default.
+            firstday = this.get(&#x27;strings.first_weekday&#x27;) || 0,
+            &#x2F;&#x2F; Compute the cutoff column of the masked calendar table, based on the start date and the first day of week.
+            cutoffCol = this._getCutoffColumn(baseDate, firstday),
+            &#x2F;&#x2F; Compute the number of days in the month based on starting date
+            daysInMonth = ydate.daysInMonth(baseDate),
+            &#x2F;&#x2F; Initialize the array of individual row HTML strings
+            row_array = [&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],
+            &#x2F;&#x2F; Initialize the partial templates object
+            partials = {},
+
+            day,
+            row,
+            column,
+            date,
+            id_date,
+            calendar_day_class,
+            column_visibility,
+            output;
+
             &#x2F;&#x2F; Initialize the partial template for the weekday row cells.
-        partials[&quot;weekday_row&quot;] = &#x27;&#x27;;
-      
-      &#x2F;&#x2F; Populate the partial template for the weekday row cells with weekday names
-      for (var day = firstday; day &lt;= firstday + 6; day++) {
-               partials[&quot;weekday_row&quot;] += 
-                  substitute(CalendarBase.WEEKDAY_TEMPLATE,
-                       {weekdayname: weekdays[day%7],
-                        full_weekdayname: fullweekdays[day%7]});
-      }
-        
+            partials.weekday_row = &#x27;&#x27;;
+
+        &#x2F;&#x2F; Populate the partial template for the weekday row cells with weekday names
+        for (day = firstday; day &lt;= firstday + 6; day++) {
+            partials.weekday_row +=
+                substitute(CalendarBase.WEEKDAY_TEMPLATE, {
+                    weekdayname: weekdays[day%7],
+                    full_weekdayname: fullweekdays[day%7]
+                });
+        }
+
         &#x2F;&#x2F; Populate the partial template for the weekday row container with the weekday row cells
-      partials[&quot;weekday_row_template&quot;] = substitute(CalendarBase.WEEKDAY_ROW_TEMPLATE, partials);
+        partials.weekday_row_template = substitute(CalendarBase.WEEKDAY_ROW_TEMPLATE, partials);
 
-      &#x2F;&#x2F; Populate the array of individual row HTML strings
-          for (var row = 0; row &lt;= 5; row++) {
-          
-              for (var column = 0; column &lt;= 12; column++) {  
-             
-             &#x2F;&#x2F; Compute the value of the date that needs to populate the cell
-             var date = 7*row - 5 + column;
+        &#x2F;&#x2F; Populate the array of individual row HTML strings
+        for (row = 0; row &lt;= 5; row++) {
 
-             &#x2F;&#x2F; Compose the value of the unique id of the current calendar cell
-             var id_date = pane_id + &quot;_&quot; + column + &quot;_&quot; + date;
+            for (column = 0; column &lt;= 12; column++) {
 
-             &#x2F;&#x2F; Set the calendar day class to one of three possible values
-             var calendar_day_class = CAL_DAY;
+                &#x2F;&#x2F; Compute the value of the date that needs to populate the cell
+                date = 7*row - 5 + column;
 
-             if (date &lt; 1) {
-              calendar_day_class = CAL_PREVMONTH_DAY;
-             }
-                 else if (date &gt; daysInMonth) {
-                  calendar_day_class = CAL_NEXTMONTH_DAY;
-                 }
+                &#x2F;&#x2F; Compose the value of the unique id of the current calendar cell
+                id_date = pane_id + &quot;_&quot; + column + &quot;_&quot; + date;
 
-                 &#x2F;&#x2F; Cut off dates that fall before the first and after the last date of the month
-             if (date &lt; 1 || date &gt; daysInMonth) {
-               date = &quot;&amp;nbsp;&quot;;
-             }
-             
-             &#x2F;&#x2F; Decide on whether a column in the masked table is visible or not based on the value of the cutoff column.
-             var column_visibility = (column &gt;= cutoffCol &amp;&amp; column &lt; (cutoffCol + 7)) ? &#x27;&#x27; : CAL_COL_HIDDEN;
+                &#x2F;&#x2F; Set the calendar day class to one of three possible values
+                calendar_day_class = CAL_DAY;
 
-             &#x2F;&#x2F; Substitute the values into the partial calendar day template and add it to the current row HTML string
-             row_array[row] += substitute (CalendarBase.CALDAY_TEMPLATE, 
-                                         {day_content: date,
-                                        calendar_col_class: &quot;calendar_col&quot; + column,
-                                        calendar_col_visibility_class: column_visibility,
-                                        calendar_day_class: calendar_day_class,
-                                        calendar_day_id: id_date});
-             }
+                if (date &lt; 1) {
+                    calendar_day_class = CAL_PREVMONTH_DAY;
+                } else if (date &gt; daysInMonth) {
+                    calendar_day_class = CAL_NEXTMONTH_DAY;
+                }
+
+                &#x2F;&#x2F; Cut off dates that fall before the first and after the last date of the month
+                if (date &lt; 1 || date &gt; daysInMonth) {
+                    date = &quot;&amp;nbsp;&quot;;
+                }
+
+                &#x2F;&#x2F; Decide on whether a column in the masked table is visible or not based on the value of the cutoff column.
+                column_visibility = (column &gt;= cutoffCol &amp;&amp; column &lt; (cutoffCol + 7)) ? &#x27;&#x27; : CAL_COL_HIDDEN;
+
+                &#x2F;&#x2F; Substitute the values into the partial calendar day template and add it to the current row HTML string
+                row_array[row] += substitute (CalendarBase.CALDAY_TEMPLATE, {
+                    day_content: date,
+                    calendar_col_class: &quot;calendar_col&quot; + column,
+                    calendar_col_visibility_class: column_visibility,
+                    calendar_day_class: calendar_day_class,
+                    calendar_day_id: id_date
+                });
             }
-      
-      &#x2F;&#x2F; Instantiate the partial calendar pane body template
-      partials[&quot;body_template&quot;] = &#x27;&#x27;;
-      
-      &#x2F;&#x2F; Populate the body template with the rows templates
-      each (row_array, function (v) {
-         partials[&quot;body_template&quot;] += substitute(CalendarBase.CALDAY_ROW_TEMPLATE, 
-                                                       {calday_row: v});
-      });
+        }
 
-      &#x2F;&#x2F; Populate the calendar grid id
-      partials[&quot;calendar_pane_id&quot;] = pane_id;
+        &#x2F;&#x2F; Instantiate the partial calendar pane body template
+        partials.body_template = &#x27;&#x27;;
 
-      &#x2F;&#x2F; Populate the calendar pane tabindex
-      partials[&quot;calendar_pane_tabindex&quot;] = this.get(&quot;tabIndex&quot;);
-      partials[&quot;pane_arialabel&quot;] = ydate.format(baseDate, {format:&quot;%B %Y&quot;});
+        &#x2F;&#x2F; Populate the body template with the rows templates
+        arrayEach (row_array, function (v) {
+             partials.body_template += substitute(CalendarBase.CALDAY_ROW_TEMPLATE, {calday_row: v});
+        });
+
+        &#x2F;&#x2F; Populate the calendar grid id
+        partials.calendar_pane_id = pane_id;
+
+        &#x2F;&#x2F; Populate the calendar pane tabindex
+        partials.calendar_pane_tabindex = this.get(&quot;tabIndex&quot;);
+        partials.pane_arialabel = ydate.format(baseDate, { format: &quot;%B %Y&quot; });
 
 
-      &#x2F;&#x2F; Generate final output by substituting class names.
-          var output = substitute(substitute (CalendarBase.CALENDAR_GRID_TEMPLATE, partials),
-                              CalendarBase.CALENDAR_STRINGS);
+        &#x2F;&#x2F; Generate final output by substituting class names.
+        output = substitute(substitute (CalendarBase.CALENDAR_GRID_TEMPLATE, partials),
+                                                        CalendarBase.CALENDAR_STRINGS);
 
         &#x2F;&#x2F; Store the initialized pane information
-
         this._paneProperties[pane_id] = {cutoffCol: cutoffCol, daysInMonth: daysInMonth, paneDate: baseDate};
 
-      return output;
-  },
+        return output;
+    },
 
      &#x2F;**
      * A rendering assist method that rerenders a specified calendar pane, based
-     * on a new Date. 
+     * on a new Date.
      * @method _rerenderCalendarPane
      * @param {Date} newDate The date corresponding to the month of the given
      * calendar pane.
      * @param {Node} pane The node corresponding to the calendar pane to be rerenders.
      * @private
-     *&#x2F; 
+     *&#x2F;
     _rerenderCalendarPane : function (newDate, pane) {
 
-       &#x2F;&#x2F; Get the first day of the week from the internationalization package, or else use Sunday as default.
-     var firstday = this.get(&#x27;strings.first_weekday&#x27;) || 0,
-         &#x2F;&#x2F; Compute the cutoff column of the masked calendar table, based on the start date and the first day of week.
-         cutoffCol = this._getCutoffColumn(newDate, firstday),
-         &#x2F;&#x2F; Compute the number of days in the month based on starting date
-         daysInMonth = ydate.daysInMonth(newDate),
-         &#x2F;&#x2F; Get pane id for easier reference
-         paneId = pane.get(&quot;id&quot;);
-  
-       &#x2F;&#x2F; Hide the pane before making DOM changes to speed them up
-         pane.setStyle(&quot;visibility&quot;, &quot;hidden&quot;);
-         pane.setAttribute(&quot;aria-label&quot;, ydate.format(newDate, {format:&quot;%B %Y&quot;}));
-  
-       &#x2F;&#x2F; Go through all columns, and flip their visibility setting based on whether they are within the unmasked range.
-         for (var column = 0; column &lt;= 12; column++) {
-        var currentColumn = pane.all(&quot;.&quot; + &quot;calendar_col&quot; + column);
-        currentColumn.removeClass(CAL_COL_HIDDEN);
-      
-        if (column &lt; cutoffCol || column &gt;= (cutoffCol + 7)) {
-            currentColumn.addClass(CAL_COL_HIDDEN);
-        }
-        else {
-          &#x2F;&#x2F; Clean up dates in visible columns to account for the correct number of days in a month
-          switch(column)
-          {
-         case 0:
-          var curCell = pane.one(&quot;#&quot; + paneId + &quot;_0_30&quot;);
-          if (daysInMonth &gt;= 30) {
-            curCell.set(&quot;text&quot;, &quot;30&quot;);
-            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
-          }
-          else {
-            curCell.setContent(&quot;&amp;nbsp;&quot;);
-            curCell.addClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
-          }
-          break;
-         case 1:
-          var curCell = pane.one(&quot;#&quot; + paneId + &quot;_1_31&quot;);
-          if (daysInMonth &gt;= 31) {
-            curCell.set(&quot;text&quot;, &quot;31&quot;);
-            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
-          }
-          else {
-            curCell.setContent(&quot;&amp;nbsp;&quot;);
-            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
-          }
-          break;
-         case 6:
-          var curCell = pane.one(&quot;#&quot; + paneId + &quot;_6_29&quot;);
-          if (daysInMonth &gt;= 29) {
-            curCell.set(&quot;text&quot;, &quot;29&quot;);
-            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
-          }
-          else {
-            curCell.setContent(&quot;&amp;nbsp;&quot;);
-            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
-          }
-          break;
-         case 7:
-          var curCell = pane.one(&quot;#&quot; + paneId + &quot;_7_30&quot;);
-          if (daysInMonth &gt;= 30) {
-            curCell.set(&quot;text&quot;, &quot;30&quot;);
-            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
-          }
-          else {
-            curCell.setContent(&quot;&amp;nbsp;&quot;);
-            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
-          }
-          break;
-         case 8:
-          var curCell = pane.one(&quot;#&quot; + paneId + &quot;_8_31&quot;);
-          if (daysInMonth &gt;= 31) {
-            curCell.set(&quot;text&quot;, &quot;31&quot;);
-            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
-          }
-          else {
-            curCell.setContent(&quot;&amp;nbsp;&quot;);
-            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
-          }
-          break;
-          } 
-        }
-        }
-    &#x2F;&#x2F; Update stored pane properties
-    this._paneProperties[paneId].cutoffCol = cutoffCol;
-    this._paneProperties[paneId].daysInMonth = daysInMonth;
-    this._paneProperties[paneId].paneDate = newDate;
-  
-  &#x2F;&#x2F; Bring the pane visibility back after all DOM changes are done    
-  pane.setStyle(&quot;visibility&quot;, &quot;visible&quot;);
+        &#x2F;&#x2F; Get the first day of the week from the internationalization package, or else use Sunday as default.
+        var firstday = this.get(&#x27;strings.first_weekday&#x27;) || 0,
+            &#x2F;&#x2F; Compute the cutoff column of the masked calendar table, based on the start date and the first day of week.
+            cutoffCol = this._getCutoffColumn(newDate, firstday),
+            &#x2F;&#x2F; Compute the number of days in the month based on starting date
+            daysInMonth = ydate.daysInMonth(newDate),
+            &#x2F;&#x2F; Get pane id for easier reference
+            paneId = pane.get(&quot;id&quot;),
+            column,
+            currentColumn,
+            curCell;
 
-  },
+        &#x2F;&#x2F; Hide the pane before making DOM changes to speed them up
+        pane.setStyle(&quot;visibility&quot;, &quot;hidden&quot;);
+        pane.setAttribute(&quot;aria-label&quot;, ydate.format(newDate, {format:&quot;%B %Y&quot;}));
+
+        &#x2F;&#x2F; Go through all columns, and flip their visibility setting based on whether they are within the unmasked range.
+        for (column = 0; column &lt;= 12; column++) {
+            currentColumn = pane.all(&quot;.&quot; + &quot;calendar_col&quot; + column);
+            currentColumn.removeClass(CAL_COL_HIDDEN);
+
+            if (column &lt; cutoffCol || column &gt;= (cutoffCol + 7)) {
+                currentColumn.addClass(CAL_COL_HIDDEN);
+            } else {
+                &#x2F;&#x2F; Clean up dates in visible columns to account for the correct number of days in a month
+                switch(column) {
+                    case 0:
+                        curCell = pane.one(&quot;#&quot; + paneId + &quot;_0_30&quot;);
+                        if (daysInMonth &gt;= 30) {
+                            curCell.set(&quot;text&quot;, &quot;30&quot;);
+                            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
+                        } else {
+                            curCell.setContent(&quot;&amp;nbsp;&quot;);
+                            curCell.addClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
+                        }
+                        break;
+                    case 1:
+                        curCell = pane.one(&quot;#&quot; + paneId + &quot;_1_31&quot;);
+                        if (daysInMonth &gt;= 31) {
+                            curCell.set(&quot;text&quot;, &quot;31&quot;);
+                            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
+                        } else {
+                            curCell.setContent(&quot;&amp;nbsp;&quot;);
+                            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
+                        }
+                        break;
+                    case 6:
+                        curCell = pane.one(&quot;#&quot; + paneId + &quot;_6_29&quot;);
+                        if (daysInMonth &gt;= 29) {
+                            curCell.set(&quot;text&quot;, &quot;29&quot;);
+                            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
+                        } else {
+                            curCell.setContent(&quot;&amp;nbsp;&quot;);
+                            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
+                        }
+                        break;
+                    case 7:
+                        curCell = pane.one(&quot;#&quot; + paneId + &quot;_7_30&quot;);
+                        if (daysInMonth &gt;= 30) {
+                            curCell.set(&quot;text&quot;, &quot;30&quot;);
+                            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
+                        } else {
+                            curCell.setContent(&quot;&amp;nbsp;&quot;);
+                            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
+                        }
+                        break;
+                    case 8:
+                        curCell = pane.one(&quot;#&quot; + paneId + &quot;_8_31&quot;);
+                        if (daysInMonth &gt;= 31) {
+                            curCell.set(&quot;text&quot;, &quot;31&quot;);
+                            curCell.removeClass(CAL_NEXTMONTH_DAY).addClass(CAL_DAY);
+                        } else {
+                            curCell.setContent(&quot;&amp;nbsp;&quot;);
+                            curCell.removeClass(CAL_DAY).addClass(CAL_NEXTMONTH_DAY);
+                        }
+                        break;
+                }
+            }
+        }
+
+        &#x2F;&#x2F; Update stored pane properties
+        this._paneProperties[paneId].cutoffCol = cutoffCol;
+        this._paneProperties[paneId].daysInMonth = daysInMonth;
+        this._paneProperties[paneId].paneDate = newDate;
+
+        &#x2F;&#x2F; Bring the pane visibility back after all DOM changes are done
+        pane.setStyle(&quot;visibility&quot;, &quot;visible&quot;);
+
+    },
 
      &#x2F;**
      * A rendering assist method that updates the calendar header based
@@ -2674,407 +2691,410 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
      * @method _updateCalendarHeader
      * @param {Date} baseDate The date with which to update the calendar header.
      * @private
-     *&#x2F; 
+     *&#x2F;
     _updateCalendarHeader : function (baseDate) {
-      var headerString = &quot;&quot;,
-      headerRenderer = this.get(&quot;headerRenderer&quot;);
-      
-      if (Y.Lang.isString(headerRenderer)) {
-        headerString = ydate.format(baseDate, {format:headerRenderer});
-      }
-      else if (headerRenderer instanceof Function) {
-        headerString = headerRenderer.call(this, baseDate);
-      }
-      
-      return headerString;  
+        var headerString = &quot;&quot;,
+            headerRenderer = this.get(&quot;headerRenderer&quot;);
+
+        if (Y.Lang.isString(headerRenderer)) {
+            headerString = ydate.format(baseDate, {format:headerRenderer});
+        } else if (headerRenderer instanceof Function) {
+            headerString = headerRenderer.call(this, baseDate);
+        }
+
+        return headerString;
     },
 
      &#x2F;**
-     * A rendering assist method that initializes the calendar header HTML 
+     * A rendering assist method that initializes the calendar header HTML
      * based on a given date and potentially the provided headerRenderer.
      * @method _updateCalendarHeader
      * @param {Date} baseDate The date with which to initialize the calendar header.
      * @private
-     *&#x2F; 
+     *&#x2F;
     _initCalendarHeader : function (baseDate) {
-      return substitute(substitute(CalendarBase.HEADER_TEMPLATE, 
-                                 {calheader: this._updateCalendarHeader(baseDate),
-                                  calendar_id: this._calendarId}), 
-                      CalendarBase.CALENDAR_STRINGS);
+        return substitute(substitute(CalendarBase.HEADER_TEMPLATE, {
+                calheader: this._updateCalendarHeader(baseDate),
+                calendar_id: this._calendarId
+            }), CalendarBase.CALENDAR_STRINGS );
     },
 
      &#x2F;**
-     * A rendering assist method that initializes the calendar HTML 
+     * A rendering assist method that initializes the calendar HTML
      * based on a given date.
      * @method _initCalendarHTML
      * @param {Date} baseDate The date with which to initialize the calendar.
      * @private
-     *&#x2F;          
+     *&#x2F;
     _initCalendarHTML : function (baseDate) {
         &#x2F;&#x2F; Instantiate the partials holder
         var partials = {},
             &#x2F;&#x2F; Counter for iterative template replacement.
-            counter = 0;
-        
-        &#x2F;&#x2F; Generate the template for the header   
-        partials[&quot;header_template&quot;] =  this._initCalendarHeader(baseDate);
-        partials[&quot;calendar_id&quot;] = this._calendarId;
+            counter = 0,
+            singlePane,
+            output;
 
-          partials[&quot;body_template&quot;] = substitute(substitute (CalendarBase.CONTENT_TEMPLATE, partials),
-                                             CalendarBase.CALENDAR_STRINGS);
- 
-        &#x2F;&#x2F; Instantiate the iterative template replacer function        
+        &#x2F;&#x2F; Generate the template for the header
+        partials.header_template =  this._initCalendarHeader(baseDate);
+        partials.calendar_id = this._calendarId;
+
+        partials.body_template = substitute(substitute (CalendarBase.CONTENT_TEMPLATE, partials),
+                                                                                 CalendarBase.CALENDAR_STRINGS);
+
+        &#x2F;&#x2F; Instantiate the iterative template replacer function
         function paneReplacer () {
-          var singlePane = this._initCalendarPane(ydate.addMonths(baseDate, counter), partials[&quot;calendar_id&quot;]+&quot;_pane_&quot;+counter);
-          counter++;
-          return singlePane;
+            singlePane = this._initCalendarPane(ydate.addMonths(baseDate, counter), partials.calendar_id + &quot;_pane_&quot; + counter);
+            counter++;
+            return singlePane;
         }
+
         &#x2F;&#x2F; Go through all occurrences of the calendar_grid_template token and replace it with an appropriate calendar grid.
-        var output = partials[&quot;body_template&quot;].replace(&#x2F;\{calendar_grid_template\}&#x2F;g, Y.bind(paneReplacer, this));
+        output = partials.body_template.replace(&#x2F;\{calendar_grid_template\}&#x2F;g, Y.bind(paneReplacer, this));
 
         &#x2F;&#x2F; Update the paneNumber count
         this._paneNumber = counter;
 
-    return output;
-  }
-}, {
-  
-   &#x2F;**
-    * The CSS classnames for the calendar templates.
-    * @property CALENDAR_STRINGS
-    * @type Object
-    * @readOnly
-    * @protected
-    * @static
-    *&#x2F;  
-  CALENDAR_STRINGS: {
-    calendar_grid_class       : CAL_GRID,
-    calendar_body_class       : CAL_BODY,
-    calendar_hd_class         : CAL_HD,
-    calendar_hd_label_class   : CAL_HD_LABEL,
-    calendar_weekdayrow_class : CAL_WDAYROW,
-    calendar_weekday_class    : CAL_WDAY,
-    calendar_row_class        : CAL_ROW,
-    calendar_day_class        : CAL_DAY,
-    calendar_dayanchor_class  : CAL_ANCHOR,
-    calendar_pane_class       : CAL_PANE,
-    calendar_right_grid_class : CAL_RIGHT_GRID,
-    calendar_left_grid_class  : CAL_LEFT_GRID,
-    calendar_status_class     : CAL_STATUS
-  },
-
-  &#x2F;*
-
-  ARIA_STATUS_TEMPLATE: &#x27;&lt;div role=&quot;status&quot; aria-atomic=&quot;true&quot; class=&quot;{calendar_status_class}&quot;&gt;&lt;&#x2F;div&gt;&#x27;,
-
-  AriaStatus : null,
-
-  updateStatus : function (statusString) {
-
-    if (!CalendarBase.AriaStatus) {
-      CalendarBase.AriaStatus = create(
-                             substitute (CalendarBase.ARIA_STATUS_TEMPLATE, 
-                                         CalendarBase.CALENDAR_STRINGS));
-      Y.one(&quot;body&quot;).append(CalendarBase.AriaStatus);
+        return output;
     }
+}, {
 
-      CalendarBase.AriaStatus.set(&quot;text&quot;, statusString);
-  },
+     &#x2F;**
+        * The CSS classnames for the calendar templates.
+        * @property CALENDAR_STRINGS
+        * @type Object
+        * @readOnly
+        * @protected
+        * @static
+        *&#x2F;
+    CALENDAR_STRINGS: {
+        calendar_grid_class       : CAL_GRID,
+        calendar_body_class       : CAL_BODY,
+        calendar_hd_class         : CAL_HD,
+        calendar_hd_label_class   : CAL_HD_LABEL,
+        calendar_weekdayrow_class : CAL_WDAYROW,
+        calendar_weekday_class    : CAL_WDAY,
+        calendar_row_class        : CAL_ROW,
+        calendar_day_class        : CAL_DAY,
+        calendar_dayanchor_class  : CAL_ANCHOR,
+        calendar_pane_class       : CAL_PANE,
+        calendar_right_grid_class : CAL_RIGHT_GRID,
+        calendar_left_grid_class  : CAL_LEFT_GRID,
+        calendar_status_class     : CAL_STATUS
+    },
 
-  *&#x2F;
+    &#x2F;*
 
-   &#x2F;**
-    * The main content template for calendar.
-    * @property CONTENT_TEMPLATE
-    * @type String
-    * @protected
-    * @static
-    *&#x2F;  
-  CONTENT_TEMPLATE:  &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +  
-                              &#x27;{header_template}&#x27; +
+    ARIA_STATUS_TEMPLATE: &#x27;&lt;div role=&quot;status&quot; aria-atomic=&quot;true&quot; class=&quot;{calendar_status_class}&quot;&gt;&lt;&#x2F;div&gt;&#x27;,
+
+    AriaStatus : null,
+
+    updateStatus : function (statusString) {
+
+        if (!CalendarBase.AriaStatus) {
+            CalendarBase.AriaStatus = create(
+                                                         substitute (CalendarBase.ARIA_STATUS_TEMPLATE,
+                                                                                 CalendarBase.CALENDAR_STRINGS));
+            Y.one(&quot;body&quot;).append(CalendarBase.AriaStatus);
+        }
+
+            CalendarBase.AriaStatus.set(&quot;text&quot;, statusString);
+    },
+
+    *&#x2F;
+
+     &#x2F;**
+        * The main content template for calendar.
+        * @property CONTENT_TEMPLATE
+        * @type String
+        * @protected
+        * @static
+        *&#x2F;
+    CONTENT_TEMPLATE:  &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +
+                        &#x27;{header_template}&#x27; +
+                        &#x27;&lt;div class=&quot;yui3-u-1&quot;&gt;&#x27; +
+                        &#x27;{calendar_grid_template}&#x27; +
+                        &#x27;&lt;&#x2F;div&gt;&#x27; +
+                        &#x27;&lt;&#x2F;div&gt;&#x27;,
+
+     &#x2F;**
+        * A single pane template for calendar (same as default CONTENT_TEMPLATE)
+        * @property ONE_PANE_TEMPLATE
+        * @type String
+        * @protected
+        * @readOnly
+        * @static
+        *&#x2F;
+    ONE_PANE_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +
+                            &#x27;{header_template}&#x27; +
                             &#x27;&lt;div class=&quot;yui3-u-1&quot;&gt;&#x27; +
-                              &#x27;{calendar_grid_template}&#x27; +
+                                &#x27;{calendar_grid_template}&#x27; +
                             &#x27;&lt;&#x2F;div&gt;&#x27; +
-                 &#x27;&lt;&#x2F;div&gt;&#x27;,
+                        &#x27;&lt;&#x2F;div&gt;&#x27;,
 
-   &#x2F;**
-    * A single pane template for calendar (same as default CONTENT_TEMPLATE)
-    * @property ONE_PANE_TEMPLATE
-    * @type String
-    * @protected
-    * @readOnly
-    * @static
-    *&#x2F;  
-  ONE_PANE_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +  
-                              &#x27;{header_template}&#x27; +
-                            &#x27;&lt;div class=&quot;yui3-u-1&quot;&gt;&#x27; +
-                              &#x27;{calendar_grid_template}&#x27; +
-                            &#x27;&lt;&#x2F;div&gt;&#x27; +
-                 &#x27;&lt;&#x2F;div&gt;&#x27;,
-
-   &#x2F;**
-    * A two pane template for calendar.
-    * @property TWO_PANE_TEMPLATE
-    * @type String
-    * @protected
-    * @readOnly
-    * @static
-    *&#x2F;  
-  TWO_PANE_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +  
-                              &#x27;{header_template}&#x27; +
+     &#x2F;**
+        * A two pane template for calendar.
+        * @property TWO_PANE_TEMPLATE
+        * @type String
+        * @protected
+        * @readOnly
+        * @static
+        *&#x2F;
+    TWO_PANE_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +
+                            &#x27;{header_template}&#x27; +
                             &#x27;&lt;div class=&quot;yui3-u-1-2&quot;&gt;&#x27;+
-                                    &#x27;&lt;div class = &quot;{calendar_left_grid_class}&quot;&gt;&#x27; +                                  
-                                 &#x27;{calendar_grid_template}&#x27; +
-                                    &#x27;&lt;&#x2F;div&gt;&#x27; +
+                                &#x27;&lt;div class = &quot;{calendar_left_grid_class}&quot;&gt;&#x27; +
+                                    &#x27;{calendar_grid_template}&#x27; +
+                                &#x27;&lt;&#x2F;div&gt;&#x27; +
                             &#x27;&lt;&#x2F;div&gt;&#x27; +
                             &#x27;&lt;div class=&quot;yui3-u-1-2&quot;&gt;&#x27; +
-                                    &#x27;&lt;div class = &quot;{calendar_right_grid_class}&quot;&gt;&#x27; +
-                                 &#x27;{calendar_grid_template}&#x27; +
-                                    &#x27;&lt;&#x2F;div&gt;&#x27; +
-                            &#x27;&lt;&#x2F;div&gt;&#x27; +                   
-                 &#x27;&lt;&#x2F;div&gt;&#x27;,
-   &#x2F;**
-    * A three pane template for calendar.
-    * @property THREE_PANE_TEMPLATE
-    * @type String
-    * @protected
-    * @readOnly
-    * @static
-    *&#x2F;  
-  THREE_PANE_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +  
-                              &#x27;{header_template}&#x27; +
+                                &#x27;&lt;div class = &quot;{calendar_right_grid_class}&quot;&gt;&#x27; +
+                                    &#x27;{calendar_grid_template}&#x27; +
+                                &#x27;&lt;&#x2F;div&gt;&#x27; +
+                            &#x27;&lt;&#x2F;div&gt;&#x27; +
+                        &#x27;&lt;&#x2F;div&gt;&#x27;,
+     &#x2F;**
+        * A three pane template for calendar.
+        * @property THREE_PANE_TEMPLATE
+        * @type String
+        * @protected
+        * @readOnly
+        * @static
+        *&#x2F;
+    THREE_PANE_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_pane_class}&quot; id=&quot;{calendar_id}&quot;&gt;&#x27; +
+                            &#x27;{header_template}&#x27; +
                             &#x27;&lt;div class=&quot;yui3-u-1-3&quot;&gt;&#x27; +
-                                    &#x27;&lt;div class = &quot;{calendar_left_grid_class}&quot;&gt;&#x27; +
-                                 &#x27;{calendar_grid_template}&#x27; +
-                                    &#x27;&lt;&#x2F;div&gt;&#x27; + 
+                                &#x27;&lt;div class=&quot;{calendar_left_grid_class}&quot;&gt;&#x27; +
+                                    &#x27;{calendar_grid_template}&#x27; +
+                                &#x27;&lt;&#x2F;div&gt;&#x27; +
                             &#x27;&lt;&#x2F;div&gt;&#x27; +
                             &#x27;&lt;div class=&quot;yui3-u-1-3&quot;&gt;&#x27; +
-                                 &#x27;{calendar_grid_template}&#x27; +
-                            &#x27;&lt;&#x2F;div&gt;&#x27; +      
+                                &#x27;{calendar_grid_template}&#x27; +
+                            &#x27;&lt;&#x2F;div&gt;&#x27; +
                             &#x27;&lt;div class=&quot;yui3-u-1-3&quot;&gt;&#x27; +
-                                    &#x27;&lt;div class = &quot;{calendar_right_grid_class}&quot;&gt;&#x27; +
-                                 &#x27;{calendar_grid_template}&#x27; +
-                                    &#x27;&lt;&#x2F;div&gt;&#x27; + 
-                            &#x27;&lt;&#x2F;div&gt;&#x27; +                                             
-                 &#x27;&lt;&#x2F;div&gt;&#x27;,
-   &#x2F;**
-    * A template for the calendar grid.
-    * @property CALENDAR_GRID_TEMPLATE
-    * @type String
-    * @protected
-    * @static
-    *&#x2F;    
-  CALENDAR_GRID_TEMPLATE: &#x27;&lt;table class=&quot;{calendar_grid_class}&quot; id=&quot;{calendar_pane_id}&quot; role=&quot;grid&quot; aria-readonly=&quot;true&quot; aria-label=&quot;{pane_arialabel}&quot; tabindex=&quot;{calendar_pane_tabindex}&quot;&gt;&#x27; + 
-                           &#x27;&lt;thead&gt;&#x27; +
-                        &#x27;{weekday_row_template}&#x27; +
-                           &#x27;&lt;&#x2F;thead&gt;&#x27; +
-                           &#x27;&lt;tbody&gt;&#x27; + 
-                            &#x27;{body_template}&#x27; +
-                           &#x27;&lt;&#x2F;tbody&gt;&#x27; +
-                          &#x27;&lt;&#x2F;table&gt;&#x27;,
+                                &#x27;&lt;div class=&quot;{calendar_right_grid_class}&quot;&gt;&#x27; +
+                                    &#x27;{calendar_grid_template}&#x27; +
+                                &#x27;&lt;&#x2F;div&gt;&#x27; +
+                            &#x27;&lt;&#x2F;div&gt;&#x27; +
+                        &#x27;&lt;&#x2F;div&gt;&#x27;,
+     &#x2F;**
+        * A template for the calendar grid.
+        * @property CALENDAR_GRID_TEMPLATE
+        * @type String
+        * @protected
+        * @static
+        *&#x2F;
+    CALENDAR_GRID_TEMPLATE: &#x27;&lt;table class=&quot;{calendar_grid_class}&quot; id=&quot;{calendar_pane_id}&quot; role=&quot;grid&quot; aria-readonly=&quot;true&quot; &#x27; +
+                                &#x27;aria-label=&quot;{pane_arialabel}&quot; tabindex=&quot;{calendar_pane_tabindex}&quot;&gt;&#x27; +
+                                &#x27;&lt;thead&gt;&#x27; +
+                                    &#x27;{weekday_row_template}&#x27; +
+                                &#x27;&lt;&#x2F;thead&gt;&#x27; +
+                                &#x27;&lt;tbody&gt;&#x27; +
+                                    &#x27;{body_template}&#x27; +
+                                &#x27;&lt;&#x2F;tbody&gt;&#x27; +
+                            &#x27;&lt;&#x2F;table&gt;&#x27;,
 
-   &#x2F;**
-    * A template for the calendar header.
-    * @property HEADER_TEMPLATE
-    * @type String
-    * @protected
-    * @static
-    *&#x2F;   
-  HEADER_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_hd_class}&quot;&gt;&#x27; + 
-                         &#x27;&lt;div class=&quot;yui3-u {calendar_hd_label_class}&quot; id=&quot;{calendar_id}_header&quot; aria-role=&quot;heading&quot;&gt;&#x27; + 
-                              &#x27;{calheader}&#x27; +
-                         &#x27;&lt;&#x2F;div&gt;&#x27; +
-                   &#x27;&lt;&#x2F;div&gt;&#x27;,
+     &#x2F;**
+        * A template for the calendar header.
+        * @property HEADER_TEMPLATE
+        * @type String
+        * @protected
+        * @static
+        *&#x2F;
+    HEADER_TEMPLATE: &#x27;&lt;div class=&quot;yui3-g {calendar_hd_class}&quot;&gt;&#x27; +
+                        &#x27;&lt;div class=&quot;yui3-u {calendar_hd_label_class}&quot; id=&quot;{calendar_id}_header&quot; aria-role=&quot;heading&quot;&gt;&#x27; +
+                            &#x27;{calheader}&#x27; +
+                        &#x27;&lt;&#x2F;div&gt;&#x27; +
+                    &#x27;&lt;&#x2F;div&gt;&#x27;,
 
-   &#x2F;**
-    * A template for the row of weekday names.
-    * @property WEEKDAY_ROW_TEMPLATE
-    * @type String
-    * @protected
-    * @static
-    *&#x2F; 
-  WEEKDAY_ROW_TEMPLATE: &#x27;&lt;tr class=&quot;{calendar_weekdayrow_class}&quot; role=&quot;row&quot;&gt;&#x27; + 
-                           &#x27;{weekday_row}&#x27; +
-              &#x27;&lt;&#x2F;tr&gt;&#x27;,
+     &#x2F;**
+        * A template for the row of weekday names.
+        * @property WEEKDAY_ROW_TEMPLATE
+        * @type String
+        * @protected
+        * @static
+        *&#x2F;
+    WEEKDAY_ROW_TEMPLATE: &#x27;&lt;tr class=&quot;{calendar_weekdayrow_class}&quot; role=&quot;row&quot;&gt;&#x27; +
+                            &#x27;{weekday_row}&#x27; +
+                        &#x27;&lt;&#x2F;tr&gt;&#x27;,
 
-   &#x2F;**
-    * A template for a single row of calendar days.
-    * @property CALDAY_ROW_TEMPLATE
-    * @type String
-    * @protected
-    * @static
-    *&#x2F; 
-  CALDAY_ROW_TEMPLATE: &#x27;&lt;tr class=&quot;{calendar_row_class}&quot; role=&quot;row&quot;&gt;&#x27; + 
-                 &#x27;{calday_row}&#x27; + 
-              &#x27;&lt;&#x2F;tr&gt;&#x27;,
+     &#x2F;**
+        * A template for a single row of calendar days.
+        * @property CALDAY_ROW_TEMPLATE
+        * @type String
+        * @protected
+        * @static
+        *&#x2F;
+    CALDAY_ROW_TEMPLATE: &#x27;&lt;tr class=&quot;{calendar_row_class}&quot; role=&quot;row&quot;&gt;&#x27; +
+                            &#x27;{calday_row}&#x27; +
+                        &#x27;&lt;&#x2F;tr&gt;&#x27;,
 
-   &#x2F;**
-    * A template for a single cell with a weekday name.
-    * @property CALDAY_ROW_TEMPLATE
-    * @type String
-    * @protected
-    * @static
-    *&#x2F; 
-  WEEKDAY_TEMPLATE: &#x27;&lt;th class=&quot;{calendar_weekday_class}&quot; role=&quot;columnheader&quot; aria-label=&quot;{full_weekdayname}&quot;&gt;{weekdayname}&lt;&#x2F;th&gt;&#x27;,
+     &#x2F;**
+        * A template for a single cell with a weekday name.
+        * @property CALDAY_ROW_TEMPLATE
+        * @type String
+        * @protected
+        * @static
+        *&#x2F;
+    WEEKDAY_TEMPLATE: &#x27;&lt;th class=&quot;{calendar_weekday_class}&quot; role=&quot;columnheader&quot; aria-label=&quot;{full_weekdayname}&quot;&gt;{weekdayname}&lt;&#x2F;th&gt;&#x27;,
 
-   &#x2F;**
-    * A template for a single cell with a calendar day.
-    * @property CALDAY_TEMPLATE
-    * @type String
-    * @protected
-    * @static
-    *&#x2F; 
-  CALDAY_TEMPLATE: &#x27;&lt;td class=&quot;{calendar_col_class} {calendar_day_class} {calendar_col_visibility_class}&quot; id=&quot;{calendar_day_id}&quot; role=&quot;gridcell&quot; tabindex=&quot;-1&quot;&gt;&#x27; +
-                       &#x27;{day_content}&#x27; + 
-                   &#x27;&lt;&#x2F;td&gt;&#x27;,
+     &#x2F;**
+        * A template for a single cell with a calendar day.
+        * @property CALDAY_TEMPLATE
+        * @type String
+        * @protected
+        * @static
+        *&#x2F;
+    CALDAY_TEMPLATE: &#x27;&lt;td class=&quot;{calendar_col_class} {calendar_day_class} {calendar_col_visibility_class}&quot; id=&quot;{calendar_day_id}&quot; &#x27; +
+                        &#x27;role=&quot;gridcell&quot; tabindex=&quot;-1&quot;&gt;&#x27; +
+                        &#x27;{day_content}&#x27; +
+                    &#x27;&lt;&#x2F;td&gt;&#x27;,
 
-   &#x2F;**
-    * The identity of the widget.
-    *
-    * @property NAME
-    * @type String
-    * @default &#x27;calendarBase&#x27;
-    * @readOnly
-    * @protected
-    * @static
-    *&#x2F;  
-  NAME: &#x27;calendarBase&#x27;,
+     &#x2F;**
+        * The identity of the widget.
+        *
+        * @property NAME
+        * @type String
+        * @default &#x27;calendarBase&#x27;
+        * @readOnly
+        * @protected
+        * @static
+        *&#x2F;
+    NAME: &#x27;calendarBase&#x27;,
 
-   &#x2F;**
-    * Static property used to define the default attribute configuration of
-    * the Widget.
-    *
-    * @property ATTRS
-    * @type {Object}
-    * @protected
-    * @static
-    *&#x2F;  
-  ATTRS: {
-    tabIndex: {
-      value: 1
-    },
-    &#x2F;**
-     * The date corresponding to the current calendar view. Always
-     * normalized to the first of the month that contains the date
-     * at assignment time. Used as the first date visible in the
-     * calendar.
-     *
-     * @attribute date
-     * @type Date
-     * @default The first of the month containing today&#x27;s date, as
-     * set on the end user&#x27;s system.
-     *&#x2F;
-    date: {
-      value: new Date(),
-      setter: function (val) {
-        var newDate = this._normalizeDate(val);
-        if (ydate.areEqual(newDate, this.get(&#x27;date&#x27;))) {
-            return this.get(&#x27;date&#x27;);
-        }
-        else {
-            return newDate;
-        }
-      }
-      },
+     &#x2F;**
+        * Static property used to define the default attribute configuration of
+        * the Widget.
+        *
+        * @property ATTRS
+        * @type {Object}
+        * @protected
+        * @static
+        *&#x2F;
+    ATTRS: {
+        tabIndex: {
+            value: 1
+        },
+        &#x2F;**
+         * The date corresponding to the current calendar view. Always
+         * normalized to the first of the month that contains the date
+         * at assignment time. Used as the first date visible in the
+         * calendar.
+         *
+         * @attribute date
+         * @type Date
+         * @default The first of the month containing today&#x27;s date, as
+         * set on the end user&#x27;s system.
+         *&#x2F;
+        date: {
+            value: new Date(),
+            setter: function (val) {
+                var newDate = this._normalizeDate(val);
+                if (ydate.areEqual(newDate, this.get(&#x27;date&#x27;))) {
+                        return this.get(&#x27;date&#x27;);
+                } else {
+                        return newDate;
+                }
+            }
+        },
 
-    &#x2F;**
-     * A setting specifying whether to shows days from the previous
-     * month in the visible month&#x27;s grid, if there are empty preceding
-     * cells available.
-     *
-     * @attribute showPrevMonth
-     * @type boolean
-     * @default false
-     *&#x2F;
-    showPrevMonth: {
-      value: false
-    },
+        &#x2F;**
+         * A setting specifying whether to shows days from the previous
+         * month in the visible month&#x27;s grid, if there are empty preceding
+         * cells available.
+         *
+         * @attribute showPrevMonth
+         * @type boolean
+         * @default false
+         *&#x2F;
+        showPrevMonth: {
+            value: false
+        },
 
-    &#x2F;**
-     * A setting specifying whether to shows days from the next
-     * month in the visible month&#x27;s grid, if there are empty
-     * cells available at the end.
-     *
-     * @attribute showNextMonth
-     * @type boolean
-     * @default false
-     *&#x2F;
-    showNextMonth: {
-      value: false
-    },
+        &#x2F;**
+         * A setting specifying whether to shows days from the next
+         * month in the visible month&#x27;s grid, if there are empty
+         * cells available at the end.
+         *
+         * @attribute showNextMonth
+         * @type boolean
+         * @default false
+         *&#x2F;
+        showNextMonth: {
+            value: false
+        },
 
-    &#x2F;**
-     * Strings and properties derived from the internationalization packages
-     * for the calendar.
-     *
-     * @attribute strings
-     * @type Object
-     * @protected
-     *&#x2F;
-    strings : {
+        &#x2F;**
+         * Strings and properties derived from the internationalization packages
+         * for the calendar.
+         *
+         * @attribute strings
+         * @type Object
+         * @protected
+         *&#x2F;
+        strings : {
             valueFn: function() { return Y.Intl.get(&quot;calendar-base&quot;); }
         },
 
-    &#x2F;**
-     * Custom header renderer for the calendar.
-     *
-     * @attribute headerRenderer
-     * @type String | Function
-     *&#x2F;
+        &#x2F;**
+         * Custom header renderer for the calendar.
+         *
+         * @attribute headerRenderer
+         * @type String | Function
+         *&#x2F;
         headerRenderer: {
             value: &quot;%B %Y&quot;
         },
 
-    &#x2F;**
-     * The name of the rule which all enabled dates should match.
-     * Either disabledDatesRule or enabledDatesRule should be specified,
-     * or neither, but not both.
-     *
-     * @attribute enabledDatesRule
-     * @type String
-     * @default null
-     *&#x2F;
+        &#x2F;**
+         * The name of the rule which all enabled dates should match.
+         * Either disabledDatesRule or enabledDatesRule should be specified,
+         * or neither, but not both.
+         *
+         * @attribute enabledDatesRule
+         * @type String
+         * @default null
+         *&#x2F;
         enabledDatesRule: {
             value: null
         },
 
-    &#x2F;**
-     * The name of the rule which all disabled dates should match.
-     * Either disabledDatesRule or enabledDatesRule should be specified,
-     * or neither, but not both.
-     *
-     * @attribute disabledDatesRule
-     * @type String
-     * @default null
-     *&#x2F;
+        &#x2F;**
+         * The name of the rule which all disabled dates should match.
+         * Either disabledDatesRule or enabledDatesRule should be specified,
+         * or neither, but not both.
+         *
+         * @attribute disabledDatesRule
+         * @type String
+         * @default null
+         *&#x2F;
         disabledDatesRule: {
             value: null
         },
 
-    &#x2F;**
-     * A read-only attribute providing a list of currently selected dates.
-     *
-     * @attribute selectedDates
-     * @readOnly
-     * @type Array
-     *&#x2F;
+        &#x2F;**
+         * A read-only attribute providing a list of currently selected dates.
+         *
+         * @attribute selectedDates
+         * @readOnly
+         * @type Array
+         *&#x2F;
         selectedDates : {
-          readOnly: true,
-          getter: function (val) {
-            return (this._getSelectedDatesList());
-          }
+            readOnly: true,
+            getter: function () {
+                return (this._getSelectedDatesList());
+            }
         },
 
-    &#x2F;**
-     * An object of the form {rules:Object, filterFunction:Function},
-     * providing  set of rules and a custom rendering function for 
-     * customizing specific calendar cells.
-     *
-     * @attribute customRenderer
-     * @readOnly
-     * @type Object
-     * @default {}
-     *&#x2F;
+        &#x2F;**
+         * An object of the form {rules:Object, filterFunction:Function},
+         * providing  set of rules and a custom rendering function for
+         * customizing specific calendar cells.
+         *
+         * @attribute customRenderer
+         * @readOnly
+         * @type Object
+         * @default {}
+         *&#x2F;
         customRenderer : {
             lazyAdd: false,
             value: {},
@@ -3083,8 +3103,8 @@ Y.CalendarBase = Y.extend( CalendarBase, Y.Widget, {
                 this._filterFunction = val.filterFunction;
             }
         }
-  }
-  
+    }
+
 });
 
     </pre>

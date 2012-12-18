@@ -2065,7 +2065,11 @@ ChartBase.prototype = {
                 Y.delegate(&quot;touchend&quot;, Y.bind(this._markerEventDispatcher, this), cb, markerClassName);
                 &#x2F;&#x2F;hide active tooltip if the chart is touched
                 Y.on(&quot;touchend&quot;, Y.bind(function(e) {
-                    e.halt(true);
+                    &#x2F;&#x2F;only halt the event if it originated from the chart
+                    if(cb.contains(e.target))
+                    {
+                        e.halt(true);
+                    }
                     if(this._activeMarker)
                     {
                         this._activeMarker = null;

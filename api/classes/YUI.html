@@ -1465,7 +1465,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l14"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:14</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l15"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:15</code></a>
         </div>
     
 
@@ -1482,37 +1482,39 @@
 
 
 <div class="box intro">
-    <p>The YUI global namespace object.  If YUI is already defined, the
-existing YUI object will not be overwritten so that defined
-namespaces are preserved.  It is the constructor for the object
-the end user interacts with.  As indicated below, each instance
-has full custom event support, but only if the event system
-is available.  This is a self-instantiable factory function.  You
-can invoke it directly like this:</p>
+    <p>The YUI global namespace object. This is the constructor for all YUI instances.</p>
 
-<pre class="code prettyprint"><code> YUI().use('*', function(Y) {
-     // ready
- });
+<p>This is a self-instantiable factory function, meaning you don't need to precede
+it with the <code>new</code> operator. You can invoke it directly like this:</p>
+
+<pre class="code prettyprint"><code>YUI().use('*', function (Y) {
+    // Y is a new YUI instance.
+});
 </code></pre>
 
 <p>But it also works like this:</p>
 
-<pre class="code prettyprint"><code> var Y = YUI();
+<pre class="code prettyprint"><code>var Y = YUI();
 </code></pre>
 
-<p>Configuring the YUI object:</p>
+<p>The <code>YUI</code> constructor accepts an optional config object, like this:</p>
 
 <pre class="code prettyprint"><code>YUI({
     debug: true,
     combine: false
-}).use('node', function(Y) {
-    //Node is ready to use
+}).use('node', function (Y) {
+    // Y.Node is ready to use.
 });
 </code></pre>
 
-<p>See the API docs for the <a href="config.html">Config</a> class
-for the complete list of supported configuration properties accepted
-by the YUI constuctor.</p>
+<p>See the API docs for the <a href="config.html">Config</a> class for the complete
+list of supported configuration properties accepted by the YUI constuctor.</p>
+
+<p>If a global <code>YUI</code> object is already defined, the existing YUI object will not be
+overwritten, to ensure that defined namespaces are preserved.</p>
+
+<p>Each YUI instance has full custom event support, but only if the event system is
+available.</p>
 </div>
 
 
@@ -1527,7 +1529,7 @@ by the YUI constuctor.</p>
             
                 <li class="arg">
                     
-                        <code class="optional">[o]</code>
+                        <code class="optional">[config]</code>
                     
                 </li>
             
@@ -1560,7 +1562,7 @@ by the YUI constuctor.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l14"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:14</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l15"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:15</code></a>
         
         </p>
 
@@ -1582,7 +1584,7 @@ by the YUI constuctor.</p>
             
                 <li class="param">
                     
-                        <code class="param-name optional">[o]</code>
+                        <code class="param-name optional">[config]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
@@ -1592,9 +1594,9 @@ by the YUI constuctor.</p>
                     
 
                     <div class="param-description">
-                        <p>0..n optional configuration objects.  these values
-are store in Y.config.  See <a href="config.html">Config</a> for the list of supported
-properties.</p>
+                        <p>Zero or more optional configuration objects. Config
+    values are stored in the <code>Y.config</code> property. See the
+    <a href="config.html">Config</a> docs for the list of supported properties.</p>
                     </div>
 
                     
@@ -2772,7 +2774,7 @@ properties.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l620"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:620</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l646"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:646</code></a>
         
         </p>
 
@@ -2783,8 +2785,8 @@ properties.</p>
     </div>
 
     <div class="description">
-        <p>Executes the function associated with each required
-module, binding the module to the YUI instance.</p>
+        <p>Executes the callback function associated with each required module,
+attaching the module to this YUI instance.</p>
     </div>
 
     
@@ -2818,7 +2820,8 @@ module, binding the module to the YUI instance.</p>
                     
 
                     <div class="param-description">
-                        <p>Don't throw a warning if the module is not attached</p>
+                        <p>If <code>true</code>, don't throw a warning if the module
+    is not attached.</p>
                     </div>
 
                     
@@ -2884,7 +2887,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l620"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:620</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l646"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:646</code></a>
         
         </p>
 
@@ -2895,8 +2898,8 @@ module, binding the module to the YUI instance.</p>
     </div>
 
     <div class="description">
-        <p>Executes the function associated with each required
-module, binding the module to the YUI instance.</p>
+        <p>Executes the callback function associated with each required module,
+attaching the module to this YUI instance.</p>
     </div>
 
     
@@ -2930,7 +2933,8 @@ module, binding the module to the YUI instance.</p>
                     
 
                     <div class="param-description">
-                        <p>Don't throw a warning if the module is not attached</p>
+                        <p>If <code>true</code>, don't throw a warning if the module
+    is not attached.</p>
                     </div>
 
                     
@@ -2990,7 +2994,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l299"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:299</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l302"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:302</code></a>
         
         </p>
 
@@ -3001,7 +3005,8 @@ module, binding the module to the YUI instance.</p>
     </div>
 
     <div class="description">
-        <p>Old way to apply a config to the instance (calls <code>applyConfig</code> under the hood)</p>
+        <p>Old way to apply a config to this instance (calls <code>applyConfig</code> under the
+hood).</p>
     </div>
 
     
@@ -3079,7 +3084,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l299"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:299</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l302"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:302</code></a>
         
         </p>
 
@@ -3090,7 +3095,8 @@ module, binding the module to the YUI instance.</p>
     </div>
 
     <div class="description">
-        <p>Old way to apply a config to the instance (calls <code>applyConfig</code> under the hood)</p>
+        <p>Old way to apply a config to this instance (calls <code>applyConfig</code> under the
+hood).</p>
     </div>
 
     
@@ -3148,6 +3154,10 @@ module, binding the module to the YUI instance.</p>
     
 
     
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+        </span>
+    
 
     
 
@@ -3174,7 +3184,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l776"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:776</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l805"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:805</code></a>
         
         </p>
 
@@ -3185,7 +3195,8 @@ module, binding the module to the YUI instance.</p>
     </div>
 
     <div class="description">
-        <p>Delays the <code>use</code> callback until another event has taken place. Like: window.onload, domready, contentready, available.</p>
+        <p>Delays the <code>use</code> callback until another event has taken place such as
+<code>window.onload</code>, <code>domready</code>, <code>contentready</code>, or <code>available</code>.</p>
     </div>
 
     
@@ -3197,13 +3208,13 @@ module, binding the module to the YUI instance.</p>
                 <li class="param">
                     
                         <code class="param-name">cb</code>
-                        <span class="type">Callback</span>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The original <code>use</code> callback</p>
+                        <p>The original <code>use</code> callback.</p>
                     </div>
 
                     
@@ -3218,7 +3229,8 @@ module, binding the module to the YUI instance.</p>
                     
 
                     <div class="param-description">
-                        <p>Either an event (load, domready) or an Object containing event/args keys for contentready/available</p>
+                        <p>Either an event name ('load', 'domready', etc.)
+    or an object containing event/args keys for contentready/available.</p>
                     </div>
 
                     
@@ -3228,6 +3240,18 @@ module, binding the module to the YUI instance.</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -3258,6 +3282,10 @@ module, binding the module to the YUI instance.</p>
     
 
     
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+        </span>
+    
 
     
 
@@ -3284,7 +3312,7 @@ module, binding the module to the YUI instance.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l776"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:776</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l805"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:805</code></a>
         
         </p>
 
@@ -3295,7 +3323,8 @@ module, binding the module to the YUI instance.</p>
     </div>
 
     <div class="description">
-        <p>Delays the <code>use</code> callback until another event has taken place. Like: window.onload, domready, contentready, available.</p>
+        <p>Delays the <code>use</code> callback until another event has taken place such as
+<code>window.onload</code>, <code>domready</code>, <code>contentready</code>, or <code>available</code>.</p>
     </div>
 
     
@@ -3307,13 +3336,13 @@ module, binding the module to the YUI instance.</p>
                 <li class="param">
                     
                         <code class="param-name">cb</code>
-                        <span class="type">Callback</span>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The original <code>use</code> callback</p>
+                        <p>The original <code>use</code> callback.</p>
                     </div>
 
                     
@@ -3328,7 +3357,8 @@ module, binding the module to the YUI instance.</p>
                     
 
                     <div class="param-description">
-                        <p>Either an event (load, domready) or an Object containing event/args keys for contentready/available</p>
+                        <p>Either an event name ('load', 'domready', etc.)
+    or an object containing event/args keys for contentready/available.</p>
                     </div>
 
                     
@@ -3338,6 +3368,18 @@ module, binding the module to the YUI instance.</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -3436,7 +3478,7 @@ applied to the supplied type.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l309"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:309</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l314"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:314</code></a>
         
         </p>
 
@@ -3447,7 +3489,7 @@ applied to the supplied type.</p>
     </div>
 
     <div class="description">
-        <p>Initialize this YUI instance</p>
+        <p>Initializes this YUI instance.</p>
     </div>
 
     
@@ -3492,7 +3534,7 @@ applied to the supplied type.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l309"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:309</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l314"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:314</code></a>
         
         </p>
 
@@ -3503,7 +3545,7 @@ applied to the supplied type.</p>
     </div>
 
     <div class="description">
-        <p>Initialize this YUI instance</p>
+        <p>Initializes this YUI instance.</p>
     </div>
 
     
@@ -3709,7 +3751,7 @@ it published) by setting the events 'monitor' config.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l908"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:908</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l957"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:957</code></a>
         
         </p>
 
@@ -3720,7 +3762,7 @@ it published) by setting the events 'monitor' config.</p>
     </div>
 
     <div class="description">
-        <p>Notify handler from Loader for attachment/load errors</p>
+        <p>Handles Loader notifications about attachment/load errors.</p>
     </div>
 
     
@@ -3738,7 +3780,7 @@ it published) by setting the events 'monitor' config.</p>
                     
 
                     <div class="param-description">
-                        <p>The callback to pass to the <code>Y.config.loadErrorFn</code></p>
+                        <p>Callback to pass to <code>Y.config.loadErrorFn</code>.</p>
                     </div>
 
                     
@@ -3753,7 +3795,7 @@ it published) by setting the events 'monitor' config.</p>
                     
 
                     <div class="param-description">
-                        <p>The response returned from Loader</p>
+                        <p>Response returned from Loader.</p>
                     </div>
 
                     
@@ -3768,7 +3810,7 @@ it published) by setting the events 'monitor' config.</p>
                     
 
                     <div class="param-description">
-                        <p>The aruments passed from Loader</p>
+                        <p>Arguments passed from Loader.</p>
                     </div>
 
                     
@@ -3840,7 +3882,7 @@ it published) by setting the events 'monitor' config.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l908"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:908</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l957"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:957</code></a>
         
         </p>
 
@@ -3851,7 +3893,7 @@ it published) by setting the events 'monitor' config.</p>
     </div>
 
     <div class="description">
-        <p>Notify handler from Loader for attachment/load errors</p>
+        <p>Handles Loader notifications about attachment/load errors.</p>
     </div>
 
     
@@ -3869,7 +3911,7 @@ it published) by setting the events 'monitor' config.</p>
                     
 
                     <div class="param-description">
-                        <p>The callback to pass to the <code>Y.config.loadErrorFn</code></p>
+                        <p>Callback to pass to <code>Y.config.loadErrorFn</code>.</p>
                     </div>
 
                     
@@ -3884,7 +3926,7 @@ it published) by setting the events 'monitor' config.</p>
                     
 
                     <div class="param-description">
-                        <p>The response returned from Loader</p>
+                        <p>Response returned from Loader.</p>
                     </div>
 
                     
@@ -3899,7 +3941,7 @@ it published) by setting the events 'monitor' config.</p>
                     
 
                     <div class="param-description">
-                        <p>The aruments passed from Loader</p>
+                        <p>Arguments passed from Loader.</p>
                     </div>
 
                     
@@ -4007,7 +4049,7 @@ Y.on('detachcategory| menu:click', fn)</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l489"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:489</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l499"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:499</code></a>
         
         </p>
 
@@ -4018,8 +4060,8 @@ Y.on('detachcategory| menu:click', fn)</p>
     </div>
 
     <div class="description">
-        <p>Finishes the instance setup. Attaches whatever modules were defined
-when the yui modules was registered.</p>
+        <p>Finishes the instance setup. Attaches whatever YUI modules were defined
+at the time that this instance was created.</p>
     </div>
 
     
@@ -4064,7 +4106,7 @@ when the yui modules was registered.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l489"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:489</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l499"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:499</code></a>
         
         </p>
 
@@ -4075,8 +4117,8 @@ when the yui modules was registered.</p>
     </div>
 
     <div class="description">
-        <p>Finishes the instance setup. Attaches whatever modules were defined
-when the yui modules was registered.</p>
+        <p>Finishes the instance setup. Attaches whatever YUI modules were defined
+at the time that this instance was created.</p>
     </div>
 
     
@@ -4102,7 +4144,7 @@ when the yui modules was registered.</p>
             
                 <li class="arg">
                     
-                        <code>*callback</code>
+                        <code class="optional">[callback]</code>
                     
                 </li>
             
@@ -4137,7 +4179,7 @@ when the yui modules was registered.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l936"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:936</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l986"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:986</code></a>
         
         </p>
 
@@ -4148,7 +4190,7 @@ when the yui modules was registered.</p>
     </div>
 
     <div class="description">
-        <p>This private method is called from the <code>use</code> method queue. To ensure that only one set of loading
+        <p>Called from the <code>use</code> method queue to ensure that only one set of loading
 logic is performed at a time.</p>
     </div>
 
@@ -4169,7 +4211,7 @@ logic is performed at a time.</p>
                     
 
                     <div class="param-description">
-                        <p>1-n modules to bind (uses arguments array).</p>
+                        <p>One or more modules to attach.</p>
                     </div>
 
                     
@@ -4177,16 +4219,16 @@ logic is performed at a time.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">*callback</code>
+                        <code class="param-name optional">[callback]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>callback function executed when
-the instance has the required functionality.  If included, it
-must be the last parameter.</p>
+                        <p>Function to call once all required modules have
+    been attached.</p>
                     </div>
 
                     
@@ -4217,7 +4259,7 @@ must be the last parameter.</p>
             
                 <li class="arg">
                     
-                        <code>*callback</code>
+                        <code class="optional">[callback]</code>
                     
                 </li>
             
@@ -4252,7 +4294,7 @@ must be the last parameter.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l936"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:936</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l986"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:986</code></a>
         
         </p>
 
@@ -4263,7 +4305,7 @@ must be the last parameter.</p>
     </div>
 
     <div class="description">
-        <p>This private method is called from the <code>use</code> method queue. To ensure that only one set of loading
+        <p>Called from the <code>use</code> method queue to ensure that only one set of loading
 logic is performed at a time.</p>
     </div>
 
@@ -4284,7 +4326,7 @@ logic is performed at a time.</p>
                     
 
                     <div class="param-description">
-                        <p>1-n modules to bind (uses arguments array).</p>
+                        <p>One or more modules to attach.</p>
                     </div>
 
                     
@@ -4292,16 +4334,16 @@ logic is performed at a time.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">*callback</code>
+                        <code class="param-name optional">[callback]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>callback function executed when
-the instance has the required functionality.  If included, it
-must be the last parameter.</p>
+                        <p>Function to call once all required modules have
+    been attached.</p>
                     </div>
 
                     
@@ -4344,7 +4386,7 @@ must be the last parameter.</p>
             
                 <li class="arg">
                     
-                        <code>details</code>
+                        <code class="optional">[config]</code>
                     
                 </li>
             
@@ -4381,7 +4423,7 @@ must be the last parameter.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l549"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:549</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l562"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:562</code></a>
         
         </p>
 
@@ -4392,11 +4434,14 @@ must be the last parameter.</p>
     </div>
 
     <div class="description">
-        <p>Registers a module with the YUI global.  The easiest way to create a
-first-class YUI module is to use the YUI component 
-build tool <a href="http://yui.github.com/shifter/">Shifter</a>.</p>
+        <p>Registers a YUI module and makes it available for use in a <code>YUI().use()</code> call or
+as a dependency for other modules.</p>
 
-<p>The build system will produce the <code>YUI.add</code> wrapper for your module, along
+<p>The easiest way to create a first-class YUI module is to use
+<a href="http://yui.github.com/shifter/">Shifter</a>, the YUI component build
+tool.</p>
+
+<p>Shifter will automatically wrap your module code in a <code>YUI.add()</code> call along
 with any configuration info required for the module.</p>
     </div>
 
@@ -4415,7 +4460,7 @@ with any configuration info required for the module.</p>
                     
 
                     <div class="param-description">
-                        <p>module name.</p>
+                        <p>Module name.</p>
                     </div>
 
                     
@@ -4430,7 +4475,8 @@ with any configuration info required for the module.</p>
                     
 
                     <div class="param-description">
-                        <p>entry point into the module that is used to bind module to the YUI instance.</p>
+                        <p>Function containing module code. This function will be
+    executed whenever the module is attached to a specific YUI instance.</p>
                     </div>
 
                     
@@ -4443,7 +4489,7 @@ with any configuration info required for the module.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The YUI instance this module is executed in.</p>
+                                    <p>The YUI instance to which this module is attached.</p>
                                 </div>
 
                                 
@@ -4456,7 +4502,7 @@ with any configuration info required for the module.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The name of the module</p>
+                                    <p>Name of the module</p>
                                 </div>
 
                                 
@@ -4475,7 +4521,8 @@ with any configuration info required for the module.</p>
                     
 
                     <div class="param-description">
-                        <p>version string.</p>
+                        <p>Module version number. This is currently used only for
+    informational purposes, and is not used internally by YUI.</p>
                     </div>
 
                     
@@ -4483,14 +4530,15 @@ with any configuration info required for the module.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">details</code>
+                        <code class="param-name optional">[config]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>optional config data:</p>
+                        <p>Module config.</p>
                     </div>
 
                     
@@ -4498,12 +4546,14 @@ with any configuration info required for the module.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name">requires</code>
+                                    <code class="param-name optional">[requires]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>features that must be present before this module can be attached.</p>
+                                    <p>Array of other module names that must be
+        attached before this module can be attached.</p>
                                 </div>
 
                                 
@@ -4511,15 +4561,17 @@ with any configuration info required for the module.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name">optional</code>
+                                    <code class="param-name optional">[optional]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>optional features that should be present if loadOptional
- is defined.  Note: modules are not often loaded this way in YUI 3,
- but this field is still useful to inform the user that certain
- features in the component will require additional dependencies.</p>
+                                    <p>Array of optional module names that should
+        be attached before this module is attached if they've already been
+        loaded. If the <code>loadOptional</code> YUI option is <code>true</code>, optional modules
+        that have not yet been loaded will be loaded just as if they were hard
+        requirements.</p>
                                 </div>
 
                                 
@@ -4527,16 +4579,17 @@ with any configuration info required for the module.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name">use</code>
+                                    <code class="param-name optional">[use]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>features that are included within this module which need to
- be attached automatically when this module is attached.  This
- supports the YUI 3 rollup system -- a module with submodules
- defined will need to have the submodules listed in the 'use'
- config.  The YUI component build tool does this for you.</p>
+                                    <p>Array of module names that are included within
+        or otherwise provided by this module, and which should be attached
+        automatically when this module is attached. This makes it possible to
+        create "virtual rollup" modules that simply attach a collection of other
+        modules or submodules.</p>
                                 </div>
 
                                 
@@ -4559,7 +4612,7 @@ with any configuration info required for the module.</p>
                     
                         <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>:
                     
-                    the YUI instance.
+                    This YUI instance.
                 
             </div>
         </div>
@@ -4570,11 +4623,13 @@ with any configuration info required for the module.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>YUI.add('davglass', function(Y, name) {
-    Y.davglass = function() {
-        alert('Dav was here!');
+                <pre class="code prettyprint"><code>YUI.add('davglass', function (Y) {
+    Y.davglass = function () {
+        Y.log('Dav was here!');
     };
-}, '3.4.0', { requires: ['yui-base', 'harley-davidson', 'mt-dew'] });
+}, '3.4.0', {
+    requires: ['harley-davidson', 'mt-dew']
+});
 </code></pre>
             </div>
         </div>
@@ -4609,7 +4664,7 @@ with any configuration info required for the module.</p>
             
                 <li class="arg">
                     
-                        <code>details</code>
+                        <code class="optional">[config]</code>
                     
                 </li>
             
@@ -4646,7 +4701,7 @@ with any configuration info required for the module.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l549"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:549</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l562"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:562</code></a>
         
         </p>
 
@@ -4657,11 +4712,14 @@ with any configuration info required for the module.</p>
     </div>
 
     <div class="description">
-        <p>Registers a module with the YUI global.  The easiest way to create a
-first-class YUI module is to use the YUI component 
-build tool <a href="http://yui.github.com/shifter/">Shifter</a>.</p>
+        <p>Registers a YUI module and makes it available for use in a <code>YUI().use()</code> call or
+as a dependency for other modules.</p>
 
-<p>The build system will produce the <code>YUI.add</code> wrapper for your module, along
+<p>The easiest way to create a first-class YUI module is to use
+<a href="http://yui.github.com/shifter/">Shifter</a>, the YUI component build
+tool.</p>
+
+<p>Shifter will automatically wrap your module code in a <code>YUI.add()</code> call along
 with any configuration info required for the module.</p>
     </div>
 
@@ -4680,7 +4738,7 @@ with any configuration info required for the module.</p>
                     
 
                     <div class="param-description">
-                        <p>module name.</p>
+                        <p>Module name.</p>
                     </div>
 
                     
@@ -4695,7 +4753,8 @@ with any configuration info required for the module.</p>
                     
 
                     <div class="param-description">
-                        <p>entry point into the module that is used to bind module to the YUI instance.</p>
+                        <p>Function containing module code. This function will be
+    executed whenever the module is attached to a specific YUI instance.</p>
                     </div>
 
                     
@@ -4708,7 +4767,7 @@ with any configuration info required for the module.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The YUI instance this module is executed in.</p>
+                                    <p>The YUI instance to which this module is attached.</p>
                                 </div>
 
                                 
@@ -4721,7 +4780,7 @@ with any configuration info required for the module.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The name of the module</p>
+                                    <p>Name of the module</p>
                                 </div>
 
                                 
@@ -4740,7 +4799,8 @@ with any configuration info required for the module.</p>
                     
 
                     <div class="param-description">
-                        <p>version string.</p>
+                        <p>Module version number. This is currently used only for
+    informational purposes, and is not used internally by YUI.</p>
                     </div>
 
                     
@@ -4748,14 +4808,15 @@ with any configuration info required for the module.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">details</code>
+                        <code class="param-name optional">[config]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>optional config data:</p>
+                        <p>Module config.</p>
                     </div>
 
                     
@@ -4763,12 +4824,14 @@ with any configuration info required for the module.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name">requires</code>
+                                    <code class="param-name optional">[requires]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>features that must be present before this module can be attached.</p>
+                                    <p>Array of other module names that must be
+        attached before this module can be attached.</p>
                                 </div>
 
                                 
@@ -4776,15 +4839,17 @@ with any configuration info required for the module.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name">optional</code>
+                                    <code class="param-name optional">[optional]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>optional features that should be present if loadOptional
- is defined.  Note: modules are not often loaded this way in YUI 3,
- but this field is still useful to inform the user that certain
- features in the component will require additional dependencies.</p>
+                                    <p>Array of optional module names that should
+        be attached before this module is attached if they've already been
+        loaded. If the <code>loadOptional</code> YUI option is <code>true</code>, optional modules
+        that have not yet been loaded will be loaded just as if they were hard
+        requirements.</p>
                                 </div>
 
                                 
@@ -4792,16 +4857,17 @@ with any configuration info required for the module.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name">use</code>
+                                    <code class="param-name optional">[use]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>features that are included within this module which need to
- be attached automatically when this module is attached.  This
- supports the YUI 3 rollup system -- a module with submodules
- defined will need to have the submodules listed in the 'use'
- config.  The YUI component build tool does this for you.</p>
+                                    <p>Array of module names that are included within
+        or otherwise provided by this module, and which should be attached
+        automatically when this module is attached. This makes it possible to
+        create "virtual rollup" modules that simply attach a collection of other
+        modules or submodules.</p>
                                 </div>
 
                                 
@@ -4824,7 +4890,7 @@ with any configuration info required for the module.</p>
                     
                         <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>:
                     
-                    the YUI instance.
+                    This YUI instance.
                 
             </div>
         </div>
@@ -4835,11 +4901,13 @@ with any configuration info required for the module.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>YUI.add('davglass', function(Y, name) {
-    Y.davglass = function() {
-        alert('Dav was here!');
+                <pre class="code prettyprint"><code>YUI.add('davglass', function (Y) {
+    Y.davglass = function () {
+        Y.log('Dav was here!');
     };
-}, '3.4.0', { requires: ['yui-base', 'harley-davidson', 'mt-dew'] });
+}, '3.4.0', {
+    requires: ['harley-davidson', 'mt-dew']
+});
 </code></pre>
             </div>
         </div>
@@ -5006,7 +5074,7 @@ be specified.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11552"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11552</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11621"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11621</code></a>
         
         </p>
 
@@ -5370,7 +5438,7 @@ for that signature.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5931"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5931</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6000"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6000</code></a>
         
         </p>
 
@@ -5810,7 +5878,7 @@ augmented with the supplier's value.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12330"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12330</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12399"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12399</code></a>
         
         </p>
 
@@ -5910,7 +5978,7 @@ augmented with the supplier's value.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l252"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:252</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l254"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:254</code></a>
         
         </p>
 
@@ -5923,10 +5991,9 @@ augmented with the supplier's value.</p>
     </div>
 
     <div class="description">
-        <p>Applies a new configuration object to the YUI instance config.
-This will merge new group/module definitions, and will also
-update the loader cache if necessary.  Updating Y.config directly
-will not update the cache.</p>
+        <p>Applies a new configuration object to the config of this YUI instance. This
+will merge new group/module definitions, and will also update the loader
+cache if necessary. Updating <code>Y.config</code> directly will not update the cache.</p>
     </div>
 
     
@@ -6004,7 +6071,7 @@ will not update the cache.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1354"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1354</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1427"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1427</code></a>
         
         </p>
 
@@ -6017,10 +6084,12 @@ will not update the cache.</p>
     </div>
 
     <div class="description">
-        <p>Static method on the Global YUI object to apply a config to all YUI instances.
-It's main use case is "mashups" where several third party scripts are trying to write to
-a global YUI config at the same time. This way they can all call <code>YUI.applyConfig({})</code> instead of
-overwriting other scripts configs.</p>
+        <p>Applies a configuration to all YUI instances in this execution context.</p>
+
+<p>The main use case for this method is in "mashups" where several third-party
+scripts need to write to a global YUI config, but cannot share a single
+centrally-managed config object. This way they can all call
+<code>YUI.applyConfig({})</code> instead of overwriting the single global config.</p>
     </div>
 
     
@@ -6038,7 +6107,7 @@ overwriting other scripts configs.</p>
                     
 
                     <div class="param-description">
-                        <p>the configuration object.</p>
+                        <p>Configuration object to apply.</p>
                     </div>
 
                     
@@ -6071,8 +6140,8 @@ YUI.applyConfig({
     }
 });
 
-YUI().use('davglass', function(Y) {
-    //Module davglass will be available here..
+YUI().use('davglass', function (Y) {
+    // Module davglass will be available here.
 });
 </code></pre>
             </div>
@@ -6123,7 +6192,7 @@ YUI().use('davglass', function(Y) {
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l252"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:252</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l254"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:254</code></a>
         
         </p>
 
@@ -6136,10 +6205,9 @@ YUI().use('davglass', function(Y) {
     </div>
 
     <div class="description">
-        <p>Applies a new configuration object to the YUI instance config.
-This will merge new group/module definitions, and will also
-update the loader cache if necessary.  Updating Y.config directly
-will not update the cache.</p>
+        <p>Applies a new configuration object to the config of this YUI instance. This
+will merge new group/module definitions, and will also update the loader
+cache if necessary. Updating <code>Y.config</code> directly will not update the cache.</p>
     </div>
 
     
@@ -6217,7 +6285,7 @@ will not update the cache.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1354"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1354</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1427"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1427</code></a>
         
         </p>
 
@@ -6230,10 +6298,12 @@ will not update the cache.</p>
     </div>
 
     <div class="description">
-        <p>Static method on the Global YUI object to apply a config to all YUI instances.
-It's main use case is "mashups" where several third party scripts are trying to write to
-a global YUI config at the same time. This way they can all call <code>YUI.applyConfig({})</code> instead of
-overwriting other scripts configs.</p>
+        <p>Applies a configuration to all YUI instances in this execution context.</p>
+
+<p>The main use case for this method is in "mashups" where several third-party
+scripts need to write to a global YUI config, but cannot share a single
+centrally-managed config object. This way they can all call
+<code>YUI.applyConfig({})</code> instead of overwriting the single global config.</p>
     </div>
 
     
@@ -6251,7 +6321,7 @@ overwriting other scripts configs.</p>
                     
 
                     <div class="param-description">
-                        <p>the configuration object.</p>
+                        <p>Configuration object to apply.</p>
                     </div>
 
                     
@@ -6284,8 +6354,8 @@ YUI.applyConfig({
     }
 });
 
-YUI().use('davglass', function(Y) {
-    //Module davglass will be available here..
+YUI().use('davglass', function (Y) {
+    // Module davglass will be available here.
 });
 </code></pre>
             </div>
@@ -6325,7 +6395,7 @@ YUI().use('davglass', function(Y) {
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+            <span class="type">Mixed</span>
         </span>
     
 
@@ -6352,7 +6422,7 @@ YUI().use('davglass', function(Y) {
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l517"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:517</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l528"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:528</code></a>
         
         </p>
 
@@ -6363,8 +6433,8 @@ YUI().use('davglass', function(Y) {
     </div>
 
     <div class="description">
-        <p>Executes a method on a YUI instance with
-the specified id if the specified method is whitelisted.</p>
+        <p>Executes the named method on the specified YUI instance if that method is
+whitelisted.</p>
     </div>
 
     
@@ -6382,7 +6452,7 @@ the specified id if the specified method is whitelisted.</p>
                     
 
                     <div class="param-description">
-                        <p>the YUI instance id.</p>
+                        <p>YUI instance id.</p>
                     </div>
 
                     
@@ -6397,8 +6467,8 @@ the specified id if the specified method is whitelisted.</p>
                     
 
                     <div class="param-description">
-                        <p>the name of the method to exectute.
-Ex: 'Object.keys'.</p>
+                        <p>Name of the method to execute. For example:
+    'Object.keys'.</p>
                     </div>
 
                     
@@ -6413,7 +6483,7 @@ Ex: 'Object.keys'.</p>
                     
 
                     <div class="param-description">
-                        <p>the arguments to apply to the method.</p>
+                        <p>Arguments to apply to the method.</p>
                     </div>
 
                     
@@ -6430,9 +6500,10 @@ Ex: 'Object.keys'.</p>
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                        <span class="type">Mixed</span>:
                     
-                    the return value from the applied method or null.
+                    Return value from the applied method, or <code>null</code> if the
+    specified instance was not found or the method was not whitelisted.
                 
             </div>
         </div>
@@ -6473,7 +6544,7 @@ Ex: 'Object.keys'.</p>
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+            <span class="type">Mixed</span>
         </span>
     
 
@@ -6500,7 +6571,7 @@ Ex: 'Object.keys'.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l517"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:517</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l528"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:528</code></a>
         
         </p>
 
@@ -6511,8 +6582,8 @@ Ex: 'Object.keys'.</p>
     </div>
 
     <div class="description">
-        <p>Executes a method on a YUI instance with
-the specified id if the specified method is whitelisted.</p>
+        <p>Executes the named method on the specified YUI instance if that method is
+whitelisted.</p>
     </div>
 
     
@@ -6530,7 +6601,7 @@ the specified id if the specified method is whitelisted.</p>
                     
 
                     <div class="param-description">
-                        <p>the YUI instance id.</p>
+                        <p>YUI instance id.</p>
                     </div>
 
                     
@@ -6545,8 +6616,8 @@ the specified id if the specified method is whitelisted.</p>
                     
 
                     <div class="param-description">
-                        <p>the name of the method to exectute.
-Ex: 'Object.keys'.</p>
+                        <p>Name of the method to execute. For example:
+    'Object.keys'.</p>
                     </div>
 
                     
@@ -6561,7 +6632,7 @@ Ex: 'Object.keys'.</p>
                     
 
                     <div class="param-description">
-                        <p>the arguments to apply to the method.</p>
+                        <p>Arguments to apply to the method.</p>
                     </div>
 
                     
@@ -6578,9 +6649,10 @@ Ex: 'Object.keys'.</p>
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                        <span class="type">Mixed</span>:
                     
-                    the return value from the applied method or null.
+                    Return value from the applied method, or <code>null</code> if the
+    specified instance was not found or the method was not whitelisted.
                 
             </div>
         </div>
@@ -7105,7 +7177,7 @@ hit of calling the <em>supplier</em>'s constructor.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5825"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5825</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5894"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5894</code></a>
         
         </p>
 
@@ -7653,7 +7725,7 @@ function is executed with.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6143"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6143</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6212"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6212</code></a>
         
         </p>
 
@@ -7910,7 +7982,7 @@ function is executed with.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2698"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2698</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2767"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2767</code></a>
         
         </p>
 
@@ -8254,7 +8326,7 @@ string <code>[object Object]</code> when used as a cache key.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6027"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6027</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6096"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6096</code></a>
         
         </p>
 
@@ -8696,7 +8768,7 @@ multiple clones.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18353"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18353</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18422"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18422</code></a>
         
         </p>
 
@@ -8791,7 +8863,7 @@ multiple clones.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18315"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18315</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18384"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18384</code></a>
         
         </p>
 
@@ -9037,7 +9109,7 @@ provided <em>executor</em> callback.  The callback is executed asynchronously.</
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16826"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16826</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16895"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16895</code></a>
         
         </p>
 
@@ -9455,7 +9527,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1319"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1319</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1388"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1388</code></a>
         
         </p>
 
@@ -9468,7 +9540,7 @@ These arguments will be added after the event object.</p>
     </div>
 
     <div class="description">
-        <p>Destroys the YUI instance</p>
+        <p>Destroys this YUI instance.</p>
     </div>
 
     
@@ -9511,7 +9583,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1319"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1319</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1388"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1388</code></a>
         
         </p>
 
@@ -9524,7 +9596,7 @@ These arguments will be added after the event object.</p>
     </div>
 
     <div class="description">
-        <p>Destroys the YUI instance</p>
+        <p>Destroys this YUI instance.</p>
     </div>
 
     
@@ -9961,7 +10033,7 @@ are expected to be indexed.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20060"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20060</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20129"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20129</code></a>
         
         </p>
 
@@ -10275,7 +10347,7 @@ iterated on objects.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5991"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5991</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6060"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6060</code></a>
         
         </p>
 
@@ -10397,13 +10469,13 @@ iterated on objects.</p>
             
                 <li class="arg">
                     
-                        <code>e</code>
+                        <code class="optional">[e]</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>src</code>
+                        <code class="optional">[src]</code>
                     
                 </li>
             
@@ -10412,10 +10484,6 @@ iterated on objects.</p>
     
 
     
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>
-        </span>
-    
 
     
 
@@ -10425,6 +10493,8 @@ iterated on objects.</p>
 
     
 
+    
+        <span class="flag chainable">chainable</span>
     
 
     
@@ -10440,7 +10510,7 @@ iterated on objects.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1240"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1240</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1296"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1296</code></a>
         
         </p>
 
@@ -10451,11 +10521,14 @@ iterated on objects.</p>
     </div>
 
     <div class="description">
-        <p>Report an error.  The reporting mechanism is controlled by
-the <code>throwFail</code> configuration attribute.  If throwFail is
-not specified, the message is written to the Logger, otherwise
-a JS error is thrown. If an <code>errorFn</code> is specified in the config
-it must return <code>true</code> to keep the error from being thrown.</p>
+        <p>Reports an error.</p>
+
+<p>The reporting mechanism is controlled by the <code>throwFail</code> configuration
+attribute. If <code>throwFail</code> is falsy, the message is logged. If <code>throwFail</code> is
+truthy, a JS exception is thrown.</p>
+
+<p>If an <code>errorFn</code> is specified in the config it must return <code>true</code> to indicate
+that the exception was handled and keep it from being thrown.</p>
     </div>
 
     
@@ -10473,7 +10546,7 @@ it must return <code>true</code> to keep the error from being thrown.</p>
                     
 
                     <div class="param-description">
-                        <p>the error message.</p>
+                        <p>Error message.</p>
                     </div>
 
                     
@@ -10481,14 +10554,15 @@ it must return <code>true</code> to keep the error from being thrown.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">e</code>
+                        <code class="param-name optional">[e]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error" class="crosslink external" target="_blank">Error</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Optional JS error that was caught, or an error string.</p>
+                        <p>JavaScript error object or an error string.</p>
                     </div>
 
                     
@@ -10496,15 +10570,16 @@ it must return <code>true</code> to keep the error from being thrown.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">src</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <code class="param-name optional">[src]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Optional additional info (passed to <code>Y.config.errorFn</code> and <code>Y.message</code>)
-and <code>throwFail</code> is specified, this error will be re-thrown.</p>
+                        <p>Source of the error (such as the name of the module in
+    which the error occurred).</p>
                     </div>
 
                     
@@ -10514,19 +10589,6 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
         </div>
     
 
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>:
-                    
-                    this YUI instance.
-                
-            </div>
-        </div>
     
 
     
@@ -10548,13 +10610,13 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
             
                 <li class="arg">
                     
-                        <code>e</code>
+                        <code class="optional">[e]</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>src</code>
+                        <code class="optional">[src]</code>
                     
                 </li>
             
@@ -10563,10 +10625,6 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
     
 
     
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>
-        </span>
-    
 
     
 
@@ -10576,6 +10634,8 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
 
     
 
+    
+        <span class="flag chainable">chainable</span>
     
 
     
@@ -10591,7 +10651,7 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1240"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1240</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1296"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1296</code></a>
         
         </p>
 
@@ -10602,11 +10662,14 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
     </div>
 
     <div class="description">
-        <p>Report an error.  The reporting mechanism is controlled by
-the <code>throwFail</code> configuration attribute.  If throwFail is
-not specified, the message is written to the Logger, otherwise
-a JS error is thrown. If an <code>errorFn</code> is specified in the config
-it must return <code>true</code> to keep the error from being thrown.</p>
+        <p>Reports an error.</p>
+
+<p>The reporting mechanism is controlled by the <code>throwFail</code> configuration
+attribute. If <code>throwFail</code> is falsy, the message is logged. If <code>throwFail</code> is
+truthy, a JS exception is thrown.</p>
+
+<p>If an <code>errorFn</code> is specified in the config it must return <code>true</code> to indicate
+that the exception was handled and keep it from being thrown.</p>
     </div>
 
     
@@ -10624,7 +10687,7 @@ it must return <code>true</code> to keep the error from being thrown.</p>
                     
 
                     <div class="param-description">
-                        <p>the error message.</p>
+                        <p>Error message.</p>
                     </div>
 
                     
@@ -10632,14 +10695,15 @@ it must return <code>true</code> to keep the error from being thrown.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">e</code>
+                        <code class="param-name optional">[e]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error" class="crosslink external" target="_blank">Error</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Optional JS error that was caught, or an error string.</p>
+                        <p>JavaScript error object or an error string.</p>
                     </div>
 
                     
@@ -10647,15 +10711,16 @@ it must return <code>true</code> to keep the error from being thrown.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">src</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <code class="param-name optional">[src]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Optional additional info (passed to <code>Y.config.errorFn</code> and <code>Y.message</code>)
-and <code>throwFail</code> is specified, this error will be re-thrown.</p>
+                        <p>Source of the error (such as the name of the module in
+    which the error occurred).</p>
                     </div>
 
                     
@@ -10665,19 +10730,6 @@ and <code>throwFail</code> is specified, this error will be re-thrown.</p>
         </div>
     
 
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>:
-                    
-                    this YUI instance.
-                
-            </div>
-        </div>
     
 
     
@@ -10921,7 +10973,7 @@ Static members will not be inherited.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5950"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5950</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6019"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6019</code></a>
         
         </p>
 
@@ -11713,7 +11765,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2738"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2738</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2807"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2807</code></a>
         
         </p>
 
@@ -11837,7 +11889,7 @@ in both Safari and MobileSafari browsers:
             
                 <li class="arg">
                     
-                        <code>pre</code>
+                        <code class="optional">[pre]</code>
                     
                 </li>
             
@@ -11874,7 +11926,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1271"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1271</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1331"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1331</code></a>
         
         </p>
 
@@ -11885,7 +11937,8 @@ in both Safari and MobileSafari browsers:
     </div>
 
     <div class="description">
-        <p>Generate an id that is unique among all YUI instances</p>
+        <p>Generates an id string that is unique among all YUI instances in this
+execution context.</p>
     </div>
 
     
@@ -11896,14 +11949,15 @@ in both Safari and MobileSafari browsers:
             
                 <li class="param">
                     
-                        <code class="param-name">pre</code>
+                        <code class="param-name optional">[pre]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>optional guid prefix.</p>
+                        <p>Prefix.</p>
                     </div>
 
                     
@@ -11922,7 +11976,7 @@ in both Safari and MobileSafari browsers:
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
                     
-                    the guid.
+                    Unique id.
                 
             </div>
         </div>
@@ -11941,7 +11995,7 @@ in both Safari and MobileSafari browsers:
             
                 <li class="arg">
                     
-                        <code>pre</code>
+                        <code class="optional">[pre]</code>
                     
                 </li>
             
@@ -11978,7 +12032,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1271"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1271</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1331"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1331</code></a>
         
         </p>
 
@@ -11989,7 +12043,8 @@ in both Safari and MobileSafari browsers:
     </div>
 
     <div class="description">
-        <p>Generate an id that is unique among all YUI instances</p>
+        <p>Generates an id string that is unique among all YUI instances in this
+execution context.</p>
     </div>
 
     
@@ -12000,14 +12055,15 @@ in both Safari and MobileSafari browsers:
             
                 <li class="param">
                     
-                        <code class="param-name">pre</code>
+                        <code class="param-name optional">[pre]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>optional guid prefix.</p>
+                        <p>Prefix.</p>
                     </div>
 
                     
@@ -12026,7 +12082,7 @@ in both Safari and MobileSafari browsers:
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
                     
-                    the guid.
+                    Unique id.
                 
             </div>
         </div>
@@ -12088,7 +12144,7 @@ in both Safari and MobileSafari browsers:
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18277"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18277</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18346"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18346</code></a>
         
         </p>
 
@@ -12314,7 +12370,7 @@ request.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1334"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1334</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1404"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1404</code></a>
         
         </p>
 
@@ -12327,9 +12383,11 @@ request.</p>
     </div>
 
     <div class="description">
-        <p>instanceof check for objects that works around
-memory leak in IE when the item tested is
-window/document</p>
+        <p>Safe <code>instanceof</code> wrapper that works around a memory leak in IE when the
+object being tested is <code>window</code> or <code>document</code>.</p>
+
+<p>Unless you are testing objects that may be <code>window</code> or <code>document</code>, you
+should use the native <code>instanceof</code> operator instead of this method.</p>
     </div>
 
     
@@ -12347,7 +12405,7 @@ window/document</p>
                     
 
                     <div class="param-description">
-                        <p>The object to check.</p>
+                        <p>Object to check.</p>
                     </div>
 
                     
@@ -12362,7 +12420,7 @@ window/document</p>
                     
 
                     <div class="param-description">
-                        <p>The class to check against.</p>
+                        <p>Class to check against.</p>
                     </div>
 
                     
@@ -12426,7 +12484,7 @@ window/document</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1334"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1334</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1404"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1404</code></a>
         
         </p>
 
@@ -12439,9 +12497,11 @@ window/document</p>
     </div>
 
     <div class="description">
-        <p>instanceof check for objects that works around
-memory leak in IE when the item tested is
-window/document</p>
+        <p>Safe <code>instanceof</code> wrapper that works around a memory leak in IE when the
+object being tested is <code>window</code> or <code>document</code>.</p>
+
+<p>Unless you are testing objects that may be <code>window</code> or <code>document</code>, you
+should use the native <code>instanceof</code> operator instead of this method.</p>
     </div>
 
     
@@ -12459,7 +12519,7 @@ window/document</p>
                     
 
                     <div class="param-description">
-                        <p>The object to check.</p>
+                        <p>Object to check.</p>
                     </div>
 
                     
@@ -12474,7 +12534,7 @@ window/document</p>
                     
 
                     <div class="param-description">
-                        <p>The class to check against.</p>
+                        <p>Class to check against.</p>
                     </div>
 
                     
@@ -12546,7 +12606,7 @@ window/document</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18165"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18165</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18234"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18234</code></a>
         
         </p>
 
@@ -13364,7 +13424,7 @@ object to stop the timer.
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5726"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5726</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5795"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5795</code></a>
         
         </p>
 
@@ -13738,7 +13798,7 @@ from the raw and minified versions of the files.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l19949"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:19949</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20018"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20018</code></a>
         
         </p>
 
@@ -13915,7 +13975,7 @@ from the raw and minified versions of the files.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5623"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5623</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5692"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5692</code></a>
         
         </p>
 
@@ -14183,7 +14243,7 @@ use <code>clone()</code>.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2767"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2767</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2836"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2836</code></a>
         
         </p>
 
@@ -14314,7 +14374,7 @@ use <code>clone()</code>.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20022"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20022</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l20091"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:20091</code></a>
         
         </p>
 
@@ -14486,7 +14546,7 @@ minified and raw versions of the YUI files, unlike log statements.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5696"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5696</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l5765"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:5765</code></a>
         
         </p>
 
@@ -14840,7 +14900,7 @@ minified and raw versions of the YUI files, unlike log statements.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2799"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2799</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2868"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2868</code></a>
         
         </p>
 
@@ -15284,7 +15344,7 @@ properties are not copied). The following copying modes are available:</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1181"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1181</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1231"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1231</code></a>
         
         </p>
 
@@ -15295,36 +15355,42 @@ properties are not copied). The following copying modes are available:</p>
     </div>
 
     <div class="description">
-        <p>Adds a namespace object onto the YUI global if called statically.</p>
+        <p>Utility method for safely creating namespaces if they don't already exist.
+May be called statically on the YUI global object or as a method on a YUI
+instance.</p>
 
-<pre class="code prettyprint"><code>// creates YUI.your.namespace.here as nested objects
-YUI.namespace("your.namespace.here");
+<p>When called statically, a namespace will be created on the YUI global
+object:</p>
+
+<pre class="code prettyprint"><code>// Create <code>YUI.your.namespace.here</code> as nested objects, preserving any
+// objects that already exist instead of overwriting them.
+YUI.namespace('your.namespace.here');
 </code></pre>
 
-<p>If called as a method on a YUI <em>instance</em>, it creates the
-namespace on the instance.</p>
+<p>When called as a method on a YUI instance, a namespace will be created on
+that instance:</p>
 
-<pre class="code prettyprint"><code> // creates Y.property.package
- Y.namespace("property.package");
+<pre class="code prettyprint"><code>// Creates <code>Y.property.package</code>.
+Y.namespace('property.package');
 </code></pre>
 
-<p>Dots in the input string cause <code>namespace</code> to create nested objects for
-each token. If any part of the requested namespace already exists, the
-current object will be left in place.  This allows multiple calls to
-<code>namespace</code> to preserve existing namespaced properties.</p>
+<p>Dots in the input string cause <code>namespace</code> to create nested objects for each
+token. If any part of the requested namespace already exists, the current
+object will be left in place and will not be overwritten. This allows
+multiple calls to <code>namespace</code> to preserve existing namespaced properties.</p>
 
-<p>If the first token in the namespace string is "YAHOO", the token is
-discarded.</p>
+<p>If the first token in the namespace string is "YAHOO", that token is
+discarded. This is legacy behavior for backwards compatibility with YUI 2.</p>
 
 <p>Be careful with namespace tokens. Reserved words may work in some browsers
 and not others. For instance, the following will fail in some browsers
 because the supported version of JavaScript reserves the word "long":</p>
 
-<pre class="code prettyprint"><code> Y.namespace("really.long.nested.namespace");
+<pre class="code prettyprint"><code>Y.namespace('really.long.nested.namespace');
 </code></pre>
 
-<p><em>Note: If you pass multiple arguments to create multiple namespaces, only
-the last one created is returned from this function.</em></p>
+<p>Note: If you pass multiple arguments to create multiple namespaces, only the
+last one created is returned from this function.</p>
     </div>
 
     
@@ -15344,7 +15410,7 @@ the last one created is returned from this function.</em></p>
                     
 
                     <div class="param-description">
-                        <p>namespaces to create.</p>
+                        <p>One or more namespaces to create.</p>
                     </div>
 
                     
@@ -15363,7 +15429,7 @@ the last one created is returned from this function.</em></p>
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
                     
-                    A reference to the last namespace object created.
+                    Reference to the last namespace object created.
                 
             </div>
         </div>
@@ -15419,7 +15485,7 @@ the last one created is returned from this function.</em></p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1181"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1181</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1231"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1231</code></a>
         
         </p>
 
@@ -15430,36 +15496,42 @@ the last one created is returned from this function.</em></p>
     </div>
 
     <div class="description">
-        <p>Adds a namespace object onto the YUI global if called statically.</p>
+        <p>Utility method for safely creating namespaces if they don't already exist.
+May be called statically on the YUI global object or as a method on a YUI
+instance.</p>
 
-<pre class="code prettyprint"><code>// creates YUI.your.namespace.here as nested objects
-YUI.namespace("your.namespace.here");
+<p>When called statically, a namespace will be created on the YUI global
+object:</p>
+
+<pre class="code prettyprint"><code>// Create <code>YUI.your.namespace.here</code> as nested objects, preserving any
+// objects that already exist instead of overwriting them.
+YUI.namespace('your.namespace.here');
 </code></pre>
 
-<p>If called as a method on a YUI <em>instance</em>, it creates the
-namespace on the instance.</p>
+<p>When called as a method on a YUI instance, a namespace will be created on
+that instance:</p>
 
-<pre class="code prettyprint"><code> // creates Y.property.package
- Y.namespace("property.package");
+<pre class="code prettyprint"><code>// Creates <code>Y.property.package</code>.
+Y.namespace('property.package');
 </code></pre>
 
-<p>Dots in the input string cause <code>namespace</code> to create nested objects for
-each token. If any part of the requested namespace already exists, the
-current object will be left in place.  This allows multiple calls to
-<code>namespace</code> to preserve existing namespaced properties.</p>
+<p>Dots in the input string cause <code>namespace</code> to create nested objects for each
+token. If any part of the requested namespace already exists, the current
+object will be left in place and will not be overwritten. This allows
+multiple calls to <code>namespace</code> to preserve existing namespaced properties.</p>
 
-<p>If the first token in the namespace string is "YAHOO", the token is
-discarded.</p>
+<p>If the first token in the namespace string is "YAHOO", that token is
+discarded. This is legacy behavior for backwards compatibility with YUI 2.</p>
 
 <p>Be careful with namespace tokens. Reserved words may work in some browsers
 and not others. For instance, the following will fail in some browsers
 because the supported version of JavaScript reserves the word "long":</p>
 
-<pre class="code prettyprint"><code> Y.namespace("really.long.nested.namespace");
+<pre class="code prettyprint"><code>Y.namespace('really.long.nested.namespace');
 </code></pre>
 
-<p><em>Note: If you pass multiple arguments to create multiple namespaces, only
-the last one created is returned from this function.</em></p>
+<p>Note: If you pass multiple arguments to create multiple namespaces, only the
+last one created is returned from this function.</p>
     </div>
 
     
@@ -15479,7 +15551,7 @@ the last one created is returned from this function.</em></p>
                     
 
                     <div class="param-description">
-                        <p>namespaces to create.</p>
+                        <p>One or more namespaces to create.</p>
                     </div>
 
                     
@@ -15498,7 +15570,7 @@ the last one created is returned from this function.</em></p>
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
                     
-                    A reference to the last namespace object created.
+                    Reference to the last namespace object created.
                 
             </div>
         </div>
@@ -15564,7 +15636,7 @@ the last one created is returned from this function.</em></p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18368"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18368</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18437"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18437</code></a>
         
         </p>
 
@@ -15919,7 +15991,7 @@ injection.  See <code>Y.Do.before</code> for that signature.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11456"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11456</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11525"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11525</code></a>
         
         </p>
 
@@ -16134,7 +16206,7 @@ injection.  See <code>Y.Do.before</code> for that signature.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11511"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11511</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11580"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11580</code></a>
         
         </p>
 
@@ -16663,7 +16735,7 @@ options.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11529"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11529</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11598"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11598</code></a>
         
         </p>
 
@@ -16826,7 +16898,7 @@ options.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12339"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12339</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l12408"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:12408</code></a>
         
         </p>
 
@@ -17527,7 +17599,7 @@ arguments collection supplied to the function.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6168"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6168</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6237"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6237</code></a>
         
         </p>
 
@@ -17950,7 +18022,7 @@ false otherwise.
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6008"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6008</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l6077"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:6077</code></a>
         
         </p>
 
@@ -18111,7 +18183,7 @@ false otherwise.
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1282"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1282</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1344"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1344</code></a>
         
         </p>
 
@@ -18122,9 +18194,13 @@ false otherwise.
     </div>
 
     <div class="description">
-        <p>Returns a <code>guid</code> associated with an object.  If the object
-does not have one, a new one is created unless <code>readOnly</code>
-is specified.</p>
+        <p>Returns a unique id associated with the given object and (if <em>readOnly</em> is
+falsy) stamps the object with that id so it can be identified in the future.</p>
+
+<p>Stamping an object involves adding a <code>_yuid</code> property to it that contains
+the object's id. One exception to this is that in Internet Explorer, DOM
+nodes have a <code>uniqueID</code> property that contains a browser-generated unique
+id, which will be used instead of a YUI-generated id when available.</p>
     </div>
 
     
@@ -18142,7 +18218,7 @@ is specified.</p>
                     
 
                     <div class="param-description">
-                        <p>The object to stamp.</p>
+                        <p>Object to stamp.</p>
                     </div>
 
                     
@@ -18157,8 +18233,9 @@ is specified.</p>
                     
 
                     <div class="param-description">
-                        <p>if <code>true</code>, a valid guid will only
-be returned if the object has one assigned to it.</p>
+                        <p>If truthy and the given object has not already
+    been stamped, the object will not be modified and <code>null</code> will be
+    returned.</p>
                     </div>
 
                     
@@ -18177,7 +18254,8 @@ be returned if the object has one assigned to it.</p>
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
                     
-                    The object's guid or null.
+                    Object's unique id, or <code>null</code> if <em>readOnly</em> was truthy and
+    the given object was not already stamped.
                 
             </div>
         </div>
@@ -18239,7 +18317,7 @@ be returned if the object has one assigned to it.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1282"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1282</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1344"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1344</code></a>
         
         </p>
 
@@ -18250,9 +18328,13 @@ be returned if the object has one assigned to it.</p>
     </div>
 
     <div class="description">
-        <p>Returns a <code>guid</code> associated with an object.  If the object
-does not have one, a new one is created unless <code>readOnly</code>
-is specified.</p>
+        <p>Returns a unique id associated with the given object and (if <em>readOnly</em> is
+falsy) stamps the object with that id so it can be identified in the future.</p>
+
+<p>Stamping an object involves adding a <code>_yuid</code> property to it that contains
+the object's id. One exception to this is that in Internet Explorer, DOM
+nodes have a <code>uniqueID</code> property that contains a browser-generated unique
+id, which will be used instead of a YUI-generated id when available.</p>
     </div>
 
     
@@ -18270,7 +18352,7 @@ is specified.</p>
                     
 
                     <div class="param-description">
-                        <p>The object to stamp.</p>
+                        <p>Object to stamp.</p>
                     </div>
 
                     
@@ -18285,8 +18367,9 @@ is specified.</p>
                     
 
                     <div class="param-description">
-                        <p>if <code>true</code>, a valid guid will only
-be returned if the object has one assigned to it.</p>
+                        <p>If truthy and the given object has not already
+    been stamped, the object will not be modified and <code>null</code> will be
+    returned.</p>
                     </div>
 
                     
@@ -18305,7 +18388,8 @@ be returned if the object has one assigned to it.</p>
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
                     
-                    The object's guid or null.
+                    Object's unique id, or <code>null</code> if <em>readOnly</em> was truthy and
+    the given object was not already stamped.
                 
             </div>
         </div>
@@ -18679,10 +18763,6 @@ be removed.</p>
     
 
     
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>
-        </span>
-    
 
     
 
@@ -18692,6 +18772,8 @@ be removed.</p>
 
     
 
+    
+        <span class="flag chainable">chainable</span>
     
 
     
@@ -18707,7 +18789,7 @@ be removed.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l809"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:809</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l842"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:842</code></a>
         
         </p>
 
@@ -18718,23 +18800,27 @@ be removed.</p>
     </div>
 
     <div class="description">
-        <p>Attaches one or more modules to the YUI instance.  When this
-is executed, the requirements are analyzed, and one of
-several things can happen:</p>
+        <p>Attaches one or more modules to this YUI instance. When this is executed,
+the requirements of the desired modules are analyzed, and one of several
+things can happen:</p>
 
 <ul>
-<li><p>All requirements are available on the page --  The modules
-are attached to the instance.  If supplied, the use callback
-is executed synchronously.</p></li>
-<li><p>Modules are missing, the Get utility is not available OR
-the 'bootstrap' config is false -- A warning is issued about
-the missing modules and all available modules are attached.</p></li>
-<li><p>Modules are missing, the Loader is not available but the Get
-utility is and boostrap is not false -- The loader is bootstrapped
-before doing the following....</p></li>
-<li><p>Modules are missing and the Loader is available -- The loader
-expands the dependency tree and fetches missing modules.  When
-the loader is finshed the callback supplied to use is executed
+<li><p>All required modules have already been loaded, and just need to be
+attached to this YUI instance. In this case, the <code>use()</code> callback will
+be executed synchronously after the modules are attached.</p></li>
+<li><p>One or more modules have not yet been loaded, or the Get utility is not
+available, or the <code>bootstrap</code> config option is <code>false</code>. In this case,
+a warning is issued indicating that modules are missing, but all
+available modules will still be attached and the <code>use()</code> callback will
+be executed synchronously.</p></li>
+<li><p>One or more modules are missing and the Loader is not available but the
+Get utility is, and <code>bootstrap</code> is not <code>false</code>. In this case, the Get
+utility will be used to load the Loader, and we will then proceed to
+the following state:</p></li>
+<li><p>One or more modules are missing and the Loader is available. In this
+case, the Loader will be used to resolve the dependency tree for the
+missing modules and load them and their dependencies. When the Loader is
+finished loading modules, the <code>use()</code> callback will be executed
 asynchronously.</p></li>
 </ul>
     </div>
@@ -18756,7 +18842,7 @@ asynchronously.</p></li>
                     
 
                     <div class="param-description">
-                        <p>1-n modules to bind (uses arguments array).</p>
+                        <p>One or more module names to attach.</p>
                     </div>
 
                     
@@ -18772,9 +18858,8 @@ asynchronously.</p></li>
                     
 
                     <div class="param-description">
-                        <p>callback function executed when
-the instance has the required functionality.  If included, it
-must be the last parameter.</p>
+                        <p>Callback function to be executed once all
+    specified modules and their dependencies have been attached.</p>
                     </div>
 
                     
@@ -18787,7 +18872,7 @@ must be the last parameter.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The <code>YUI</code> instance created for this sandbox</p>
+                                    <p>The YUI instance created for this sandbox.</p>
                                 </div>
 
                                 
@@ -18800,7 +18885,8 @@ must be the last parameter.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Object containing <code>success</code>, <code>msg</code> and <code>data</code> properties</p>
+                                    <p>Object containing <code>success</code>, <code>msg</code> and
+    <code>data</code> properties.</p>
                                 </div>
 
                                 
@@ -18815,39 +18901,36 @@ must be the last parameter.</p>
     
 
     
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>:
-                    
-                    the YUI instance.
-                
-            </div>
-        </div>
-    
 
     
         <div class="example">
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> // loads and attaches dd and its dependencies
- YUI().use('dd', function(Y) {});
+                <pre class="code prettyprint"><code>// Loads and attaches dd and its dependencies.
+YUI().use('dd', function (Y) {
+    // ...
+});
 
- // loads and attaches dd and node as well as all of their dependencies (since 3.4.0)
- YUI().use(['dd', 'node'], function(Y) {});
+// Loads and attaches dd and node as well as all of their dependencies.
+YUI().use(['dd', 'node'], function (Y) {
+    // ...
+});
 
- // attaches all modules that are available on the page
- YUI().use('*', function(Y) {});
+// Attaches all modules that have already been loaded.
+YUI().use('*', function (Y) {
+    // ...
+});
 
- // intrinsic YUI gallery support (since 3.1.0)
- YUI().use('gallery-yql', function(Y) {});
+// Attaches a gallery module.
+YUI().use('gallery-yql', function (Y) {
+    // ...
+});
 
- // intrinsic YUI 2in3 support (since 3.1.0)
- YUI().use('yui2-datatable', function(Y) {});
+// Attaches a YUI 2in3 module.
+YUI().use('yui2-datatable', function (Y) {
+    // ...
+});
 </code></pre>
             </div>
         </div>
@@ -18879,10 +18962,6 @@ must be the last parameter.</p>
     
 
     
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>
-        </span>
-    
 
     
 
@@ -18892,6 +18971,8 @@ must be the last parameter.</p>
 
     
 
+    
+        <span class="flag chainable">chainable</span>
     
 
     
@@ -18907,7 +18988,7 @@ must be the last parameter.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l809"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:809</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l842"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:842</code></a>
         
         </p>
 
@@ -18918,23 +18999,27 @@ must be the last parameter.</p>
     </div>
 
     <div class="description">
-        <p>Attaches one or more modules to the YUI instance.  When this
-is executed, the requirements are analyzed, and one of
-several things can happen:</p>
+        <p>Attaches one or more modules to this YUI instance. When this is executed,
+the requirements of the desired modules are analyzed, and one of several
+things can happen:</p>
 
 <ul>
-<li><p>All requirements are available on the page --  The modules
-are attached to the instance.  If supplied, the use callback
-is executed synchronously.</p></li>
-<li><p>Modules are missing, the Get utility is not available OR
-the 'bootstrap' config is false -- A warning is issued about
-the missing modules and all available modules are attached.</p></li>
-<li><p>Modules are missing, the Loader is not available but the Get
-utility is and boostrap is not false -- The loader is bootstrapped
-before doing the following....</p></li>
-<li><p>Modules are missing and the Loader is available -- The loader
-expands the dependency tree and fetches missing modules.  When
-the loader is finshed the callback supplied to use is executed
+<li><p>All required modules have already been loaded, and just need to be
+attached to this YUI instance. In this case, the <code>use()</code> callback will
+be executed synchronously after the modules are attached.</p></li>
+<li><p>One or more modules have not yet been loaded, or the Get utility is not
+available, or the <code>bootstrap</code> config option is <code>false</code>. In this case,
+a warning is issued indicating that modules are missing, but all
+available modules will still be attached and the <code>use()</code> callback will
+be executed synchronously.</p></li>
+<li><p>One or more modules are missing and the Loader is not available but the
+Get utility is, and <code>bootstrap</code> is not <code>false</code>. In this case, the Get
+utility will be used to load the Loader, and we will then proceed to
+the following state:</p></li>
+<li><p>One or more modules are missing and the Loader is available. In this
+case, the Loader will be used to resolve the dependency tree for the
+missing modules and load them and their dependencies. When the Loader is
+finished loading modules, the <code>use()</code> callback will be executed
 asynchronously.</p></li>
 </ul>
     </div>
@@ -18956,7 +19041,7 @@ asynchronously.</p></li>
                     
 
                     <div class="param-description">
-                        <p>1-n modules to bind (uses arguments array).</p>
+                        <p>One or more module names to attach.</p>
                     </div>
 
                     
@@ -18972,9 +19057,8 @@ asynchronously.</p></li>
                     
 
                     <div class="param-description">
-                        <p>callback function executed when
-the instance has the required functionality.  If included, it
-must be the last parameter.</p>
+                        <p>Callback function to be executed once all
+    specified modules and their dependencies have been attached.</p>
                     </div>
 
                     
@@ -18987,7 +19071,7 @@ must be the last parameter.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The <code>YUI</code> instance created for this sandbox</p>
+                                    <p>The YUI instance created for this sandbox.</p>
                                 </div>
 
                                 
@@ -19000,7 +19084,8 @@ must be the last parameter.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Object containing <code>success</code>, <code>msg</code> and <code>data</code> properties</p>
+                                    <p>Object containing <code>success</code>, <code>msg</code> and
+    <code>data</code> properties.</p>
                                 </div>
 
                                 
@@ -19015,39 +19100,36 @@ must be the last parameter.</p>
     
 
     
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="../classes/YUI.html" class="crosslink">YUI</a></span>:
-                    
-                    the YUI instance.
-                
-            </div>
-        </div>
-    
 
     
         <div class="example">
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> // loads and attaches dd and its dependencies
- YUI().use('dd', function(Y) {});
+                <pre class="code prettyprint"><code>// Loads and attaches dd and its dependencies.
+YUI().use('dd', function (Y) {
+    // ...
+});
 
- // loads and attaches dd and node as well as all of their dependencies (since 3.4.0)
- YUI().use(['dd', 'node'], function(Y) {});
+// Loads and attaches dd and node as well as all of their dependencies.
+YUI().use(['dd', 'node'], function (Y) {
+    // ...
+});
 
- // attaches all modules that are available on the page
- YUI().use('*', function(Y) {});
+// Attaches all modules that have already been loaded.
+YUI().use('*', function (Y) {
+    // ...
+});
 
- // intrinsic YUI gallery support (since 3.1.0)
- YUI().use('gallery-yql', function(Y) {});
+// Attaches a gallery module.
+YUI().use('gallery-yql', function (Y) {
+    // ...
+});
 
- // intrinsic YUI 2in3 support (since 3.1.0)
- YUI().use('yui2-datatable', function(Y) {});
+// Attaches a YUI 2in3 module.
+YUI().use('yui2-datatable', function (Y) {
+    // ...
+});
 </code></pre>
             </div>
         </div>
@@ -19246,7 +19328,7 @@ are provided, the original promise is returned.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18308"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18308</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18377"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18377</code></a>
         
         </p>
 
@@ -19292,7 +19374,7 @@ are provided, the original promise is returned.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11444"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11444</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l11513"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:11513</code></a>
         
         </p>
 
@@ -19388,7 +19470,7 @@ only available if the custom event module is loaded.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l70"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:70</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l74"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:74</code></a>
         
         </p>
 
@@ -19398,9 +19480,9 @@ only available if the custom event module is loaded.</p>
     </div>
 
     <div class="description">
-        <p>YUI.GlobalConfig is a master configuration that might span
-multiple contexts in a non-browser environment.  It is applied
-first to all instances in all contexts.</p>
+        <p>Master configuration that might span multiple contexts in a non-
+browser environment. It is applied first to all instances in all
+contexts.</p>
     </div>
 
     
@@ -19414,14 +19496,14 @@ first to all instances in all contexts.</p>
     filter: 'debug'
 };
 
-YUI().use('node', function(Y) {
-    //debug files used here
+YUI().use('node', function (Y) {
+    // debug files used here
 });
 
 YUI({
     filter: 'min'
-}).use('node', function(Y) {
-    //min files used here
+}).use('node', function (Y) {
+    // min files used here
 });
 </code></pre>
             </div>
@@ -19457,7 +19539,7 @@ YUI({
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l70"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:70</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l74"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:74</code></a>
         
         </p>
 
@@ -19467,9 +19549,9 @@ YUI({
     </div>
 
     <div class="description">
-        <p>YUI.GlobalConfig is a master configuration that might span
-multiple contexts in a non-browser environment.  It is applied
-first to all instances in all contexts.</p>
+        <p>Master configuration that might span multiple contexts in a non-
+browser environment. It is applied first to all instances in all
+contexts.</p>
     </div>
 
     
@@ -19483,14 +19565,14 @@ first to all instances in all contexts.</p>
     filter: 'debug'
 };
 
-YUI().use('node', function(Y) {
-    //debug files used here
+YUI().use('node', function (Y) {
+    // debug files used here
 });
 
 YUI({
     filter: 'min'
-}).use('node', function(Y) {
-    //min files used here
+}).use('node', function (Y) {
+    // min files used here
 });
 </code></pre>
             </div>
@@ -19575,7 +19657,7 @@ Part of the loader module.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18335"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18335</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l18404"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:18404</code></a>
         
         </p>
 
@@ -19619,7 +19701,7 @@ Part of the loader module.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l321"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:321</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l327"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:327</code></a>
         
         </p>
 
@@ -19629,7 +19711,11 @@ Part of the loader module.</p>
     </div>
 
     <div class="description">
-        <p>The version number of the YUI instance.</p>
+        <p>The version number of this YUI instance.</p>
+
+<p>This value is typically updated by a script when a YUI release is built,
+so it may not reflect the correct version number when YUI is run from
+the development source tree.</p>
     </div>
 
     
@@ -19663,7 +19749,7 @@ Part of the loader module.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l321"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:321</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l327"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:327</code></a>
         
         </p>
 
@@ -19673,7 +19759,11 @@ Part of the loader module.</p>
     </div>
 
     <div class="description">
-        <p>The version number of the YUI instance.</p>
+        <p>The version number of this YUI instance.</p>
+
+<p>This value is typically updated by a script when a YUI release is built,
+so it may not reflect the correct version number when YUI is run from
+the development source tree.</p>
     </div>
 
     
@@ -19707,7 +19797,7 @@ Part of the loader module.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l100"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:100</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l103"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:103</code></a>
         
         </p>
 
@@ -19717,10 +19807,9 @@ Part of the loader module.</p>
     </div>
 
     <div class="description">
-        <p>YUI_config is a page-level config.  It is applied to all
-instances created on the page.  This is applied after
-YUI.GlobalConfig, and before the instance level configuration
-objects.</p>
+        <p>Page-level config applied to all YUI instances created on the
+current page. This is applied after <code>YUI.GlobalConfig</code> and before
+any instance-level configuration.</p>
     </div>
 
     
@@ -19730,19 +19819,19 @@ objects.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>//Single global var to include before YUI seed file
+                <pre class="code prettyprint"><code>// Single global var to include before YUI seed file
 YUI_config = {
     filter: 'debug'
 };
 
-YUI().use('node', function(Y) {
-    //debug files used here
+YUI().use('node', function (Y) {
+    // debug files used here
 });
 
 YUI({
     filter: 'min'
-}).use('node', function(Y) {
-    //min files used here
+}).use('node', function (Y) {
+    // min files used here
 });
 </code></pre>
             </div>
@@ -19776,7 +19865,7 @@ YUI({
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l100"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:100</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l103"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:103</code></a>
         
         </p>
 
@@ -19786,10 +19875,9 @@ YUI({
     </div>
 
     <div class="description">
-        <p>YUI_config is a page-level config.  It is applied to all
-instances created on the page.  This is applied after
-YUI.GlobalConfig, and before the instance level configuration
-objects.</p>
+        <p>Page-level config applied to all YUI instances created on the
+current page. This is applied after <code>YUI.GlobalConfig</code> and before
+any instance-level configuration.</p>
     </div>
 
     
@@ -19799,19 +19887,19 @@ objects.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>//Single global var to include before YUI seed file
+                <pre class="code prettyprint"><code>// Single global var to include before YUI seed file
 YUI_config = {
     filter: 'debug'
 };
 
-YUI().use('node', function(Y) {
-    //debug files used here
+YUI().use('node', function (Y) {
+    // debug files used here
 });
 
 YUI({
     filter: 'min'
-}).use('node', function(Y) {
-    //min files used here
+}).use('node', function (Y) {
+    // min files used here
 });
 </code></pre>
             </div>
@@ -19991,7 +20079,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16178"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16178</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16247"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16247</code></a>
         
         </p>
 
@@ -20125,7 +20213,7 @@ These arguments will be added after the event object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16200"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16200</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l16269"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:16269</code></a>
         
         </p>
 
@@ -20457,7 +20545,7 @@ submodule of 'event'.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l14866"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:14866</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l14935"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:14935</code></a>
         
         </p>
 
@@ -21136,7 +21224,7 @@ specification is a string that is defined as:</p>
 
 <ul>
   <li><code>Y.on("key", callback, "press:12,65+shift+ctrl", "#my-input");</code></li>
-  <li><code>Y.delegate("key", preventSubmit, "enter", "#forms", "input[type=text]");</code></li>
+  <li><code>Y.delegate("key", preventSubmit, "#forms", "enter", "input[type=text]");</code></li>
   <li><code>Y.one("doc").on("key", viNav, "j,k,l,;");</code></li>
 </ul>
     </div>

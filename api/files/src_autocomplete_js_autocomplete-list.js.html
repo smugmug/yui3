@@ -1602,12 +1602,6 @@ List = Y.Base.create(&#x27;autocompleteList&#x27;, Y.Widget, [
             boundingBox.plug(Y.Plugin.Shim);
         }
 
-        &#x2F;&#x2F; Force position: absolute on the boundingBox. This works around a
-        &#x2F;&#x2F; potential CSS loading race condition in Gecko that can cause the
-        &#x2F;&#x2F; boundingBox to become relatively positioned, which is all kinds of
-        &#x2F;&#x2F; no good.
-        boundingBox.setStyle(&#x27;position&#x27;, &#x27;absolute&#x27;);
-
         this._ariaNode    = ariaNode;
         this._boundingBox = boundingBox;
         this._contentBox  = contentBox;

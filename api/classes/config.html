@@ -1456,7 +1456,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1424"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1424</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1500"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1500</code></a>
         </div>
     
 
@@ -1473,13 +1473,15 @@
 
 
 <div class="box intro">
-    <p>The config object contains all of the configuration options for
-the <code>YUI</code> instance.  This object is supplied by the implementer
-when instantiating a <code>YUI</code> instance.  Some properties have default
-values if they are not supplied by the implementer.  This should
-not be updated directly because some values are cached.  Use
-<code>applyConfig()</code> to update the config object on a YUI instance that
-has already been configured.</p>
+    <p>Config object that contains all of the configuration options for
+this <code>YUI</code> instance.</p>
+
+<p>This object is supplied by the implementer when instantiating YUI. Some
+properties have default values if they are not supplied by the implementer.</p>
+
+<p>This object should not be updated directly because some values are cached. Use
+<code>applyConfig()</code> to update the config object on a YUI instance that has already
+been configured.</p>
 </div>
 
 
@@ -2210,7 +2212,7 @@ has already been configured.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1868"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1868</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1934"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1934</code></a>
         
         </p>
 
@@ -2222,15 +2224,11 @@ has already been configured.</p>
     </div>
 
     <div class="description">
-        <p>The 2in3 project is a deployment of the various versions of YUI 2
-deployed as first-class YUI 3 modules.  Eventually, the wrapper
-for the modules will change (but the underlying YUI 2 code will
-be the same), and you can select a particular version of
-the wrapper modules via this config.</p>
+        <p>Revision number of YUI 2in3 modules that should be used when loading YUI 2in3.</p>
     </div>
 
     
-        <p><strong>Default:</strong> 4</p>
+        <p><strong>Default:</strong> &quot;4&quot;</p>
     
 
     
@@ -2262,7 +2260,7 @@ the wrapper modules via this config.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1868"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1868</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1934"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1934</code></a>
         
         </p>
 
@@ -2274,15 +2272,11 @@ the wrapper modules via this config.</p>
     </div>
 
     <div class="description">
-        <p>The 2in3 project is a deployment of the various versions of YUI 2
-deployed as first-class YUI 3 modules.  Eventually, the wrapper
-for the modules will change (but the underlying YUI 2 code will
-be the same), and you can select a particular version of
-the wrapper modules via this config.</p>
+        <p>Revision number of YUI 2in3 modules that should be used when loading YUI 2in3.</p>
     </div>
 
     
-        <p><strong>Default:</strong> 4</p>
+        <p><strong>Default:</strong> &quot;4&quot;</p>
     
 
     
@@ -2314,7 +2308,7 @@ the wrapper modules via this config.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1769"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1769</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1834"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1834</code></a>
         
         </p>
 
@@ -2324,22 +2318,27 @@ the wrapper modules via this config.</p>
     </div>
 
     <div class="description">
-        <p>Aliases are dynamic groups of modules that can be used as
-shortcuts.</p>
-
-<pre class="code prettyprint"><code> YUI({
-     aliases: {
-         davglass: [ 'node', 'yql', 'dd' ],
-         mine: [ 'davglass', 'autocomplete']
-     }
- }).use('mine', function(Y) {
-     //Node, YQL, DD &amp;amp; AutoComplete available here..
- });
-</code></pre>
+        <p>Aliases are dynamic groups of modules that can be used as shortcuts.</p>
     </div>
 
     
 
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>YUI({
+    aliases: {
+        davglass: [ 'node', 'yql', 'dd' ],
+        mine: [ 'davglass', 'autocomplete']
+    }
+}).use('mine', function (Y) {
+    // Node, YQL, DD &amp; AutoComplete available here.
+});
+</code></pre>
+            </div>
+        </div>
     
 
     
@@ -2369,7 +2368,7 @@ shortcuts.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1769"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1769</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1834"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1834</code></a>
         
         </p>
 
@@ -2379,18 +2378,67 @@ shortcuts.</p>
     </div>
 
     <div class="description">
-        <p>Aliases are dynamic groups of modules that can be used as
-shortcuts.</p>
+        <p>Aliases are dynamic groups of modules that can be used as shortcuts.</p>
+    </div>
 
-<pre class="code prettyprint"><code> YUI({
-     aliases: {
-         davglass: [ 'node', 'yql', 'dd' ],
-         mine: [ 'davglass', 'autocomplete']
-     }
- }).use('mine', function(Y) {
-     //Node, YQL, DD &amp;amp; AutoComplete available here..
- });
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>YUI({
+    aliases: {
+        davglass: [ 'node', 'yql', 'dd' ],
+        mine: [ 'davglass', 'autocomplete']
+    }
+}).use('mine', function (Y) {
+    // Node, YQL, DD &amp; AutoComplete available here.
+});
 </code></pre>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="property_base" class="property item">
+    <h3 class="name"><code>base</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1671"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1671</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Base directory for dynamic loading.</p>
     </div>
 
     
@@ -2424,7 +2472,7 @@ shortcuts.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1583"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1583</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1671"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1671</code></a>
         
         </p>
 
@@ -2434,51 +2482,7 @@ shortcuts.</p>
     </div>
 
     <div class="description">
-        <p>Base directory for dynamic loading</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_base" class="property item">
-    <h3 class="name"><code>base</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1583"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1583</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Base directory for dynamic loading</p>
+        <p>Base directory for dynamic loading.</p>
     </div>
 
     
@@ -2492,914 +2496,6 @@ shortcuts.</p>
                     <div id="property_bootstrap" class="property item">
     <h3 class="name"><code>bootstrap</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1437"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1437</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Allows the YUI seed file to fetch the loader component and library
-metadata to dynamically load additional dependencies.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_bootstrap" class="property item">
-    <h3 class="name"><code>bootstrap</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1437"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1437</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Allows the YUI seed file to fetch the loader component and library
-metadata to dynamically load additional dependencies.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_cacheUse" class="property item deprecated">
-    <h3 class="name"><code>cacheUse</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-        <span class="flag deprecated" title="no longer used">deprecated</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1929"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1929</code></a>
-        
-        </p>
-
-        
-            <p>Deprecated: no longer used</p>
-        
-
-        
-            <p>Available since 3.3.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>Cache serviced use() requests.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_cacheUse" class="property item deprecated">
-    <h3 class="name"><code>cacheUse</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-        <span class="flag deprecated" title="no longer used">deprecated</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1929"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1929</code></a>
-        
-        </p>
-
-        
-            <p>Deprecated: no longer used</p>
-        
-
-        
-            <p>Available since 3.3.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>Cache serviced use() requests.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_combine" class="property item">
-    <h3 class="name"><code>combine</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1674"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1674</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Use the YUI combo service to reduce the number of http connections
-required to load your dependencies.  Turning this off will
-disable combo handling for YUI and all module groups configured
-with a combo service.</p>
-
-<p>For dynamic loading.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true if &#x27;base&#x27; is not supplied, false if it is.</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_combine" class="property item">
-    <h3 class="name"><code>combine</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1674"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1674</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Use the YUI combo service to reduce the number of http connections
-required to load your dependencies.  Turning this off will
-disable combo handling for YUI and all module groups configured
-with a combo service.</p>
-
-<p>For dynamic loading.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true if &#x27;base&#x27; is not supplied, false if it is.</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_comboBase" class="property item">
-    <h3 class="name"><code>comboBase</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1596"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1596</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The YUI combo service base dir. Ex: <code>http://yui.yahooapis.com/combo?</code>
-For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_comboBase" class="property item">
-    <h3 class="name"><code>comboBase</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1596"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1596</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The YUI combo service base dir. Ex: <code>http://yui.yahooapis.com/combo?</code>
-For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_core" class="property item">
-    <h3 class="name"><code>core</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1523"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1523</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A list of modules that defines the YUI core (overrides the default list).</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> [ get,features,intl-base,yui-log,yui-later,loader-base, loader-rollup, loader-yui3 ]</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_core" class="property item">
-    <h3 class="name"><code>core</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1523"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1523</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A list of modules that defines the YUI core (overrides the default list).</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> [ get,features,intl-base,yui-log,yui-later,loader-base, loader-rollup, loader-yui3 ]</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_cssAttributes" class="property item">
-    <h3 class="name"><code>cssAttributes</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1717"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1717</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Object literal containing attributes to add to dynamically loaded link
-nodes.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_cssAttributes" class="property item">
-    <h3 class="name"><code>cssAttributes</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1717"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1717</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Object literal containing attributes to add to dynamically loaded link
-nodes.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_dateFormat" class="property item deprecated">
-    <h3 class="name"><code>dateFormat</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-        <span class="flag deprecated" title="use configuration in &#x60;DataType.Date.format()&#x60; instead.">deprecated</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1544"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1544</code></a>
-        
-        </p>
-
-        
-            <p>Deprecated: use configuration in &#x60;DataType.Date.format()&#x60; instead.</p>
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The default date format</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_dateFormat" class="property item deprecated">
-    <h3 class="name"><code>dateFormat</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-        <span class="flag deprecated" title="use configuration in &#x60;DataType.Date.format()&#x60; instead.">deprecated</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1544"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1544</code></a>
-        
-        </p>
-
-        
-            <p>Deprecated: use configuration in &#x60;DataType.Date.format()&#x60; instead.</p>
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The default date format</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_debug" class="property item">
-    <h3 class="name"><code>debug</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1446"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1446</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Turns on writing Ylog messages to the browser console.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_debug" class="property item">
-    <h3 class="name"><code>debug</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1446"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1446</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Turns on writing Ylog messages to the browser console.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> true</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_delayUntil" class="property item">
-    <h3 class="name"><code>delayUntil</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1950"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1950</code></a>
-        
-        </p>
-
-        
-
-        
-            <p>Available since 3.6.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>Delay the <code>use</code> callback until a specific event has passed (<code>load</code>, <code>domready</code>, <code>contentready</code> or <code>available</code>)</p>
-    </div>
-
-    
-
-    
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <p>You can use <code>load</code> or <code>domready</code> strings by default:</p>
-
-<pre class="code prettyprint"><code>YUI({
-    delayUntil: 'domready'
-}, function(Y) {
-    //This will not fire until 'domeready'
-});
-</code></pre>
-
-<p>Or you can delay until a node is available (with <code>available</code> or <code>contentready</code>):</p>
-
-<pre class="code prettyprint"><code>YUI({
-    delayUntil: {
-        event: 'available',
-        args: '#foo'
-    }
-}, function(Y) {
-    //This will not fire until '#foo' is 
-    // available in the DOM
-});
-</code></pre>
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="property_delayUntil" class="property item">
-    <h3 class="name"><code>delayUntil</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1950"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1950</code></a>
-        
-        </p>
-
-        
-
-        
-            <p>Available since 3.6.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>Delay the <code>use</code> callback until a specific event has passed (<code>load</code>, <code>domready</code>, <code>contentready</code> or <code>available</code>)</p>
-    </div>
-
-    
-
-    
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <p>You can use <code>load</code> or <code>domready</code> strings by default:</p>
-
-<pre class="code prettyprint"><code>YUI({
-    delayUntil: 'domready'
-}, function(Y) {
-    //This will not fire until 'domeready'
-});
-</code></pre>
-
-<p>Or you can delay until a node is available (with <code>available</code> or <code>contentready</code>):</p>
-
-<pre class="code prettyprint"><code>YUI({
-    delayUntil: {
-        event: 'available',
-        args: '#foo'
-    }
-}, function(Y) {
-    //This will not fire until '#foo' is 
-    // available in the DOM
-});
-</code></pre>
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="property_doc" class="property item">
-    <h3 class="name"><code>doc</code></h3>
-    <span class="type">Document</span>
 
     
 
@@ -3430,11 +2526,962 @@ nodes.</p>
     </div>
 
     <div class="description">
-        <p>The document associated with the 'win' configuration.</p>
+        <p>If <code>true</code> (the default), YUI will "bootstrap" the YUI Loader and module metadata
+if they're needed to load additional dependencies and aren't already available.</p>
+
+<p>Setting this to <code>false</code> will prevent YUI from automatically loading the Loader
+and module metadata, so you will need to manually ensure that they're available
+or handle dependency resolution yourself.</p>
     </div>
 
     
-        <p><strong>Default:</strong> the document hosting YUI</p>
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_bootstrap" class="property item">
+    <h3 class="name"><code>bootstrap</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1515"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1515</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If <code>true</code> (the default), YUI will "bootstrap" the YUI Loader and module metadata
+if they're needed to load additional dependencies and aren't already available.</p>
+
+<p>Setting this to <code>false</code> will prevent YUI from automatically loading the Loader
+and module metadata, so you will need to manually ensure that they're available
+or handle dependency resolution yourself.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_cacheUse" class="property item deprecated">
+    <h3 class="name"><code>cacheUse</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+        <span class="flag deprecated" title="No longer used.">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1989"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1989</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: No longer used.</p>
+        
+
+        
+            <p>Available since 3.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Cache serviced use() requests.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_cacheUse" class="property item deprecated">
+    <h3 class="name"><code>cacheUse</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+        <span class="flag deprecated" title="No longer used.">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1989"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1989</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: No longer used.</p>
+        
+
+        
+            <p>Available since 3.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Cache serviced use() requests.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_combine" class="property item">
+    <h3 class="name"><code>combine</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1739"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1739</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If <code>true</code>, YUI will use a combo handler to load multiple modules in as few
+requests as possible.</p>
+
+<p>The YUI CDN (which YUI uses by default) supports combo handling, but other
+servers may not. If the server from which you're loading YUI does not support
+combo handling, set this to <code>false</code>.</p>
+
+<p>Providing a value for the <code>base</code> config property will cause <code>combine</code> to default
+to <code>false</code> instead of <code>true</code>.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_combine" class="property item">
+    <h3 class="name"><code>combine</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1739"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1739</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If <code>true</code>, YUI will use a combo handler to load multiple modules in as few
+requests as possible.</p>
+
+<p>The YUI CDN (which YUI uses by default) supports combo handling, but other
+servers may not. If the server from which you're loading YUI does not support
+combo handling, set this to <code>false</code>.</p>
+
+<p>Providing a value for the <code>base</code> config property will cause <code>combine</code> to default
+to <code>false</code> instead of <code>true</code>.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_comboBase" class="property item">
+    <h3 class="name"><code>comboBase</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1677"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1677</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Base URL for a dynamic combo handler. This will be used to make combo-handled
+module requests if <code>combine</code> is set to `true.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> &quot;http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?&quot;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_comboBase" class="property item">
+    <h3 class="name"><code>comboBase</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1677"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1677</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Base URL for a dynamic combo handler. This will be used to make combo-handled
+module requests if <code>combine</code> is set to `true.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> &quot;http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?&quot;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_core" class="property item">
+    <h3 class="name"><code>core</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1606"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1606</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A list of modules that defines the YUI core (overrides the default list).</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> [&#x27;get&#x27;, &#x27;features&#x27;, &#x27;intl-base&#x27;, &#x27;yui-log&#x27;, &#x27;yui-later&#x27;, &#x27;loader-base&#x27;, &#x27;loader-rollup&#x27;, &#x27;loader-yui3&#x27;]</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_core" class="property item">
+    <h3 class="name"><code>core</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1606"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1606</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A list of modules that defines the YUI core (overrides the default list).</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> [&#x27;get&#x27;, &#x27;features&#x27;, &#x27;intl-base&#x27;, &#x27;yui-log&#x27;, &#x27;yui-later&#x27;, &#x27;loader-base&#x27;, &#x27;loader-rollup&#x27;, &#x27;loader-yui3&#x27;]</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_cssAttributes" class="property item">
+    <h3 class="name"><code>cssAttributes</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1780"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1780</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Object hash containing attributes to add to dynamically added <code>&lt;link&gt;</code> nodes.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_cssAttributes" class="property item">
+    <h3 class="name"><code>cssAttributes</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1780"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1780</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Object hash containing attributes to add to dynamically added <code>&lt;link&gt;</code> nodes.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_dateFormat" class="property item deprecated">
+    <h3 class="name"><code>dateFormat</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+        <span class="flag deprecated" title="Use configuration in &#x60;DataType.Date.format()&#x60; instead.">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1629"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1629</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: Use configuration in &#x60;DataType.Date.format()&#x60; instead.</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default date format.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_dateFormat" class="property item deprecated">
+    <h3 class="name"><code>dateFormat</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+        <span class="flag deprecated" title="Use configuration in &#x60;DataType.Date.format()&#x60; instead.">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1629"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1629</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: Use configuration in &#x60;DataType.Date.format()&#x60; instead.</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default date format.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_debug" class="property item">
+    <h3 class="name"><code>debug</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1527"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1527</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If <code>true</code>, <code>Y.log()</code> messages will be written to the browser's debug console
+when available and when <code>useBrowserConsole</code> is also <code>true</code>.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_debug" class="property item">
+    <h3 class="name"><code>debug</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1527"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1527</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If <code>true</code>, <code>Y.log()</code> messages will be written to the browser's debug console
+when available and when <code>useBrowserConsole</code> is also <code>true</code>.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_delayUntil" class="property item">
+    <h3 class="name"><code>delayUntil</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l2010"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:2010</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.6.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Event to wait for before executing the <code>use()</code> callback.</p>
+
+<p>The following events are supported:</p>
+
+<ul>
+<li>available</li>
+<li>contentready</li>
+<li>domready</li>
+<li>load</li>
+</ul>
+
+<p>The event may be specified as a string or as an object hash that provides
+additional event configuration, as illustrated in the example below.</p>
+    </div>
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>You can use <code>load</code> or <code>domready</code> strings by default:</p>
+
+<pre class="code prettyprint"><code>YUI({
+    delayUntil: 'domready'
+}, function (Y) {
+    // This will not execute until 'domeready' occurs.
+});
+</code></pre>
+
+<p>Or you can delay until a node is available (with <code>available</code> or <code>contentready</code>):</p>
+
+<pre class="code prettyprint"><code>YUI({
+    delayUntil: {
+        event: 'available',
+        args : '#foo'
+    }
+}, function (Y) {
+    // This will not execute until a node matching the selector "#foo" is
+    // available in the DOM.
+});
+</code></pre>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="property_delayUntil" class="property item">
+    <h3 class="name"><code>delayUntil</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l2010"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:2010</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.6.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Event to wait for before executing the <code>use()</code> callback.</p>
+
+<p>The following events are supported:</p>
+
+<ul>
+<li>available</li>
+<li>contentready</li>
+<li>domready</li>
+<li>load</li>
+</ul>
+
+<p>The event may be specified as a string or as an object hash that provides
+additional event configuration, as illustrated in the example below.</p>
+    </div>
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>You can use <code>load</code> or <code>domready</code> strings by default:</p>
+
+<pre class="code prettyprint"><code>YUI({
+    delayUntil: 'domready'
+}, function (Y) {
+    // This will not execute until 'domeready' occurs.
+});
+</code></pre>
+
+<p>Or you can delay until a node is available (with <code>available</code> or <code>contentready</code>):</p>
+
+<pre class="code prettyprint"><code>YUI({
+    delayUntil: {
+        event: 'available',
+        args : '#foo'
+    }
+}, function (Y) {
+    // This will not execute until a node matching the selector "#foo" is
+    // available in the DOM.
+});
+</code></pre>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="property_doc" class="property item">
+    <h3 class="name"><code>doc</code></h3>
+    <span class="type">Document</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1597"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1597</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The browser <code>document</code> object associated with this YUI instance's <code>win</code> object.</p>
+
+<p>When running in Node.js, this property is <code>undefined</code>, since there is no
+<code>document</code> object.</p>
+    </div>
+
     
 
     
@@ -3466,7 +3513,7 @@ nodes.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1515"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1515</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1597"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1597</code></a>
         
         </p>
 
@@ -3476,59 +3523,10 @@ nodes.</p>
     </div>
 
     <div class="description">
-        <p>The document associated with the 'win' configuration.</p>
-    </div>
+        <p>The browser <code>document</code> object associated with this YUI instance's <code>win</code> object.</p>
 
-    
-        <p><strong>Default:</strong> the document hosting YUI</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_errorFn" class="property item">
-    <h3 class="name"><code>errorFn</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1889"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1889</code></a>
-        
-        </p>
-
-        
-
-        
-            <p>Available since 3.2.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>A callback to execute when Y.error is called.  It receives the
-error message and an javascript error object if Y.error was
-executed because a javascript error was caught.  The function
-is executed in the YUI instance context. Returning <code>true</code> from this
-function will stop the Error from being thrown.</p>
+<p>When running in Node.js, this property is <code>undefined</code>, since there is no
+<code>document</code> object.</p>
     </div>
 
     
@@ -3562,7 +3560,7 @@ function will stop the Error from being thrown.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1889"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1889</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1951"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1951</code></a>
         
         </p>
 
@@ -3574,17 +3572,135 @@ function will stop the Error from being thrown.</p>
     </div>
 
     <div class="description">
-        <p>A callback to execute when Y.error is called.  It receives the
-error message and an javascript error object if Y.error was
-executed because a javascript error was caught.  The function
-is executed in the YUI instance context. Returning <code>true</code> from this
-function will stop the Error from being thrown.</p>
+        <p>Callback to execute when <code>Y.error()</code> is called. It receives the error message
+and a JavaScript error object if one was provided.</p>
+
+<p>This function is executed with the YUI instance as its <code>this</code> object.</p>
+
+<p>Returning <code>true</code> from this function will prevent an exception from being thrown.</p>
     </div>
 
     
 
     
 
+    
+        <h4>Sub-properties:</h4>
+
+        <ul class="params-list">
+            
+            <li class="param">
+                
+                    <code class="param-name">msg</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                
+
+                <div class="param-description">
+                    <p>Error message</p>
+                </div>
+
+                
+            </li>
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[err]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Error object (if one was provided).</p>
+                </div>
+
+                
+            </li>
+            
+        </ul>
+    
+</div>
+
+                
+                    <div id="property_errorFn" class="property item">
+    <h3 class="name"><code>errorFn</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1951"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1951</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.2.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Callback to execute when <code>Y.error()</code> is called. It receives the error message
+and a JavaScript error object if one was provided.</p>
+
+<p>This function is executed with the YUI instance as its <code>this</code> object.</p>
+
+<p>Returning <code>true</code> from this function will prevent an exception from being thrown.</p>
+    </div>
+
+    
+
+    
+
+    
+        <h4>Sub-properties:</h4>
+
+        <ul class="params-list">
+            
+            <li class="param">
+                
+                    <code class="param-name">msg</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                
+
+                <div class="param-description">
+                    <p>Error message</p>
+                </div>
+
+                
+            </li>
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[err]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Error object (if one was provided).</p>
+                </div>
+
+                
+            </li>
+            
+        </ul>
     
 </div>
 
@@ -3612,7 +3728,7 @@ function will stop the Error from being thrown.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1839"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1839</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1906"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1906</code></a>
         
         </p>
 
@@ -3622,10 +3738,10 @@ function will stop the Error from being thrown.</p>
     </div>
 
     <div class="description">
-        <p>Specifies whether or not YUI().use(...) will attempt to load CSS
-resources at all.  Any truthy value will cause CSS dependencies
-to load when fetching script.  The special value 'force' will
-cause CSS dependencies to be loaded even if no script is needed.</p>
+        <p>If <code>true</code>, YUI will attempt to load CSS dependencies and skins. Set this to
+<code>false</code> to prevent YUI from loading any CSS, or set it to the string <code>"force"</code>
+to force CSS dependencies to be loaded even if their associated JS modules are
+already loaded.</p>
     </div>
 
     
@@ -3661,7 +3777,7 @@ cause CSS dependencies to be loaded even if no script is needed.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1839"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1839</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1906"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1906</code></a>
         
         </p>
 
@@ -3671,10 +3787,10 @@ cause CSS dependencies to be loaded even if no script is needed.</p>
     </div>
 
     <div class="description">
-        <p>Specifies whether or not YUI().use(...) will attempt to load CSS
-resources at all.  Any truthy value will cause CSS dependencies
-to load when fetching script.  The special value 'force' will
-cause CSS dependencies to be loaded even if no script is needed.</p>
+        <p>If <code>true</code>, YUI will attempt to load CSS dependencies and skins. Set this to
+<code>false</code> to prevent YUI from loading any CSS, or set it to the string <code>"force"</code>
+to force CSS dependencies to be loaded even if their associated JS modules are
+already loaded.</p>
     </div>
 
     
@@ -3689,280 +3805,7 @@ cause CSS dependencies to be loaded even if no script is needed.</p>
                 
                     <div id="property_filter" class="property item">
     <h3 class="name"><code>filter</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1611"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1611</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A filter to apply to result urls.  This filter will modify the default
-path for all modules.  The default path for the YUI library is the
-minified version of the files (e.g., event-min.js).  The filter property
-can be a predefined filter or a custom filter.  The valid predefined
-filters are:</p>
-
-<dl>
- <dt>DEBUG</dt>
- <dd>Selects the debug versions of the library (e.g., event-debug.js).
-     This option will automatically include the Logger widget</dd>
- <dt>RAW</dt>
- <dd>Selects the non-minified version of the library (e.g., event.js).</dd>
-</dl>
-
-<p>You can also define a custom filter, which must be an object literal
-containing a search expression and a replace string:</p>
-
-<pre class="code prettyprint"><code> myFilter: {
-     'searchExp': "-min\\.js",
-     'replaceStr': "-debug.js"
- }
-</code></pre>
-
-<p>For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_filter" class="property item">
-    <h3 class="name"><code>filter</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1611"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1611</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A filter to apply to result urls.  This filter will modify the default
-path for all modules.  The default path for the YUI library is the
-minified version of the files (e.g., event-min.js).  The filter property
-can be a predefined filter or a custom filter.  The valid predefined
-filters are:</p>
-
-<dl>
- <dt>DEBUG</dt>
- <dd>Selects the debug versions of the library (e.g., event-debug.js).
-     This option will automatically include the Logger widget</dd>
- <dt>RAW</dt>
- <dd>Selects the non-minified version of the library (e.g., event.js).</dd>
-</dl>
-
-<p>You can also define a custom filter, which must be an object literal
-containing a search expression and a replace string:</p>
-
-<pre class="code prettyprint"><code> myFilter: {
-     'searchExp': "-min\\.js",
-     'replaceStr': "-debug.js"
- }
-</code></pre>
-
-<p>For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_filters" class="property item">
-    <h3 class="name"><code>filters</code></h3>
-    <span class="type">Unknown</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1665"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1665</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Hash of per-component filter specification.  If specified for a given
-component, this overrides the filter config.</p>
-
-<p>For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_filters" class="property item">
-    <h3 class="name"><code>filters</code></h3>
-    <span class="type">Unknown</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1665"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1665</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Hash of per-component filter specification.  If specified for a given
-component, this overrides the filter config.</p>
-
-<p>For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_force" class="property item">
-    <h3 class="name"><code>force</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1694"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1694</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A list of modules that should always be loaded when required, even if already
-present on the page.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_force" class="property item">
-    <h3 class="name"><code>force</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
 
@@ -3993,8 +3836,271 @@ present on the page.</p>
     </div>
 
     <div class="description">
-        <p>A list of modules that should always be loaded when required, even if already
-present on the page.</p>
+        <p>Filter to apply to module urls. This filter will modify the default path for all
+modules.</p>
+
+<p>The default path for the YUI library is the minified version of the files (e.g.,
+event-min.js). The filter property can be a predefined filter or a custom
+filter. The valid predefined filters are:</p>
+
+<ul>
+<li><strong>debug</strong>: Loads debug versions of modules (e.g., event-debug.js).</li>
+<li><strong>raw</strong>: Loads raw, non-minified versions of modules without debug logging
+(e.g., event.js).</li>
+</ul>
+
+<p>You can also define a custom filter, which must be an object literal containing
+a search regular expression and a replacement string:</p>
+
+<pre class="code prettyprint"><code>myFilter: {
+    searchExp : "-min\\.js",
+    replaceStr: "-debug.js"
+}
+</code></pre>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_filter" class="property item">
+    <h3 class="name"><code>filter</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1694"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1694</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Filter to apply to module urls. This filter will modify the default path for all
+modules.</p>
+
+<p>The default path for the YUI library is the minified version of the files (e.g.,
+event-min.js). The filter property can be a predefined filter or a custom
+filter. The valid predefined filters are:</p>
+
+<ul>
+<li><strong>debug</strong>: Loads debug versions of modules (e.g., event-debug.js).</li>
+<li><strong>raw</strong>: Loads raw, non-minified versions of modules without debug logging
+(e.g., event.js).</li>
+</ul>
+
+<p>You can also define a custom filter, which must be an object literal containing
+a search regular expression and a replacement string:</p>
+
+<pre class="code prettyprint"><code>myFilter: {
+    searchExp : "-min\\.js",
+    replaceStr: "-debug.js"
+}
+</code></pre>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_filters" class="property item">
+    <h3 class="name"><code>filters</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1732"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1732</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Hash of per-component filter specifications. If specified for a given component,
+this overrides the global <code>filter</code> config.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_filters" class="property item">
+    <h3 class="name"><code>filters</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1732"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1732</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Hash of per-component filter specifications. If specified for a given component,
+this overrides the global <code>filter</code> config.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_force" class="property item">
+    <h3 class="name"><code>force</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1760"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1760</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Array of module names that should always be loaded when required, even if
+already present on the page.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_force" class="property item">
+    <h3 class="name"><code>force</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1760"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1760</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Array of module names that should always be loaded when required, even if
+already present on the page.</p>
     </div>
 
     
@@ -4028,7 +4134,7 @@ present on the page.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1850"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1850</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1916"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1916</code></a>
         
         </p>
 
@@ -4040,7 +4146,7 @@ present on the page.</p>
     </div>
 
     <div class="description">
-        <p>The default gallery version to build gallery module urls</p>
+        <p>Default gallery version used to build gallery module urls.</p>
     </div>
 
     
@@ -4074,7 +4180,7 @@ present on the page.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1850"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1850</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1916"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1916</code></a>
         
         </p>
 
@@ -4086,7 +4192,7 @@ present on the page.</p>
     </div>
 
     <div class="description">
-        <p>The default gallery version to build gallery module urls</p>
+        <p>Default gallery version used to build gallery module urls.</p>
     </div>
 
     
@@ -4120,7 +4226,7 @@ present on the page.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1498"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1498</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1578"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1578</code></a>
         
         </p>
 
@@ -4130,12 +4236,12 @@ present on the page.</p>
     </div>
 
     <div class="description">
-        <p>The global object. In Node.js it's an object called "global". In the
-browser is the current window object.</p>
+        <p>Reference to the global object for this execution context.</p>
+
+<p>In a browser, this is the current <code>window</code> object. In Node.js, this is the
+Node.js <code>global</code> object.</p>
     </div>
 
-    
-        <p><strong>Default:</strong> the global object</p>
     
 
     
@@ -4167,7 +4273,7 @@ browser is the current window object.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1498"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1498</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1578"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1578</code></a>
         
         </p>
 
@@ -4177,91 +4283,10 @@ browser is the current window object.</p>
     </div>
 
     <div class="description">
-        <p>The global object. In Node.js it's an object called "global". In the
-browser is the current window object.</p>
-    </div>
+        <p>Reference to the global object for this execution context.</p>
 
-    
-        <p><strong>Default:</strong> the global object</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_groups" class="property item">
-    <h3 class="name"><code>groups</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1786"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1786</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A hash of module group definitions.  It for each group you
-can specify a list of modules and the base path and
-combo spec to use when dynamically loading the modules.</p>
-
-<pre class="code prettyprint"><code> groups: {
-     yui2: {
-         // specify whether or not this group has a combo service
-         combine: true,
-
-         // The comboSeperator to use with this group's combo handler
-         comboSep: ';',
-
-         // The maxURLLength for this server
-         maxURLLength: 500,
-
-         // the base path for non-combo paths
-         base: 'http://yui.yahooapis.com/2.8.0r4/build/',
-
-         // the path to the combo service
-         comboBase: 'http://yui.yahooapis.com/combo?',
-
-         // a fragment to prepend to the path attribute when
-         // when building combo urls
-         root: '2.8.0r4/build/',
-
-         // the module definitions
-         modules:  {
-             yui2_yde: {
-                 path: "yahoo-dom-event/yahoo-dom-event.js"
-             },
-             yui2_anim: {
-                 path: "animation/animation.js",
-                 requires: ['yui2_yde']
-             }
-         }
-     }
- }
-</code></pre>
+<p>In a browser, this is the current <code>window</code> object. In Node.js, this is the
+Node.js <code>global</code> object.</p>
     </div>
 
     
@@ -4295,7 +4320,7 @@ combo spec to use when dynamically loading the modules.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1786"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1786</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1851"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1851</code></a>
         
         </p>
 
@@ -4305,44 +4330,183 @@ combo spec to use when dynamically loading the modules.</p>
     </div>
 
     <div class="description">
-        <p>A hash of module group definitions.  It for each group you
-can specify a list of modules and the base path and
+        <p>A hash of module group definitions.</p>
+
+<p>For each group you can specify a list of modules and the base path and
 combo spec to use when dynamically loading the modules.</p>
+    </div>
 
-<pre class="code prettyprint"><code> groups: {
-     yui2: {
-         // specify whether or not this group has a combo service
-         combine: true,
+    
 
-         // The comboSeperator to use with this group's combo handler
-         comboSep: ';',
+    
+        <div class="example">
+            <h4>Example:</h4>
 
-         // The maxURLLength for this server
-         maxURLLength: 500,
+            <div class="example-content">
+                <pre class="code prettyprint"><code>groups: {
+    yui2: {
+        // specify whether or not this group has a combo service
+        combine: true,
 
-         // the base path for non-combo paths
-         base: 'http://yui.yahooapis.com/2.8.0r4/build/',
+        // The comboSeperator to use with this group's combo handler
+        comboSep: ';',
 
-         // the path to the combo service
-         comboBase: 'http://yui.yahooapis.com/combo?',
+        // The maxURLLength for this server
+        maxURLLength: 500,
 
-         // a fragment to prepend to the path attribute when
-         // when building combo urls
-         root: '2.8.0r4/build/',
+        // the base path for non-combo paths
+        base: 'http://yui.yahooapis.com/2.8.0r4/build/',
 
-         // the module definitions
-         modules:  {
-             yui2_yde: {
-                 path: "yahoo-dom-event/yahoo-dom-event.js"
-             },
-             yui2_anim: {
-                 path: "animation/animation.js",
-                 requires: ['yui2_yde']
-             }
-         }
-     }
- }
+        // the path to the combo service
+        comboBase: 'http://yui.yahooapis.com/combo?',
+
+        // a fragment to prepend to the path attribute when
+        // when building combo urls
+        root: '2.8.0r4/build/',
+
+        // the module definitions
+        modules:  {
+            yui2_yde: {
+                path: "yahoo-dom-event/yahoo-dom-event.js"
+            },
+            yui2_anim: {
+                path: "animation/animation.js",
+                requires: ['yui2_yde']
+            }
+        }
+    }
+}
 </code></pre>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="property_groups" class="property item">
+    <h3 class="name"><code>groups</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1851"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1851</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A hash of module group definitions.</p>
+
+<p>For each group you can specify a list of modules and the base path and
+combo spec to use when dynamically loading the modules.</p>
+    </div>
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>groups: {
+    yui2: {
+        // specify whether or not this group has a combo service
+        combine: true,
+
+        // The comboSeperator to use with this group's combo handler
+        comboSep: ';',
+
+        // The maxURLLength for this server
+        maxURLLength: 500,
+
+        // the base path for non-combo paths
+        base: 'http://yui.yahooapis.com/2.8.0r4/build/',
+
+        // the path to the combo service
+        comboBase: 'http://yui.yahooapis.com/combo?',
+
+        // a fragment to prepend to the path attribute when
+        // when building combo urls
+        root: '2.8.0r4/build/',
+
+        // the module definitions
+        modules:  {
+            yui2_yde: {
+                path: "yahoo-dom-event/yahoo-dom-event.js"
+            },
+            yui2_anim: {
+                path: "animation/animation.js",
+                requires: ['yui2_yde']
+            }
+        }
+    }
+}
+</code></pre>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="property_ignore" class="property item">
+    <h3 class="name"><code>ignore</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1754"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1754</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Array of module names that should never be dynamically loaded.</p>
     </div>
 
     
@@ -4376,7 +4540,7 @@ combo spec to use when dynamically loading the modules.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1687"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1687</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1754"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1754</code></a>
         
         </p>
 
@@ -4386,51 +4550,7 @@ combo spec to use when dynamically loading the modules.</p>
     </div>
 
     <div class="description">
-        <p>A list of modules that should never be dynamically loaded</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_ignore" class="property item">
-    <h3 class="name"><code>ignore</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1687"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1687</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A list of modules that should never be dynamically loaded</p>
+        <p>Array of module names that should never be dynamically loaded.</p>
     </div>
 
     
@@ -4444,1180 +4564,6 @@ combo spec to use when dynamically loading the modules.</p>
                     <div id="property_injected" class="property item">
     <h3 class="name"><code>injected</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1479"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1479</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Set to true if the yui seed file was dynamically loaded in
-order to bootstrap components relying on the window load event
-and the <code>domready</code> custom event.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> false</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_injected" class="property item">
-    <h3 class="name"><code>injected</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1479"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1479</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Set to true if the yui seed file was dynamically loaded in
-order to bootstrap components relying on the window load event
-and the <code>domready</code> custom event.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> false</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_insertBefore" class="property item">
-    <h3 class="name"><code>insertBefore</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1702"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1702</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Node or id for a node that should be used as the insertion point for new
-nodes.  For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_insertBefore" class="property item">
-    <h3 class="name"><code>insertBefore</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1702"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1702</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Node or id for a node that should be used as the insertion point for new
-nodes.  For dynamic loading.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_jsAttributes" class="property item">
-    <h3 class="name"><code>jsAttributes</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1710"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1710</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Object literal containing attributes to add to dynamically loaded script
-nodes.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_jsAttributes" class="property item">
-    <h3 class="name"><code>jsAttributes</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1710"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1710</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Object literal containing attributes to add to dynamically loaded script
-nodes.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_lang" class="property item">
-    <h3 class="name"><code>lang</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1531"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1531</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A list of languages in order of preference. This list is matched against
-the list of available languages in modules that the YUI instance uses to
-determine the best possible localization of language sensitive modules.
-Languages are represented using BCP 47 language tags, such as "en-GB" for
-English as used in the United Kingdom, or "zh-Hans-CN" for simplified
-Chinese as used in China. The list can be provided as a comma-separated
-list or as an array.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_lang" class="property item">
-    <h3 class="name"><code>lang</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1531"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1531</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A list of languages in order of preference. This list is matched against
-the list of available languages in modules that the YUI instance uses to
-determine the best possible localization of language sensitive modules.
-Languages are represented using BCP 47 language tags, such as "en-GB" for
-English as used in the United Kingdom, or "zh-Hans-CN" for simplified
-Chinese as used in China. The list can be provided as a comma-separated
-list or as an array.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_loaderPath" class="property item">
-    <h3 class="name"><code>loaderPath</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1829"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1829</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The loader 'path' attribute to the loader itself.  This is combined
-with the 'base' attribute to dynamically load the loader component
-when boostrapping with the get utility alone.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> loader&#x2F;loader-min.js</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_loaderPath" class="property item">
-    <h3 class="name"><code>loaderPath</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1829"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1829</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The loader 'path' attribute to the loader itself.  This is combined
-with the 'base' attribute to dynamically load the loader component
-when boostrapping with the get utility alone.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> loader&#x2F;loader-min.js</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_loadErrorFn" class="property item">
-    <h3 class="name"><code>loadErrorFn</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1901"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1901</code></a>
-        
-        </p>
-
-        
-
-        
-            <p>Available since 3.3.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>A callback to execute when the loader fails to load one or
-more resource.  This could be because of a script load
-failure.  It can also fail if a javascript module fails
-to register itself, but only when the 'requireRegistration'
-is true.  If this function is defined, the use() callback will
-only be called when the loader succeeds, otherwise it always
-executes unless there was a javascript error when attaching
-a module.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_loadErrorFn" class="property item">
-    <h3 class="name"><code>loadErrorFn</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1901"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1901</code></a>
-        
-        </p>
-
-        
-
-        
-            <p>Available since 3.3.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>A callback to execute when the loader fails to load one or
-more resource.  This could be because of a script load
-failure.  It can also fail if a javascript module fails
-to register itself, but only when the 'requireRegistration'
-is true.  If this function is defined, the use() callback will
-only be called when the loader succeeds, otherwise it always
-executes unless there was a javascript error when attaching
-a module.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_locale" class="property item deprecated">
-    <h3 class="name"><code>locale</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-        <span class="flag deprecated" title="use &#x60;config.lang&#x60; instead.">deprecated</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1551"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1551</code></a>
-        
-        </p>
-
-        
-            <p>Deprecated: use &#x60;config.lang&#x60; instead.</p>
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The default locale</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_locale" class="property item deprecated">
-    <h3 class="name"><code>locale</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-        <span class="flag deprecated" title="use &#x60;config.lang&#x60; instead.">deprecated</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1551"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1551</code></a>
-        
-        </p>
-
-        
-            <p>Deprecated: use &#x60;config.lang&#x60; instead.</p>
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The default locale</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_logExclude" class="property item">
-    <h3 class="name"><code>logExclude</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1471"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1471</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A hash of log sources that should be not be logged.  If specified,
-all sources are logged if not on this list.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_logExclude" class="property item">
-    <h3 class="name"><code>logExclude</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1471"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1471</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A hash of log sources that should be not be logged.  If specified,
-all sources are logged if not on this list.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_logFn" class="property item">
-    <h3 class="name"><code>logFn</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1880"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1880</code></a>
-        
-        </p>
-
-        
-
-        
-            <p>Available since 3.1.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>Alternative console log function for use in environments without
-a supported native console.  The function is executed in the
-YUI instance context.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_logFn" class="property item">
-    <h3 class="name"><code>logFn</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1880"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1880</code></a>
-        
-        </p>
-
-        
-
-        
-            <p>Available since 3.1.0</p>
-        
-    </div>
-
-    <div class="description">
-        <p>Alternative console log function for use in environments without
-a supported native console.  The function is executed in the
-YUI instance context.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_logInclude" class="property item">
-    <h3 class="name"><code>logInclude</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1463"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1463</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A hash of log sources that should be logged.  If specified, only
-log messages from these sources will be logged.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_logInclude" class="property item">
-    <h3 class="name"><code>logInclude</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1463"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1463</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A hash of log sources that should be logged.  If specified, only
-log messages from these sources will be logged.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_modules" class="property item">
-    <h3 class="name"><code>modules</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1742"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1742</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A hash of module definitions to add to the list of YUI components.
-These components can then be dynamically loaded side by side with
-YUI via the <code>use()</code> method. This is a hash, the key is the module
-name, and the value is an object literal specifying the metdata
-for the module.  See <code>Loader.addModule</code> for the supported module
-metadata fields.  Also see groups, which provides a way to
-configure the base and combo spec for a set of modules.</p>
-
-<pre class="code prettyprint"><code> modules: {
-     mymod1: {
-         requires: ['node'],
-         fullpath: '/mymod1/mymod1.js'
-     },
-     mymod2: {
-         requires: ['mymod1'],
-         fullpath: '/mymod2/mymod2.js'
-     },
-     mymod3: '/js/mymod3.js',
-     mycssmod: '/css/mycssmod.css'
- }
-</code></pre>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_modules" class="property item">
-    <h3 class="name"><code>modules</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1742"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1742</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A hash of module definitions to add to the list of YUI components.
-These components can then be dynamically loaded side by side with
-YUI via the <code>use()</code> method. This is a hash, the key is the module
-name, and the value is an object literal specifying the metdata
-for the module.  See <code>Loader.addModule</code> for the supported module
-metadata fields.  Also see groups, which provides a way to
-configure the base and combo spec for a set of modules.</p>
-
-<pre class="code prettyprint"><code> modules: {
-     mymod1: {
-         requires: ['node'],
-         fullpath: '/mymod1/mymod1.js'
-     },
-     mymod2: {
-         requires: ['mymod1'],
-         fullpath: '/mymod2/mymod2.js'
-     },
-     mymod3: '/js/mymod3.js',
-     mycssmod: '/css/mycssmod.css'
- }
-</code></pre>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_onCSS" class="property item">
-    <h3 class="name"><code>onCSS</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1731"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1731</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Callback for the 'CSSComplete' event.  When dynamically loading YUI
-components with CSS, this property fires when the CSS is finished
-loading but script loading is still ongoing.  This provides an
-opportunity to enhance the presentation of a loading page a little
-bit before the entire loading process is done.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_onCSS" class="property item">
-    <h3 class="name"><code>onCSS</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1731"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1731</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Callback for the 'CSSComplete' event.  When dynamically loading YUI
-components with CSS, this property fires when the CSS is finished
-loading but script loading is still ongoing.  This provides an
-opportunity to enhance the presentation of a loading page a little
-bit before the entire loading process is done.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_pollInterval" class="property item">
-    <h3 class="name"><code>pollInterval</code></h3>
-    <span class="type">Int</span>
 
     
 
@@ -5648,11 +4594,16 @@ bit before the entire loading process is done.</p>
     </div>
 
     <div class="description">
-        <p>The default interval when polling in milliseconds.</p>
+        <p>When the YUI seed file is dynamically loaded after the <code>window.onload</code> event has
+fired, set this to <code>true</code> to tell YUI that it shouldn't wait for <code>window.onload</code>
+to occur.</p>
+
+<p>This ensures that components that rely on <code>window.onload</code> and the <code>domready</code>
+custom event will work as expected even when YUI is dynamically injected.</p>
     </div>
 
     
-        <p><strong>Default:</strong> 20</p>
+        <p><strong>Default:</strong> false</p>
     
 
     
@@ -5661,9 +4612,9 @@ bit before the entire loading process is done.</p>
 </div>
 
                 
-                    <div id="property_pollInterval" class="property item">
-    <h3 class="name"><code>pollInterval</code></h3>
-    <span class="type">Int</span>
+                    <div id="property_injected" class="property item">
+    <h3 class="name"><code>injected</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -5694,11 +4645,16 @@ bit before the entire loading process is done.</p>
     </div>
 
     <div class="description">
-        <p>The default interval when polling in milliseconds.</p>
+        <p>When the YUI seed file is dynamically loaded after the <code>window.onload</code> event has
+fired, set this to <code>true</code> to tell YUI that it shouldn't wait for <code>window.onload</code>
+to occur.</p>
+
+<p>This ensures that components that rely on <code>window.onload</code> and the <code>domready</code>
+custom event will work as expected even when YUI is dynamically injected.</p>
     </div>
 
     
-        <p><strong>Default:</strong> 20</p>
+        <p><strong>Default:</strong> false</p>
     
 
     
@@ -5707,9 +4663,9 @@ bit before the entire loading process is done.</p>
 </div>
 
                 
-                    <div id="property_purgethreshold" class="property item">
-    <h3 class="name"><code>purgethreshold</code></h3>
-    <span class="type">Int</span>
+                    <div id="property_insertBefore" class="property item">
+    <h3 class="name"><code>insertBefore</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/Document_Object_Model_(DOM)/HTMLElement" class="crosslink external" target="_blank">HTMLElement</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
 
@@ -5730,7 +4686,7 @@ bit before the entire loading process is done.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1565"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1565</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1767"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1767</code></a>
         
         </p>
 
@@ -5740,15 +4696,10 @@ bit before the entire loading process is done.</p>
     </div>
 
     <div class="description">
-        <p>The number of dynamic nodes to insert by default before
-automatically removing them.  This applies to script nodes
-because removing the node will not make the evaluated script
-unavailable.  Dynamic CSS is not auto purged, because removing
-a linked style sheet will also remove the style definitions.</p>
+        <p>DOM element or id that should be used as the insertion point for dynamically
+added <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> nodes.</p>
     </div>
 
-    
-        <p><strong>Default:</strong> 20</p>
     
 
     
@@ -5757,9 +4708,9 @@ a linked style sheet will also remove the style definitions.</p>
 </div>
 
                 
-                    <div id="property_purgethreshold" class="property item">
-    <h3 class="name"><code>purgethreshold</code></h3>
-    <span class="type">Int</span>
+                    <div id="property_insertBefore" class="property item">
+    <h3 class="name"><code>insertBefore</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/Document_Object_Model_(DOM)/HTMLElement" class="crosslink external" target="_blank">HTMLElement</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
 
@@ -5780,7 +4731,7 @@ a linked style sheet will also remove the style definitions.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1565"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1565</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1767"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1767</code></a>
         
         </p>
 
@@ -5790,11 +4741,1214 @@ a linked style sheet will also remove the style definitions.</p>
     </div>
 
     <div class="description">
-        <p>The number of dynamic nodes to insert by default before
-automatically removing them.  This applies to script nodes
-because removing the node will not make the evaluated script
-unavailable.  Dynamic CSS is not auto purged, because removing
-a linked style sheet will also remove the style definitions.</p>
+        <p>DOM element or id that should be used as the insertion point for dynamically
+added <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> nodes.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_jsAttributes" class="property item">
+    <h3 class="name"><code>jsAttributes</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1774"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1774</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Object hash containing attributes to add to dynamically added <code>&lt;script&gt;</code> nodes.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_jsAttributes" class="property item">
+    <h3 class="name"><code>jsAttributes</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1774"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1774</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Object hash containing attributes to add to dynamically added <code>&lt;script&gt;</code> nodes.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_lang" class="property item">
+    <h3 class="name"><code>lang</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1614"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1614</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A list of languages to use in order of preference.</p>
+
+<p>This list is matched against the list of available languages in modules that the
+YUI instance uses to determine the best possible localization of language
+sensitive modules.</p>
+
+<p>Languages are represented using BCP 47 language tags, such as "en-GB" for
+English as used in the United Kingdom, or "zh-Hans-CN" for simplified Chinese as
+used in China. The list may be provided as a comma-separated string or as an
+array.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_lang" class="property item">
+    <h3 class="name"><code>lang</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String[]</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1614"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1614</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A list of languages to use in order of preference.</p>
+
+<p>This list is matched against the list of available languages in modules that the
+YUI instance uses to determine the best possible localization of language
+sensitive modules.</p>
+
+<p>Languages are represented using BCP 47 language tags, such as "en-GB" for
+English as used in the United Kingdom, or "zh-Hans-CN" for simplified Chinese as
+used in China. The list may be provided as a comma-separated string or as an
+array.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_loaderPath" class="property item">
+    <h3 class="name"><code>loaderPath</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1896"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1896</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Path to the Loader JS file, relative to the <code>base</code> path.</p>
+
+<p>This is used to dynamically bootstrap the Loader when it's needed and isn't yet
+available.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> &quot;loader&#x2F;loader-min.js&quot;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_loaderPath" class="property item">
+    <h3 class="name"><code>loaderPath</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1896"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1896</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Path to the Loader JS file, relative to the <code>base</code> path.</p>
+
+<p>This is used to dynamically bootstrap the Loader when it's needed and isn't yet
+available.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> &quot;loader&#x2F;loader-min.js&quot;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_loadErrorFn" class="property item">
+    <h3 class="name"><code>loadErrorFn</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1965"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1965</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>A callback to execute when Loader fails to load one or more resources.</p>
+
+<p>This could be because of a script load failure. It could also be because a
+module fails to register itself when the <code>requireRegistration</code> config is <code>true</code>.</p>
+
+<p>If this function is defined, the <code>use()</code> callback will only be called when the
+loader succeeds. Otherwise, <code>use()</code> will always executes unless there was a
+JavaScript error when attaching a module.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_loadErrorFn" class="property item">
+    <h3 class="name"><code>loadErrorFn</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1965"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1965</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.3.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>A callback to execute when Loader fails to load one or more resources.</p>
+
+<p>This could be because of a script load failure. It could also be because a
+module fails to register itself when the <code>requireRegistration</code> config is <code>true</code>.</p>
+
+<p>If this function is defined, the <code>use()</code> callback will only be called when the
+loader succeeds. Otherwise, <code>use()</code> will always executes unless there was a
+JavaScript error when attaching a module.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_locale" class="property item deprecated">
+    <h3 class="name"><code>locale</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+        <span class="flag deprecated" title="Use &#x60;config.lang&#x60; instead.">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1636"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1636</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: Use &#x60;config.lang&#x60; instead.</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default locale.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_locale" class="property item deprecated">
+    <h3 class="name"><code>locale</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+        <span class="flag deprecated" title="Use &#x60;config.lang&#x60; instead.">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1636"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1636</code></a>
+        
+        </p>
+
+        
+            <p>Deprecated: Use &#x60;config.lang&#x60; instead.</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default locale.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_logExclude" class="property item">
+    <h3 class="name"><code>logExclude</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1551"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1551</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A hash of log sources that should be not be logged. If specified, all sources
+will be logged <em>except</em> those on this list.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_logExclude" class="property item">
+    <h3 class="name"><code>logExclude</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1551"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1551</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A hash of log sources that should be not be logged. If specified, all sources
+will be logged <em>except</em> those on this list.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_logFn" class="property item">
+    <h3 class="name"><code>logFn</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1942"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1942</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.1.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Alternate console log function that should be used in environments without a
+supported native console. This function is executed with the YUI instance as its
+<code>this</code> object.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_logFn" class="property item">
+    <h3 class="name"><code>logFn</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1942"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1942</code></a>
+        
+        </p>
+
+        
+
+        
+            <p>Available since 3.1.0</p>
+        
+    </div>
+
+    <div class="description">
+        <p>Alternate console log function that should be used in environments without a
+supported native console. This function is executed with the YUI instance as its
+<code>this</code> object.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_logInclude" class="property item">
+    <h3 class="name"><code>logInclude</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1543"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1543</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A hash of log sources that should be logged. If specified, only messages from
+these sources will be logged. Others will be discarded.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_logInclude" class="property item">
+    <h3 class="name"><code>logInclude</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1543"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1543</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A hash of log sources that should be logged. If specified, only messages from
+these sources will be logged. Others will be discarded.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_modules" class="property item">
+    <h3 class="name"><code>modules</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1803"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1803</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A hash of module definitions to add to the list of available YUI modules. These
+modules can then be dynamically loaded via the <code>use()</code> method.</p>
+
+<p>This is a hash in which keys are module names and values are objects containing
+module metadata.</p>
+
+<p>See <code>Loader.addModule()</code> for the supported module metadata fields. Also see
+<code>groups</code>, which provides a way to configure the base and combo spec for a set of
+modules.</p>
+    </div>
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>modules: {
+    mymod1: {
+        requires: ['node'],
+        fullpath: '/mymod1/mymod1.js'
+    },
+
+    mymod2: {
+        requires: ['mymod1'],
+        fullpath: '/mymod2/mymod2.js'
+    },
+
+    mymod3: '/js/mymod3.js',
+    mycssmod: '/css/mycssmod.css'
+}
+</code></pre>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="property_modules" class="property item">
+    <h3 class="name"><code>modules</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1803"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1803</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A hash of module definitions to add to the list of available YUI modules. These
+modules can then be dynamically loaded via the <code>use()</code> method.</p>
+
+<p>This is a hash in which keys are module names and values are objects containing
+module metadata.</p>
+
+<p>See <code>Loader.addModule()</code> for the supported module metadata fields. Also see
+<code>groups</code>, which provides a way to configure the base and combo spec for a set of
+modules.</p>
+    </div>
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>modules: {
+    mymod1: {
+        requires: ['node'],
+        fullpath: '/mymod1/mymod1.js'
+    },
+
+    mymod2: {
+        requires: ['mymod1'],
+        fullpath: '/mymod2/mymod2.js'
+    },
+
+    mymod3: '/js/mymod3.js',
+    mycssmod: '/css/mycssmod.css'
+}
+</code></pre>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="property_onCSS" class="property item">
+    <h3 class="name"><code>onCSS</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1793"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1793</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Callback for the 'CSSComplete' event. When dynamically loading YUI components
+with CSS, this property fires when the CSS is finished loading.</p>
+
+<p>This provides an opportunity to enhance the presentation of a loading page a
+little bit before the entire loading process is done.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onCSS" class="property item">
+    <h3 class="name"><code>onCSS</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1793"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1793</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Callback for the 'CSSComplete' event. When dynamically loading YUI components
+with CSS, this property fires when the CSS is finished loading.</p>
+
+<p>This provides an opportunity to enhance the presentation of a loading page a
+little bit before the entire loading process is done.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_pollInterval" class="property item">
+    <h3 class="name"><code>pollInterval</code></h3>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1643"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1643</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default generic polling interval in milliseconds.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 20</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_pollInterval" class="property item">
+    <h3 class="name"><code>pollInterval</code></h3>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1643"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1643</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default generic polling interval in milliseconds.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 20</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_purgethreshold" class="property item">
+    <h3 class="name"><code>purgethreshold</code></h3>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1650"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1650</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The number of dynamic <code>&lt;script&gt;</code> nodes to insert by default before automatically
+removing them when loading scripts.</p>
+
+<p>This applies only to script nodes because removing the node will not make the
+evaluated script unavailable. Dynamic CSS nodes are not auto purged, because
+removing a linked style sheet will also remove the style definitions.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 20</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_purgethreshold" class="property item">
+    <h3 class="name"><code>purgethreshold</code></h3>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1650"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1650</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The number of dynamic <code>&lt;script&gt;</code> nodes to insert by default before automatically
+removing them when loading scripts.</p>
+
+<p>This applies only to script nodes because removing the node will not make the
+evaluated script unavailable. Dynamic CSS nodes are not auto purged, because
+removing a linked style sheet will also remove the style definitions.</p>
     </div>
 
     
@@ -5830,7 +5984,7 @@ a linked style sheet will also remove the style definitions.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1916"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1916</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1979"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1979</code></a>
         
         </p>
 
@@ -5842,11 +5996,9 @@ a linked style sheet will also remove the style definitions.</p>
     </div>
 
     <div class="description">
-        <p>When set to true, the YUI loader will expect that all modules
-it is responsible for loading will be first-class YUI modules
-that register themselves with the YUI global.  If this is
-set to true, loader will fail if the module registration fails
-to happen after the script is loaded.</p>
+        <p>If <code>true</code>, Loader will expect all loaded scripts to be first-class YUI modules
+that register themselves with the YUI global, and will trigger a failure if a
+loaded script does not register a YUI module.</p>
     </div>
 
     
@@ -5882,7 +6034,7 @@ to happen after the script is loaded.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1916"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1916</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1979"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1979</code></a>
         
         </p>
 
@@ -5894,11 +6046,9 @@ to happen after the script is loaded.</p>
     </div>
 
     <div class="description">
-        <p>When set to true, the YUI loader will expect that all modules
-it is responsible for loading will be first-class YUI modules
-that register themselves with the YUI global.  If this is
-set to true, loader will fail if the module registration fails
-to happen after the script is loaded.</p>
+        <p>If <code>true</code>, Loader will expect all loaded scripts to be first-class YUI modules
+that register themselves with the YUI global, and will trigger a failure if a
+loaded script does not register a YUI module.</p>
     </div>
 
     
@@ -5934,7 +6084,7 @@ to happen after the script is loaded.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1603"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1603</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1685"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1685</code></a>
         
         </p>
 
@@ -5944,9 +6094,10 @@ to happen after the script is loaded.</p>
     </div>
 
     <div class="description">
-        <p>The root path to prepend to module path for the combo service.
-Ex: 3.0.0b1/build/
-For dynamic loading.</p>
+        <p>Root path to prepend to each module path when creating a combo-handled request.</p>
+
+<p>This is updated for each YUI release to point to a specific version of the
+library; for example: "3.8.0/build/".</p>
     </div>
 
     
@@ -5980,7 +6131,7 @@ For dynamic loading.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1603"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1603</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1685"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1685</code></a>
         
         </p>
 
@@ -5990,9 +6141,10 @@ For dynamic loading.</p>
     </div>
 
     <div class="description">
-        <p>The root path to prepend to module path for the combo service.
-Ex: 3.0.0b1/build/
-For dynamic loading.</p>
+        <p>Root path to prepend to each module path when creating a combo-handled request.</p>
+
+<p>This is updated for each YUI release to point to a specific version of the
+library; for example: "3.8.0/build/".</p>
     </div>
 
     
@@ -6005,7 +6157,7 @@ For dynamic loading.</p>
                 
                     <div id="property_skin" class="property item">
     <h3 class="name"><code>skin</code></h3>
-    <span class="type">Unknown</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
     
 
@@ -6026,7 +6178,7 @@ For dynamic loading.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1638"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1638</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1717"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1717</code></a>
         
         </p>
 
@@ -6036,29 +6188,7 @@ For dynamic loading.</p>
     </div>
 
     <div class="description">
-        <p>The <code>skin</code> config let's you configure application level skin
-customizations.  It contains the following attributes which
-can be specified to override the defaults:</p>
-
-<pre class="code prettyprint"><code> // The default skin, which is automatically applied if not
- // overriden by a component-specific skin definition.
- // Change this in to apply a different skin globally
- defaultSkin: 'sam',
-
- // This is combined with the loader base property to get
- // the default root directory for a skin.
- base: 'assets/skins/',
-
- // Any component-specific overrides can be specified here,
- // making it possible to load different skins for different
- // components.  It is possible to load more than one skin
- // for a given component as well.
- overrides: {
-     slider: ['capsule', 'round']
- }
-</code></pre>
-
-<p>For dynamic loading.</p>
+        <p>Skin configuration and customizations.</p>
     </div>
 
     
@@ -6066,12 +6196,66 @@ can be specified to override the defaults:</p>
     
 
     
+        <h4>Sub-properties:</h4>
+
+        <ul class="params-list">
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[defaultSkin=&#x27;sam&#x27;]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Default skin name. This skin will be
+    applied automatically to skinnable components if not overridden by a
+    component-specific skin name.</p>
+                </div>
+
+                
+            </li>
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[base=&#x27;assets&#x2F;skins&#x2F;&#x27;]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Default base path for a skin,
+    relative to Loader's <code>base</code> path.</p>
+                </div>
+
+                
+            </li>
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[overrides]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Component-specific skin name overrides. Specify
+    a component name as the key and, as the value, a string or array of strings
+    for a skin or skins that should be loaded for that component instead of the
+    <code>defaultSkin</code>.</p>
+                </div>
+
+                
+            </li>
+            
+        </ul>
+    
 </div>
 
                 
                     <div id="property_skin" class="property item">
     <h3 class="name"><code>skin</code></h3>
-    <span class="type">Unknown</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
     
 
@@ -6092,7 +6276,7 @@ can be specified to override the defaults:</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1638"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1638</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1717"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1717</code></a>
         
         </p>
 
@@ -6102,35 +6286,67 @@ can be specified to override the defaults:</p>
     </div>
 
     <div class="description">
-        <p>The <code>skin</code> config let's you configure application level skin
-customizations.  It contains the following attributes which
-can be specified to override the defaults:</p>
-
-<pre class="code prettyprint"><code> // The default skin, which is automatically applied if not
- // overriden by a component-specific skin definition.
- // Change this in to apply a different skin globally
- defaultSkin: 'sam',
-
- // This is combined with the loader base property to get
- // the default root directory for a skin.
- base: 'assets/skins/',
-
- // Any component-specific overrides can be specified here,
- // making it possible to load different skins for different
- // components.  It is possible to load more than one skin
- // for a given component as well.
- overrides: {
-     slider: ['capsule', 'round']
- }
-</code></pre>
-
-<p>For dynamic loading.</p>
+        <p>Skin configuration and customizations.</p>
     </div>
 
     
 
     
 
+    
+        <h4>Sub-properties:</h4>
+
+        <ul class="params-list">
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[defaultSkin=&#x27;sam&#x27;]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Default skin name. This skin will be
+    applied automatically to skinnable components if not overridden by a
+    component-specific skin name.</p>
+                </div>
+
+                
+            </li>
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[base=&#x27;assets&#x2F;skins&#x2F;&#x27;]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Default base path for a skin,
+    relative to Loader's <code>base</code> path.</p>
+                </div>
+
+                
+            </li>
+            
+            <li class="param">
+                
+                    <code class="param-name optional">[overrides]</code>
+                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    <span class="flag optional" title="This property is optional.">optional</span>
+                
+
+                <div class="param-description">
+                    <p>Component-specific skin name overrides. Specify
+    a component name as the key and, as the value, a string or array of strings
+    for a skin or skins that should be loaded for that component instead of the
+    <code>defaultSkin</code>.</p>
+                </div>
+
+                
+            </li>
+            
+        </ul>
     
 </div>
 
@@ -6158,7 +6374,7 @@ can be specified to override the defaults:</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1489"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1489</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1570"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1570</code></a>
         
         </p>
 
@@ -6168,8 +6384,8 @@ can be specified to override the defaults:</p>
     </div>
 
     <div class="description">
-        <p>If <code>throwFail</code> is set, <code>Y.error</code> will generate or re-throw a JS Error.
-Otherwise the failure is logged.</p>
+        <p>If <code>true</code>, <code>Y.error()</code> will generate or re-throw a JavaScript error. Otherwise,
+errors are merely logged silently.</p>
     </div>
 
     
@@ -6205,7 +6421,7 @@ Otherwise the failure is logged.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1489"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1489</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1570"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1570</code></a>
         
         </p>
 
@@ -6215,8 +6431,8 @@ Otherwise the failure is logged.</p>
     </div>
 
     <div class="description">
-        <p>If <code>throwFail</code> is set, <code>Y.error</code> will generate or re-throw a JS Error.
-Otherwise the failure is logged.</p>
+        <p>If <code>true</code>, <code>Y.error()</code> will generate or re-throw a JavaScript error. Otherwise,
+errors are merely logged silently.</p>
     </div>
 
     
@@ -6231,7 +6447,7 @@ Otherwise the failure is logged.</p>
                 
                     <div id="property_timeout" class="property item">
     <h3 class="name"><code>timeout</code></h3>
-    <span class="type">Int</span>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
 
     
 
@@ -6252,7 +6468,7 @@ Otherwise the failure is logged.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1724"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1724</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1786"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1786</code></a>
         
         </p>
 
@@ -6262,8 +6478,8 @@ Otherwise the failure is logged.</p>
     </div>
 
     <div class="description">
-        <p>Number of milliseconds before a timeout occurs when dynamically
-loading nodes. If not set, there is no timeout.</p>
+        <p>Timeout in milliseconds before a dynamic JS or CSS request will be considered a
+failure. If not set, no timeout will be enforced.</p>
     </div>
 
     
@@ -6276,7 +6492,7 @@ loading nodes. If not set, there is no timeout.</p>
                 
                     <div id="property_timeout" class="property item">
     <h3 class="name"><code>timeout</code></h3>
-    <span class="type">Int</span>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
 
     
 
@@ -6297,7 +6513,7 @@ loading nodes. If not set, there is no timeout.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1724"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1724</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1786"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1786</code></a>
         
         </p>
 
@@ -6307,8 +6523,8 @@ loading nodes. If not set, there is no timeout.</p>
     </div>
 
     <div class="description">
-        <p>Number of milliseconds before a timeout occurs when dynamically
-loading nodes. If not set, there is no timeout.</p>
+        <p>Timeout in milliseconds before a dynamic JS or CSS request will be considered a
+failure. If not set, no timeout will be enforced.</p>
     </div>
 
     
@@ -6342,7 +6558,7 @@ loading nodes. If not set, there is no timeout.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1454"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1454</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1535"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1535</code></a>
         
         </p>
 
@@ -6352,7 +6568,7 @@ loading nodes. If not set, there is no timeout.</p>
     </div>
 
     <div class="description">
-        <p>Log to the browser console if debug is on and the browser has a
+        <p>Log messages to the browser console if <code>debug</code> is <code>true</code> and the browser has a
 supported console.</p>
     </div>
 
@@ -6389,7 +6605,7 @@ supported console.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1454"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1454</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1535"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1535</code></a>
         
         </p>
 
@@ -6399,7 +6615,7 @@ supported console.</p>
     </div>
 
     <div class="description">
-        <p>Log to the browser console if debug is on and the browser has a
+        <p>Log messages to the browser console if <code>debug</code> is <code>true</code> and the browser has a
 supported console.</p>
     </div>
 
@@ -6500,7 +6716,7 @@ that the browser supports. This is the default behavior.
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1938"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1938</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1998"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1998</code></a>
         
         </p>
 
@@ -6513,9 +6729,10 @@ that the browser supports. This is the default behavior.
 
     <div class="description">
         <p>Whether or not YUI should use native ES5 functionality when available for
-features like <code>Y.Array.each()</code>, <code>Y.Object()</code>, etc. When <code>false</code>, YUI will
-always use its own fallback implementations instead of relying on ES5
-functionality, even when it's available.</p>
+features like <code>Y.Array.each()</code>, <code>Y.Object()</code>, etc.</p>
+
+<p>When <code>false</code>, YUI will always use its own fallback implementations instead of
+relying on ES5 functionality, even when ES5 functionality is available.</p>
     </div>
 
     
@@ -6551,7 +6768,7 @@ functionality, even when it's available.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1938"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1938</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1998"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1998</code></a>
         
         </p>
 
@@ -6564,9 +6781,10 @@ functionality, even when it's available.</p>
 
     <div class="description">
         <p>Whether or not YUI should use native ES5 functionality when available for
-features like <code>Y.Array.each()</code>, <code>Y.Object()</code>, etc. When <code>false</code>, YUI will
-always use its own fallback implementations instead of relying on ES5
-functionality, even when it's available.</p>
+features like <code>Y.Array.each()</code>, <code>Y.Object()</code>, etc.</p>
+
+<p>When <code>false</code>, YUI will always use its own fallback implementations instead of
+relying on ES5 functionality, even when ES5 functionality is available.</p>
     </div>
 
     
@@ -6602,7 +6820,7 @@ functionality, even when it's available.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1507"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1507</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1587"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1587</code></a>
         
         </p>
 
@@ -6612,11 +6830,13 @@ functionality, even when it's available.</p>
     </div>
 
     <div class="description">
-        <p>The window/frame that this instance should operate in.</p>
+        <p>The browser window or frame that this YUI instance should operate in.</p>
+
+<p>When running in Node.js, this property is <code>undefined</code>, since there is no
+<code>window</code> object. Use <code>global</code> to get a reference to the global object that will
+work in both browsers and Node.js.</p>
     </div>
 
-    
-        <p><strong>Default:</strong> the window hosting YUI</p>
     
 
     
@@ -6648,7 +6868,7 @@ functionality, even when it's available.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1507"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1507</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1587"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1587</code></a>
         
         </p>
 
@@ -6658,11 +6878,13 @@ functionality, even when it's available.</p>
     </div>
 
     <div class="description">
-        <p>The window/frame that this instance should operate in.</p>
+        <p>The browser window or frame that this YUI instance should operate in.</p>
+
+<p>When running in Node.js, this property is <code>undefined</code>, since there is no
+<code>window</code> object. Use <code>global</code> to get a reference to the global object that will
+work in both browsers and Node.js.</p>
     </div>
 
-    
-        <p><strong>Default:</strong> the window hosting YUI</p>
     
 
     
@@ -6673,7 +6895,7 @@ functionality, even when it's available.</p>
                 
                     <div id="property_windowResizeDelay" class="property item">
     <h3 class="name"><code>windowResizeDelay</code></h3>
-    <span class="type">Int</span>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
 
     
 
@@ -6694,7 +6916,7 @@ functionality, even when it's available.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1576"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1576</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1662"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1662</code></a>
         
         </p>
 
@@ -6704,7 +6926,9 @@ functionality, even when it's available.</p>
     </div>
 
     <div class="description">
-        <p>The default interval when polling in milliseconds.</p>
+        <p>Delay in milliseconds to wait after a window <code>resize</code> event before firing the
+event. If another <code>resize</code> event occurs before this delay has elapsed, the
+delay will start over to ensure that <code>resize</code> events are throttled.</p>
     </div>
 
     
@@ -6719,7 +6943,7 @@ functionality, even when it's available.</p>
                 
                     <div id="property_windowResizeDelay" class="property item">
     <h3 class="name"><code>windowResizeDelay</code></h3>
-    <span class="type">Int</span>
+    <span class="type"><a href="../classes/Number.html" class="crosslink">Number</a></span>
 
     
 
@@ -6740,7 +6964,7 @@ functionality, even when it's available.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1576"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1576</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1662"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1662</code></a>
         
         </p>
 
@@ -6750,7 +6974,9 @@ functionality, even when it's available.</p>
     </div>
 
     <div class="description">
-        <p>The default interval when polling in milliseconds.</p>
+        <p>Delay in milliseconds to wait after a window <code>resize</code> event before firing the
+event. If another <code>resize</code> event occurs before this delay has elapsed, the
+delay will start over to ensure that <code>resize</code> events are throttled.</p>
     </div>
 
     
@@ -6786,7 +7012,7 @@ functionality, even when it's available.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1857"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1857</code></a>
+        <a href="..&#x2F;files&#x2F;src_simpleyui_js_concat.js.html#l1923"><code>src&#x2F;simpleyui&#x2F;js&#x2F;concat.js:1923</code></a>
         
         </p>
 
@@ -6798,14 +7024,14 @@ functionality, even when it's available.</p>
     </div>
 
     <div class="description">
-        <p>The default YUI 2 version to build yui2 module urls.  This is for
-intrinsic YUI 2 support via the 2in3 project.  Also see the '2in3'
-config for pulling different revisions of the wrapped YUI 2
-modules.</p>
+        <p>Default YUI 2 version used to build YUI 2 module urls.</p>
+
+<p>This is used for intrinsic YUI 2 support via the 2in3 project. Also see the
+<code>2in3</code> config for pulling different revisions of the wrapped YUI 2 modules.</p>
     </div>
 
     
-        <p><strong>Default:</strong> 2.9.0</p>
+        <p><strong>Default:</strong> &quot;2.9.0&quot;</p>
     
 
     
@@ -6837,7 +7063,7 @@ modules.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1857"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1857</code></a>
+        <a href="..&#x2F;files&#x2F;src_yui_js_yui.js.html#l1923"><code>src&#x2F;yui&#x2F;js&#x2F;yui.js:1923</code></a>
         
         </p>
 
@@ -6849,14 +7075,14 @@ modules.</p>
     </div>
 
     <div class="description">
-        <p>The default YUI 2 version to build yui2 module urls.  This is for
-intrinsic YUI 2 support via the 2in3 project.  Also see the '2in3'
-config for pulling different revisions of the wrapped YUI 2
-modules.</p>
+        <p>Default YUI 2 version used to build YUI 2 module urls.</p>
+
+<p>This is used for intrinsic YUI 2 support via the 2in3 project. Also see the
+<code>2in3</code> config for pulling different revisions of the wrapped YUI 2 modules.</p>
     </div>
 
     
-        <p><strong>Default:</strong> 2.9.0</p>
+        <p><strong>Default:</strong> &quot;2.9.0&quot;</p>
     
 
     

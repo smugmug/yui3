@@ -2202,7 +2202,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "uploader",
             "name": "uploader",
-            "description": "Provides UI for selecting multiple files and functionality for \nuploading multiple files to the server with support for either\nhtml5 or Flash transport mechanisms, automatic queue management,\nupload progress monitoring, and error events."
+            "description": "Provides UI for selecting multiple files and functionality for\nuploading multiple files to the server with support for either\nhtml5 or Flash transport mechanisms, automatic queue management,\nupload progress monitoring, and error events."
         },
         {
             "displayName": "uploader-deprecated",
@@ -2342,12 +2342,12 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "yui",
             "name": "yui",
-            "description": "The YUI module contains the components required for building the YUI seed\nfile.  This includes the script loading mechanism, a simple queue, and\nthe core utilities for the library."
+            "description": "The YUI module contains the components required for building the YUI seed file.\nThis includes the script loading mechanism, a simple queue, and the core\nutilities for the library."
         },
         {
             "displayName": "yui-base",
             "name": "yui-base",
-            "description": "The YUI module contains the components required for building the YUI seed\nfile.  This includes the script loading mechanism, a simple queue, and\nthe core utilities for the library."
+            "description": "The YUI module contains the components required for building the YUI seed file.\nThis includes the script loading mechanism, a simple queue, and the core\nutilities for the library."
         },
         {
             "displayName": "yui-later",

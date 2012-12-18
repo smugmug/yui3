@@ -1770,7 +1770,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
         }
 
         menuRegion = this._getSortedAnchorRegions(
-            [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;],
+            this.get(&#x27;alignments&#x27;),
             container.get(&#x27;region&#x27;),
             anchorRegion
         )[0].region;
@@ -2046,9 +2046,7 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
         var childrenNode = htmlNode.one(&#x27;.&#x27; + this.classNames.children),
 
             anchors = this._getSortedAnchorRegions(
-                (item.parent &amp;&amp; item.parent.data.menuAnchors) || [
-                    &#x27;tl-tr&#x27;, &#x27;bl-br&#x27;, &#x27;tr-tl&#x27;, &#x27;br-bl&#x27;
-                ],
+                (item.parent &amp;&amp; item.parent.data.menuAnchors) || this.get(&#x27;subMenuAlignments&#x27;),
                 childrenNode.get(&#x27;region&#x27;),
                 htmlNode.get(&#x27;region&#x27;)
             );
@@ -2459,6 +2457,40 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
 }, {
     ATTRS: {
         &#x2F;**
+        Preferred alignment positions at which this menu should be displayed
+        relative to the anchor point when one is provided to the &#x60;show()&#x60;,
+        &#x60;toggle()&#x60;, or &#x60;reposition()&#x60; methods.
+
+        The most optimal alignment position will be chosen automatically based
+        on which one allows the most of this menu to be visible within the
+        browser&#x27;s viewport. If multiple positions are equally visible, then the
+        optimal position will be chosen based on its order in this array.
+
+        An alignment position is a string like &quot;tl-bl&quot;, which means &quot;align the
+        top left of this menu to the bottom left of its anchor point&quot;.
+
+        Any combination of top&#x2F;bottom&#x2F;left&#x2F;right alignment positions may be used
+        as long as they follow this format. Here are a few examples:
+
+          * &#x60;&#x27;bl-br&#x27;&#x60;: Align the bottom left of this menu with the bottom right
+            of the anchor point.
+          * &#x60;&#x27;br-bl&#x27;&#x60;: Align the bottom right of this menu with the bottom left
+            of the anchor point.
+          * &#x60;&#x27;tl-tr&#x27;&#x60;: Align the top left of this menu with the top right of
+            the anchor point.
+          * &#x60;&#x27;tr-tl&#x27;&#x60;: Align the top right of this menu to the top left of this
+            anchor point.
+
+        @attribute {String[]} alignments
+        @default [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;]
+        **&#x2F;
+        alignments: {
+            valueFn: function () {
+                return [&#x27;tl-bl&#x27;, &#x27;tr-br&#x27;, &#x27;bl-tl&#x27;, &#x27;br-tr&#x27;];
+            }
+        },
+
+        &#x2F;**
         If &#x60;true&#x60;, this menu will be hidden when the user moves the mouse
         outside the menu.
 
@@ -2478,6 +2510,19 @@ Menu = Y.Base.create(&#x27;menu&#x27;, Y.Menu.Base, [Y.View], {
         **&#x2F;
         hideOnOutsideClick: {
             value: true
+        },
+
+        &#x2F;**
+        Just like &#x60;alignments&#x60;, but for submenus of this menu. See the
+        &#x60;alignments&#x60; attribute for details on how alignment positions work.
+
+        @attribute {String[]} subMenuAlignments
+        @default [&#x27;tl-tr&#x27;, &#x27;bl-br&#x27;, &#x27;tr-tl&#x27;, &#x27;br-bl&#x27;]
+        **&#x2F;
+        subMenuAlignments: {
+            valueFn: function () {
+                return [&#x27;tl-tr&#x27;, &#x27;bl-br&#x27;, &#x27;tr-tl&#x27;, &#x27;br-bl&#x27;];
+            }
         },
 
         &#x2F;**

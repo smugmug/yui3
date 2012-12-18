@@ -1453,53 +1453,53 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;**
- * Provides UI for selecting multiple files and functionality for 
- * uploading multiple files to the server with support for either
- * html5 or Flash transport mechanisms, automatic queue management,
- * upload progress monitoring, and error events.
- * @module uploader
- * @main uploader
- * @since 3.5.0
- *&#x2F;
+* Provides UI for selecting multiple files and functionality for
+* uploading multiple files to the server with support for either
+* html5 or Flash transport mechanisms, automatic queue management,
+* upload progress monitoring, and error events.
+* @module uploader
+* @main uploader
+* @since 3.5.0
+*&#x2F;
 
 &#x2F;**
- * &#x60;Y.Uploader&#x60; serves as an alias for either &lt;a href=&quot;UploaderFlash.html&quot;&gt;&#x60;Y.UploaderFlash&#x60;&lt;&#x2F;a&gt;
- * or &lt;a href=&quot;UploaderHTML5.html&quot;&gt;&#x60;Y.UploaderHTML5&#x60;&lt;&#x2F;a&gt;, depending on the feature set available
- * in a specific browser. If neither HTML5 nor Flash transport layers are available, &#x60;Y.Uploader.TYPE&#x60; 
- * static property is set to &#x60;&quot;none&quot;&#x60;.
- *
- * @class Uploader
- *&#x2F;
+* &#x60;Y.Uploader&#x60; serves as an alias for either &lt;a href=&quot;UploaderFlash.html&quot;&gt;&#x60;Y.UploaderFlash&#x60;&lt;&#x2F;a&gt;
+* or &lt;a href=&quot;UploaderHTML5.html&quot;&gt;&#x60;Y.UploaderHTML5&#x60;&lt;&#x2F;a&gt;, depending on the feature set available
+* in a specific browser. If neither HTML5 nor Flash transport layers are available, &#x60;Y.Uploader.TYPE&#x60;
+* static property is set to &#x60;&quot;none&quot;&#x60;.
+*
+* @class Uploader
+*&#x2F;
 
- &#x2F;**
- * The static property reflecting the type of uploader that &#x60;Y.Uploader&#x60;
- * aliases. The possible values are:
- * &lt;ul&gt;
- * &lt;li&gt;&lt;strong&gt;&#x60;&quot;html5&quot;&#x60;&lt;&#x2F;strong&gt;: Y.Uploader is an alias for &lt;a href=&quot;UploaderHTML5.html&quot;&gt;Y.UploaderHTML5&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
- * &lt;li&gt;&lt;strong&gt;&#x60;&quot;flash&quot;&#x60;&lt;&#x2F;strong&gt;: Y.Uploader is an alias for &lt;a href=&quot;UploaderFlash.html&quot;&gt;Y.UploaderFlash&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
- * &lt;li&gt;&lt;strong&gt;&#x60;&quot;none&quot;&#x60;&lt;&#x2F;strong&gt;: Neither Flash not HTML5 are available, and Y.Uploader does
- * not reference an actual implementation.&lt;&#x2F;li&gt;
- * &lt;&#x2F;ul&gt;
- *
- * @property TYPE
- * @type {String}
- * @static
- *&#x2F;
+&#x2F;**
+* The static property reflecting the type of uploader that &#x60;Y.Uploader&#x60;
+* aliases. The possible values are:
+* &lt;ul&gt;
+* &lt;li&gt;&lt;strong&gt;&#x60;&quot;html5&quot;&#x60;&lt;&#x2F;strong&gt;: Y.Uploader is an alias for &lt;a href=&quot;UploaderHTML5.html&quot;&gt;Y.UploaderHTML5&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+* &lt;li&gt;&lt;strong&gt;&#x60;&quot;flash&quot;&#x60;&lt;&#x2F;strong&gt;: Y.Uploader is an alias for &lt;a href=&quot;UploaderFlash.html&quot;&gt;Y.UploaderFlash&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+* &lt;li&gt;&lt;strong&gt;&#x60;&quot;none&quot;&#x60;&lt;&#x2F;strong&gt;: Neither Flash not HTML5 are available, and Y.Uploader does
+* not reference an actual implementation.&lt;&#x2F;li&gt;
+* &lt;&#x2F;ul&gt;
+*
+* @property TYPE
+* @type {String}
+* @static
+*&#x2F;
 
- var Win = Y.config.win;
+var Win = Y.config.win;
 
- if (Win &amp;&amp; Win.File &amp;&amp; Win.FormData &amp;&amp; Win.XMLHttpRequest) {
+if (Win &amp;&amp; Win.File &amp;&amp; Win.FormData &amp;&amp; Win.XMLHttpRequest) {
     Y.Uploader = Y.UploaderHTML5;
- }
+}
 
- else if (Y.SWFDetect.isFlashVersionAtLeast(10,0,45)) {
+else if (Y.SWFDetect.isFlashVersionAtLeast(10,0,45)) {
     Y.Uploader = Y.UploaderFlash;
- }
+}
 
- else {
+else {
     Y.namespace(&quot;Uploader&quot;);
     Y.Uploader.TYPE = &quot;none&quot;;
- }
+}
     </pre>
 </div>
 

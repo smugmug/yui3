@@ -1878,6 +1878,13 @@
                                 
                             </li>
                         
+                            <li class="index-item method protected">
+                                <a href="#method__setLazyRender">_setLazyRender</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method private inherited">
                                 <a href="#method__setStateVal">_setStateVal</a>
 
@@ -2321,6 +2328,13 @@
                                 
                             </li>
                         
+                            <li class="index-item property protected">
+                                <a href="#property__lazyRender">_lazyRender</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property protected inherited">
                                 <a href="#property__nodeMap">_nodeMap</a>
 
@@ -2427,6 +2441,10 @@
                         
                             <li class="index-item attr inherited">
                                 <a href="#attr_initialized">initialized</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_lazyRender">lazyRender</a>
                             </li>
                         
                             <li class="index-item attr inherited">
@@ -6829,6 +6847,81 @@ if validation and setter passes.</p>
 </div>
 
                 
+                    <div id="method__setLazyRender" class="method item protected">
+    <h3 class="name"><code>_setLazyRender</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l298"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:298</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Setter for the <code>lazyRender</code> attribute.</p>
+
+<p>Just caches the value in a property for faster lookups.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    
+                    Value.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method__setStateVal" class="method item private inherited">
     <h3 class="name"><code>_setStateVal</code></h3>
 
@@ -9805,7 +9898,7 @@ falsy value otherwise</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l90"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:90</code></a>
+        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l97"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:97</code></a>
         
         </p>
 
@@ -12052,7 +12145,7 @@ be reusable unless the <code>destroy</code> option is truthy.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l107"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:107</code></a>
+        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l114"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:114</code></a>
         
         </p>
 
@@ -12129,7 +12222,7 @@ be appended to the <code>&lt;body&gt;</code> element.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l141"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:141</code></a>
+        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l143"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:143</code></a>
         
         </p>
 
@@ -12278,7 +12371,7 @@ tree node, and the children will be rendered (or re-rendered) inside it.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l194"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:194</code></a>
+        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l204"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:204</code></a>
         
         </p>
 
@@ -13784,6 +13877,52 @@ instantiate a view and set a bunch of attributes without having to subclass
 </div>
 
                 
+                    <div id="property__lazyRender" class="property item protected">
+    <h3 class="name"><code>_lazyRender</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l78"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:78</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Cached value of the <code>lazyRender</code> attribute.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property__nodeMap" class="property item protected inherited">
     <h3 class="name"><code>_nodeMap</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
@@ -14814,6 +14953,115 @@ has been through the init lifecycle phase.</p>
 
             <p>
             Fires when the value for the configuration attribute <code>initialized</code> is
+            changed. You can listen for the event using the <code>on</code> method if you
+            wish to be notified before the attribute's value has changed, or
+            using the <code>after</code> method if you wish to be notified after the
+            attribute's value has changed.
+            </p>
+
+            <div class="params">
+                <h4>Parameters:</h4>
+
+                <ul class="params-list">
+                    <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="../classes/EventFacade.html" class="crosslink">EventFacade</a></span>
+
+                        <div class="param-description">
+                            An Event Facade object with the following
+                            attribute-specific properties added:
+                        </div>
+
+                        <ul class="params-list">
+                            <li class="param">
+                                <code class="param-name">prevVal</code>
+                                <span class="type">Any</span>
+                                <div class="param-description">The value of the attribute, prior to it being set.</div>
+                            </li>
+                            <li class="param">
+                                <code class="param-name">newVal</code>
+                                <span class="type">Any</span>
+                                <div class="param-description">The value the attribute is to be set to.</div>
+                            </li>
+                            <li class="param">
+                                <code class="param-name">attrName</code>
+                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                <div class="param-description">The name of the attribute being set.</div>
+                            </li>
+                            <li class="param">
+                                <code class="param-name">subAttrName</code>
+                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                <div class="param-description">If setting a property within the attribute's value, the name of the sub-attribute property being set.</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="attr_lazyRender" class="attr item">
+    <a name="config_lazyRender"></a> 
+    <h3 class="name"><code>lazyRender</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_treeview_js_treeview.js.html#l488"><code>src&#x2F;treeview&#x2F;js&#x2F;treeview.js:488</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>When <code>true</code>, a node's children won't be rendered until the first time
+that node is opened.</p>
+
+<p>This can significantly speed up the time it takes to render a large
+tree, but might not make sense if you're using CSS that doesn't hide the
+contents of closed nodes.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+        <div class="emits box">
+            <h4>Fires event <code>lazyRenderChange</code></h4>
+
+            <p>
+            Fires when the value for the configuration attribute <code>lazyRender</code> is
             changed. You can listen for the event using the <code>on</code> method if you
             wish to be notified before the attribute's value has changed, or
             using the <code>after</code> method if you wish to be notified after the

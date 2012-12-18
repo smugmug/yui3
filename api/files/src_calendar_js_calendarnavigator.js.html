@@ -1459,9 +1459,8 @@
  *&#x2F;
 var CONTENT_BOX = &quot;contentBox&quot;,
     HOST        = &quot;host&quot;,
-    RENDERED    = &quot;rendered&quot;,
     getCN       = Y.ClassNameManager.getClassName,
-    substitute  = Y.substitute,
+    substitute  = Y.Lang.sub,
     node        = Y.Node,
     create      = node.create,
     CALENDAR    = &#x27;calendar&#x27;,
@@ -1478,12 +1477,12 @@ var CONTENT_BOX = &quot;contentBox&quot;,
  * @extends Plugin.Base
  * @namespace Plugin
  *&#x2F;
-function CalendarNavigator(config) {
+function CalendarNavigator() {
     CalendarNavigator.superclass.constructor.apply(this, arguments);
 }
 
 &#x2F;**
- * The namespace for the plugin. This will be the property on the widget, which will 
+ * The namespace for the plugin. This will be the property on the widget, which will
  * reference the plugin instance, when it&#x27;s plugged in.
  *
  * @property NS
@@ -1506,7 +1505,7 @@ CalendarNavigator.NAME = &quot;pluginCalendarNavigator&quot;;
 
 
 &#x2F;**
- * Static property used to define the default attribute 
+ * Static property used to define the default attribute
  * configuration for the plugin.
  *
  * @property ATTRS
@@ -1534,7 +1533,7 @@ CalendarNavigator.ATTRS = {
     * @readOnly
     * @protected
     * @static
-    *&#x2F; 
+    *&#x2F;
 CalendarNavigator.CALENDARNAV_STRINGS = {
    prev_month_class: CAL_PREV_M,
    next_month_class: CAL_NEXT_M
@@ -1546,9 +1545,10 @@ CalendarNavigator.CALENDARNAV_STRINGS = {
     * @type String
     * @protected
     * @static
-    *&#x2F; 
-CalendarNavigator.PREV_MONTH_CONTROL_TEMPLATE = &#x27;&lt;a class=&quot;yui3-u {prev_month_class}&quot; role=&quot;button&quot; aria-label=&quot;{prev_month_arialabel}&quot; tabindex=&quot;{control_tabindex}&quot;&gt;&#x27; + 
-                                                   &quot;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&quot; +
+    *&#x2F;
+CalendarNavigator.PREV_MONTH_CONTROL_TEMPLATE = &#x27;&lt;a class=&quot;yui3-u {prev_month_class}&quot; role=&quot;button&quot; aria-label=&quot;{prev_month_arialabel}&quot; &#x27; +
+                                                    &#x27;tabindex=&quot;{control_tabindex}&quot;&gt;&#x27; +
+                                                    &quot;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&quot; +
                                                 &#x27;&lt;&#x2F;a&gt;&#x27;;
    &#x2F;**
     * The template for the calendar navigator next month control.
@@ -1557,9 +1557,10 @@ CalendarNavigator.PREV_MONTH_CONTROL_TEMPLATE = &#x27;&lt;a class=&quot;yui3-u {
     * @readOnly
     * @protected
     * @static
-    *&#x2F; 
-CalendarNavigator.NEXT_MONTH_CONTROL_TEMPLATE = &#x27;&lt;a class=&quot;yui3-u {next_month_class}&quot; role=&quot;button&quot; aria-label=&quot;{next_month_arialabel}&quot; tabindex=&quot;{control_tabindex}&quot;&gt;&#x27; + 
-                                                   &quot;&lt;span&gt;&amp;gt;&lt;&#x2F;span&gt;&quot; +
+    *&#x2F;
+CalendarNavigator.NEXT_MONTH_CONTROL_TEMPLATE = &#x27;&lt;a class=&quot;yui3-u {next_month_class}&quot; role=&quot;button&quot; aria-label=&quot;{next_month_arialabel}&quot; &#x27; +
+                                                    &#x27;tabindex=&quot;{control_tabindex}&quot;&gt;&#x27; +
+                                                    &quot;&lt;span&gt;&amp;gt;&lt;&#x2F;span&gt;&quot; +
                                                 &#x27;&lt;&#x2F;a&gt;&#x27;;
 
 
@@ -1569,13 +1570,12 @@ Y.extend(CalendarNavigator, Y.Plugin.Base, {
     _controls: {},
 
     &#x2F;**
-     * The initializer lifecycle implementation. Modifies the host widget&#x27;s 
+     * The initializer lifecycle implementation. Modifies the host widget&#x27;s
      * render to add navigation controls.
      *
      * @method initializer
-     * @param {Object} config The user configuration for the plugin  
      *&#x2F;
-    initializer : function(config) {
+    initializer : function() {
 
         &#x2F;&#x2F; After the host has rendered its UI, place the navigation cotnrols
         this._controls = {};
@@ -1587,17 +1587,17 @@ Y.extend(CalendarNavigator, Y.Plugin.Base, {
     &#x2F;**
      * The initializer destructor implementation. Responsible for destroying the initialized
      * control mechanisms.
-     * 
+     *
      * @method destructor
      *&#x2F;
     destructor : function() {
-       
+
     },
 
     &#x2F;**
      * Private utility method that focuses on a navigation button when it is clicked
      * or pressed with a keyboard.
-     * 
+     *
      * @method _focusNavigation
      * @param {Event} ev Click or keydown event from the controls
      * @protected
@@ -1609,35 +1609,35 @@ Y.extend(CalendarNavigator, Y.Plugin.Base, {
     &#x2F;**
      * Private utility method that subtracts months from the host calendar date
      * based on the control click and the shiftByMonths property.
-     * 
+     *
      * @method _subtractMonths
      * @param {Event} ev Click event from the controls
      * @protected
      *&#x2F;
     _subtractMonths : function (ev) {
-        if ( (ev.type === &quot;click&quot;) || (ev.type === &quot;keydown&quot; &amp;&amp; (ev.keyCode == 13 || ev.keyCode == 32)) ) {
-           var host = this.get(HOST);
-           var oldDate = host.get(&quot;date&quot;);
-           host.set(&quot;date&quot;, ydate.addMonths(oldDate, -1*this.get(&quot;shiftByMonths&quot;)));
-           ev.preventDefault();
-       }
+        if ( (ev.type === &quot;click&quot;) || (ev.type === &quot;keydown&quot; &amp;&amp; (ev.keyCode === 13 || ev.keyCode === 32)) ) {
+            var host = this.get(HOST),
+                oldDate = host.get(&quot;date&quot;);
+            host.set(&quot;date&quot;, ydate.addMonths(oldDate, -1*this.get(&quot;shiftByMonths&quot;)));
+            ev.preventDefault();
+        }
     },
 
     &#x2F;**
      * Private utility method that adds months to the host calendar date
      * based on the control click and the shiftByMonths property.
-     * 
+     *
      * @method _addMonths
      * @param {Event} ev Click event from the controls
      * @protected
      *&#x2F;
     _addMonths : function (ev) {
-        if ( (ev.type === &quot;click&quot;) || (ev.type === &quot;keydown&quot; &amp;&amp; (ev.keyCode == 13 || ev.keyCode == 32)) ) {
-           var host = this.get(HOST);
-           var oldDate = host.get(&quot;date&quot;);
-           host.set(&quot;date&quot;, ydate.addMonths(oldDate, this.get(&quot;shiftByMonths&quot;)));
-           ev.preventDefault();
-       }
+        if ( (ev.type === &quot;click&quot;) || (ev.type === &quot;keydown&quot; &amp;&amp; (ev.keyCode === 13 || ev.keyCode === 32)) ) {
+            var host = this.get(HOST),
+                oldDate = host.get(&quot;date&quot;);
+            host.set(&quot;date&quot;, ydate.addMonths(oldDate, this.get(&quot;shiftByMonths&quot;)));
+            ev.preventDefault();
+        }
     },
 
 
@@ -1691,7 +1691,7 @@ Y.extend(CalendarNavigator, Y.Plugin.Base, {
 
     &#x2F;**
      * Private render assist method that renders the previous month control
-     * 
+     *
      * @method _renderPrevControls
      * @private
      *&#x2F;
@@ -1700,12 +1700,12 @@ Y.extend(CalendarNavigator, Y.Plugin.Base, {
                                CalendarNavigator.CALENDARNAV_STRINGS));
       prevControlNode.on(&quot;selectstart&quot;, this.get(HOST)._preventSelectionStart);
 
-      return prevControlNode;        
+      return prevControlNode;
     },
 
     &#x2F;**
      * Private render assist method that renders the next month control
-     * 
+     *
      * @method _renderNextControls
      * @private
      *&#x2F;
@@ -1713,8 +1713,8 @@ Y.extend(CalendarNavigator, Y.Plugin.Base, {
       var nextControlNode = create(substitute (CalendarNavigator.NEXT_MONTH_CONTROL_TEMPLATE,
                                CalendarNavigator.CALENDARNAV_STRINGS));
       nextControlNode.on(&quot;selectstart&quot;, this.get(HOST)._preventSelectionStart);
-      
-      return nextControlNode;     
+
+      return nextControlNode;
     },
 
     &#x2F;**
@@ -1723,26 +1723,27 @@ Y.extend(CalendarNavigator, Y.Plugin.Base, {
      * @protected
      *&#x2F;
     _initNavigationControls : function() {
-            var host = this.get(HOST);
-            CalendarNavigator.CALENDARNAV_STRINGS[&quot;control_tabindex&quot;] = host.get(&quot;tabIndex&quot;);
-            CalendarNavigator.CALENDARNAV_STRINGS[&quot;prev_month_arialabel&quot;] = &quot;Go to previous month&quot;;
-            CalendarNavigator.CALENDARNAV_STRINGS[&quot;next_month_arialabel&quot;] = &quot;Go to next month&quot;;
+        var host = this.get(HOST),
+            headerCell = host.get(CONTENT_BOX).one(&quot;.&quot; + CAL_HD);
 
-            var headerCell = host.get(CONTENT_BOX).one(&quot;.&quot; + CAL_HD);
+        CalendarNavigator.CALENDARNAV_STRINGS.control_tabindex = host.get(&quot;tabIndex&quot;);
+        CalendarNavigator.CALENDARNAV_STRINGS.prev_month_arialabel = &quot;Go to previous month&quot;;
+        CalendarNavigator.CALENDARNAV_STRINGS.next_month_arialabel = &quot;Go to next month&quot;;
 
-            this._controls.prevMonth = this._renderPrevControls();
-            this._controls.nextMonth = this._renderNextControls();
+        this._controls.prevMonth = this._renderPrevControls();
+        this._controls.nextMonth = this._renderNextControls();
 
-            this._updateControlState();
+        this._updateControlState();
 
-            host.after(&quot;dateChange&quot;, this._updateControlState, this);
+        host.after(&quot;dateChange&quot;, this._updateControlState, this);
 
-            headerCell.prepend(this._controls.prevMonth);
-            headerCell.append(this._controls.nextMonth);
+        headerCell.prepend(this._controls.prevMonth);
+        headerCell.append(this._controls.nextMonth);
     }
 });
 
 Y.namespace(&quot;Plugin&quot;).CalendarNavigator = CalendarNavigator;
+
     </pre>
 </div>
 

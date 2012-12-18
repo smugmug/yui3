@@ -1471,7 +1471,6 @@ var getCN             = Y.ClassNameManager.getClassName,
     KEY_RIGHT         = 39,
     KEY_ENTER         = 13,
     KEY_SPACE         = 32,
-    CAL_HD            = getCN(CALENDAR, &#x27;header&#x27;),
     CAL_DAY_SELECTED  = getCN(CALENDAR, &#x27;day-selected&#x27;),
     CAL_DAY_HILITED   = getCN(CALENDAR, &#x27;day-highlighted&#x27;),
     CAL_DAY           = getCN(CALENDAR, &#x27;day&#x27;),
@@ -1479,21 +1478,20 @@ var getCN             = Y.ClassNameManager.getClassName,
     CAL_NEXTMONTH_DAY = getCN(CALENDAR, &#x27;nextmonth-day&#x27;),
     CAL_GRID          = getCN(CALENDAR, &#x27;grid&#x27;),
     ydate             = Y.DataType.Date,
-    delegate          = Y.delegate,
     CAL_PANE          = getCN(CALENDAR, &#x27;pane&#x27;),
     os                = Y.UA.os;
 
 &#x2F;** Create a calendar view to represent a single or multiple
-  * month range of dates, rendered as a grid with date and
-  * weekday labels.
-  * 
-  * @class Calendar
-  * @extends CalendarBase
-  * @param config {Object} Configuration object (see Configuration attributes)
-  * @constructor
-  *&#x2F;
-function Calendar(config) {
-  Calendar.superclass.constructor.apply ( this, arguments );
+    * month range of dates, rendered as a grid with date and
+    * weekday labels.
+    *
+    * @class Calendar
+    * @extends CalendarBase
+    * @param config {Object} Configuration object (see Configuration attributes)
+    * @constructor
+    *&#x2F;
+function Calendar() {
+    Calendar.superclass.constructor.apply ( this, arguments );
 }
 
 Y.Calendar = Y.extend(Calendar, Y.CalendarBase, {
@@ -1502,383 +1500,376 @@ Y.Calendar = Y.extend(Calendar, Y.CalendarBase, {
 
     _highlightedDateNode: null,
 
-  &#x2F;**
-   * A property tracking the last selected date on the calendar, for the
-   * purposes of multiple selection.
-   *
-   * @property _lastSelectedDate
-   * @type Date
-   * @default null
-   * @private
-   *&#x2F;  
+    &#x2F;**
+     * A property tracking the last selected date on the calendar, for the
+     * purposes of multiple selection.
+     *
+     * @property _lastSelectedDate
+     * @type Date
+     * @default null
+     * @private
+     *&#x2F;
     _lastSelectedDate: null,
 
-  &#x2F;**
-   * Designated initializer. Activates the navigation plugin for the calendar.
-   *
-   * @method initializer
-   *&#x2F; 
-  initializer : function () {
-    this.plug(Y.Plugin.CalendarNavigator);
-
-
-    this._keyEvents = [];
-    this._highlightedDateNode = null;
-    this._lastSelectedDate = null;
-  },
-
-  &#x2F;**
-   * Overrides the _bindCalendarEvents placeholder in CalendarBase
-   * and binds calendar events during bindUI stage.
-   * @method _bindCalendarEvents
-   * @protected
-   *&#x2F;   
-  _bindCalendarEvents : function () {
-    var contentBox = this.get(&#x27;contentBox&#x27;),
-        pane       = contentBox.one(&quot;.&quot; + CAL_PANE);
-    pane.on(&quot;selectstart&quot;, this._preventSelectionStart);
-    pane.delegate(&quot;click&quot;, this._clickCalendar, &quot;.&quot; + CAL_DAY + &quot;, .&quot; + CAL_PREVMONTH_DAY + &quot;, .&quot; + CAL_NEXTMONTH_DAY, this);
-    pane.delegate(&quot;keydown&quot;, this._keydownCalendar, &quot;.&quot; + CAL_GRID, this);
-    pane.delegate(&quot;focus&quot;, this._focusCalendarGrid, &quot;.&quot; + CAL_GRID, this);
-    pane.delegate(&quot;focus&quot;, this._focusCalendarCell, &quot;.&quot; + CAL_DAY, this);
-    pane.delegate(&quot;blur&quot;, this._blurCalendarGrid, &quot;.&quot; + CAL_GRID + &quot;,.&quot; + CAL_DAY, this);
-  },
-
-  &#x2F;**
-   * Prevents text selection if it is started within the calendar pane
-   * @method _preventSelectionStart
-   * @param event {Event} The selectstart event
-   * @protected
-   *&#x2F;   
-  _preventSelectionStart : function (event) {
-    event.preventDefault();
-  },
-
-  &#x2F;**
-   * Highlights a specific date node with keyboard highlight class
-   * @method _highlightDateNode
-   * @param oDate {Date} Date corresponding the node to be highlighted
-   * @protected
-   *&#x2F;   
-  _highlightDateNode : function (oDate) {
-    this._unhighlightCurrentDateNode();
-    var newNode = this._dateToNode(oDate);
-    newNode.focus();
-    newNode.addClass(CAL_DAY_HILITED);
-  },
-
-  &#x2F;**
-   * Unhighlights a specific date node currently highlighted with keyboard highlight class
-   * @method _unhighlightCurrentDateNode
-   * @protected
-   *&#x2F;   
-  _unhighlightCurrentDateNode : function () {
-    var allHilitedNodes = this.get(&quot;contentBox&quot;).all(&quot;.&quot; + CAL_DAY_HILITED);
-    if (allHilitedNodes) {
-      allHilitedNodes.removeClass(CAL_DAY_HILITED);
-    }
-  },
-
-  &#x2F;**
-   * Returns the grid number for a specific calendar grid (for multi-grid templates)
-   * @method _getGridNumber
-   * @param gridNode {Node} Node corresponding to a specific grid
-   * @protected
-   *&#x2F;   
-  _getGridNumber : function (gridNode) {
-    var idParts = gridNode.get(&quot;id&quot;).split(&quot;_&quot;).reverse();
-        return parseInt(idParts[0], 10);
-  },
-
-  &#x2F;**
-   * Handler for loss of focus of calendar grid
-   * @method _blurCalendarGrid
-   * @protected
-   *&#x2F;   
-   _blurCalendarGrid : function (ev) {
-      this._unhighlightCurrentDateNode();
-   },
-
-
-  &#x2F;**
-   * Handler for gain of focus of calendar cell
-   * @method _focusCalendarCell
-   * @protected
-   *&#x2F; 
-   _focusCalendarCell : function (ev) {
-       this._highlightedDateNode = ev.target;
-       ev.stopPropagation();
-   },
-
-  &#x2F;**
-   * Handler for gain of focus of calendar grid
-   * @method _focusCalendarGrid
-   * @protected
-   *&#x2F; 
-   _focusCalendarGrid : function (ev) {     
-       this._unhighlightCurrentDateNode();
-       this._highlightedDateNode = null;
-   },
-
-  &#x2F;**
-   * Handler for keyboard press on a calendar grid
-   * @method _keydownCalendar
-   * @protected
-   *&#x2F; 
-   _keydownCalendar : function (ev) {
-    var gridNum = this._getGridNumber(ev.target),
-        curDate = !this._highlightedDateNode ? null : this._nodeToDate(this._highlightedDateNode),
-        keyCode = ev.keyCode,
-        dayNum = 0,
-        dir = &#x27;&#x27;;
-
-        switch(keyCode) {
-          case KEY_DOWN: 
-            dayNum = 7;
-            dir = &#x27;s&#x27;;
-          break;
-          case KEY_UP: 
-            dayNum = -7;
-            dir = &#x27;n&#x27;;
-          break;
-          case KEY_LEFT: 
-            dayNum = -1;
-            dir = &#x27;w&#x27;;
-          break;
-          case KEY_RIGHT:
-            dayNum = 1;
-            dir = &#x27;e&#x27;;
-          break;
-          case KEY_SPACE: case KEY_ENTER:
-            ev.preventDefault();
-            if (this._highlightedDateNode) {
-            var selMode = this.get(&quot;selectionMode&quot;);
-            if (selMode === &quot;single&quot; &amp;&amp; !this._highlightedDateNode.hasClass(CAL_DAY_SELECTED)) {
-                this._clearSelection(true);
-                this._addDateToSelection(curDate);
-            }
-            else if (selMode === &quot;multiple&quot; || selMode === &quot;multiple-sticky&quot;) {
-                if (this._highlightedDateNode.hasClass(CAL_DAY_SELECTED)) {
-                  this._removeDateFromSelection(curDate);
-                }
-                else {
-                  this._addDateToSelection(curDate);
-                }
-             }
-            }
-          break;
-        }
- 
-
-      if (keyCode == KEY_DOWN || keyCode == KEY_UP || keyCode == KEY_LEFT || keyCode == KEY_RIGHT) {
-
-      if (!curDate) {
-             curDate = ydate.addMonths(this.get(&quot;date&quot;), gridNum);
-             dayNum = 0;
-      }
-              ev.preventDefault();
-          var newDate = ydate.addDays(curDate, dayNum),
-              startDate = this.get(&quot;date&quot;),
-              endDate = ydate.addMonths(this.get(&quot;date&quot;), this._paneNumber - 1),
-              lastPaneDate = new Date(endDate);
-              endDate.setDate(ydate.daysInMonth(endDate));
-          
-          if (ydate.isInRange(newDate, startDate, endDate)) {
-&#x2F;*
-              var paneShift = (newDate.getMonth() - curDate.getMonth()) % 10;
-
-
-              if (paneShift != 0) {
-                var newGridNum = gridNum + paneShift,
-                    contentBox = this.get(&#x27;contentBox&#x27;),
-                    newPane = contentBox.one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + newGridNum);
-                    newPane.focus();
-              }
-*&#x2F;
-              this._highlightDateNode(newDate);
-          }
-          else if (ydate.isGreater(startDate, newDate)) {
-            if (!ydate.isGreaterOrEqual(this.get(&quot;minimumDate&quot;), startDate)) {
-                 this.set(&quot;date&quot;, ydate.addMonths(startDate, -1));
-                 this._highlightDateNode(newDate);
-            }
-          }
-          else if (ydate.isGreater(newDate, endDate)) {
-            if (!ydate.isGreaterOrEqual(lastPaneDate, this.get(&quot;maximumDate&quot;))) {
-                 this.set(&quot;date&quot;, ydate.addMonths(startDate, 1));
-                 this._highlightDateNode(newDate);
-            }
-          }
-
-        }
-   },
-
-  &#x2F;**
-   * Handles the calendar clicks based on selection mode.
-   * @method _clickCalendar
-   * @param {Event} ev A click event
-   * @private
-   *&#x2F;   
-    _clickCalendar : function (ev) {
-        var clickedCell = ev.currentTarget,
-            clickedCellIsDay = clickedCell.hasClass(CAL_DAY) &amp;&amp; 
-                               !clickedCell.hasClass(CAL_PREVMONTH_DAY) &amp;&amp; 
-                               !clickedCell.hasClass(CAL_NEXTMONTH_DAY),
-            clickedCellIsSelected = clickedCell.hasClass(CAL_DAY_SELECTED);
-        switch (this.get(&quot;selectionMode&quot;)) {
-          case(&quot;single&quot;):
-               if (clickedCellIsDay) {
-                  if (!clickedCellIsSelected) {
-                    this._clearSelection(true);  
-                    this._addDateToSelection(this._nodeToDate(clickedCell));
-                  }
-             }
-               break;
-            case(&quot;multiple-sticky&quot;):
-               if (clickedCellIsDay) {
-                 if (clickedCellIsSelected) {
-                  this._removeDateFromSelection(this._nodeToDate(clickedCell));
-                 }
-                 else {
-                  this._addDateToSelection(this._nodeToDate(clickedCell));
-                 }
-               }
-               break;
-            case(&quot;multiple&quot;):
-               if (clickedCellIsDay) {
-                 if (!ev.metaKey &amp;&amp; !ev.ctrlKey &amp;&amp; !ev.shiftKey) {
-                      this._clearSelection(true);
-                      this._lastSelectedDate = this._nodeToDate(clickedCell);
-                      this._addDateToSelection(this._lastSelectedDate);
-                 }
-                 else if (((os == &#x27;macintosh&#x27; &amp;&amp; ev.metaKey) || (os != &#x27;macintosh&#x27; &amp;&amp; ev.ctrlKey)) &amp;&amp; !ev.shiftKey) {
-                    if (clickedCellIsSelected) {
-                      this._removeDateFromSelection(this._nodeToDate(clickedCell));
-                      this._lastSelectedDate = null;
-                    }
-                    else {
-                      this._lastSelectedDate = this._nodeToDate(clickedCell);
-                      this._addDateToSelection(this._lastSelectedDate);
-                    }
-                 }
-                 else if (((os == &#x27;macintosh&#x27; &amp;&amp; ev.metaKey) || (os != &#x27;macintosh&#x27; &amp;&amp; ev.ctrlKey)) &amp;&amp; ev.shiftKey) {
-                    if (this._lastSelectedDate) {
-                      var selectedDate = this._nodeToDate(clickedCell);
-                      this._addDateRangeToSelection(selectedDate, this._lastSelectedDate);
-                      this._lastSelectedDate = selectedDate;
-                    }
-                    else {
-                      this._lastSelectedDate = this._nodeToDate(clickedCell);
-                      this._addDateToSelection(this._lastSelectedDate);
-                    }
-  
-                 }
-                 else if (ev.shiftKey) {
-                      if (this._lastSelectedDate) {
-                        var selectedDate = this._nodeToDate(clickedCell);
-                        this._clearSelection(true);
-                        this._addDateRangeToSelection(selectedDate, this._lastSelectedDate);
-                        this._lastSelectedDate = selectedDate;
-                      }
-                      else {
-                        this._clearSelection(true);
-                        this._lastSelectedDate = this._nodeToDate(clickedCell);
-                          this._addDateToSelection(this._lastSelectedDate);
-                      }
-                 }
-              }
-              break;
-        }
-
-      if (clickedCellIsDay) {
-   &#x2F;**
-     * Fired when a specific date cell in the calendar is clicked. The event carries a 
-     * payload which includes a &#x60;cell&#x60; property corresponding to the node of the actual
-     * date cell, and a &#x60;date&#x60; property, with the &#x60;Date&#x60; that was clicked.
+    &#x2F;**
+     * Designated initializer. Activates the navigation plugin for the calendar.
      *
-     * @event dateClick
+     * @method initializer
      *&#x2F;
-        this.fire(&quot;dateClick&quot;, {cell: clickedCell, date: this._nodeToDate(clickedCell)});
-      }
-      else if (clickedCell.hasClass(CAL_PREVMONTH_DAY)) {
-   &#x2F;**
-     * Fired when any of the previous month&#x27;s days displayed before the calendar grid
-     * are clicked.
-     *
-     * @event prevMonthClick
-     *&#x2F;
-        this.fire(&quot;prevMonthClick&quot;);
-      }
-      else if (clickedCell.hasClass(CAL_NEXTMONTH_DAY)) {
-   &#x2F;**
-     * Fired when any of the next month&#x27;s days displayed after the calendar grid
-     * are clicked.
-     *
-     * @event nextMonthClick
-     *&#x2F;
-        this.fire(&quot;nextMonthClick&quot;);
-      }
+    initializer : function () {
+        this.plug(Y.Plugin.CalendarNavigator);
+
+        this._keyEvents = [];
+        this._highlightedDateNode = null;
+        this._lastSelectedDate = null;
     },
 
-  &#x2F;**
-   * Subtracts one month from the current calendar view.
-   * @method subtractMonth
-   * @return {Calendar} A reference to this object
-   * @chainable
-   *&#x2F;   
-  subtractMonth : function (e) {
-    this.set(&quot;date&quot;, ydate.addMonths(this.get(&quot;date&quot;), -1));
-    if (e) {
-      e.halt();
-    }
-    return this;
-  },
+    &#x2F;**
+     * Overrides the _bindCalendarEvents placeholder in CalendarBase
+     * and binds calendar events during bindUI stage.
+     * @method _bindCalendarEvents
+     * @protected
+     *&#x2F;
+    _bindCalendarEvents : function () {
+        var contentBox = this.get(&#x27;contentBox&#x27;),
+            pane       = contentBox.one(&quot;.&quot; + CAL_PANE);
 
-  &#x2F;**
-   * Subtracts one year from the current calendar view.
-   * @method subtractYear
-   * @return {Calendar} A reference to this object
-   * @chainable
-   *&#x2F; 
-  subtractYear : function (e) {
-    this.set(&quot;date&quot;, ydate.addYears(this.get(&quot;date&quot;), -1));
-    if (e) {
-      e.halt();
-    }
-    return this;
-  },
+        pane.on(&quot;selectstart&quot;, this._preventSelectionStart);
+        pane.delegate(&quot;click&quot;, this._clickCalendar, &quot;.&quot; + CAL_DAY + &quot;, .&quot; + CAL_PREVMONTH_DAY + &quot;, .&quot; + CAL_NEXTMONTH_DAY, this);
+        pane.delegate(&quot;keydown&quot;, this._keydownCalendar, &quot;.&quot; + CAL_GRID, this);
+        pane.delegate(&quot;focus&quot;, this._focusCalendarGrid, &quot;.&quot; + CAL_GRID, this);
+        pane.delegate(&quot;focus&quot;, this._focusCalendarCell, &quot;.&quot; + CAL_DAY, this);
+        pane.delegate(&quot;blur&quot;, this._blurCalendarGrid, &quot;.&quot; + CAL_GRID + &quot;,.&quot; + CAL_DAY, this);
+    },
 
-  &#x2F;**
-   * Adds one month to the current calendar view.
-   * @method addMonth
-   * @return {Calendar} A reference to this object
-   * @chainable
-   *&#x2F;   
-  addMonth : function (e) {    
-    this.set(&quot;date&quot;, ydate.addMonths(this.get(&quot;date&quot;), 1));
-    if (e) {
-      e.halt();
-    }
-    return this;
-  },
+    &#x2F;**
+     * Prevents text selection if it is started within the calendar pane
+     * @method _preventSelectionStart
+     * @param event {Event} The selectstart event
+     * @protected
+     *&#x2F;
+    _preventSelectionStart : function (event) {
+        event.preventDefault();
+    },
 
-  &#x2F;**
-   * Adds one year to the current calendar view.
-   * @method addYear
-   * @return {Calendar} A reference to this object
-   * @chainable
-   *&#x2F;   
-  addYear : function (e) {
-    this.set(&quot;date&quot;, ydate.addYears(this.get(&quot;date&quot;), 1));
-    if (e) {
-      e.halt();
-    }
-    return this;
-  }
-},
+    &#x2F;**
+     * Highlights a specific date node with keyboard highlight class
+     * @method _highlightDateNode
+     * @param oDate {Date} Date corresponding the node to be highlighted
+     * @protected
+     *&#x2F;
+    _highlightDateNode : function (oDate) {
+        this._unhighlightCurrentDateNode();
+        var newNode = this._dateToNode(oDate);
+        newNode.focus();
+        newNode.addClass(CAL_DAY_HILITED);
+    },
 
-{
-   &#x2F;**
+    &#x2F;**
+     * Unhighlights a specific date node currently highlighted with keyboard highlight class
+     * @method _unhighlightCurrentDateNode
+     * @protected
+     *&#x2F;
+    _unhighlightCurrentDateNode : function () {
+        var allHilitedNodes = this.get(&quot;contentBox&quot;).all(&quot;.&quot; + CAL_DAY_HILITED);
+        if (allHilitedNodes) {
+            allHilitedNodes.removeClass(CAL_DAY_HILITED);
+        }
+    },
+
+    &#x2F;**
+     * Returns the grid number for a specific calendar grid (for multi-grid templates)
+     * @method _getGridNumber
+     * @param gridNode {Node} Node corresponding to a specific grid
+     * @protected
+     *&#x2F;
+    _getGridNumber : function (gridNode) {
+        var idParts = gridNode.get(&quot;id&quot;).split(&quot;_&quot;).reverse();
+
+        return parseInt(idParts[0], 10);
+    },
+
+    &#x2F;**
+     * Handler for loss of focus of calendar grid
+     * @method _blurCalendarGrid
+     * @protected
+     *&#x2F;
+    _blurCalendarGrid : function () {
+        this._unhighlightCurrentDateNode();
+    },
+
+
+    &#x2F;**
+     * Handler for gain of focus of calendar cell
+     * @method _focusCalendarCell
+     * @protected
+     *&#x2F;
+    _focusCalendarCell : function (ev) {
+        this._highlightedDateNode = ev.target;
+        ev.stopPropagation();
+    },
+
+    &#x2F;**
+     * Handler for gain of focus of calendar grid
+     * @method _focusCalendarGrid
+     * @protected
+     *&#x2F;
+    _focusCalendarGrid : function () {
+        this._unhighlightCurrentDateNode();
+        this._highlightedDateNode = null;
+    },
+
+    &#x2F;**
+     * Handler for keyboard press on a calendar grid
+     * @method _keydownCalendar
+     * @protected
+     *&#x2F;
+    _keydownCalendar : function (ev) {
+        var gridNum = this._getGridNumber(ev.target),
+            curDate = !this._highlightedDateNode ? null : this._nodeToDate(this._highlightedDateNode),
+            keyCode = ev.keyCode,
+            dayNum = 0,
+            dir = &#x27;&#x27;,
+            selMode,
+            newDate,
+            startDate,
+            endDate,
+            lastPaneDate;
+
+        switch(keyCode) {
+            case KEY_DOWN:
+                dayNum = 7;
+                dir = &#x27;s&#x27;;
+                break;
+            case KEY_UP:
+                dayNum = -7;
+                dir = &#x27;n&#x27;;
+                break;
+            case KEY_LEFT:
+                dayNum = -1;
+                dir = &#x27;w&#x27;;
+                break;
+            case KEY_RIGHT:
+                dayNum = 1;
+                dir = &#x27;e&#x27;;
+                break;
+            case KEY_SPACE: case KEY_ENTER:
+                ev.preventDefault();
+                if (this._highlightedDateNode) {
+                    selMode = this.get(&quot;selectionMode&quot;);
+                    if (selMode === &quot;single&quot; &amp;&amp; !this._highlightedDateNode.hasClass(CAL_DAY_SELECTED)) {
+                            this._clearSelection(true);
+                            this._addDateToSelection(curDate);
+                    } else if (selMode === &quot;multiple&quot; || selMode === &quot;multiple-sticky&quot;) {
+                        if (this._highlightedDateNode.hasClass(CAL_DAY_SELECTED)) {
+                            this._removeDateFromSelection(curDate);
+                        } else {
+                            this._addDateToSelection(curDate);
+                        }
+                    }
+                }
+                break;
+        }
+
+
+        if (keyCode === KEY_DOWN || keyCode === KEY_UP || keyCode === KEY_LEFT || keyCode === KEY_RIGHT) {
+
+            if (!curDate) {
+                curDate = ydate.addMonths(this.get(&quot;date&quot;), gridNum);
+                dayNum = 0;
+            }
+
+            ev.preventDefault();
+
+            newDate = ydate.addDays(curDate, dayNum);
+            startDate = this.get(&quot;date&quot;);
+            endDate = ydate.addMonths(this.get(&quot;date&quot;), this._paneNumber - 1);
+            lastPaneDate = new Date(endDate);
+            endDate.setDate(ydate.daysInMonth(endDate));
+
+            if (ydate.isInRange(newDate, startDate, endDate)) {
+&#x2F;*
+                var paneShift = (newDate.getMonth() - curDate.getMonth()) % 10;
+
+                if (paneShift != 0) {
+                    var newGridNum = gridNum + paneShift,
+                            contentBox = this.get(&#x27;contentBox&#x27;),
+                            newPane = contentBox.one(&quot;#&quot; + this._calendarId + &quot;_pane_&quot; + newGridNum);
+                            newPane.focus();
+                }
+*&#x2F;
+                this._highlightDateNode(newDate);
+            } else if (ydate.isGreater(startDate, newDate)) {
+                if (!ydate.isGreaterOrEqual(this.get(&quot;minimumDate&quot;), startDate)) {
+                    this.set(&quot;date&quot;, ydate.addMonths(startDate, -1));
+                    this._highlightDateNode(newDate);
+                }
+            } else if (ydate.isGreater(newDate, endDate)) {
+                if (!ydate.isGreaterOrEqual(lastPaneDate, this.get(&quot;maximumDate&quot;))) {
+                    this.set(&quot;date&quot;, ydate.addMonths(startDate, 1));
+                    this._highlightDateNode(newDate);
+                }
+            }
+        }
+    },
+
+    &#x2F;**
+     * Handles the calendar clicks based on selection mode.
+     * @method _clickCalendar
+     * @param {Event} ev A click event
+     * @private
+     *&#x2F;
+    _clickCalendar : function (ev) {
+        var clickedCell = ev.currentTarget,
+            clickedCellIsDay = clickedCell.hasClass(CAL_DAY) &amp;&amp;
+                                !clickedCell.hasClass(CAL_PREVMONTH_DAY) &amp;&amp;
+                                !clickedCell.hasClass(CAL_NEXTMONTH_DAY),
+
+        clickedCellIsSelected = clickedCell.hasClass(CAL_DAY_SELECTED),
+        selectedDate;
+
+        switch (this.get(&quot;selectionMode&quot;)) {
+            case(&quot;single&quot;):
+                if (clickedCellIsDay) {
+                    if (!clickedCellIsSelected) {
+                        this._clearSelection(true);
+                        this._addDateToSelection(this._nodeToDate(clickedCell));
+                    }
+                }
+                break;
+            case(&quot;multiple-sticky&quot;):
+                if (clickedCellIsDay) {
+                    if (clickedCellIsSelected) {
+                        this._removeDateFromSelection(this._nodeToDate(clickedCell));
+                    } else {
+                        this._addDateToSelection(this._nodeToDate(clickedCell));
+                    }
+                }
+                break;
+            case(&quot;multiple&quot;):
+                if (clickedCellIsDay) {
+                    if (!ev.metaKey &amp;&amp; !ev.ctrlKey &amp;&amp; !ev.shiftKey) {
+                        this._clearSelection(true);
+                        this._lastSelectedDate = this._nodeToDate(clickedCell);
+                        this._addDateToSelection(this._lastSelectedDate);
+                    } else if (((os === &#x27;macintosh&#x27; &amp;&amp; ev.metaKey) || (os !== &#x27;macintosh&#x27; &amp;&amp; ev.ctrlKey)) &amp;&amp; !ev.shiftKey) {
+                        if (clickedCellIsSelected) {
+                            this._removeDateFromSelection(this._nodeToDate(clickedCell));
+                            this._lastSelectedDate = null;
+                        } else {
+                            this._lastSelectedDate = this._nodeToDate(clickedCell);
+                            this._addDateToSelection(this._lastSelectedDate);
+                        }
+                    } else if (((os === &#x27;macintosh&#x27; &amp;&amp; ev.metaKey) || (os !== &#x27;macintosh&#x27; &amp;&amp; ev.ctrlKey)) &amp;&amp; ev.shiftKey) {
+                        if (this._lastSelectedDate) {
+                            selectedDate = this._nodeToDate(clickedCell);
+                            this._addDateRangeToSelection(selectedDate, this._lastSelectedDate);
+                            this._lastSelectedDate = selectedDate;
+                        } else {
+                            this._lastSelectedDate = this._nodeToDate(clickedCell);
+                            this._addDateToSelection(this._lastSelectedDate);
+                        }
+                    } else if (ev.shiftKey) {
+                        if (this._lastSelectedDate) {
+                            selectedDate = this._nodeToDate(clickedCell);
+                            this._clearSelection(true);
+                            this._addDateRangeToSelection(selectedDate, this._lastSelectedDate);
+                            this._lastSelectedDate = selectedDate;
+                        } else {
+                            this._clearSelection(true);
+                            this._lastSelectedDate = this._nodeToDate(clickedCell);
+                            this._addDateToSelection(this._lastSelectedDate);
+                        }
+                    }
+                }
+                break;
+        }
+
+        if (clickedCellIsDay) {
+            &#x2F;**
+            * Fired when a specific date cell in the calendar is clicked. The event carries a
+            * payload which includes a &#x60;cell&#x60; property corresponding to the node of the actual
+            * date cell, and a &#x60;date&#x60; property, with the &#x60;Date&#x60; that was clicked.
+            *
+            * @event dateClick
+            *&#x2F;
+            this.fire(&quot;dateClick&quot;, {cell: clickedCell, date: this._nodeToDate(clickedCell)});
+        } else if (clickedCell.hasClass(CAL_PREVMONTH_DAY)) {
+            &#x2F;**
+            * Fired when any of the previous month&#x27;s days displayed before the calendar grid
+            * are clicked.
+            *
+            * @event prevMonthClick
+            *&#x2F;
+            this.fire(&quot;prevMonthClick&quot;);
+        } else if (clickedCell.hasClass(CAL_NEXTMONTH_DAY)) {
+            &#x2F;**
+            * Fired when any of the next month&#x27;s days displayed after the calendar grid
+            * are clicked.
+            *
+            * @event nextMonthClick
+            *&#x2F;
+            this.fire(&quot;nextMonthClick&quot;);
+        }
+    },
+
+    &#x2F;**
+     * Subtracts one month from the current calendar view.
+     * @method subtractMonth
+     * @return {Calendar} A reference to this object
+     * @chainable
+     *&#x2F;
+    subtractMonth : function (e) {
+        this.set(&quot;date&quot;, ydate.addMonths(this.get(&quot;date&quot;), -1));
+        if (e) {
+            e.halt();
+        }
+        return this;
+    },
+
+    &#x2F;**
+     * Subtracts one year from the current calendar view.
+     * @method subtractYear
+     * @return {Calendar} A reference to this object
+     * @chainable
+     *&#x2F;
+    subtractYear : function (e) {
+        this.set(&quot;date&quot;, ydate.addYears(this.get(&quot;date&quot;), -1));
+        if (e) {
+            e.halt();
+        }
+        return this;
+    },
+
+    &#x2F;**
+     * Adds one month to the current calendar view.
+     * @method addMonth
+     * @return {Calendar} A reference to this object
+     * @chainable
+     *&#x2F;
+    addMonth : function (e) {
+        this.set(&quot;date&quot;, ydate.addMonths(this.get(&quot;date&quot;), 1));
+        if (e) {
+            e.halt();
+        }
+        return this;
+    },
+
+    &#x2F;**
+     * Adds one year to the current calendar view.
+     * @method addYear
+     * @return {Calendar} A reference to this object
+     * @chainable
+     *&#x2F;
+    addYear : function (e) {
+        this.set(&quot;date&quot;, ydate.addYears(this.get(&quot;date&quot;), 1));
+        if (e) {
+            e.halt();
+        }
+        return this;
+    }
+}, {
+    &#x2F;**
     * The identity of the widget.
     *
     * @property NAME
@@ -1887,10 +1878,10 @@ Y.Calendar = Y.extend(Calendar, Y.CalendarBase, {
     * @readOnly
     * @protected
     * @static
-    *&#x2F;  
-  NAME: &quot;calendar&quot;,
+    *&#x2F;
+    NAME: &quot;calendar&quot;,
 
-   &#x2F;**
+    &#x2F;**
     * Static property used to define the default attribute configuration of
     * the Widget.
     *
@@ -1898,114 +1889,111 @@ Y.Calendar = Y.extend(Calendar, Y.CalendarBase, {
     * @type {Object}
     * @protected
     * @static
-    *&#x2F;  
-  ATTRS: {
+    *&#x2F;
+    ATTRS: {
 
-    &#x2F;**
-     * A setting specifying the type of selection the calendar allows.
-     * Possible values include:
-     * &lt;ul&gt;
-     *   &lt;li&gt;&#x60;single&#x60; - One date at a time&lt;&#x2F;li&gt;
-     *   &lt;li&gt;&#x60;multiple-sticky&#x60; - Multiple dates, selected one at a time (the dates &quot;stick&quot;). This option
-     *   is appropriate for mobile devices, where function keys from the keyboard are not available.&lt;&#x2F;li&gt;
-     *   &lt;li&gt;&#x60;multiple&#x60; - Multiple dates, selected with Ctrl&#x2F;Meta keys for additional single
-     *   dates, and Shift key for date ranges.&lt;&#x2F;li&gt;
-     *
-     * @attribute selectionMode
-     * @type String
-     * @default single
-     *&#x2F;
-    selectionMode: {
-      value: &quot;single&quot;
-    },
+        &#x2F;**
+         * A setting specifying the type of selection the calendar allows.
+         * Possible values include:
+         * &lt;ul&gt;
+         *   &lt;li&gt;&#x60;single&#x60; - One date at a time&lt;&#x2F;li&gt;
+         *   &lt;li&gt;&#x60;multiple-sticky&#x60; - Multiple dates, selected one at a time (the dates &quot;stick&quot;). This option
+         *   is appropriate for mobile devices, where function keys from the keyboard are not available.&lt;&#x2F;li&gt;
+         *   &lt;li&gt;&#x60;multiple&#x60; - Multiple dates, selected with Ctrl&#x2F;Meta keys for additional single
+         *   dates, and Shift key for date ranges.&lt;&#x2F;li&gt;
+         *
+         * @attribute selectionMode
+         * @type String
+         * @default single
+         *&#x2F;
+        selectionMode: {
+            value: &quot;single&quot;
+        },
 
-    &#x2F;**
-     * The date corresponding to the current calendar view. Always
-     * normalized to the first of the month that contains the date
-     * at assignment time. Used as the first date visible in the
-     * calendar.
-     *
-     * @attribute date
-     * @type Date
-     * @default Today&#x27;s date as set on the user&#x27;s computer.
-     *&#x2F;
-    date: {
-      value: new Date(),
-      lazyAdd: false,
-      setter: function (val) {
+        &#x2F;**
+         * The date corresponding to the current calendar view. Always
+         * normalized to the first of the month that contains the date
+         * at assignment time. Used as the first date visible in the
+         * calendar.
+         *
+         * @attribute date
+         * @type Date
+         * @default Today&#x27;s date as set on the user&#x27;s computer.
+         *&#x2F;
+        date: {
+            value: new Date(),
+            lazyAdd: false,
+            setter: function (val) {
 
-        var newDate = this._normalizeDate(val),
-            newTopDate = ydate.addMonths(newDate, this._paneNumber - 1);
-        var minDate = this.get(&quot;minimumDate&quot;);
-        var maxDate = this.get(&quot;maximumDate&quot;);
-            if ((!minDate || ydate.isGreaterOrEqual(newDate, minDate)) &amp;&amp; 
-                (!maxDate || ydate.isGreaterOrEqual(maxDate, newTopDate))) {
-                return newDate;
+                var newDate = this._normalizeDate(val),
+                    newTopDate = ydate.addMonths(newDate, this._paneNumber - 1),
+                    minDate = this.get(&quot;minimumDate&quot;),
+                    maxDate = this.get(&quot;maximumDate&quot;),
+                    actualMaxDate;
+
+                if ((!minDate || ydate.isGreaterOrEqual(newDate, minDate)) &amp;&amp;
+                        (!maxDate || ydate.isGreaterOrEqual(maxDate, newTopDate))
+                ) {
+                    return newDate;
+                } else if (minDate &amp;&amp; ydate.isGreater(minDate, newDate)) {
+                    return minDate;
+                } else if (maxDate &amp;&amp; ydate.isGreater(newTopDate, maxDate)) {
+                    actualMaxDate = ydate.addMonths(maxDate, -1*(this._paneNumber - 1));
+                    return actualMaxDate;
+                }
             }
+        },
 
-            else if (minDate &amp;&amp; ydate.isGreater(minDate, newDate)) {
-                   return minDate;
+        &#x2F;**
+         * The minimum date that can be displayed by the calendar. The calendar will not
+         * allow dates earlier than this one to be set, and will reset any earlier date to
+         * this date. Should be &#x60;null&#x60; if no minimum date is needed.
+         *
+         * @attribute minimumDate
+         * @type Date
+         * @default null
+         *&#x2F;
+        minimumDate: {
+            value: null,
+            setter: function (val) {
+                if (val) {
+                    var curDate = this.get(&#x27;date&#x27;),
+                        newMinDate = this._normalizeDate(val);
+                    if (curDate &amp;&amp; !ydate.isGreaterOrEqual(curDate, newMinDate)) {
+                        this.set(&#x27;date&#x27;, newMinDate);
+                    }
+                    return newMinDate;
+                } else {
+                    return this._normalizeDate(val);
+                }
             }
+        },
 
-            else if (maxDate &amp;&amp; ydate.isGreater(newTopDate, maxDate)) {
-                var actualMaxDate = ydate.addMonths(maxDate, -1*(this._paneNumber - 1));
-                  return actualMaxDate;
+        &#x2F;**
+         * The maximum date that can be displayed by the calendar. The calendar will not
+         * allow dates later than this one to be set, and will reset any later date to
+         * this date. Should be &#x60;null&#x60; if no maximum date is needed.
+         *
+         * @attribute maximumDate
+         * @type Date
+         * @default null
+         *&#x2F;
+        maximumDate: {
+            value: null,
+            setter: function (val) {
+                if (val) {
+                    var curDate = this.get(&#x27;date&#x27;),
+                        newMaxDate = this._normalizeDate(val);
+                    if (curDate &amp;&amp; !ydate.isGreaterOrEqual(val, ydate.addMonths(curDate, this._paneNumber - 1))) {
+                        this.set(&#x27;date&#x27;, ydate.addMonths(newMaxDate, -1*(this._paneNumber -1)));
+                    }
+                    return newMaxDate;
+                } else {
+                    return val;
+                }
             }
-     }
-    },
-
-    &#x2F;**
-     * The minimum date that can be displayed by the calendar. The calendar will not
-     * allow dates earlier than this one to be set, and will reset any earlier date to
-     * this date. Should be &#x60;null&#x60; if no minimum date is needed.
-     *
-     * @attribute minimumDate
-     * @type Date
-     * @default null
-     *&#x2F;
-    minimumDate: {
-      value: null,
-      setter: function (val) {
-        if (val) {
-          var curDate = this.get(&#x27;date&#x27;),
-              newMinDate = this._normalizeDate(val);
-          if (curDate &amp;&amp; !ydate.isGreaterOrEqual(curDate, newMinDate)) {
-              this.set(&#x27;date&#x27;, newMinDate);
-          }
-          return newMinDate;
         }
-        else {
-          return this._normalizeDate(val);
-        }
-      }
-    },
-
-    &#x2F;**
-     * The maximum date that can be displayed by the calendar. The calendar will not
-     * allow dates later than this one to be set, and will reset any later date to
-     * this date. Should be &#x60;null&#x60; if no maximum date is needed.
-     *
-     * @attribute maximumDate
-     * @type Date
-     * @default null
-     *&#x2F;
-    maximumDate: {
-      value: null,
-      setter: function (val) {
-        if (val) {
-          var curDate = this.get(&#x27;date&#x27;),
-              newMaxDate = this._normalizeDate(val);
-          if (curDate &amp;&amp; !ydate.isGreaterOrEqual(val, ydate.addMonths(curDate, this._paneNumber - 1))) {
-              this.set(&#x27;date&#x27;, ydate.addMonths(newMaxDate, -1*(this._paneNumber -1)));
-          }
-          return newMaxDate;
-        }
-        else {
-          return val;
-        }
-      }
     }
-  }
 });
     </pre>
 </div>
