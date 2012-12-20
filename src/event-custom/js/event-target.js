@@ -805,17 +805,16 @@ Y.EventTarget = ET;
 Y.mix(Y, ET.prototype);
 ET.call(Y, { bubbles: false });
 
-YUI.Env.globalEvents = YUI.Env.globalEvents || new ET();
-
 /**
  * Hosts YUI page level events.  This is where events bubble to
  * when the broadcast config is set to 2.  This property is
  * only available if the custom event module is loaded.
  * @property Global
- * @type EventTarget
+ * @type {EventTarget}
  * @for YUI
  */
-Y.Global = YUI.Env.globalEvents;
+Y.Global = Y.shared.globalEventTarget ||
+          (Y.shared.globalEventTarget = new ET());
 
 // @TODO implement a global namespace function on Y.Global?
 
