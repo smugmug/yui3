@@ -34,7 +34,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "Button",
         "ButtonCore",
         "ButtonGroup",
-        "ButtonPlugin",
         "Cache",
         "CacheOffline",
         "Calendar",
@@ -57,7 +56,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "CircleGroup",
         "ClassNameManager",
         "ClickableRail",
-        "Color.Base",
+        "Color",
         "Color.HSL",
         "Color.HSV",
         "Color.Harmony",
@@ -161,10 +160,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "MarkerSeries",
         "Matrix",
         "MatrixUtil",
-        "Menu",
-        "Menu.Base",
-        "Menu.Item",
-        "Menu.Templates",
         "Model",
         "ModelList",
         "ModelSync.REST",
@@ -187,6 +182,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Plugin.Align",
         "Plugin.AutoComplete",
         "Plugin.Base",
+        "Plugin.Button",
         "Plugin.Cache",
         "Plugin.CalendarNavigator",
         "Plugin.ConsoleFilters",
@@ -208,7 +204,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "Plugin.ExecCommand",
         "Plugin.Flick",
         "Plugin.Host",
-        "Plugin.Menu",
         "Plugin.NodeFX",
         "Plugin.Pjax",
         "Plugin.Resize",
@@ -220,7 +215,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "Plugin.ScrollViewScrollbars",
         "Plugin.Shim",
         "Plugin.SortScroll",
-        "Plugin.Tree.Lazy",
         "Plugin.WidgetAnim",
         "Pollable",
         "Profiler",
@@ -309,9 +303,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "ToggleButton",
         "TopAxisLayout",
         "Transition",
-        "Tree",
-        "Tree.Node",
-        "TreeView",
         "UA",
         "Uploader",
         "Uploader.Queue",
@@ -559,12 +550,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "lazy-model-list",
         "loader",
         "loader-base",
+        "loader-yui3",
         "matrix",
-        "menu",
-        "menu-base",
-        "menu-item",
-        "menu-plugin",
-        "menu-templates",
         "model",
         "model-list",
         "model-sync-rest",
@@ -650,10 +637,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "text-wordbreak",
         "transition",
         "transition-timer",
-        "tree",
-        "tree-lazy",
-        "tree-node",
-        "treeview",
         "uploader",
         "uploader-deprecated",
         "uploader-flash",
@@ -1728,34 +1711,14 @@ YUI.add("yuidoc-meta", function(Y) {
             "description": "Loader dynamically loads script and css files.  It includes the dependency\ninformation for the version of the library in use, and will automatically pull in\ndependencies for the modules requested. It can also load the\nfiles from the Yahoo! CDN, and it can utilize the combo service provided on\nthis network to reduce the number of http connections required to download\nYUI files."
         },
         {
+            "displayName": "loader-yui3",
+            "name": "loader-yui3",
+            "description": "YUI 3 module metadata"
+        },
+        {
             "displayName": "matrix",
             "name": "matrix",
             "description": "Matrix is a class that allows for the manipulation of a transform matrix.\nThis class is a work in progress."
-        },
-        {
-            "displayName": "menu",
-            "name": "menu",
-            "description": "Provides the `Y.Menu` widget."
-        },
-        {
-            "displayName": "menu-base",
-            "name": "menu-base",
-            "description": "Provides `Menu.Base`."
-        },
-        {
-            "displayName": "menu-item",
-            "name": "menu-item",
-            "description": "Provides the `Menu.Item` class."
-        },
-        {
-            "displayName": "menu-plugin",
-            "name": "menu-plugin",
-            "description": "Provides the `Y.Plugin.Menu` Node plugin."
-        },
-        {
-            "displayName": "menu-templates",
-            "name": "menu-templates",
-            "description": "Provides templates for `Menu`."
         },
         {
             "displayName": "model",
@@ -2027,7 +1990,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "scrollview",
             "name": "scrollview",
-            "description": "<p>\nThe scrollview module does not add any new classes. It simply plugs the ScrollViewScrollbars plugin into the \nbase ScrollView class implementation provided by the scrollview-base module, so that all scrollview instances \nhave scrollbars enabled.\n</p>\n\n<ul>\n    <li><a href=\"../classes/ScrollView.html\">ScrollView API documentation</a></li>\n    <li><a href=\"scrollview-base.html\">scrollview-base Module documentation</a></li>\n</ul>"
+            "description": "<p>\nThe scrollview module does not add any new classes. It simply plugs the ScrollViewScrollbars plugin into the\n base ScrollView class implementation provided by the scrollview-base module, so that all scrollview instances\n have scrollbars enabled.\n</p>\n\n<ul>\n    <li><a href=\"../classes/ScrollView.html\">ScrollView API documentation</a></li>\n    <li><a href=\"scrollview-base.html\">scrollview-base Module documentation</a></li>\n</ul>"
         },
         {
             "displayName": "scrollview-base",
@@ -2178,26 +2141,6 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "transition-timer",
             "name": "transition-timer",
             "description": "Provides the base Transition class, for animating numeric properties."
-        },
-        {
-            "displayName": "tree",
-            "name": "tree",
-            "description": "Provides the `Tree` class."
-        },
-        {
-            "displayName": "tree-lazy",
-            "name": "tree-lazy",
-            "description": "Provides `Plugin.Tree.Lazy`, a plugin for `Tree` that makes it easy to lazily\nload and populate the contents of tree nodes the first time they're opened."
-        },
-        {
-            "displayName": "tree-node",
-            "name": "tree-node",
-            "description": "Provides the `Tree.Node` class, which represents a tree node contained in a\n`Tree` data structure."
-        },
-        {
-            "displayName": "treeview",
-            "name": "treeview",
-            "description": "Provides the `Y.TreeView` widget."
         },
         {
             "displayName": "uploader",

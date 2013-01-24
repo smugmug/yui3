@@ -1,7 +1,7 @@
 {
     "name": "YUI 3 (SmugMug fork)",
     "description": "YUI 3 with SmugMug patches",
-    "version": "3.8.0-git-smugmug",
+    "version": "3.8.1-git-smugmug",
     "url": "https://github.com/smugmug/yui3",
     "options": {
         "linkNatives": "true",
