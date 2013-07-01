@@ -1801,9 +1801,15 @@ TYPES = {
     '[object Error]'   : 'error'
 },
 
-SUBREGEX        = /\{\s*([^|}]+?)\s*(?:\|([^}]*))?\s*\}/g,
-TRIMREGEX       = /^\s+|\s+$/g,
-NATIVE_FN_REGEX = /\{\s*\[(?:native code|function)\]\s*\}/i;
+SUBREGEX         = /\{\s*([^|}]+?)\s*(?:\|([^}]*))?\s*\}/g,
+
+WHITESPACE       = "\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF",
+WHITESPACE_CLASS = "[\x09-\x0D\x20\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]+",
+TRIM_LEFT_REGEX  = new RegExp("^" + WHITESPACE_CLASS),
+TRIM_RIGHT_REGEX = new RegExp(WHITESPACE_CLASS + "$"),
+TRIMREGEX        = new RegExp(TRIM_LEFT_REGEX.source + "|" + TRIM_RIGHT_REGEX.source, "g"),
+
+NATIVE_FN_REGEX  = /\{\s*\[(?:native code|function)\]\s*\}/i;
 
 // -- Protected Methods --------------------------------------------------------
 
@@ -2027,7 +2033,7 @@ L.sub = function(s, o) {
  * @param s {string} the string to trim.
  * @return {string} the trimmed string.
  */
-L.trim = STRING_PROTO.trim ? function(s) {
+L.trim = L._isNative(STRING_PROTO.trim) && !WHITESPACE.trim() ? function(s) {
     return s && s.trim ? s.trim() : s;
 } : function (s) {
     try {
@@ -2044,10 +2050,10 @@ L.trim = STRING_PROTO.trim ? function(s) {
  * @param s {string} the string to trim.
  * @return {string} the trimmed string.
  */
-L.trimLeft = STRING_PROTO.trimLeft ? function (s) {
+L.trimLeft = L._isNative(STRING_PROTO.trimLeft) && !WHITESPACE.trimLeft() ? function (s) {
     return s.trimLeft();
 } : function (s) {
-    return s.replace(/^\s+/, '');
+    return s.replace(TRIM_LEFT_REGEX, '');
 };
 
 /**
@@ -2057,10 +2063,10 @@ L.trimLeft = STRING_PROTO.trimLeft ? function (s) {
  * @param s {string} the string to trim.
  * @return {string} the trimmed string.
  */
-L.trimRight = STRING_PROTO.trimRight ? function (s) {
+L.trimRight = L._isNative(STRING_PROTO.trimRight) && !WHITESPACE.trimRight() ? function (s) {
     return s.trimRight();
 } : function (s) {
-    return s.replace(/\s+$/, '');
+    return s.replace(TRIM_RIGHT_REGEX, '');
 };
 
 /**
@@ -9449,8 +9455,11 @@ var Selector = {
     },
 
     _nativeQuery: function(selector, root, one) {
-        if (Y.UA.webkit && selector.indexOf(':checked') > -1 &&
-                (Y.Selector.pseudos && Y.Selector.pseudos.checked)) { // webkit (chrome, safari) fails to pick up "selected"  with "checked"
+        if (
+            (Y.UA.webkit || Y.UA.opera) &&          // webkit (chrome, safari) and Opera
+            selector.indexOf(':checked') > -1 &&    // fail to pick up "selected"  with ":checked"
+            (Y.Selector.pseudos && Y.Selector.pseudos.checked)
+        ) {
             return Y.Selector.query(selector, root, one, true); // redo with skipNative true to try brute query
         }
         try {
@@ -20174,13 +20183,15 @@ var PARENT_NODE = 'parentNode',
         _bruteQuery: function(selector, root, firstOnly) {
             var ret = [],
                 nodes = [],
+                visited,
                 tokens = Selector._tokenize(selector),
                 token = tokens[tokens.length - 1],
                 rootDoc = Y.DOM._getDoc(root),
                 child,
                 id,
                 className,
-                tagName;
+                tagName,
+                isUniversal;
 
             if (token) {
                 // prefilter nodes
@@ -20201,16 +20212,30 @@ var PARENT_NODE = 'parentNode',
                     }
 
                 } else { // brute getElementsByTagName()
+                    visited = [];
                     child = root.firstChild;
+                    isUniversal = tagName === "*";
                     while (child) {
-                        // only collect HTMLElements
-                        // match tag to supplement missing getElementsByTagName
-                        if (child.tagName && (tagName === '*' || child.tagName === tagName)) {
-                            nodes.push(child);
+                        while (child) {
+                            // IE 6-7 considers comment nodes as element nodes, and gives them the tagName "!".
+                            // We can filter them out by checking if its tagName is > "@". 
+                            // This also avoids a superflous nodeType === 1 check.
+                            if (child.tagName > "@" && (isUniversal || child.tagName === tagName)) {
+                                nodes.push(child);
+                            }
+
+                            // We may need to traverse back up the tree to find more unvisited subtrees.
+                            visited.push(child);
+                            child = child.firstChild;
                         }
-                        child = child.nextSibling || child.firstChild;
+
+                        // Find the most recently visited node who has a next sibling.
+                        while (visited.length > 0 && !child) {
+                            child = visited.pop().nextSibling;
+                        }
                     }
                 }
+
                 if (nodes.length) {
                     ret = Selector._filterNodes(nodes, tokens, firstOnly);
                 }
@@ -20552,7 +20577,6 @@ Y.Selector.getters.src = Y.Selector.getters.rel = Y.Selector.getters.href;
 if (Y.Selector.useNative && Y.config.doc.querySelector) {
     Y.Selector.shorthand['\\.(-?[_a-z]+[-\\w]*)'] = '[class~=$1]';
 }
-
 
 
 }, '@VERSION@', {"requires": ["selector-native"]});
