@@ -4,11 +4,13 @@ Tree Change History
 @VERSION@
 ------
 
-* Added `Tree.Node#depth()`, which returns the depth of the node, starting at 0
-  for the root node. [Ryan Grove]
+* Fixed: `Tree.Sortable` failed to reindex a node's children after sorting them,
+  which could result in `Tree#indexOf()` and `Tree.Node#index()` returning
+  incorrect indices. [Ryan Grove]
 
-* Added `Tree.Sortable#sort()`, which sorts the children of every node in a
-  sortable tree. [Ryan Grove]
+
+3.11.0
+------
 
 * `Tree#emptyNode()` now removes nodes without triggering a node map reindex for
   each node, which makes it significantly faster when emptying a node with lots
@@ -44,6 +46,12 @@ Tree Change History
   the tree instance. When it lives on a node, its `this` object will be the
   node. When specified as an anonymous function in an options object, its `this`
   object will be the global object. [Ryan Grove]
+
+* Added `Tree.Node#depth()`, which returns the depth of the node, starting at 0
+  for the root node. [Ryan Grove]
+
+* Added `Tree.Sortable#sort()`, which sorts the children of every node in a
+  sortable tree. [Ryan Grove]
 
 
 3.10.3
