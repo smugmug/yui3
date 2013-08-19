@@ -1,7 +1,12 @@
 ArraySort Change History
 ========================
 
-@VERSION@
+3.12.0
+------
+
+* No changes.
+
+3.11.0
 ------
 
 * Added `Y.ArraySort.naturalCompare()`, which compares two strings or numbers

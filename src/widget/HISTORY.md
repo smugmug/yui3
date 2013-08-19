@@ -1,7 +1,12 @@
 Widget Change History
 =====================
 
-@VERSION@
+3.12.0
+------
+
+* No changes.
+
+3.11.0
 ------
 
 * The Widget HTML_PARSER implementation has been updated to use the new 
