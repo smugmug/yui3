@@ -1,5 +1,7 @@
 YUI.add('node-scroll-info', function (Y, NAME) {
 
+/*jshint onevar:false */
+
 /**
 Provides the ScrollInfo Node plugin, which exposes convenient events and methods
 related to scrolling.
@@ -27,6 +29,9 @@ the current scroll position.
 @extends Plugin.Base
 @since 3.7.0
 **/
+
+var doc = Y.config.doc,
+    win = Y.config.win;
 
 /**
 Fired when the user scrolls within the host node.
@@ -161,14 +166,53 @@ var EVT_SCROLL = 'scroll',
     EVT_SCROLL_TO_TOP = 'scrollToTop';
 
 Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
+    // -- Protected Properties -------------------------------------------------
+
+    /**
+    Height of the visible region of the host node in pixels. If the host node is
+    the body, this will be the same as `_winHeight`.
+
+    @property {Number} _height
+    @protected
+    **/
+
+    /**
+    Whether or not the host node is the `<body>` element.
+
+    @property {Boolean} _hostIsBody
+    @protected
+    **/
+
+    /**
+    Width of the visible region of the host node in pixels. If the host node is
+    the body, this will be the same as `_winWidth`.
+
+    @property {Number} _width
+    @protected
+    **/
+
+    /**
+    Height of the viewport in pixels.
+
+    @property {Number} _winHeight
+    @protected
+    **/
+
+    /**
+    Width of the viewport in pixels.
+
+    @property {Number} _winWidth
+    @protected
+    **/
+
     // -- Lifecycle Methods ----------------------------------------------------
     initializer: function (config) {
         // Cache for quicker lookups in the critical path.
-        this._host         = config.host;
-        this._hostIsBody   = this._host.get('nodeName').toLowerCase() === 'body';
-        this._scrollDelay  = this.get('scrollDelay');
-        this._scrollMargin = this.get('scrollMargin');
-        this._scrollNode   = this._getScrollNode();
+        this._host                  = config.host;
+        this._hostIsBody            = this._host.get('nodeName').toLowerCase() === 'body';
+        this._scrollDelay           = this.get('scrollDelay');
+        this._scrollMargin          = this.get('scrollMargin');
+        this._scrollNode            = this._getScrollNode();
 
         this.refreshDimensions();
 
@@ -179,9 +223,7 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
 
     destructor: function () {
         new Y.EventHandle(this._events).detach();
-
-        this._events   = null;
-        this._hostRect = null;
+        this._events = null;
     },
 
     // -- Public Methods -------------------------------------------------------
@@ -316,62 +358,28 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
     @method refreshDimensions
     **/
     refreshDimensions: function () {
-        // WebKit only returns reliable scroll info on the body, and only
-        // returns reliable height/width info on the documentElement, so we
-        // have to special-case it (see the other special case in
-        // _getScrollNode()).
-        //
+        var docEl = doc.documentElement;
+
         // On iOS devices, documentElement.clientHeight/Width aren't reliable,
-        // but window.innerHeight/Width are. And no, dom-screen's viewport size
-        // methods don't account for this, which is why we do it here.
-
-        var docEl      = Y.config.doc.documentElement,
-            hostIsBody = this._hostIsBody,
-            iosHack    = hostIsBody && Y.UA.ios,
-            margin     = this._scrollMargin,
-            win        = Y.config.win,
-
-            el,
-            hostRect,
-            winHeight,
-            winWidth;
-
-        if (hostIsBody && Y.UA.webkit) {
-            el = docEl;
-        } else {
-            el = this._scrollNode;
-        }
-
+        // but window.innerHeight/Width are. The dom-screen module's viewport
+        // size methods don't account for this, which is why we do it here.
         if (Y.UA.ios) {
-            winHeight = win.innerHeight;
-            winWidth  = win.innerWidth;
+            this._winHeight = win.innerHeight;
+            this._winWidth  = win.innerWidth;
         } else {
-            winHeight = docEl.clientHeight;
-            winWidth  = docEl.clientWidth;
+            this._winHeight = docEl.clientHeight;
+            this._winWidth  = docEl.clientWidth;
         }
 
-        this._height = iosHack ? winHeight : el.clientHeight;
-        this._width  = iosHack ? winWidth : el.clientWidth;
-
-        if (hostIsBody) {
-            this._hostRect = {
-                bottom: winHeight,
-                height: winHeight,
-                left  : 0,
-                right : winWidth,
-                top   : 0,
-                width : winWidth
-            };
-
-            this._isHostOnscreen = true;
+        if (this._hostIsBody) {
+            this._height = this._winHeight;
+            this._width  = this._winWidth;
         } else {
-            hostRect = this._hostRect = el.getBoundingClientRect();
-
-            this._isHostOnscreen = !(hostRect.top > winHeight + margin
-                || hostRect.bottom < -margin
-                || hostRect.right < -margin
-                || hostRect.left > winWidth + margin);
+            this._height = this._scrollNode.clientHeight;
+            this._width  = this._scrollNode.clientWidth;
         }
+
+        this._refreshHostBoundingRect();
     },
 
     // -- Protected Methods ----------------------------------------------------
@@ -391,13 +399,22 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
                 scrollMarginChange: this._afterScrollMarginChange
             }),
 
-            winNode.on('windowresize', this._afterResize, this),
-
-            // If we're attached to the body, listen for the scroll event on the
-            // window, since <body> doesn't have a scroll event.
-            (this._hostIsBody ? winNode : this._host).after(
-                'scroll', this._afterScroll, this)
+            winNode.on('windowresize', this._afterResize, this)
         ];
+
+        // If the host node is the body, listen for the scroll event on the
+        // window, since <body> doesn't have a scroll event.
+        if (this._hostIsBody) {
+            this._events.push(winNode.after('scroll', this._afterHostScroll, this));
+        } else {
+            // The host node is not the body, but we still need to listen for
+            // window scroll events so we can determine whether nodes are
+            // onscreen.
+            this._events.push(
+                winNode.after('scroll', this._afterWindowScroll, this),
+                this._host.after('scroll', this._afterHostScroll, this)
+            );
+        }
     },
 
     /**
@@ -413,7 +430,7 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
     _getScrollNode: function () {
         // WebKit returns scroll coordinates on the body element, but other
         // browsers don't, so we have to use the documentElement.
-        return this._hostIsBody && !Y.UA.webkit ? Y.config.doc.documentElement :
+        return this._hostIsBody && !Y.UA.webkit ? doc.documentElement :
                 Y.Node.getDOMNode(this._host);
     },
 
@@ -437,10 +454,47 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
             margin = this._scrollMargin;
         }
 
+        // Determine whether any part of _el_ is within the visible region of
+        // the host element or the specified margin around the visible region of
+        // the host element.
         return !(rect.top > hostRect.bottom + margin
                     || rect.bottom < hostRect.top - margin
                     || rect.right < hostRect.left - margin
                     || rect.left > hostRect.right + margin);
+    },
+
+    /**
+    Caches the bounding rect of the host node.
+
+    If the host node is the body, the bounding rect will be faked to represent
+    the dimensions of the viewport, since the actual body dimensions may extend
+    beyond the viewport and we only care about the visible region.
+
+    @method _refreshHostBoundingRect
+    @protected
+    **/
+    _refreshHostBoundingRect: function () {
+        var winHeight = this._winHeight,
+            winWidth  = this._winWidth,
+
+            hostRect;
+
+        if (this._hostIsBody) {
+            hostRect = {
+                bottom: winHeight,
+                height: winHeight,
+                left  : 0,
+                right : winWidth,
+                top   : 0,
+                width : winWidth
+            };
+
+            this._isHostOnscreen = true;
+        } else {
+            hostRect = this._scrollNode.getBoundingClientRect();
+        }
+
+        this._hostRect = hostRect;
     },
 
     /**
@@ -496,23 +550,13 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
     // -- Protected Event Handlers ---------------------------------------------
 
     /**
-    Handles browser resize events.
+    Handles DOM `scroll` events on the host node.
 
-    @method _afterResize
-    @protected
-    **/
-    _afterResize: function () {
-        this.refreshDimensions();
-    },
-
-    /**
-    Handles DOM `scroll` events.
-
-    @method _afterScroll
+    @method _afterHostScroll
     @param {EventFacade} e
     @protected
     **/
-    _afterScroll: function (e) {
+    _afterHostScroll: function (e) {
         var self = this;
 
         clearTimeout(this._scrollTimeout);
@@ -520,6 +564,16 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
         this._scrollTimeout = setTimeout(function () {
             self._triggerScroll(e);
         }, this._scrollDelay);
+    },
+
+    /**
+    Handles browser resize events.
+
+    @method _afterResize
+    @protected
+    **/
+    _afterResize: function () {
+        this.refreshDimensions();
     },
 
     /**
@@ -544,6 +598,17 @@ Y.Plugin.ScrollInfo = Y.Base.create('scrollInfoPlugin', Y.Plugin.Base, [], {
     **/
     _afterScrollMarginChange: function (e) {
         this._scrollMargin = e.newVal;
+    },
+
+    /**
+    Handles DOM `scroll` events on the window.
+
+    @method _afterWindowScroll
+    @param {EventFacade} e
+    @protected
+    **/
+    _afterWindowScroll: function () {
+        this._refreshHostBoundingRect();
     }
 }, {
     NS: 'scrollInfo',
