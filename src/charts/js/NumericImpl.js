@@ -641,14 +641,14 @@ NumericImpl.prototype = {
         nearest = nearest || 1;
         return Math.floor(this._roundToPrecision(number / nearest, 10)) * nearest;
     },
-    
+
     /**
      * Returns a coordinate corresponding to a data values.
      *
      * @method _getCoordFromValue
      * @param {Number} min The minimum for the axis.
      * @param {Number} max The maximum for the axis.
-     * @param {length} length The distance that the axis spans.
+     * @param {Number} length The distance that the axis spans.
      * @param {Number} dataValue A value used to ascertain the coordinate.
      * @param {Number} offset Value in which to offset the coordinates.
      * @param {Boolean} reverse Indicates whether the coordinates should start from

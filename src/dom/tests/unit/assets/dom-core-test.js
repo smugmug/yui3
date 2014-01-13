@@ -638,7 +638,8 @@ YUI.add('dom-core-test', function(Y) {
 
         'should be true for contained comment node': function() {
             var node = document.createElement('div');
-            node.innerHTML = 'foo<!-- comment -->';
+            node.innerHTML = 'foo';
+            node.appendChild(document.createComment('bar'));
             Assert.isTrue(Y.DOM.contains(node, node.firstChild.nextSibling));
         },
 
@@ -1213,6 +1214,13 @@ YUI.add('dom-core-test', function(Y) {
             Y.DOM.getAttribute(null);
             Y.DOM.getAttribute();
             Assert.isTrue(true);
+        },
+
+        'should return "value" attribute of a button': function () {
+           var node = document.getElementById('test-button-value'),
+               expected = 'button value';
+
+           Assert.areEqual(expected, Y.DOM.getAttribute(node, 'value'));
         }
     }));
 

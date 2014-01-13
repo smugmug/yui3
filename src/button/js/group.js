@@ -46,8 +46,11 @@ Y.ButtonGroup = Y.extend(ButtonGroup, Y.Widget, {
         group.after('disabledChange', group._afterDisabledChange);
     },
 
-    _afterDisabledChange: function () {
-        this.getButtons().each(Y.ButtonCore.prototype.disable);
+    _afterDisabledChange: function (e) {
+        this.getButtons().each(e.newVal
+            ? Y.ButtonCore.prototype.disable
+            : Y.ButtonCore.prototype.enable
+        );
     },
 
     /**
@@ -176,7 +179,7 @@ Y.ButtonGroup = Y.extend(ButtonGroup, Y.Widget, {
      * @static
      */
     CLASS_NAMES: CLASS_NAMES,
-    
+
     /**
      * Selector used to find buttons inside a ButtonGroup
      * @property BUTTON_SELECTOR

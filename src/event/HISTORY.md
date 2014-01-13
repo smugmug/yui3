@@ -1,6 +1,29 @@
 Event Infrastructure Change History
 ===================================
 
+@VERSION@
+------
+
+* Fixed the `event.returnValue is deprecated` warning in chrome. [#1460](https://github.com/yui/yui3/issues/1460) @zhiyelee
+
+3.14.1
+------
+
+* No changes.
+
+3.14.0
+------
+
+* No changes.
+
+3.13.0
+------
+
+* Delegated focus and blur events now behave the same way other events do when
+  a delegate sub from a container closer to the target calls
+  `e.stopPropagation()`. Delegate subs from containers higher in the parent
+  axis are not notified. [#1145](https://github.com/yui/yui3/issues/1145)
+
 3.12.0
 ------
 
